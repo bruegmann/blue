@@ -69,8 +69,8 @@ console.log("llms.txt wurde erfolgreich erstellt!")
 
 // https://astro.build/config
 export default defineConfig({
-    site: "https://bruegmann.github.io/blue-web/v1/",
-    base: "/blue-web/v1/",
+    site: "https://bruegmann.github.io/blue/",
+    base: "/blue/",
     integrations: [react(), mdx()],
     vite: {
         css: {

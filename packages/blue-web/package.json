@@ -4,12 +4,12 @@
     "description": "UI components built on top of Bootstrap 5",
     "license": "LGPL-3.0-or-later",
     "type": "module",
-    "homepage": "https://bruegmann.github.io/blue-web/v1",
+    "homepage": "https://bruegmann.github.io/blue",
     "repository": {
-        "url": "https://github.com/bruegmann/blue-web"
+        "url": "https://github.com/bruegmann/blue"
     },
     "bugs": {
-        "url": "https://github.com/bruegmann/blue-react/issues"
+        "url": "https://github.com/bruegmann/blue/issues"
     },
     "scripts": {
         "start": "npm run dev",

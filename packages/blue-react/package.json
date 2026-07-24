@@ -6,13 +6,13 @@
     "type": "module",
     "main": "index.js",
     "types": "index.d.ts",
-    "homepage": "https://bruegmann.github.io/blue-react/v11",
+    "homepage": "https://bruegmann.github.io/blue/react",
     "repository": {
         "type": "git",
-        "url": "https://github.com/bruegmann/blue-react.git"
+        "url": "https://github.com/bruegmann/blue"
     },
     "bugs": {
-        "url": "https://github.com/bruegmann/blue-react/issues"
+        "url": "https://github.com/bruegmann/blue/issues"
     },
     "scripts": {
         "vite-dev": "vite",

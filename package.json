@@ -1,13 +1,14 @@
 {
-  "name": "blue",
-  "private": true,
-  "packageManager": "pnpm@11.15.1",
-  "scripts": {
-    "build": "pnpm -r build",
-    "dev": "concurrently \"pnpm --filter blue-web dev\" \"pnpm --filter blue-react dev\" \"pnpm --filter docs dev\"",
-    "lint": "pnpm -r lint"
-  },
-  "dependencies": {
-    "concurrently": "^10.0.3"
-  }
+    "name": "blue",
+    "private": true,
+    "packageManager": "pnpm@11.16.0",
+    "scripts": {
+        "build": "pnpm -r build",
+        "dev": "concurrently \"pnpm --filter blue-web dev\" \"pnpm --filter blue-react dev\" \"pnpm --filter docs dev\"",
+        "lint": "pnpm -r lint",
+        "deploy": "pnpm --filter docs deploy"
+    },
+    "dependencies": {
+        "concurrently": "^10.0.3"
+    }
 }

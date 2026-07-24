@@ -3,7 +3,7 @@ import { Check, CircleHalf, type Icon, MoonStarsFill, SunFill } from "react-boot
 // import { Dropdown, DropdownMenu, DropdownToggle } from "reactstrap"
 import { Dropdown } from "bootstrap"
 import { Outside } from "blue-react"
-import { getPreferred } from "@/src/js/color-mode"
+import { getPreferred } from "blue-web/src/js/color-mode"
 
 function Item({
     theme,
