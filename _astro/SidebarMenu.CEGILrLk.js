@@ -1,0 +1,1 @@
+import"./index.CRv90Bkq.js";import{j as t}from"./jsx-runtime.D_zvdyIk.js";function a(e){return t.jsxs("div",{className:"d-flex flex-column h-100 "+(e.sidebarClass||""),style:e.sidebarStyle,children:[e.topContent,t.jsx("div",{className:"flex-grow-1 overflow-auto "+(e.menuClass||""),style:e.menuStyle?e.menuStyle:{},children:e.children}),e.bottomContent]})}export{a as S};
