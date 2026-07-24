@@ -1,0 +1,30 @@
+.blue-intro,
+.sign-in-screen {
+    padding-top: var(--blue-header-height);
+
+    &:last-child {
+        padding-bottom: var(--blue-header-height);
+    }
+
+    .blue-intro-container,
+    .sign-in-container {
+        animation: enabledBlueAppPage 0.5s;
+
+        @media (prefers-reduced-motion) {
+            animation-duration: 0s;
+        }
+    }
+
+    @media screen and (min-width: 768px) {
+        .blue-intro-container,
+        .sign-in-container {
+            padding: var(--blue-sign-in-container-md-padding, 0 calc(50% - 18rem));
+            width: var(--blue-sign-in-container-md-width, auto);
+        }
+    }
+}
+
+.blue-intro-image {
+    max-width: 100%;
+    max-height: 100px;
+}

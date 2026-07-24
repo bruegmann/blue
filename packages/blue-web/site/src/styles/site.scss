@@ -1,0 +1,94 @@
+@import "../../../dist/style.scss";
+@import "../../../dist/neu.scss";
+
+pre {
+    @extend .rounded;
+}
+
+.markdown-rendered > {
+    h1,
+    h2 {
+        @extend .page-header;
+    }
+}
+
+.welcome-container > h1:first-child {
+    display: none;
+}
+
+.docs-masonry-grid {
+    display: grid;
+    width: 100%;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    grid-template-rows: masonry;
+}
+
+.docs-badge {
+    border: 1px solid currentColor;
+    border-radius: var(--bs-border-radius);
+    padding: 0 0.35em;
+    margin-left: 0.25rem;
+    font-size: 0.875em;
+}
+
+.docs-badge-new {
+    color: var(--bs-primary-text-emphasis);
+    background-color: var(--bs-primary-bg-subtle);
+    &::before {
+        content: "New";
+    }
+}
+
+.docs-badge-update {
+    color: var(--bs-success-text-emphasis);
+    background-color: var(--bs-success-bg-subtle);
+    &::before {
+        content: "Update";
+    }
+}
+
+.docs-badge-experimental {
+    color: var(--bs-warning-text-emphasis);
+    background-color: var(--bs-warning-bg-subtle);
+    &::before {
+        content: "Experimental";
+    }
+}
+
+.docs-badge-deprecated {
+    color: var(--bs-danger-text-emphasis);
+    background-color: var(--bs-danger-bg-subtle);
+    &::before {
+        content: "Deprecated";
+    }
+}
+
+.example-code pre {
+    margin: 0;
+}
+
+pre {
+    @extend .rounded;
+}
+
+.docs-toc {
+    margin-left: -2rem;
+
+    ul {
+        list-style: none;
+    }
+
+    a {
+        display: block;
+        padding: 0.125rem 0 0.125rem 0.75rem;
+        color: inherit;
+        border-left: 0.125rem solid transparent;
+        text-decoration: none;
+
+        &:hover {
+            color: var(--bs-primary);
+            border-color: var(--bs-primary);
+        }
+    }
+}

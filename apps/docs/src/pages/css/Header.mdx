@@ -1,0 +1,22 @@
+---
+layout: $/layouts/DocsLayout.astro
+---
+
+import RenderBlock from "$/components/RenderBlock.astro"
+import Grab from "$/components/Grab.astro"
+
+# Header
+
+Provided helper classes designed to be used inside a header.
+
+```html use:RenderBlock
+<header class="blue-header-title d-inline-flex gap-2 fw-medium align-items-center">
+    <a href="#">
+        <img src="blue.svg" alt="Logo" class="blue-header-title-image" />
+    </a>
+
+    <a href="#">AppTitle</a>
+</header>
+```
+
+<Grab items={[{ src: "@/dist/styles/_page-header.scss" }]} />

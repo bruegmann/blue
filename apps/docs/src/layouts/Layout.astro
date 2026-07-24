@@ -1,0 +1,170 @@
+---
+import "$/styles/site.scss"
+import BlueReactLayout from "blue-react/dist/components/Layout.js"
+import HeaderTitle from "blue-react/dist/components/HeaderTitle.js"
+import Menu from "../components/Menu.astro"
+import { ThemeGeneratorSwitch } from "$/components/ThemeGenerator"
+import MenuItem from "blue-react/dist/components/MenuItem.js"
+import Actions from "blue-react/dist/components/Actions.js"
+import { CodeSquare } from "react-bootstrap-icons"
+import Search from "$/components/Search.astro"
+
+const { title, description } = Astro.props
+---
+
+<script>
+    import "blue-web/dist/js/dialog.js"
+    import "blue-web/dist/js/progress.js"
+    import "blue-web/dist/js/read-view.js"
+    import "blue-web/dist/js/color-mode.js"
+    import "blue-web/dist/js/actions.js"
+    import "blue-web/dist/js/overflow-detector.js"
+    import "blue-web/dist/js/select-list.js"
+    import "blue-web/dist/js/input-splitted.js"
+    import "blue-web/dist/js/odometer.js"
+    import "blue-web/dist/js/layout.js"
+    import "blue-web/dist/js/modal-responsive.js"
+
+    import "$/../public/lib/prism.js"
+</script>
+
+<html lang="en">
+    <head>
+        <base href={import.meta.env.BASE_URL} />
+
+        <meta charset="UTF-8" />
+        <link rel="icon" href="favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta
+            name="description"
+            content={description || "UI library for the Web using Custom Components and Bootstrap"}
+        />
+        <link rel="apple-touch-icon" href="blue-iOS-Default-83.5x83.5@4x.png" />
+        <link rel="manifest" href="manifest.json" />
+        <meta name="generator" content={Astro.generator} />
+        <title>{title || "Blue Web"}</title>
+
+        <link rel="stylesheet" href="inter/web/inter.css" />
+
+        <link href="lib/prism.css" rel="stylesheet" />
+        <link href="lib/prism-dark.css" rel="stylesheet" media="(prefers-color-scheme: dark)" />
+
+        <script>
+            const fromStorage = localStorage.getItem("themeGenerator_theme")
+            const styleElement = document.createElement("style")
+            styleElement.setAttribute("id", "docs-inline-style")
+            document.head.appendChild(styleElement)
+
+            if (fromStorage) {
+                const theme = JSON.parse(fromStorage)
+                styleElement.innerHTML = theme.css
+
+                document.documentElement.setAttribute("data-bs-theme", theme.themeInfo.colorMode || "light")
+            }
+        </script>
+    </head>
+    <body style="--blue-header-title-image-size: 1.6rem">
+        <BlueReactLayout client:idle countryCode="en">
+            <Fragment slot="header">
+                <HeaderTitle logo="blue.svg" logoAlt="Blue logo" appTitle="Blue Web" href="." />
+
+                <button
+                    type="button"
+                    class="btn blue-menu-item icon-link d-flex blue-btn-square me-auto"
+                    popovertarget="docsNavPopover"
+                    ><span class="visually-hidden">Navigate to a Blue library</span><span
+                        class="blue-btn-icon-wrapper"
+                        aria-hidden="true"
+                        ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"
+                            ><path
+                                fill-rule="evenodd"
+                                d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"
+                            ></path></svg
+                        ></span
+                    ></button
+                >
+                <div
+                    id="docsNavPopover"
+                    popover=""
+                    class="blue-anchored blue-anchored-fallback border rounded-4 shadow"
+                >
+                    <div class="vstack">
+                        <a
+                            class="btn blue-menu-item icon-link d-flex current"
+                            href="https://bruegmann.github.io/blue-web"
+                            aria-current="page"
+                            ><span class="blue-btn-icon-wrapper" aria-hidden="true"></span><span class="text-truncate"
+                                >Blue Web</span
+                            ></a
+                        >
+                        <a class="btn blue-menu-item icon-link d-flex" href="https://bruegmann.github.io/blue-react"
+                            ><span class="blue-btn-icon-wrapper" aria-hidden="true"></span><span class="text-truncate"
+                                >Blue React</span
+                            ></a
+                        >
+                        <a class="btn blue-menu-item icon-link d-flex" href="https://bruegmann.github.io/blue-blazor"
+                            ><span class="blue-btn-icon-wrapper" aria-hidden="true"></span><span class="text-truncate"
+                                >Blue Blazor</span
+                            ></a
+                        >
+                    </div>
+                </div>
+
+                <Search />
+
+                <Actions client:only>
+                    <ThemeGeneratorSwitch client:only />
+
+                    <MenuItem
+                        label="Code on GitHub"
+                        href="https://github.com/bruegmann/blue-web"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="d-none d-md-flex"
+                    >
+                        <CodeSquare slot="icon" />
+                    </MenuItem>
+                </Actions>
+            </Fragment>
+            <Menu slot="side" />
+
+            <slot />
+
+            <footer class="docs-footer mt-auto">
+                <div class="container d-flex mt-5 pb-1">
+                    <p class="text-muted mb-0 flex-grow-1">
+                        <small>
+                            {`©${new Date().getFullYear() || "2021"} Brügmann Software GmbH. `}
+                            {"Licensed under "}
+                            <a
+                                href="https://github.com/bruegmann/blue-react/blob/master/LICENSE"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                GNU General Public License v3.0
+                            </a>
+                            {" - "}
+                            <a href="license-report">License Report</a>
+                            {" - "}
+                            <a href="https://github.com/bruegmann/blue-web" target="_blank" rel="noopener noreferrer">
+                                Code on GitHub
+                            </a>
+                            {" - "}
+                            <a href="https://bruegmann.github.io/" target="_blank" rel="noopener noreferrer">
+                                More projects
+                            </a>
+                            {" - "}
+                            <a href="https://patorg.de/imprint/" target="_blank" rel="noopener noreferrer"> Imprint </a>
+                            {" - "}
+                            <a href="https://patorg.de/privacy-policy/" target="_blank" rel="noopener noreferrer">
+                                Privacy Policy
+                            </a>
+                        </small>
+                    </p>
+
+                    <!-- <ColorModeSwitch client:only /> -->
+                </div>
+            </footer>
+        </BlueReactLayout>
+    </body>
+</html>

@@ -1,0 +1,20 @@
+---
+
+---
+
+<div
+    class="example position-relative rounded-top-5 border p-1 mb-3"
+    style="border-radius: calc(var(--bs-border-radius) + .25rem);"
+>
+    <h2 class="visually-hidden">Example</h2>
+
+    <h3 class="visually-hidden">Live demo</h3>
+    <div class="example-demo p-3">
+        <slot />
+    </div>
+
+    <div class="example-code blue-collapse border rounded bg-body-secondary position-relative">
+        <h3 class="small mb-0 px-3 py-2">Code</h3>
+        <slot name="code" />
+    </div>
+</div>

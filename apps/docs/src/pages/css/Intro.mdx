@@ -1,0 +1,28 @@
+---
+layout: $/layouts/DocsLayout.astro
+---
+
+import RenderBlock from "$/components/RenderBlock.astro"
+import Grab from "$/components/Grab.astro"
+
+## Intro
+
+Styles for a login screen.
+
+```html use:RenderBlock
+<div style="background: var(--blue-app-bg)">
+    <div class="blue-intro">
+        <div class="blue-intro-container mx-1">
+            <div class="bg-body rounded-3 shadow-lg px-4 py-5">
+                <div class="text-center">
+                    <img class="blue-intro-image" src="blue.svg" alt="Logo" />
+                    <h1 class="h2 mt-4 mb-3">Hello World</h1>
+                </div>
+                Here could be a sign in form.
+            </div>
+        </div>
+    </div>
+</div>
+```
+
+<Grab items={[{ src: "@/dist/styles/_intro.scss" }]} />

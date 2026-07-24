@@ -1,0 +1,30 @@
+// Sets `margin: 0` to last child.
+// Useful for creating a gap between items together with `mb-3`.
+// Inspired by Tailwind CSS class `last:m-0`.
+.m-last-0:last-child {
+    margin: 0 !important;
+}
+
+// Shows empty message if the element has no children.
+// Can be used for lists and such.
+// For localization you should override CSS variable `--message` dynamically.
+.blue-empty-message {
+    --message: "No items found.";
+    &:empty::before {
+        content: var(--message);
+        color: var(--bs-secondary-color);
+        display: flex;
+        padding: 1rem;
+        justify-content: center;
+    }
+}
+
+// Fixing border radius clipping.
+.blue-contain-paint {
+    contain: paint;
+}
+
+// Helps you creating striped items.
+.blue-odd-bg:nth-of-type(odd) {
+    background-color: var(--blue-odd-bg, var(--bs-tertiary-bg));
+}

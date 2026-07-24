@@ -1,0 +1,135 @@
+---
+layout: $/layouts/DocsLayout.astro
+---
+
+import RenderBlock from "$/components/RenderBlock.astro"
+import Grab from "$/components/Grab.astro"
+
+# Overflow Detector
+
+Generic utility to detect when an element's content overflows its bounds (horizontal text truncation).
+Can be used for any element and any reaction to overflow — tooltips, title attributes, custom UI, etc.
+
+## `OverflowDetector` class
+
+Watches elements via `ResizeObserver` and calls a callback whenever the overflow state changes.
+
+### Methods
+
+| Method | Description |
+| --- | --- |
+| `observe({ element, onChange })` | Start observing an element. `onChange(isOverflowing, element)` is called when the state changes. |
+| `unobserve(element)` | Stop observing an element. |
+| `checkAll()` | Re-check all observed elements. Useful after layout changes that `ResizeObserver` might not detect. |
+| `destroy()` | Stop observing all elements and clean up. |
+
+### Example: Tooltip on truncated text
+
+```html use:RenderBlock
+<div style="max-width: 14rem" id="overflowDetectorDemo">
+    <button class="btn blue-menu-item icon-link d-flex w-100">
+        <span class="blue-btn-icon-wrapper" aria-hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+                <path
+                    d="M6.623 6.094c0 .738.586 1.254 1.383 1.254s1.377-.516 1.377-1.254c0-.733-.58-1.23-1.377-1.23s-1.383.497-1.383 1.23m-.281 3.644c0 .838.72 1.412 1.664 1.412.943 0 1.658-.574 1.658-1.412 0-.843-.715-1.424-1.658-1.424-.944 0-1.664.58-1.664 1.424"
+                />
+                <path
+                    d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm8.97 9.803c0 1.394-1.218 2.355-2.988 2.355-1.763 0-2.953-.955-2.953-2.344 0-1.271.95-1.851 1.647-2.003v-.065c-.621-.193-1.33-.738-1.33-1.781 0-1.225 1.09-2.121 2.66-2.121s2.654.896 2.654 2.12c0 1.061-.738 1.595-1.336 1.782v.065c.703.152 1.647.744 1.647 1.992Z"
+                />
+            </svg>
+        </span>
+
+        <span class="flex-grow-1 text-truncate" style="min-width: 0">
+            This is a very long label that should truncate and show a tooltip
+        </span>
+    </button>
+</div>
+
+<label>
+    Change container width
+    <input id="overflowDetectorDemoRange" type="range" min="50" max="600" value="224" />
+</label>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const detector = new blueWeb.OverflowDetector()
+        const container = document.getElementById("overflowDetectorDemo")
+        const label = container.querySelector(".text-truncate")
+        const menuItem = label.closest(".blue-menu-item")
+
+        detector.observe({
+            element: label,
+            onChange: (isOverflowing) => {
+                if (isOverflowing) {
+                    menuItem.setAttribute("data-tooltip", label.textContent.trim())
+                    menuItem.classList.add("blue-tooltip-end")
+                } else {
+                    menuItem.removeAttribute("data-tooltip")
+                    menuItem.classList.remove("blue-tooltip-end")
+                }
+            }
+        })
+
+        overflowDetectorDemoRange.addEventListener("input", ({ target }) => {
+            container.style.maxWidth = `${target.value}px`
+        })
+    })
+</script>
+```
+
+## `isOverflowing` function
+
+Standalone helper for one-time checks without setting up an observer.
+
+```js
+if (blueWeb.isOverflowing(myElement)) {
+    // element content is truncated
+}
+```
+
+## Usage in frameworks
+
+### React
+
+```tsx
+import { OverflowDetector } from "blue-web/src/js/overflow-detector"
+
+function MenuItem({ label }: { label: string }) {
+    const labelRef = useRef<HTMLSpanElement>(null)
+    const [showTooltip, setShowTooltip] = useState(false)
+
+    useEffect(() => {
+        if (!labelRef.current) return
+        const detector = new OverflowDetector()
+        detector.observe({
+            element: labelRef.current,
+            onChange: (isOverflowing) => setShowTooltip(isOverflowing)
+        })
+        return () => detector.destroy()
+    }, [])
+
+    return (
+        <button className="btn blue-menu-item" title={showTooltip ? label : undefined}>
+            <span ref={labelRef} className="text-truncate">{label}</span>
+        </button>
+    )
+}
+```
+
+### Blazor (JS Interop)
+
+```js
+// In a .js file loaded by your Blazor app:
+window.overflowDetector = new blueWeb.OverflowDetector()
+
+window.observeOverflow = (element, dotNetRef) => {
+    window.overflowDetector.observe({
+        element,
+        onChange: (isOverflowing) => {
+            dotNetRef.invokeMethodAsync("OnOverflowChanged", isOverflowing)
+        }
+    })
+}
+```
+
+<Grab items={[{ src: "@/src/js/overflow-detector.ts" }]} />

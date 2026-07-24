@@ -1,0 +1,42 @@
+.blue-anchored {
+    position-try: flip-inline, flip-block;
+    position-area: bottom span-right;
+    position: fixed;
+
+    // Normalize popover
+    &[popover] {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+}
+
+.blue-anchored-start {
+    position-area: bottom span-right;
+}
+
+.blue-anchored-end {
+    position-area: bottom span-left;
+}
+
+@supports not (anchor-name: --anchor-1) {
+    .blue-anchored-fallback {
+        left: 50%;
+        top: 50%;
+        translate: -50% -50%;
+
+        &::backdrop {
+            --bs-backdrop-bg: #000;
+            --bs-backdrop-opacity: 0.5;
+            background-color: var(--bs-backdrop-bg);
+            transition: opacity 0.2s;
+            opacity: var(--bs-backdrop-opacity);
+        }
+    }
+}
+
+.btn:has(+ :popover-open):not(:focus-visible):not(.blue-menu-item) {
+    --bs-focus-ring-color: rgba(var(--bs-secondary-rgb), 0.25);
+    box-shadow: var(--bs-focus-ring-x, 0) var(--bs-focus-ring-y, 0) var(--bs-focus-ring-blur, 0)
+        var(--bs-focus-ring-width) var(--bs-focus-ring-color);
+}

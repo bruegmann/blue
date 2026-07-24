@@ -1,0 +1,52 @@
+---
+layout: $/layouts/DocsLayout.astro
+---
+
+import RenderBlock from "$/components/RenderBlock.astro"
+import Grab from "$/components/Grab.astro"
+
+# Hover
+
+## `.blue-opacity-hover`, `.blue-opacity-hover-content-active`, `.blue-opacity-hover-content-default`
+
+With `.blue-opacity-hover` you can hide things by default and let them appear when the user hovers the area around it or focuses an element inside.
+This way you can simplify the UI a bit and make controls disappear when they are not needed. On touch screens the elements will always be visible.
+Usage:
+
+```html use:RenderBlock
+<div class="card blue-opacity-hover p-3 flex-row justify-content-between">
+    <h5 class="blue-opacity-hover-content-default">Hover here to see a button</h5>
+    <input type="text" class="form-control me-1" placeholder="When you focus me, the button should appear too" />
+    <button class="btn btn-secondary blue-opacity-hover-content-active">Hey there</button>
+</div>
+```
+
+## `.blue-d-hover`, `.blue-d-hover-content-active`, `.blue-d-hover-content-default`
+
+`.blue-d-hover` is similar to `.blue-opacity-hover`, but the elements will disappear and appear with the `display` property.
+It is ideal if you want to replace something with something else when the user hovers. On the example I used it to change the edit and delete icons from lineout to filled when hovering.
+Usage:
+
+```html use:RenderBlock
+<button class="btn btn-secondary blue-d-hover d-inline-flex align-items-center gap-1">
+    <span class="blue-d-hover-content-default">⭕</span>
+    <span class="blue-d-hover-content-active">🔵</span>
+    Hover to fill the icon
+</button>
+```
+
+## `.blue-bg-hover`
+
+Changes background color on hover.
+
+```html use:RenderBlock
+<div class="blue-bg-hover">Hover to change background color</div>
+```
+
+With CSS property `--blue-hover-bg` you can set the background color on hover:
+
+```html use:RenderBlock
+<div class="blue-bg-hover" style="--blue-hover-bg: var(--bs-primary)">Hover to change background color</div>
+```
+
+<Grab items={[{ src: "@/dist/styles/_hover.scss" }]} />

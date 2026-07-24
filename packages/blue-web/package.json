@@ -1,0 +1,91 @@
+{
+    "name": "blue-web",
+    "version": "1.30.2",
+    "description": "UI components built on top of Bootstrap 5",
+    "license": "LGPL-3.0-or-later",
+    "type": "module",
+    "homepage": "https://bruegmann.github.io/blue-web/v1",
+    "repository": {
+        "url": "https://github.com/bruegmann/blue-web"
+    },
+    "bugs": {
+        "url": "https://github.com/bruegmann/blue-react/issues"
+    },
+    "scripts": {
+        "start": "npm run dev",
+        "build-docs": "npm run build-astro",
+        "build-types": "tsc --declaration --emitDeclarationOnly --declarationDir ./dist/js --noEmit false --project tsconfig.build.json",
+        "build": "babel ./src/js --out-dir ./dist/js --extensions \".tsx,.js,.ts\"",
+        "dev": "babel ./src/js --out-dir ./dist/js --extensions \".tsx,.js,.ts\" --watch",
+        "build-bundles": "webpack",
+        "build-css": "node ./setVersionToStyleScss.cjs && sass --load-path=. ./dist/style.scss:./dist/style.css && npx postcss ./dist/style.css --use autoprefixer -r && npx postcss ./dist/style.css --use postcss-minify -o ./dist/style.min.css",
+        "build-neu-css": "sass --load-path=. ./dist/neu.scss:./dist/neu.css && npx postcss ./dist/neu.css --use autoprefixer -r && npx postcss ./dist/neu.css --use postcss-minify -o ./dist/neu.min.css",
+        "build-release": "npm run build-types && npm run build && npm run build-bundles && npm run build-css && node merge-scss.cjs dist/style.scss && npm run license-report",
+        "predeploy": "npm run build-astro",
+        "deploy": "gh-pages --dist site/dist --dest v1",
+        "prepublishOnly": "npm i && npm run build-release",
+        "release": "npm publish && npm run deploy",
+        "prettier": "npx prettier --write .",
+        "license-report": "npx license-report --prod --output=json > site/src/assets/license-report.json",
+        "build-astro": "astro build --root site",
+        "preview-astro": "astro preview --root site",
+        "version": "npm run build-release && git add -A",
+        "postversion": "npm run deploy && git push --follow-tags"
+    },
+    "dependencies": {
+        "@popperjs/core": "^2.11.5",
+        "bootstrap": "~5.3.8",
+        "uninstall": "^0.0.0"
+    },
+    "devDependencies": {
+        "@astrojs/mdx": "^4.3.13",
+        "@astrojs/react": "^4.4.2",
+        "@babel/cli": "^7.10.4",
+        "@babel/preset-env": "^7.10.4",
+        "@babel/preset-typescript": "^7.9.0",
+        "@radix-ui/react-slot": "^1.2.4",
+        "@types/bootstrap": "^5.0.17",
+        "@types/node": "^12.12.47",
+        "@types/react": "^19.0.8",
+        "@types/react-dom": "^19.0.3",
+        "@types/react-syntax-highlighter": "^13.5.0",
+        "astro": "^5.16.5",
+        "autoprefixer": "^10.3.6",
+        "babel-loader": "^8.4.1",
+        "babel-watch": "^7.8.1",
+        "blue-react": "^11.3.2",
+        "blue-themify": "^1.0.0",
+        "colorjs.io": "^0.5.2",
+        "gh-pages": "^3.1.0",
+        "license-report": "^6.2.0",
+        "lint-staged": "^11.1.2",
+        "postcss-cli": "^9.0.1",
+        "postcss-minify": "^1.1.0",
+        "postcss-only-vars": "^1.0.0",
+        "prettier": "^3.5.3",
+        "react": "^19.0.0",
+        "react-bootstrap-icons": "^1.11.5",
+        "react-dom": "^19.0.0",
+        "react-markdown": "^8.0.3",
+        "react-syntax-highlighter": "^15.4.3",
+        "sass": "^1.93.2",
+        "typescript": "^4.3.5",
+        "webpack": "^5.95.0",
+        "webpack-cli": "^5.1.4"
+    },
+    "eslintConfig": {
+        "extends": "react-app"
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    }
+}

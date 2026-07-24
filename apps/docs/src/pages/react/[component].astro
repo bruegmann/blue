@@ -1,0 +1,94 @@
+---
+import Code from "$/components/Code"
+import Example from "$/components/Example.astro"
+import ReactExampleRender from "$/components/ReactExampleRender"
+import DocsLayout from "$/layouts/DocsLayout.astro"
+import { getComponents, getComponentDocumentation } from "$/utils/react"
+
+export async function getStaticPaths() {
+    return (await getComponents()).map((component) => ({
+        params: { component }
+    }))
+}
+
+const { component } = Astro.params
+
+const sourceFiles = import.meta.glob("/src/react-examples/**/*.tsx", { eager: true, query: "?raw", import: "default" })
+
+const examples = Object.entries(sourceFiles)
+    .filter(([path]) => path.includes(`/react-examples/${component}/`))
+    .map(([path, code]) => ({ name: path.split("/").pop()?.replace(".tsx", ""), code, path }))
+
+const documentation = getComponentDocumentation(component)
+---
+
+<DocsLayout
+    headings={[
+        { depth: 1, slug: "examples", text: "Examples" },
+        ...examples.map((example) => ({ depth: 2, slug: `examples-${example.name}`, text: example.name! })),
+        { depth: 1, slug: "props", text: "Props" }
+    ]}
+>
+    <h1>{component}</h1>
+
+    {documentation?.map((comp) => <p>{comp.description}</p>)}
+
+    {
+        examples.length > 0 && (
+            <>
+                <h2 id="examples" class="page-header">
+                    Examples
+                </h2>
+
+                {examples.map((example) => (
+                    <>
+                        <h3 id={`examples-${example.name}`}>{example.name}</h3>
+
+                        <Example>
+                            <ReactExampleRender modulePath={example.path} client:idle />
+
+                            {example.code && <Code slot="code" code={example.code.toString()} language="jsx" />}
+                        </Example>
+                    </>
+                ))}
+            </>
+        )
+    }
+
+    {
+        documentation &&
+            documentation.map((comp) => (
+                <Fragment key={comp.filePath}>
+                    <h2 id="props" class="page-header">
+                        Props
+                    </h2>
+
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Type</th>
+                                <th>Default</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {Object.values(comp.props)
+                                .filter((prop) => !prop.parent)
+                                .map((prop) => (
+                                    <tr>
+                                        <td>
+                                            <code>{prop.name}</code>
+                                        </td>
+                                        <td>{prop.description}</td>
+                                        <td>{prop.type.name}</td>
+                                        <td>{prop.defaultValue?.value}</td>
+                                    </tr>
+                                ))}
+                        </tbody>
+                    </table>
+                </Fragment>
+            ))
+    }
+</DocsLayout>

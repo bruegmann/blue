@@ -1,0 +1,25 @@
+---
+layout: $/layouts/DocsLayout.astro
+---
+
+import RenderBlock from "$/components/RenderBlock.astro"
+
+# Scrollbar
+
+## `.blue-scroll-shadow`
+
+Adds shadow if area is scrollable.
+
+```html use:RenderBlock
+<div class="blue-normal-scrollbar mb-3 p-3 rounded border border-primary-subtle">
+    <label> Area with <code>.blue-normal-scrollbar</code> and also <code>.blue-scroll-shadow</code> </label>
+    <select class="form-control blue-scroll-shadow" multiple aria-readonly>
+        <option>one</option>
+        <option>two</option>
+        <option>three</option>
+        <option>four</option>
+        <option>five</option>
+        <option>six</option>
+    </select>
+</div>
+```

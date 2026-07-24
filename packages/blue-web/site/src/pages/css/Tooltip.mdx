@@ -1,0 +1,42 @@
+---
+layout: $/layouts/DocsLayout.astro
+---
+
+import RenderBlock from "$/components/RenderBlock.astro"
+
+# Tooltip
+
+## `.blue-tooltip`
+
+CSS only solution for tooltips. For accessibility reasons, only wrap around interactive elements like buttons or links.
+To use, add the `data-tooltip` attribute to the wrapping element.
+
+```html use:RenderBlock
+<div data-tooltip="Put your tooltip text here. It can also become pretty long if you want to." class="blue-tooltip">
+    <button class="btn btn-link">Hover me!</button>
+</div>
+```
+
+## `.blue-tooltip-up`, `.blue-tooltip-down`, `.blue-tooltip-start`, `.blue-tooltip-end`
+
+Change the position of the tooltip. To be used together with `data-tooltip`.
+
+```html use:RenderBlock
+<div data-tooltip="Up" class="blue-tooltip-up"><button class="btn btn-link">Up!</button></div>
+<div data-tooltip="Down" class="blue-tooltip-down"><button class="btn btn-link">Down!</button></div>
+<div data-tooltip="Start" class="blue-tooltip-start"><button class="btn btn-link">Start!</button></div>
+<div data-tooltip="End" class="blue-tooltip-end"><button class="btn btn-link">End!</button></div>
+```
+
+## `.blue-tooltip-content`
+
+This is how you can customize the tooltip content with HTML.
+
+```html use:RenderBlock
+<div class="blue-tooltip">
+    <div class="blue-tooltip-content" role="tooltip">
+        <strong>Some</strong> <i>custom</i> <u>content</u> <s>here</s>.
+    </div>
+    <button class="btn btn-link">Hover me!</button>
+</div>
+```

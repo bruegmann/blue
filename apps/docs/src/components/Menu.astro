@@ -1,0 +1,268 @@
+---
+import SidebarMenu from "blue-react/dist/components/SidebarMenu.js"
+import MenuItem from "blue-react/dist/components/MenuItem.js"
+import {
+    ArrowRepeat,
+    ArrowsVertical,
+    BarChartSteps,
+    BodyText,
+    CardChecklist,
+    CardHeading,
+    CircleHalf,
+    Columns,
+    CursorText,
+    HandIndex,
+    House,
+    HouseFill,
+    Icon9Square,
+    InputCursorText,
+    LayersHalf,
+    LayoutSidebarInset,
+    LayoutTextWindowReverse,
+    MenuApp,
+    MenuButton,
+    MenuDown,
+    MenuUp,
+    Palette,
+    PlayBtnFill,
+    Postcard,
+    Search,
+    SegmentedNav,
+    ThreeDots,
+    Tools,
+    Type,
+    WindowStack
+} from "react-bootstrap-icons"
+import { getComponents } from "$/utils/react"
+
+const currentPath = Astro.url.pathname
+
+function isCurrent(subpath: string, exact: boolean = false) {
+    const currentSubPath = currentPath.replace(import.meta.env.BASE_URL, "")
+    if (exact) {
+        return currentSubPath === subpath
+    } else {
+        return currentSubPath.startsWith(subpath)
+    }
+}
+
+function prepareSectionMenuItem(path: string, section: "css" | "js" | "mixed" | "react") {
+    const cleanPath = path
+        .replace(`/src/pages/${section}/`, "")
+        .replace(".astro", "")
+        .replace(".mdx", "")
+        .replace(".md", "")
+
+    const itemPath = import.meta.env.BASE_URL + `${section}/${encodeURIComponent(cleanPath)}`
+    return {
+        path: itemPath,
+        label: cleanPath,
+        isActive: currentPath.startsWith(itemPath)
+    }
+}
+
+const reactMenuItems = (await getComponents()).map((componentName) => prepareSectionMenuItem(componentName, "react"))
+
+const deprecated = ["Sidebar"]
+
+const allCssMenuItems = Object.keys(import.meta.glob("/src/pages/css/*")).map((path) =>
+    prepareSectionMenuItem(path, "css")
+)
+
+const cssMenuItems = allCssMenuItems.filter((item) => !deprecated.includes(item.label))
+const deprecatedMenuItems = allCssMenuItems.filter((item) => deprecated.includes(item.label))
+
+const jsMenuItems = Object.keys(import.meta.glob("/src/pages/js/*")).map((path) => prepareSectionMenuItem(path, "js"))
+const mixedMenuItems = Object.keys(import.meta.glob("/src/pages/mixed/*")).map((path) =>
+    prepareSectionMenuItem(path, "mixed")
+)
+---
+
+<SidebarMenu>
+    <nav class="nav nav-underline text-center d-grid mb-2" style="grid-template-columns: repeat(3, 1fr);">
+        <a
+            class:list={["nav-link", { active: !isCurrent("react") }]}
+            aria-current={!isCurrent("react") ? "page" : null}
+            href=".">Web</a
+        >
+        <a
+            class:list={["nav-link", { active: isCurrent("react") }]}
+            aria-current={isCurrent("react") ? "page" : null}
+            href="react">React</a
+        ><a class="nav-link" href="https://bruegmann.github.io/blue-blazor">Blazor</a>
+    </nav>
+
+    {
+        !isCurrent("react") && (
+            <>
+                <ul class="list-unstyled d-flex flex-column">
+                    <li>
+                        <MenuItem href="." label="Start" current={currentPath === import.meta.env.BASE_URL}>
+                            {currentPath === import.meta.env.BASE_URL ? (
+                                <HouseFill slot="iconBefore" />
+                            ) : (
+                                <House slot="iconBefore" />
+                            )}
+                        </MenuItem>
+                    </li>
+
+                    <li>
+                        <MenuItem
+                            href="typography"
+                            label="Typography"
+                            current={currentPath.includes(import.meta.env.BASE_URL + "typography")}
+                        >
+                            <Type slot="iconBefore" />
+                        </MenuItem>
+                    </li>
+
+                    <li>
+                        <MenuItem
+                            href="components-showcase"
+                            label="Components Showcase"
+                            current={currentPath.includes(import.meta.env.BASE_URL + "components-showcase")}
+                        >
+                            <Palette slot="iconBefore" />
+                        </MenuItem>
+                    </li>
+
+                    <li class="mb-3">
+                        <strong class="ps-2">Mixed</strong>
+                        <ul class="list-unstyled">
+                            {mixedMenuItems.map((item) => (
+                                <li>
+                                    <MenuItem href={item.path} label={item.label} current={item.isActive}>
+                                        {item.label === "Layout" && <LayoutTextWindowReverse slot="iconBefore" />}
+                                        {item.label === "Responsive Drawer" && <LayoutSidebarInset slot="iconBefore" />}
+
+                                        {["Mixed"].includes(item.label) && (
+                                            <span slot="buttonContent" class="docs-badge docs-badge-update" />
+                                        )}
+                                    </MenuItem>
+                                </li>
+                            ))}
+                        </ul>
+                    </li>
+
+                    <li class="mb-3">
+                        <strong class="ps-2">CSS</strong>
+                        <div class="vstack">
+                            {cssMenuItems.map((item) => (
+                                <MenuItem href={item.path} label={item.label} current={item.isActive}>
+                                    {item.label === "Buttons" && <PlayBtnFill slot="iconBefore" />}
+                                    {item.label === "Collapse" && <CardHeading slot="iconBefore" />}
+                                    {item.label === "Container Grid" && <Columns slot="iconBefore" />}
+                                    {item.label === "Header" && <CardHeading slot="iconBefore" />}
+                                    {item.label === "Hover" && <HandIndex slot="iconBefore" />}
+                                    {item.label === "Menu Item" && <MenuButton slot="iconBefore" />}
+                                    {item.label === "Modal" && <WindowStack slot="iconBefore" />}
+                                    {item.label === "Neumorphism" && <LayersHalf slot="iconBefore" />}
+                                    {item.label === "Popover" && <MenuDown slot="iconBefore" />}
+                                    {item.label === "Scrollbar" && <ArrowsVertical slot="iconBefore" />}
+                                    {item.label === "Scrollspy" && <SegmentedNav slot="iconBefore" />}
+                                    {item.label === "Input group" && <Search slot="iconBefore" />}
+                                    {item.label === "Intro" && <Postcard slot="iconBefore" />}
+                                    {item.label === "Tabs" && <SegmentedNav slot="iconBefore" />}
+                                    {item.label === "Text and Icons" && <Type slot="iconBefore" />}
+                                    {item.label === "Tooltip" && <MenuUp slot="iconBefore" />}
+                                    {item.label === "Utilities" && <Tools slot="iconBefore" />}
+
+                                    {["Layout", "Modal"].includes(item.label) && (
+                                        <span slot="buttonContent" class="docs-badge docs-badge-update" />
+                                    )}
+                                </MenuItem>
+                            ))}
+                        </div>
+                    </li>
+
+                    <li class="mb-3">
+                        <strong class="ps-2">JavaScript</strong>
+                        <ul class="list-unstyled">
+                            {jsMenuItems.map((item) => (
+                                <li>
+                                    <MenuItem href={item.path} label={item.label} current={item.isActive}>
+                                        {item.label === "Actions" && <MenuApp slot="iconBefore" />}
+                                        {item.label === "Color Mode" && <CircleHalf slot="iconBefore" />}
+                                        {item.label === "Dialog" && <WindowStack slot="iconBefore" />}
+                                        {item.label === "Input Splitted" && <InputCursorText slot="iconBefore" />}
+                                        {item.label === "Odometer" && <Icon9Square slot="iconBefore" />}
+                                        {item.label === "Overflow Detector" && <ThreeDots slot="iconBefore" />}
+                                        {item.label === "Progress" && <ArrowRepeat slot="iconBefore" />}
+                                        {item.label === "Read View" && <CursorText slot="iconBefore" />}
+                                        {item.label === "Select List" && <CardChecklist slot="iconBefore" />}
+                                        {item.label === "Side Layout" && <LayoutTextWindowReverse slot="iconBefore" />}
+                                        {item.label === "Utils" && <Tools slot="iconBefore" />}
+                                        {item.label === "View Transition API" && <BarChartSteps slot="iconBefore" />}
+
+                                        {item.label === "Actions" && (
+                                            <span slot="buttonContent" class="docs-badge docs-badge-experimental" />
+                                        )}
+                                        {/* {["Progress"].includes(item.label) && (
+                                    <span slot="buttonContent" class="docs-badge docs-badge-update" />
+                                )} */}
+                                    </MenuItem>
+                                </li>
+                            ))}
+                        </ul>
+                    </li>
+
+                    <li>
+                        <strong class="ps-2">Resources for AI agents</strong>
+                        <ul class="list-unstyled">
+                            <li>
+                                <MenuItem href={import.meta.env.BASE_URL + "llms.txt"} label="llms.txt">
+                                    <BodyText slot="iconBefore" />
+                                </MenuItem>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <MenuItem label="Deprecated" as="collapse">
+                    {deprecatedMenuItems.map((item) => (
+                        <MenuItem href={item.path} label={item.label} current={item.isActive} />
+                    ))}
+                </MenuItem>
+            </>
+        )
+    }
+
+    {
+        isCurrent("react") && (
+            <ul class="list-unstyled d-flex flex-column">
+                <li class="mb-3">
+                    <MenuItem href="react" label="Start" current={isCurrent("react", true)}>
+                        {isCurrent("react", true) ? <HouseFill slot="iconBefore" /> : <House slot="iconBefore" />}
+                    </MenuItem>
+                </li>
+
+                <li>
+                    <strong class="ps-2">Components</strong>
+                    <div class="vstack">
+                        {reactMenuItems.map((item) => (
+                            <MenuItem href={item.path} label={item.label} current={item.isActive}>
+                                {item.label === "Buttons" && <PlayBtnFill slot="iconBefore" />}
+                                {item.label === "Collapse" && <CardHeading slot="iconBefore" />}
+                                {item.label === "Container Grid" && <Columns slot="iconBefore" />}
+                                {item.label === "Header" && <CardHeading slot="iconBefore" />}
+                                {item.label === "Hover" && <HandIndex slot="iconBefore" />}
+                                {item.label === "Menu Item" && <MenuButton slot="iconBefore" />}
+                                {item.label === "Modal" && <WindowStack slot="iconBefore" />}
+                                {item.label === "Neumorphism" && <LayersHalf slot="iconBefore" />}
+                                {item.label === "Popover" && <MenuDown slot="iconBefore" />}
+                                {item.label === "Scrollbar" && <ArrowsVertical slot="iconBefore" />}
+                                {item.label === "Scrollspy" && <SegmentedNav slot="iconBefore" />}
+                                {item.label === "Input group" && <Search slot="iconBefore" />}
+                                {item.label === "Intro" && <Postcard slot="iconBefore" />}
+                                {item.label === "Tabs" && <SegmentedNav slot="iconBefore" />}
+                                {item.label === "Text and Icons" && <Type slot="iconBefore" />}
+                                {item.label === "Tooltip" && <MenuUp slot="iconBefore" />}
+                                {item.label === "Utilities" && <Tools slot="iconBefore" />}
+                            </MenuItem>
+                        ))}
+                    </div>
+                </li>
+            </ul>
+        )
+    }
+</SidebarMenu>

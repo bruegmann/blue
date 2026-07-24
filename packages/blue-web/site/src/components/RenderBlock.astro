@@ -1,0 +1,14 @@
+---
+import CopyToClipboard from "$/components/CopyToClipboard"
+import Example from "$/components/Example.astro"
+
+const { code } = Astro.props
+---
+
+<Example>
+    <Fragment set:html={code} />
+    <Fragment slot="code">
+        <pre><code class="language-html">{code}</code></pre>
+        <CopyToClipboard content={code} className="position-absolute top-0 end-0 mt-1 me-1 btn-sm" client:idle />
+    </Fragment>
+</Example>

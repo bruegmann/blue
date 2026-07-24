@@ -1,0 +1,123 @@
+---
+import Layout from "$/layouts/Layout.astro"
+import logo from "$/../public/blue.svg"
+import { Bootstrap, Code as CodeIcon, WindowSidebar, BoxSeam } from "react-bootstrap-icons"
+
+import ReadMe from "blue-react/README.md"
+import ReactIcon from "$/components/ReactIcon"
+import Code from "$/components/Code"
+
+type GitHubContent = {
+    content?: string
+    download_url?: string
+    git_url: string
+    html_url: string
+    name: string
+    path: string
+    sha: string
+    size: number
+    type: string
+    url: string
+    _links: GitHubLink
+}
+
+type GitHubLink = {
+    git: string
+    html: string
+    self: string
+}
+
+const fetchFromGitHub = async (path: string) => {
+    const url = `https://api.github.com/repos/bruegmann/vite-template-blue-react/contents/${path}`
+    const r = await fetch(`${url}`)
+
+    const ghContent: GitHubContent = await r.json()
+
+    if (ghContent.content) {
+        const decoded = atob(ghContent.content)
+
+        return decoded
+    }
+}
+
+const appCode = (await fetchFromGitHub("src/App.tsx")) || ""
+const pageCode = (await fetchFromGitHub("src/pages/HomePage.tsx")) || ""
+const scssCode = (await fetchFromGitHub("src/styles/main.scss")) || ""
+---
+
+<script>
+    import "bootstrap/js/dist/dropdown"
+</script>
+
+<Layout>
+    <div
+        class="welcome-jumbotron text-center p-5 bg-primary-subtle text-primary-emphasis border-bottom position-relative"
+    >
+        <div class="d-inline-flex align-content-center gap-1 position-absolute top-0 end-0 mt-2 me-2">
+            <div class="dropdown">
+                <button
+                    class="btn btn-primary dropdown-toggle"
+                    type="button"
+                    title="Switch to another version"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                >
+                    /v11
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end" style={{ minWidth: "5rem" }}>
+                    <li>
+                        <a class="dropdown-item" href="/blue-react/v10/"> /v10 </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="/blue-react/v9/"> /v9 </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="/blue-react/v8/"> /v8 </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="/blue-react/v7/"> /v7 </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="/blue-react/v6/"> /v6 </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <h1 class="display-3 d-inline-flex align-items-center" style={{ fontWeight: "600" }}>
+            <img src={logo.src} alt="Blue logo" style={{ height: "1em" }} class="me-3" /> Blue React
+        </h1>
+
+        <p class="h2">React component library based on Bootstrap 5</p>
+        <div class="h2">
+            <Bootstrap />
+            <ReactIcon />
+            <CodeIcon />
+            <WindowSidebar />{" "}
+            <BoxSeam />
+        </div>
+    </div>
+
+    <div class="bg-body text-body">
+        <div class="welcome-container container markdown-rendered py-1">
+            <ReadMe />
+
+            <h2 id="implementation" class="page-header">Implementation</h2>
+
+            <p>
+                See the whole project: <a href="https://github.com/bruegmann/vite-template-blue-react"
+                    >https://github.com/bruegmann/vite-template-blue-react</a
+                >
+            </p>
+
+            <h3>App (App.tsx)</h3>
+            <Code code={appCode} language="jsx" />
+
+            <h3>Page (pages/HomePage.tsx)</h3>
+            <Code code={pageCode} language="jsx" />
+
+            <h3>Styling (styles/main.scss)</h3>
+            <Code code={scssCode} language="scss" />
+        </div>
+    </div>
+</Layout>

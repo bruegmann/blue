@@ -1,0 +1,10 @@
+packages:
+  - "packages/*"
+  - "apps/*"
+allowBuilds:
+  '@parcel/watcher': true
+  esbuild: true
+  sharp: true
+minimumReleaseAgeExclude:
+  - blue-react@11.3.2
+  - blue-web@1.30.1

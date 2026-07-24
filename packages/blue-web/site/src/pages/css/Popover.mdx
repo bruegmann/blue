@@ -1,0 +1,62 @@
+---
+layout: $/layouts/DocsLayout.astro
+---
+
+import RenderBlock from "$/components/RenderBlock.astro"
+import Grab from "$/components/Grab.astro"
+
+# Popover
+
+In combination with the [Popover API](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API) and
+[CSS Anchor Positioning](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning)
+you can create a dropdown menu without the need for custom JavaScript.
+
+Use CSS property `position-area` to set where the popover should be relative to its anchor.
+I recommend to use [the anchor position tool](https://chrome.dev/anchor-tool/) to find the right value.
+
+## Fallback
+
+Add `.blue-anchored-fallback` to the dropdown element and on not supported browsers, it will be displayed with an overlay over the whole page.
+
+```html use:RenderBlock
+<button type="button" class="btn blue-halo" popovertarget="popover-basic">Open popover</button>
+
+<div
+    id="popover-basic"
+    popover
+    class="blue-anchored-fallback position-fixed m-0 p-3 border rounded shadow"
+    style="position-area: bottom span-right"
+>
+    Hello from popover!
+</div>
+```
+
+## Anchoring helper classes
+
+`.blue-anchor`, `.blue-anchored` and some other classes help you with some common stylings.
+
+```html use:RenderBlock
+<button type="button" class="blue-anchor btn blue-halo" popovertarget="popover-helpers-start">Open to start</button>
+<div id="popover-helpers-start" popover class="blue-anchored blue-anchored-start blue-anchored-fallback">
+    Hello from popover!
+</div>
+
+<button type="button" class="blue-anchor btn blue-halo" popovertarget="popover-helpers-end">Open to end</button>
+<div id="popover-helpers-end" popover class="blue-anchored blue-anchored-end blue-anchored-fallback">
+    Hello from popover!
+</div>
+
+<hr />
+
+<div class="hstack">
+    <button type="button" class="blue-anchor btn blue-halo ms-auto" popovertarget="popover-helpers-try">
+        Popover will automatically flip inline if not enough space.
+    </button>
+
+    <div id="popover-helpers-try" popover class="blue-anchored blue-anchored-fallback" style="width: 500px">
+        Hello from popover!
+    </div>
+</div>
+```
+
+<Grab items={[{ src: "@/dist/styles/_anchor.scss" }]} />

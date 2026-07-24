@@ -1,0 +1,123 @@
+---
+layout: $/layouts/DocsLayout.astro
+---
+
+import RenderBlock from "$/components/RenderBlock.astro"
+import Grab from "$/components/Grab.astro"
+
+# Modal
+
+Allows to use [Bootstrap Modals](https://getbootstrap.com/docs/5.3/components/modal/) but with the native dialog element and without the need of Bootstrap's JavaScript.
+
+```html use:RenderBlock
+<button type="button" class="btn blue-btn-soft-primary" onclick="my_modal.showModal()">Open modal</button>
+
+<dialog class="blue-modal modal" id="my_modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Modal title</h1>
+                <form method="dialog" style="display: contents;">
+                    <button type="submit" class="btn-close" aria-label="Close"></button>
+                </form>
+            </div>
+            <div class="modal-body">Hello World</div>
+        </div>
+    </div>
+    <form method="dialog" class="blue-modal-backdrop"><button>Close</button></form>
+</dialog>
+```
+
+## Offcanvas
+
+Because [Bootstrap Offcanvas](https://getbootstrap.com/docs/5.3/components/offcanvas/) works quite similar, you can also use `.blue-modal` with that.
+
+```html use:RenderBlock
+<button type="button" class="btn blue-btn-soft-primary" onclick="my_offcanvas.showModal()">Open offcanvas</button>
+
+<dialog class="blue-modal modal" id="my_offcanvas">
+    <div class="offcanvas offcanvas-start">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasExampleLabel">Offcanvas</h5>
+            <form method="dialog" style="display: contents;">
+                <button type="submit" class="btn-close" aria-label="Close"></button>
+            </form>
+        </div>
+        <div class="offcanvas-body">
+            <div>
+                Some text as placeholder. In real life you can have the elements you have chosen. Like, text, images,
+                lists, etc.
+            </div>
+        </div>
+    </div>
+    <form method="dialog" class="blue-modal-backdrop"><button>Close</button></form>
+</dialog>
+```
+
+## Modal in Offcanvas
+
+```html use:RenderBlock
+<button type="button" class="btn blue-btn-soft-primary" onclick="my_offcanvas2.showModal()">Open offcanvas</button>
+
+<dialog class="blue-modal modal" id="my_offcanvas2">
+    <div class="offcanvas offcanvas-start">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasExampleLabel">Offcanvas</h5>
+            <form method="dialog" style="display: contents;">
+                <button type="submit" class="btn-close" aria-label="Close"></button>
+            </form>
+        </div>
+        <div class="offcanvas-body">
+            <div>
+                Some text as placeholder. In real life you can have the elements you have chosen. Like, text, images,
+                lists, etc.
+            </div>
+
+            <button type="button" class="btn blue-btn-soft-primary" onclick="my_modal2.showModal()">Open modal</button>
+
+            <dialog class="blue-modal modal" id="my_modal2">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5">Modal title</h1>
+                            <form method="dialog" style="display: contents;">
+                                <button type="submit" class="btn-close" aria-label="Close"></button>
+                            </form>
+                        </div>
+                        <div class="modal-body">Hello World</div>
+                    </div>
+                </div>
+                <form method="dialog" class="blue-modal-backdrop"><button>Close</button></form>
+            </dialog>
+        </div>
+    </div>
+    <form method="dialog" class="blue-modal-backdrop"><button>Close</button></form>
+</dialog>
+```
+
+## Show dialog in main DOM layer
+
+If you use `dialog.showModal()`, the dialog will be inside the top layer, above anything else on your page, also if other elements have an higher `z-index`. Use `dialog.show()` instead and it will be inside the main layer.
+
+```html use:RenderBlock
+<button type="button" class="btn blue-btn-soft-primary" onclick="my_modal.show()">Open modal with .show()</button>
+<button type="button" class="btn blue-btn-soft-primary" onclick="my_offcanvas.show()">
+    Open offcanvas with .show()
+</button>
+
+<br />
+
+<button type="button" class="btn blue-btn-soft-primary" onclick="my_modal.showModal()">
+    Open modal with .showModal()
+</button>
+<button type="button" class="btn blue-btn-soft-primary" onclick="my_offcanvas.showModal()">
+    Open offcanvas with .showModal()
+</button>
+
+<div class="border border-primary bg-body text-body rounded p-3 mt-3 position-relative" style="z-index: 5000">
+    This has a really high z-index. It should be over the dialog, when you open it with .show() and underneath it when
+    you open it with .showModal().
+</div>
+```
+
+<Grab items={[{ src: "@/dist/styles/_modal.scss" }]} />

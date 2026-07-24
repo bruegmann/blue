@@ -1,0 +1,86 @@
+---
+layout: $/layouts/DocsLayout.astro
+---
+
+import RenderBlock from "$/components/RenderBlock.astro"
+import Grab from "$/components/Grab.astro"
+
+# Input Splitted
+
+Group of input fields. Perfect e.g. for entering PIN or TOTP.
+
+## Demo
+
+```html use:RenderBlock
+<bl-input-splitted length="4"></bl-input-splitted>
+```
+
+## Disabled
+
+```html use:RenderBlock
+<bl-input-splitted id="disabledInputSplitted" length="4" disabled></bl-input-splitted>
+<button type="button" class="btn blue-btn-soft-secondary" onclick="toggleDisabled()">Toggle disabled</button>
+
+<script>
+    function toggleDisabled() {
+        const el = document.getElementById("disabledInputSplitted")
+        if (el.hasAttribute("disabled")) {
+            el.removeAttribute("disabled")
+        } else {
+            el.setAttribute("disabled", "")
+        }
+    }
+</script>
+```
+
+## Styling With CSS Variables
+
+Even if `light-dom` isn't enabled, you can still use CSS variables to style the input elements.
+
+```html use:RenderBlock
+<div id="StylingWithCssVariables">
+    <style>
+        #StylingWithCssVariables bl-input-splitted {
+            --blue-input-splitted-border: 1px solid #dee2e6;
+            --blue-input-splitted-border-radius: 0.375rem;
+            --blue-input-splitted-padding: 0.375rem 0.75rem;
+            --blue-input-splitted-text-align: center;
+
+            display: flex;
+            gap: 0.25rem;
+        }
+
+        #StylingWithCssVariables bl-input-splitted:focus {
+            --blue-input-splitted-border: 1px solid #86b7fe;
+            --blue-input-splitted-box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 25%);
+        }
+
+        /* If the input elements are bordered red, shadow is open. */
+        #StylingWithCssVariables input {
+            border-color: red !important;
+        }
+    </style>
+
+    <bl-input-splitted length="4"></bl-input-splitted>
+</div>
+```
+
+## Use Label
+
+```html use:RenderBlock
+<div>
+    <label for="my-pin-input-1">Enter a PIN</label>
+    <bl-input-splitted id="my-pin-input-1" length="4"></bl-input-splitted>
+</div>
+```
+
+## Use Label Without Shadow
+
+```html use:RenderBlock
+<div>
+    <label for="my-pin-input">Enter a PIN</label>
+    <bl-input-splitted light-dom control-1-id="my-pin-input" length="4"></bl-input-splitted>
+</div>
+```
+
+<Grab items={[{ src: "@/src/js/input-splitted.ts" }]} />

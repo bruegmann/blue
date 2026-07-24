@@ -1,0 +1,55 @@
+* {
+    scrollbar-width: thin;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    background: var(--blue-app-bg, #{$app-bg});
+}
+
+// Idee für Effekt von http://www.w3schools.com/howto/howto_css_animate_buttons.asp
+.btn,
+.nav-pills > li > a,
+.pager li > a,
+.pagination > li > a,
+.list-group a.list-group-item {
+    &:not(.disabled):not(.readonly):not(.dropdown-toggle) {
+        transition:
+            background-color 0.3s,
+            color 0.15s,
+            box-shadow 0.3s,
+            opacity 0.3s;
+        position: relative;
+
+        @media (prefers-reduced-motion) {
+            transition: none;
+        }
+
+        &:hover,
+        &:active,
+        &:focus {
+            z-index: 1;
+        }
+    }
+}
+
+// .blue-header-title.sidebar {
+//     width: $bla-sidebar-width;
+//     padding-left: calc(#{$normal-size} + #{$spacer});
+//     transform: translateX(-100%);
+//     transition: transform 0.4s;
+//     background: var(--blue-sidebar-bg);
+//     color: $sidebar-color;
+
+//     @media (prefers-reduced-motion) {
+//         transition: none;
+//     }
+// }
+
+.blue-scroll-shadow {
+    @include scroll-shadow(var(--bs-body-bg));
+}

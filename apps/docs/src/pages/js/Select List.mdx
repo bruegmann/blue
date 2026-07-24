@@ -1,0 +1,63 @@
+---
+layout: $/layouts/DocsLayout.astro
+---
+
+import RenderBlock from "$/components/RenderBlock.astro"
+import Example from "$/components/Example.astro"
+import Grab from "$/components/Grab.astro"
+import ComboboxUsage from "$/recipes/select-list/combobox-usage.tsx"
+
+# Select List
+
+A Web Component to create a list with selectable items. Combine it an input element to create a search results UI.
+
+## Demo
+
+Take a look at the browser console. When you select an item, an event listener will log it.
+
+```html use:RenderBlock
+<input type="search" class="form-control mb-3" id="myinput" />
+
+<bl-select-list class="list-group" id="myselectlist" for="myinput">
+    <button class="list-group-item list-group-item-action">Item 1</button>
+    <button class="list-group-item list-group-item-action">Item 2</button>
+    <button class="list-group-item list-group-item-action">Item 3</button>
+</bl-select-list>
+
+<script>
+    document.getElementById("myselectlist").addEventListener("bl-select", ({ detail }) => {
+        console.log("Selected: ", detail)
+    })
+</script>
+```
+
+## Dropdown menu
+
+Together with `popover` and CSS Anchoring, it's also useful to create a dropdown list.
+
+```html use:RenderBlock
+<button type="button" class="blue-anchor blue-menu-item btn" id="anchor-1" popovertarget="popover-1">
+    <span class="blue-menu-item-label">Parent</span>
+</button>
+
+<bl-select-list id="popover-1" for="anchor-1" popover class="blue-anchored blue-anchored-fallback border rounded-4">
+    <button type="button" class="blue-menu-item btn d-flex w-100">
+        <span class="blue-menu-item-icon" aria-hidden="true">🌍</span>
+        <span class="blue-menu-item-label">Child</span>
+    </button>
+    <button type="button" class="blue-menu-item btn d-flex w-100">
+        <span class="blue-menu-item-icon" aria-hidden="true">🌑</span>
+        <span class="blue-menu-item-label">Child 2</span>
+    </button>
+</bl-select-list>
+```
+
+## React combo box demo
+
+<Example>
+<ComboboxUsage client:only />
+
+<Grab slot="code" items={[{ src: "@/site/src/recipes/select-list/combobox-usage.tsx" },{ src: "@/site/src/recipes/select-list/combobox.tsx" }]} expandable={false} reduced />
+</Example>
+
+<Grab items={[{ src: "@/src/js/select-list.ts" }]} />

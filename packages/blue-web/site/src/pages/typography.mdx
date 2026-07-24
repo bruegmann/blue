@@ -1,0 +1,28 @@
+---
+layout: $/layouts/DocsLayout.astro
+---
+
+import RenderBlock from "$/components/RenderBlock.astro"
+import Grab from "$/components/Grab.astro"
+
+# Typography
+
+Since Blue Web builds on top of Bootstrap, you should also check out [their section about typography](https://getbootstrap.com/docs/5.3/content/typography/).
+
+## Inter as font family
+
+Blue Web is configured to use [Inter](https://rsms.me/inter/) with some preset font features. The required font files aren't included with Blue Web.
+[Please take a look at the documentation by Inter](https://github.com/rsms/inter?tab=readme-ov-file#using--installing-inter) to find out how to install them.
+
+As fallback, when Inter couldn't be loaded, the default font family setting by Bootstrap (`$font-family-sans-serif`) will be used, which is a native font stack that selects the best font-family for each OS and device.
+
+## Extend font features
+
+Font features are stored inside the CSS variable `--blue-font-feature-settings`. This allows you to extend them without overriding them:
+
+```html use:RenderBlock
+<p>This text is not condensed.</p>
+<p style="font-variation-settings: var(--blue-font-feature-settings), 'opsz' 32;">This text is condensed.</p>
+```
+
+<Grab items={[{ src: "@/dist/styles/_inter.scss" }]} />

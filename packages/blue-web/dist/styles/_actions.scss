@@ -1,0 +1,37 @@
+.blue-actions {
+    display: flex;
+    white-space: nowrap;
+    // overflow-x: auto;
+    // overflow-y: visible;
+}
+
+.blue-actions-menu {
+    display: flex;
+    max-width: 100%;
+}
+
+.blue-actions-collapse {
+    position: relative;
+}
+
+.blue-actions-collapse:not(:has(.blue-actions-collapse-visible)) {
+    display: none;
+}
+
+.blue-actions-collapse-menu {
+    position: absolute;
+}
+
+.blue-actions-collapse-menu:popover-open {
+    display: var(--display);
+}
+
+// Compatibility with MenuItems having dropdowns
+.blue-actions-menu > .blue-menu-item-wrapper:has(> .blue-menu-item-dropdown) {
+    display: block;
+    position: relative;
+}
+
+.blue-actions-menu > .blue-menu-item-wrapper > .blue-menu-item-dropdown {
+    position: absolute;
+}

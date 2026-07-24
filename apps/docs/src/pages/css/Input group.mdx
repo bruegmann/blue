@@ -1,0 +1,39 @@
+---
+layout: $/layouts/DocsLayout.astro
+---
+
+import RenderBlock from "$/components/RenderBlock.astro"
+import Grab from "$/components/Grab.astro"
+
+# Input group
+
+Special variant of [input group](https://getbootstrap.com/docs/5.3/forms/input-group).
+The whole group will have a focus ring when an inner input is focussed. And styling for `.input-group-text` is simplified.
+
+## Search
+
+This variant is especially useful for search input.
+
+```html use:RenderBlock
+<div class="blue-input-group input-group">
+    <label for="529142a0-0ba9-4e54-aec6-e45902aca5e1" class="input-group-text">
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="1em"
+            height="1em"
+            fill="currentColor"
+            class="bi bi-search"
+            viewBox="0 0 16 16"
+        >
+            <path
+                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"
+            />
+        </svg>
+        <span class="visually-hidden">Search</span>
+    </label>
+    <input type="search" class="form-control" id="529142a0-0ba9-4e54-aec6-e45902aca5e1" placeholder="Enter something" />
+    <button type="button" class="btn btn-primary">Search</button>
+</div>
+```
+
+<Grab items={[{ src: "@/dist/styles/_input-group.scss" }]} />

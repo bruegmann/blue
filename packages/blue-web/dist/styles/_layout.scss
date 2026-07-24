@@ -1,0 +1,104 @@
+/**
+ * The new approach for a global layout with a sidebar, header and main content.
+ */
+
+.blue-layout {
+    --spacing: 0.5rem;
+
+    --blue-menu-item-indicator-bg: #{color-contrast($sidebar-bg, $sidebar-indicator-color)};
+    --bs-link-hover-color: #{color-contrast($sidebar-bg, $link-hover-color)};
+
+    display: grid;
+    grid-template-rows: min-content 1fr;
+    grid-template-columns: min-content 1fr;
+    grid-template-areas: "header header" "side main";
+    height: 100dvh;
+    color: var(--blue-sidebar-color);
+    background-color: var(--blue-sidebar-bg);
+}
+
+@include color-mode(dark, false) {
+    .blue-layout {
+        --blue-menu-item-indicator-bg: #{$sidebar-indicator-color-dark};
+        --bs-link-hover-color: #{color-contrast($sidebar-bg, $link-hover-color-dark)};
+    }
+}
+
+.blue-layout-header {
+    grid-area: header;
+    display: flex;
+    align-items: center;
+    height: var(--blue-header-height);
+    gap: var(--spacing);
+    padding-inline: var(--spacing);
+    width: env(titlebar-area-width);
+}
+
+.blue-layout-side {
+    grid-area: side;
+    overflow: auto;
+    background: inherit;
+    scrollbar-color: transparent transparent;
+
+    &:hover,
+    &:focus-within {
+        scrollbar-color: color-mix(in srgb, currentColor 50%, transparent) transparent;
+    }
+
+    &.with-transition {
+        interpolate-size: allow-keywords;
+        transition:
+            width 0.2s ease-in-out,
+            display 0.2s ease-in-out allow-discrete;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .blue-layout-side.with-transition {
+        transition: none;
+    }
+}
+
+.blue-layout-side-body {
+    min-width: var(--blue-sidebar-width);
+
+    &:not(:is(dialog[open] .blue-layout-side-body)) {
+        padding-inline-start: var(--spacing);
+    }
+}
+
+@starting-style {
+    .blue-layout-side {
+        width: 0;
+    }
+}
+
+.blue-layout-main {
+    overflow: auto;
+    grid-area: main;
+}
+
+.blue-layout-body {
+    --spacing: 0.5rem;
+    --blue-menu-item-indicator-bg: #{$sidebar-indicator-color};
+    --bs-link-hover-color: #{$link-hover-color};
+
+    width: calc(100% - var(--spacing) * 2);
+    height: calc(100% - var(--spacing));
+    margin-left: auto;
+    margin-right: auto;
+    overflow: auto;
+    scrollbar-color: color-mix(in srgb, currentColor 50%, transparent) transparent;
+    background-color: rgba(var(--bs-body-bg-rgb), var(--bs-bg-opacity, 1));
+    color: rgba(var(--bs-body-color-rgb), var(--bs-text-opacity, 1));
+    box-shadow: var(--bs-box-shadow-sm);
+    border: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color);
+    border-radius: var(--bs-border-radius-lg);
+}
+
+@include color-mode(dark, false) {
+    .blue-layout-body {
+        --blue-menu-item-indicator-bg: #{$sidebar-indicator-color-dark};
+        --bs-link-hover-color: #{$link-hover-color-dark};
+    }
+}

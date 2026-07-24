@@ -1,0 +1,30 @@
+---
+import Layout from "$/layouts/Layout.astro"
+import logo from "$/../public/blue.svg"
+import { Bootstrap, Braces, Code, WindowSidebar, BoxSeam } from "react-bootstrap-icons"
+
+import ReadMe from "blue-web/README.md"
+---
+
+<Layout>
+    <div class="welcome-jumbotron text-center p-5 bg-primary-subtle border-bottom">
+        <h1 class="display-3 d-inline-flex align-items-center" style={{ fontWeight: "600" }}>
+            <img src={logo.src} alt="Blue logo" style={{ height: "1em" }} class="me-3" /> Blue Web
+        </h1>
+
+        <p class="h2">UI library based on Bootstrap 5</p>
+        <div class="h2 text-primary-emphasis">
+            <Bootstrap />
+            <Braces />
+            <Code />
+            <WindowSidebar />
+            <BoxSeam />
+        </div>
+    </div>
+
+    <div class="bg-body text-body">
+        <div class="welcome-container container markdown-rendered py-1">
+            <ReadMe />
+        </div>
+    </div>
+</Layout>

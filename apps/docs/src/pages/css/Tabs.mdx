@@ -1,0 +1,277 @@
+---
+layout: $/layouts/DocsLayout.astro
+---
+
+import RenderBlock from "$/components/RenderBlock.astro"
+import Grab from "$/components/Grab.astro"
+
+# Tabs
+
+Tabs just with HTML and CSS, no JavaScript needed. The state is managed by the radio input elements.
+The classes by Blue Web only provide styles for fundamental functionality.
+
+```html use:RenderBlock
+<div role="tablist" class="blue-tabs">
+    <input
+        role="tab"
+        id="my_tabs_0_tab_1"
+        aria-label="Tab 1"
+        aria-controls="my_tabs_0_tabpanel_1"
+        class="blue-tab"
+        type="radio"
+        checked=""
+        name="my_tabs_0"
+    />
+    <div
+        role="tabpanel"
+        id="my_tabs_0_tabpanel_1"
+        aria-labelledby="my_tabs_0_tab_1"
+        tabindex="0"
+        class="blue-tab-content"
+    >
+        Tab content 1
+    </div>
+
+    <input
+        role="tab"
+        id="my_tabs_0_tab_2"
+        aria-label="Tab 2"
+        aria-controls="my_tabs_0_tabpanel_2"
+        class="blue-tab"
+        type="radio"
+        name="my_tabs_0"
+    />
+    <div
+        role="tabpanel"
+        id="my_tabs_0_tabpanel_2"
+        aria-labelledby="my_tabs_0_tab_2"
+        tabindex="0"
+        class="blue-tab-content"
+    >
+        Tab content 2
+    </div>
+
+    <input
+        role="tab"
+        id="my_tabs_0_tab_3"
+        aria-label="Tab 3"
+        aria-controls="my_tabs_0_tabpanel_3"
+        class="blue-tab"
+        type="radio"
+        name="my_tabs_0"
+    />
+    <div
+        role="tabpanel"
+        id="my_tabs_0_tabpanel_3"
+        aria-labelledby="my_tabs_0_tab_3"
+        tabindex="0"
+        class="blue-tab-content"
+    >
+        Tab content 3
+    </div>
+</div>
+```
+
+## Bootstrap Tabs Nav style
+
+You should combine them with `.nav.nav-tabs` and `.nav-link` by Bootstrap.
+
+```html use:RenderBlock
+<div role="tablist" class="blue-tabs nav nav-tabs">
+    <input
+        role="tab"
+        id="my_tabs_1_tab_1"
+        aria-label="Tab 1"
+        aria-controls="my_tabs_1_tabpanel_1"
+        class="blue-tab nav-link"
+        type="radio"
+        checked=""
+        name="my_tabs_1"
+    />
+    <div
+        role="tabpanel"
+        id="my_tabs_1_tabpanel_1"
+        aria-labelledby="my_tabs_1_tab_1"
+        tabindex="0"
+        class="blue-tab-content p-3"
+    >
+        Tab content 1
+    </div>
+
+    <input
+        role="tab"
+        id="my_tabs_1_tab_2"
+        aria-label="Tab 2"
+        aria-controls="my_tabs_1_tabpanel_2"
+        class="blue-tab nav-link"
+        type="radio"
+        name="my_tabs_1"
+    />
+    <div
+        role="tabpanel"
+        id="my_tabs_1_tabpanel_2"
+        aria-labelledby="my_tabs_1_tab_2"
+        tabindex="0"
+        class="blue-tab-content p-3"
+    >
+        Tab content 2
+    </div>
+
+    <input
+        role="tab"
+        id="my_tabs_1_tab_3"
+        aria-label="Tab 3"
+        aria-controls="my_tabs_1_tabpanel_3"
+        class="blue-tab nav-link"
+        type="radio"
+        name="my_tabs_1"
+    />
+    <div
+        role="tabpanel"
+        id="my_tabs_1_tabpanel_3"
+        aria-labelledby="my_tabs_1_tab_3"
+        tabindex="0"
+        class="blue-tab-content p-3"
+    >
+        Tab content 3
+    </div>
+</div>
+```
+
+## Bootstrap Underline Nav style
+
+```html use:RenderBlock
+<div role="tablist" class="blue-tabs nav nav-underline">
+    <input
+        role="tab"
+        id="my_tabs_2_tab_1"
+        aria-label="Tab 1"
+        aria-controls="my_tabs_2_tabpanel_1"
+        class="blue-tab nav-link"
+        type="radio"
+        checked=""
+        name="my_tabs_2"
+    />
+    <div
+        role="tabpanel"
+        id="my_tabs_2_tabpanel_1"
+        aria-labelledby="my_tabs_2_tab_1"
+        tabindex="0"
+        class="blue-tab-content p-3"
+    >
+        Tab content 1
+    </div>
+
+    <input
+        role="tab"
+        id="my_tabs_2_tab_2"
+        aria-label="Tab 2"
+        aria-controls="my_tabs_2_tabpanel_2"
+        class="blue-tab nav-link"
+        type="radio"
+        name="my_tabs_2"
+    />
+    <div
+        role="tabpanel"
+        id="my_tabs_2_tabpanel_2"
+        aria-labelledby="my_tabs_2_tab_2"
+        tabindex="0"
+        class="blue-tab-content p-3"
+    >
+        Tab content 2
+    </div>
+
+    <input
+        role="tab"
+        id="my_tabs_2_tab_3"
+        aria-label="Tab 3"
+        aria-controls="my_tabs_2_tabpanel_3"
+        class="blue-tab nav-link"
+        type="radio"
+        name="my_tabs_2"
+    />
+    <div
+        role="tabpanel"
+        id="my_tabs_2_tabpanel_3"
+        aria-labelledby="my_tabs_2_tab_3"
+        tabindex="0"
+        class="blue-tab-content p-3"
+    >
+        Tab content 3
+    </div>
+</div>
+```
+
+## Bootstrap Underline Nav style customized
+
+You can customize the look more by overriding the CSS variables coming from Bootstrap. Blue Web also added some additional CSS variables.
+
+```html use:RenderBlock
+<div
+    role="tablist"
+    class="blue-tabs nav nav-underline"
+    style="--bs-nav-link-color: var(--bs-emphasis-color);
+        --blue-tabs-underline-active-font-weight: 600;
+        --blue-tabs-underline-active-border-bottom-color: tomato;"
+>
+    <input
+        role="tab"
+        id="my_tabs_3_tab_1"
+        aria-label="Tab 1"
+        aria-controls="my_tabs_3_tabpanel_1"
+        class="blue-tab nav-link flex-grow-1 text-center"
+        type="radio"
+        checked=""
+        name="my_tabs_3"
+    />
+    <div
+        role="tabpanel"
+        id="my_tabs_3_tabpanel_1"
+        aria-labelledby="my_tabs_3_tab_1"
+        tabindex="0"
+        class="blue-tab-content p-3"
+    >
+        Tab content 1
+    </div>
+
+    <input
+        role="tab"
+        id="my_tabs_3_tab_2"
+        aria-label="Tab 2"
+        aria-controls="my_tabs_3_tabpanel_2"
+        class="blue-tab nav-link flex-grow-1 text-center"
+        type="radio"
+        name="my_tabs_3"
+    />
+    <div
+        role="tabpanel"
+        id="my_tabs_3_tabpanel_2"
+        aria-labelledby="my_tabs_3_tab_2"
+        tabindex="0"
+        class="blue-tab-content p-3"
+    >
+        Tab content 2
+    </div>
+
+    <input
+        role="tab"
+        id="my_tabs_3_tab_3"
+        aria-label="Tab 3"
+        aria-controls="my_tabs_3_tabpanel_3"
+        class="blue-tab nav-link flex-grow-1 text-center"
+        type="radio"
+        name="my_tabs_3"
+    />
+    <div
+        role="tabpanel"
+        id="my_tabs_3_tabpanel_3"
+        aria-labelledby="my_tabs_3_tab_3"
+        tabindex="0"
+        class="blue-tab-content p-3"
+    >
+        Tab content 3
+    </div>
+</div>
+```
+
+<Grab items={[{ src: "@/dist/styles/_tabs.scss" }]} />

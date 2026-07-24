@@ -1,0 +1,37 @@
+---
+import Layout from "$/layouts/Layout.astro"
+import reports from "$/assets/license-report.json"
+---
+
+<Layout>
+    <div class="container">
+        <h1 class="page-header">License Report</h1>
+
+        Listed below are all third-party dependencies and development dependencies with their license notices:
+
+        <div class="list-group">
+            {
+                reports.map((report) => (
+                    <div class="list-group-item">
+                        <h5 class="mb-1">
+                            <a
+                                href={`https://npmjs.com/package/${report.name}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                {report.name}
+                            </a>
+                        </h5>
+                        {report.installedVersion} ({report.licenseType})
+                        {report.author && (
+                            <>
+                                <br />
+                                {report.author}
+                            </>
+                        )}
+                    </div>
+                ))
+            }
+        </div>
+    </div>
+</Layout>

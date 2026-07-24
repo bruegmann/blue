@@ -1,0 +1,58 @@
+---
+layout: $/layouts/DocsLayout.astro
+---
+
+import RenderBlock from "$/components/RenderBlock.astro"
+
+# Progress
+
+A "fake" progress bar that will appear fixed at the top of the page.
+
+## Start and stop
+
+```html use:RenderBlock
+<button id="startButton" type="button" class="btn blue-btn-soft-secondary">Start</button>
+
+<script>
+    startButton.addEventListener("click", async () => {
+        blueWeb.progress.start()
+    })
+</script>
+```
+
+```html use:RenderBlock
+<button id="stopButton" type="button" class="btn blue-btn-soft-secondary">Stop</button>
+
+<script>
+    stopButton.addEventListener("click", async () => {
+        blueWeb.progress.stop()
+    })
+</script>
+```
+
+## Add to custom element
+
+You can customize the element further by setting a custom ID, parent element and position class name. This allows you to attach the progress element to some other element than the body.
+
+```html use:RenderBlock
+<div id="myElement" class="bg-secondary-subtle border border-primary rounded-2 p-3 position-relative mb-1">
+    Add progress bar to this
+</div>
+<button id="startButton2" type="button" class="btn blue-btn-soft-secondary">Start</button>
+<button id="stopButton2" type="button" class="btn blue-btn-soft-secondary">Stop</button>
+
+<script>
+    startButton2.addEventListener("click", async () => {
+        blueWeb.progress.start(
+            "myElementProgress",
+            document.getElementById("myElement"),
+            "Loading data for my element",
+            "position-absolute top-0 start-0 end-0"
+        )
+    })
+
+    stopButton2.addEventListener("click", async () => {
+        blueWeb.progress.stop("myElementProgress")
+    })
+</script>
+```

@@ -1,0 +1,130 @@
+---
+layout: $/layouts/DocsLayout.astro
+---
+
+import RenderBlock from "$/components/RenderBlock.astro"
+import Grab from "$/components/Grab.astro"
+
+# Scrollspy
+
+Uses CSS Carousel specs for a scrollspy only with HTML and CSS. Inspired by [Scroll Spy example on chrome.dev](https://chrome.dev/carousel/vertical/scroll-spy/).
+
+Some browsers might not be supported. As of writing works best with Chromium based browsers.
+
+## Example with List group
+
+```html use:RenderBlock
+<div class="blue-scrollspy" aria-live="polite" style="height: 200px">
+    <section aria-label="Group 1" class="list-group mb-1 m-last-0">
+        <header class="list-group-item bg-body-tertiary fw-bold">Group 1</header>
+        <div class="list-group-item">Item 1.1</div>
+        <div class="list-group-item">Item 1.2</div>
+        <div class="list-group-item">Item 1.3</div>
+        <div class="list-group-item">Item 1.4</div>
+    </section>
+
+    <section aria-label="Group 2" class="list-group mb-1 m-last-0">
+        <header class="list-group-item bg-body-tertiary fw-bold">Group 2</header>
+        <div class="list-group-item">Item 2.1</div>
+        <div class="list-group-item">Item 2.2</div>
+        <div class="list-group-item">Item 2.3</div>
+        <div class="list-group-item">Item 2.4</div>
+    </section>
+
+    <section aria-label="Group 3" class="list-group mb-1 m-last-0">
+        <header class="list-group-item bg-body-tertiary fw-bold">Group 3</header>
+        <div class="list-group-item">Item 3.1</div>
+        <div class="list-group-item">Item 3.2</div>
+        <div class="list-group-item">Item 3.3</div>
+        <div class="list-group-item">Item 3.4</div>
+    </section>
+
+    <section aria-label="Group 4" class="list-group mb-1 m-last-0">
+        <header class="list-group-item bg-body-tertiary fw-bold">Group 4</header>
+        <div class="list-group-item">Item 4.1</div>
+        <div class="list-group-item">Item 4.2</div>
+        <div class="list-group-item">Item 4.3</div>
+        <div class="list-group-item">Item 4.4</div>
+    </section>
+</div>
+```
+
+## You can also make the scrollmarkers appear after
+
+```html use:RenderBlock
+<div class="blue-scrollspy blue-scrollspy-after" aria-live="polite" style="height: 200px">
+    <section aria-label="Group 1" class="list-group mb-1">
+        <header class="list-group-item bg-body-tertiary fw-bold">Group 1</header>
+        <div class="list-group-item">Item 1.1</div>
+        <div class="list-group-item">Item 1.2</div>
+        <div class="list-group-item">Item 1.3</div>
+        <div class="list-group-item">Item 1.4</div>
+    </section>
+
+    <section aria-label="Group 2" class="list-group mb-1">
+        <header class="list-group-item bg-body-tertiary fw-bold">Group 2</header>
+        <div class="list-group-item">Item 2.1</div>
+        <div class="list-group-item">Item 2.2</div>
+        <div class="list-group-item">Item 2.3</div>
+        <div class="list-group-item">Item 2.4</div>
+    </section>
+
+    <section aria-label="Group 3" class="list-group mb-1">
+        <header class="list-group-item bg-body-tertiary fw-bold">Group 3</header>
+        <div class="list-group-item">Item 3.1</div>
+        <div class="list-group-item">Item 3.2</div>
+        <div class="list-group-item">Item 3.3</div>
+        <div class="list-group-item">Item 3.4</div>
+    </section>
+
+    <section aria-label="Group 4" class="list-group">
+        <header class="list-group-item bg-body-tertiary fw-bold">Group 4</header>
+        <div class="list-group-item">Item 4.1</div>
+        <div class="list-group-item">Item 4.2</div>
+        <div class="list-group-item">Item 4.3</div>
+        <div class="list-group-item">Item 4.4</div>
+    </section>
+</div>
+```
+
+## Handle overflow of group names
+
+```html use:RenderBlock
+<div style="width: 300px">
+    <div class="blue-scrollspy" aria-live="polite" style="height: 200px">
+        <section aria-label="Group number 1" class="list-group mb-1 m-last-0">
+            <header class="list-group-item bg-body-tertiary fw-bold">Group number 1</header>
+            <div class="list-group-item">Item 1.1</div>
+            <div class="list-group-item">Item 1.2</div>
+            <div class="list-group-item">Item 1.3</div>
+            <div class="list-group-item">Item 1.4</div>
+        </section>
+
+        <section aria-label="Group number 2" class="list-group mb-1 m-last-0">
+            <header class="list-group-item bg-body-tertiary fw-bold">Group number 2</header>
+            <div class="list-group-item">Item 2.1</div>
+            <div class="list-group-item">Item 2.2</div>
+            <div class="list-group-item">Item 2.3</div>
+            <div class="list-group-item">Item 2.4</div>
+        </section>
+
+        <section aria-label="Group number 3" class="list-group mb-1 m-last-0">
+            <header class="list-group-item bg-body-tertiary fw-bold">Group number 3</header>
+            <div class="list-group-item">Item 3.1</div>
+            <div class="list-group-item">Item 3.2</div>
+            <div class="list-group-item">Item 3.3</div>
+            <div class="list-group-item">Item 3.4</div>
+        </section>
+
+        <section aria-label="Group number 4" class="list-group mb-1 m-last-0">
+            <header class="list-group-item bg-body-tertiary fw-bold">Group 4</header>
+            <div class="list-group-item">Item 4.1</div>
+            <div class="list-group-item">Item 4.2</div>
+            <div class="list-group-item">Item 4.3</div>
+            <div class="list-group-item">Item 4.4</div>
+        </section>
+    </div>
+</div>
+```
+
+<Grab items={[{ src: "@/dist/styles/_scrollspy.scss" }]} />
