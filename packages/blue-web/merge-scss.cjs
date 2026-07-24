@@ -65,7 +65,5 @@ const mergedSCSS = mergeSCSS(entryFile)
 
 // Name für die Ausgabe bestimmen
 const outputFile = path.join(path.dirname(entryFile), "merged.scss")
-const outputFile2 = path.join(__dirname, "site", "public", "merged.scss")
 fs.writeFileSync(outputFile, mergedSCSS)
-fs.writeFileSync(outputFile2, mergedSCSS)
 console.log(`✅ SCSS-Dateien erfolgreich zusammengeführt -> ${outputFile}`)
