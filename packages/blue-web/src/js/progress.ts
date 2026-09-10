@@ -1,7 +1,7 @@
 window.blueWeb = window.blueWeb || {}
 
 window.blueWeb.progress = {
-    progress: 0
+    instances: new Map([])
 }
 
 window.blueWeb.progress = {
@@ -37,20 +37,22 @@ window.blueWeb.progress = {
         const progressBar = progressEl.querySelector(".progress-bar") as HTMLElement | null
         if (!progressBar) return
 
-        window.blueWeb.progress.progress = 0
+        window.blueWeb.progress.instances.set(id, 0)
 
         var interval = setInterval(function () {
+            let progress = window.blueWeb.progress.instances.get(id)
             // Simuliere einen natürlichen Anstieg
-            var increment = Math.random() * (window.blueWeb.progress.progress < 90 ? 5 : 0.1) // Zufälliger Anstieg zwischen 0 und 5
-            window.blueWeb.progress.progress += increment
-            window.blueWeb.progress.progress = Math.min(window.blueWeb.progress.progress, 99) // Fortschritt darf nicht über 100% gehen
+            var increment = Math.random() * (progress < 90 ? 5 : 0.1) // Zufälliger Anstieg zwischen 0 und 5
+            progress += increment
+            progress = Math.min(progress, 99) // Fortschritt darf nicht über 100% gehen
+            window.blueWeb.progress.instances.set(id, progress)
 
             // Aktualisiere die Progressbar
-            progressBar.style.width = window.blueWeb.progress.progress + "%"
-            progressEl?.setAttribute("aria-valuenow", Math.round(window.blueWeb.progress.progress).toString())
+            progressBar.style.width = progress + "%"
+            progressEl?.setAttribute("aria-valuenow", Math.round(progress).toString())
 
             // Stoppe das Intervall, wenn 100% erreicht sind
-            if (window.blueWeb.progress.progress >= 100) {
+            if (progress >= 100) {
                 clearInterval(interval)
             }
         }, 200) // Update alle 200ms
@@ -58,7 +60,7 @@ window.blueWeb.progress = {
     stop: (id = "blueWebProgress") => {
         const progressEl = document.getElementById(id)
         if (!progressEl) return
-        window.blueWeb.progress.progress = 100
+        window.blueWeb.progress.instances.set(id, 100)
 
         setTimeout(() => {
             progressEl.remove()

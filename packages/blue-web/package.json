@@ -1,6 +1,6 @@
 {
     "name": "blue-web",
-    "version": "1.30.2",
+    "version": "1.30.3",
     "description": "UI components built on top of Bootstrap 5",
     "license": "LGPL-3.0-or-later",
     "type": "module",
