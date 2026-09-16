@@ -24,6 +24,7 @@
         "release": "npm publish && npm run deploy"
     },
     "dependencies": {
+        "@awesome.me/webawesome": "^3.12.0",
         "@popperjs/core": "^2.11.5",
         "blue-web": "workspace:*",
         "bootstrap": "~5.3.3",

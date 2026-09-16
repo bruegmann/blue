@@ -1,6 +1,8 @@
 ---
 import "$/styles/site.scss"
 import BlueReactLayout from "blue-react/dist/components/Layout.js"
+import LayoutBody from "blue-react/dist/components/LayoutBody.js"
+import LayoutSplitter from "blue-react/dist/components/LayoutSplitter.js"
 import HeaderTitle from "blue-react/dist/components/HeaderTitle.js"
 import Menu from "../components/Menu.astro"
 import { ThemeGeneratorSwitch } from "$/components/ThemeGenerator"
@@ -128,34 +130,38 @@ const { title, description } = Astro.props
             </Fragment>
             <Menu slot="side" />
 
-            <slot />
+            <LayoutBody>
+                <slot />
 
-            <footer class="docs-footer mt-auto">
-                <div class="container d-flex mt-5 pb-1">
-                    <p class="text-muted mb-0 flex-grow-1">
-                        <small>
-                            {`©${new Date().getFullYear() || "2021"} Brügmann Software GmbH. `}
-                            <a href="license-report">License Report</a>
-                            {" - "}
-                            <a href="https://github.com/bruegmann/blue" target="_blank" rel="noopener noreferrer">
-                                Code on GitHub
-                            </a>
-                            {" - "}
-                            <a href="https://bruegmann.github.io/" target="_blank" rel="noopener noreferrer">
-                                More projects
-                            </a>
-                            {" - "}
-                            <a href="https://patorg.de/imprint/" target="_blank" rel="noopener noreferrer"> Imprint </a>
-                            {" - "}
-                            <a href="https://patorg.de/privacy-policy/" target="_blank" rel="noopener noreferrer">
-                                Privacy Policy
-                            </a>
-                        </small>
-                    </p>
+                <footer class="docs-footer mt-auto">
+                    <div class="container d-flex mt-5 pb-1">
+                        <p class="text-muted mb-0 flex-grow-1">
+                            <small>
+                                {`©${new Date().getFullYear() || "2021"} Brügmann Software GmbH. `}
+                                <a href="license-report">License Report</a>
+                                {" - "}
+                                <a href="https://github.com/bruegmann/blue" target="_blank" rel="noopener noreferrer">
+                                    Code on GitHub
+                                </a>
+                                {" - "}
+                                <a href="https://bruegmann.github.io/" target="_blank" rel="noopener noreferrer">
+                                    More projects
+                                </a>
+                                {" - "}
+                                <a href="https://patorg.de/imprint/" target="_blank" rel="noopener noreferrer">
+                                    Imprint
+                                </a>
+                                {" - "}
+                                <a href="https://patorg.de/privacy-policy/" target="_blank" rel="noopener noreferrer">
+                                    Privacy Policy
+                                </a>
+                            </small>
+                        </p>
 
-                    <!-- <ColorModeSwitch client:only /> -->
-                </div>
-            </footer>
+                        <!-- <ColorModeSwitch client:only /> -->
+                    </div>
+                </footer>
+            </LayoutBody>
         </BlueReactLayout>
     </body>
 </html>

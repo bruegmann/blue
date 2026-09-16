@@ -2312,6 +2312,48 @@ You can customize the element further by setting a custom ID, parent element and
 </script>
 ```
 
+### Multiple instances
+
+```html
+<div id="instance1" class="border rounded-2 p-3 position-relative mb-1">
+    <button id="startButton3a" type="button" class="btn blue-btn-soft-secondary">Start</button>
+    <button id="stopButton3a" type="button" class="btn blue-btn-soft-secondary">Stop</button>
+</div>
+
+<div id="instance2" class="border rounded-2 p-3 position-relative mb-1">
+    <button id="startButton3b" type="button" class="btn blue-btn-soft-secondary">Start</button>
+    <button id="stopButton3b" type="button" class="btn blue-btn-soft-secondary">Stop</button>
+</div>
+
+<script>
+    startButton3a.addEventListener("click", async () => {
+        blueWeb.progress.start(
+            "myElementProgress3a",
+            document.getElementById("instance1"),
+            "Loading data for my element",
+            "position-absolute top-0 start-0 end-0"
+        )
+    })
+
+    stopButton3a.addEventListener("click", async () => {
+        blueWeb.progress.stop("myElementProgress3a")
+    })
+
+    startButton3b.addEventListener("click", async () => {
+        blueWeb.progress.start(
+            "myElementProgress3b",
+            document.getElementById("instance2"),
+            "Loading data for my element",
+            "position-absolute top-0 start-0 end-0"
+        )
+    })
+
+    stopButton3b.addEventListener("click", async () => {
+        blueWeb.progress.stop("myElementProgress3b")
+    })
+</script>
+```
+
 
 
 

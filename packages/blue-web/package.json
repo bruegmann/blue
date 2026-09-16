@@ -1,6 +1,6 @@
 {
     "name": "blue-web",
-    "version": "1.30.3",
+    "version": "1.30.3012",
     "description": "UI components built on top of Bootstrap 5",
     "license": "LGPL-3.0-or-later",
     "type": "module",
@@ -28,6 +28,9 @@
     "dependencies": {
         "@popperjs/core": "^2.11.5",
         "bootstrap": "~5.3.8"
+    },
+    "peerDependencies": {
+        "@awesome.me/webawesome": "^3.12.0"
     },
     "devDependencies": {
         "@babel/cli": "^7.10.4",

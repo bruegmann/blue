@@ -102,3 +102,37 @@
         --bs-link-hover-color: #{$link-hover-color-dark};
     }
 }
+
+.blue-layout-splitter {
+    height: 100%;
+
+    &:is(wa-split-panel) {
+        &:not([disabled]) {
+            --min: 244px;
+            --max: calc(100% - 4rem);
+
+            &::part(divider) {
+                cursor: ew-resize;
+            }
+        }
+
+        &[disabled]::part(divider) {
+            width: 0;
+            overflow: hidden;
+        }
+    }
+}
+
+.blue-layout-inspector {
+    &:not([open]) {
+        & > .offcanvas {
+            --spacing: 0.5rem;
+            width: 100%;
+            height: calc(100% - var(--spacing));
+
+            & > .offcanvas-body {
+                padding-inline: var(--spacing);
+            }
+        }
+    }
+}
