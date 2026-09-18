@@ -1,5 +1,5 @@
 /*!
- * Blue Web v1.30.3020 (https://bruegmann.github.io/blue-web)
+ * Blue Web v1.30.3 (https://bruegmann.github.io/blue-web)
  * Licensed under GNU General Public License v3.0 (https://github.com/bruegmann/blue-web/blob/master/LICENSE).
 */
 
@@ -12155,6 +12155,7 @@ dialog.blue-modal:has(.offcanvas-start) {
         &:not([resizable]) {
             & > *:first-child {
                 width: 100%;
+                height: 100%;
             }
             & > *:last-child {
                 @include media-breakpoint-up(lg) {
