@@ -1,28 +1,33 @@
-import React, {
-    CSSProperties,
-    ReactNode,
-    useEffect,
-    useId,
-    useRef
-} from "react"
+import React, { ComponentProps, ReactNode, RefObject, useEffect, useId, useRef } from "react"
 import clsx from "clsx"
 import { init, dispose } from "blue-web/dist/js/layout.js"
 import { getPhrase } from "./shared"
 
-export interface LayoutProps {
-    children?: React.ReactNode
-    className?: string
-    style?: CSSProperties
+export type LayoutProps = {
     header?: React.ReactNode
     side?: React.ReactNode
+
     noPageBorder?: boolean
+    /**
+     * If you don't use `LayoutSplitter`, put page's body content in here.
+     */
+    page?: React.ReactNode
+
     drawerTitle?: ReactNode
 
     /**
      * For SSR you can pass server's country code to solve hydration problems.
      */
     countryCode?: string
-}
+
+    /**
+     * If set, an event listener will be added to the Blue Web Layout element.
+     * This callback function helps you get the current state of the inspector. To control the
+     * inspector, use the `toggleInspector`, `openInspector`, `closeInspector` by Blue Web.
+     */
+    onInspectorChange?: (open: boolean) => void
+    ref?: RefObject<HTMLDivElement | null>
+} & ComponentProps<"div">
 
 /**
  * A layout with header, side and main content area. Side is collapsible.
@@ -30,14 +35,18 @@ export interface LayoutProps {
 export default function Layout({
     children,
     className,
-    style,
     header,
     side,
-    noPageBorder = false,
+    noPageBorder,
+    page,
     drawerTitle,
-    countryCode
+    countryCode,
+    onInspectorChange,
+    ref,
+    ...props
 }: LayoutProps) {
-    const ref = useRef<HTMLDivElement>(null)
+    const fallbackRef = useRef<HTMLDivElement>(null)
+    const divRef = ref || fallbackRef
 
     const idPrefix = useId()
     const sideId = `${idPrefix}side`
@@ -45,19 +54,37 @@ export default function Layout({
     const drawerLabelId = `${idPrefix}drawerLabel`
 
     useEffect(() => {
-        if (ref.current) {
-            init(ref.current)
+        if (divRef.current) {
+            const instance = init(divRef.current)
+
+            if (onInspectorChange) {
+                const isOpen = divRef.current.dataset.blueInspectorOpen !== undefined
+                onInspectorChange(isOpen)
+            }
+
+            if (onInspectorChange) {
+                divRef.current.addEventListener(
+                    "blue-inspector-change",
+                    ({ target }) => {
+                        if (target) {
+                            const isOpen = (target as HTMLElement).dataset.blueInspectorOpen !== undefined
+                            onInspectorChange(isOpen)
+                        }
+                    },
+                    { signal: instance?.controller.signal }
+                )
+            }
         }
 
         return () => {
-            if (ref.current) {
-                dispose(ref.current)
+            if (divRef.current) {
+                dispose(divRef.current)
             }
         }
     }, [])
 
     return (
-        <div ref={ref} className={clsx("blue-layout", className)} style={style}>
+        <div ref={divRef} className={clsx("blue-layout", className)} {...props}>
             <header className="blue-layout-header">
                 <button
                     type="button"
@@ -106,23 +133,13 @@ export default function Layout({
             </header>
 
             <div id={sideId} className="blue-layout-side">
-                <dialog
-                    className="blue-lg-modal blue-modal modal"
-                    id={drawerId}
-                    aria-describedby={drawerLabelId}
-                >
+                <dialog className="blue-lg-modal blue-modal modal" id={drawerId} aria-labelledby={drawerLabelId}>
                     <div className="offcanvas offcanvas-start">
                         <div className="offcanvas-header">
-                            <h1
-                                className="h5 offcanvas-title"
-                                id={drawerLabelId}
-                            >
+                            <h1 className="h5 offcanvas-title" id={drawerLabelId}>
                                 {drawerTitle || getPhrase("Menu", countryCode)}
                             </h1>
-                            <form
-                                method="dialog"
-                                style={{ display: "contents" }}
-                            >
+                            <form method="dialog" style={{ display: "contents" }}>
                                 <button
                                     type="submit"
                                     className="btn-close"
@@ -141,13 +158,15 @@ export default function Layout({
             </div>
 
             <main className="blue-layout-main">
-                <div
-                    className={clsx("blue-layout-body", {
-                        "border-0": noPageBorder
-                    })}
-                >
-                    {children}
-                </div>
+                {children || (
+                    <div
+                        className={clsx("blue-layout-body", {
+                            "border-0": noPageBorder
+                        })}
+                    >
+                        {page}
+                    </div>
+                )}
             </main>
         </div>
     )

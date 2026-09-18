@@ -1,13 +1,7 @@
 export type breakOption = "sm" | "md" | "lg" | "xl"
 export type ModalType = "ask" | "tell" | "verify"
 
-export type StatusType =
-    | null
-    | "loading"
-    | "success"
-    | "info"
-    | "warning"
-    | "danger"
+export type StatusType = null | "loading" | "success" | "info" | "warning" | "danger"
 export interface StatusAlert {
     title?: string
     alertClassName?: string
@@ -27,6 +21,7 @@ const phrases: Phrases = {
     Message: ["Message", "Nachricht"],
     "Toggle menu": ["Toggle menu", "Menü umschalten"],
     Menu: ["Menu", "Menü"],
+    Inspector: ["Inspector", "Inspektor"],
     "Toggle sidebar": ["Toggle sidebar", "Seitenleiste umschalten"],
     "Toggle details": ["Toggle details", "Details umschalten"],
     "Close all": ["Close all", "Alle schließen"],
@@ -49,10 +44,7 @@ export function getPhrase(
 ) {
     if (!countryCode) {
         if (typeof navigator !== "undefined" && navigator.language) {
-            countryCode =
-                navigator.language.toLowerCase().indexOf("de") > -1
-                    ? "de-DE"
-                    : "en-US"
+            countryCode = navigator.language.toLowerCase().indexOf("de") > -1 ? "de-DE" : "en-US"
         } else {
             countryCode = "en-US"
         }
