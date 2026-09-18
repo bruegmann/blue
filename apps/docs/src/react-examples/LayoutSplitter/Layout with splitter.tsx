@@ -1,32 +1,38 @@
 import Layout from "blue-react/dist/components/Layout"
 import LayoutSplitter from "blue-react/dist/components/LayoutSplitter"
 import Button from "blue-react/dist/components/Button"
-import { useRef, useState } from "react"
-import { toggleInspector } from "blue-web/dist/js/layout"
+import { useId, useRef, useState } from "react"
+import { closeInspector, openInspector, toggleInspector } from "blue-web/dist/js/layout"
 
 export default function LayoutWithSplitterExample() {
     const [showCommand, setShowCommand] = useState<"show-modal" | "show" | undefined>()
+    const [isInspectorOpen, setIsInspectorOpen] = useState<boolean>(false)
 
     const layoutDivRef = useRef<HTMLDivElement>(null)
+    const inspectorId = useId()
 
     return (
         <Layout
             ref={layoutDivRef}
-            id="demoLayout"
+            onInspectorChange={setIsInspectorOpen}
             style={{ height: "400px" }}
             header={
                 <>
                     <Button
                         label="Toggle Inspector"
+                        active={isInspectorOpen}
                         onClick={() => {
-                            if (layoutDivRef.current) toggleInspector("#demoLayout", showCommand)
+                            toggleInspector(layoutDivRef.current!, showCommand)
                         }}
+                        aria-controls={inspectorId}
+                        aria-expanded={isInspectorOpen}
                     />
                 </>
             }
         >
             <LayoutSplitter
                 drawerTitle="AI Chat"
+                inspectorId={inspectorId}
                 start={
                     <div className="container">
                         <p>Hello World</p>

@@ -1,17 +1,22 @@
 import { init as mrInit, dispose as mrDispose } from "./modal-responsive.js"
 
-type WaSplitterPanelBaseType = HTMLElement & {
-    disabled?: boolean
-    position?: number
+type SpSplitViewBaseType = HTMLElement & {
+    resizable?: boolean
+    collapsible?: boolean
+    splitterPos: number
+    minPos?: number
+    maxPos?: number
+    primaryMin?: string | number | null
+    primaryMax?: string | number | null
+    secondaryMin?: string | number | null
+    viewSize: number
 }
 
 export type Instance = {
     toggleLayoutSideEl: Element | null
     layoutSideEl: Element | null
     modalEl: HTMLDialogElement | null
-    splitterEl: WaSplitterPanelBaseType | null
-    toggleInspectorEl: HTMLElement | null
-    toggleInspectorEventListener: (() => void) | null
+    splitterEl: SpSplitViewBaseType | null
     inspectorEl: HTMLDialogElement | null
     controller: AbortController
 }
@@ -28,10 +33,9 @@ export function init(layoutEl: HTMLElement) {
     const toggleLayoutSideEl = layoutEl.querySelector('[data-blue-toggle="layout-side"]')
     const layoutSideEl = layoutEl.querySelector(".blue-layout-side")
     const modalEl = layoutEl.querySelector<HTMLDialogElement>(".blue-layout-side > dialog")
-    const splitterEl = layoutEl.querySelector<WaSplitterPanelBaseType>(
-        ".blue-layout-main > wa-split-panel.blue-layout-splitter"
+    const splitterEl = layoutEl.querySelector<SpSplitViewBaseType>(
+        ".blue-layout-main > sp-split-view.blue-layout-splitter"
     )
-    const toggleInspectorEl = layoutEl.querySelector<HTMLElement>('[data-blue-toggle="layout-inspector"]')
     const inspectorEl = layoutEl.querySelector<HTMLDialogElement>(".blue-layout-inspector")
 
     if (!toggleLayoutSideEl || !layoutSideEl || !modalEl) return
@@ -41,8 +45,6 @@ export function init(layoutEl: HTMLElement) {
         layoutSideEl,
         modalEl,
         splitterEl,
-        toggleInspectorEl,
-        toggleInspectorEventListener: () => toggleInspector(layoutEl),
         inspectorEl,
         controller
     }
@@ -58,16 +60,15 @@ export function init(layoutEl: HTMLElement) {
 
     toggleLayoutSideEl.addEventListener("click", () => toggleSidebar(layoutEl), { signal: controller.signal })
 
-    if (splitterEl && toggleInspectorEl && inspectorEl) {
-        toggleInspectorEl.addEventListener("click", instance.toggleInspectorEventListener, {
-            signal: controller.signal
-        })
+    if (splitterEl && inspectorEl) {
         mrInit(inspectorEl)
-        initInspector(layoutEl)
+        initInspector(layoutEl, instance)
     }
 
     mrInit(modalEl)
     layoutSideEl.classList.add("with-transition")
+
+    return instance
 }
 
 export function dispose(layoutEl: HTMLElement) {
@@ -98,76 +99,177 @@ function toggleSidebar(layoutEl: HTMLElement) {
     }
 }
 
-function initInspector(layoutEl: HTMLElement) {
-    const instance = instances.get(layoutEl)
-    if (!instance) return
+function setSplitterPosition(splitterEl: SpSplitViewBaseType, value: number) {
+    if (value < 0) splitterEl.splitterPos = 0
+    else if (splitterEl.maxPos && value > splitterEl.maxPos) splitterEl.splitterPos = splitterEl.maxPos
+    else splitterEl.splitterPos = value
+}
+
+function enableSplitter(layoutEl: HTMLElement, splitterEl: SpSplitViewBaseType) {
+    const inspectorSizeEntry = localStorage.getItem("blueLayoutInspectorSize")
+    if (inspectorSizeEntry) {
+        setSplitterPosition(splitterEl, splitterEl.viewSize - parseInt(inspectorSizeEntry))
+    } else {
+        setSplitterPosition(splitterEl, splitterEl.viewSize - 244)
+    }
+    splitterEl.resizable = true
+
+    splitterEl.dataset.blueInspectorSize = (splitterEl.viewSize - splitterEl.splitterPos).toString()
+    layoutEl.dataset.blueSplitterEnabled = ""
+}
+
+function disableSplitter(layoutEl: HTMLElement, splitterEl: SpSplitViewBaseType) {
+    setSplitterPosition(splitterEl, splitterEl.maxPos || splitterEl.viewSize)
+    splitterEl.resizable = false
+    delete layoutEl.dataset.blueSplitterEnabled
+}
+
+function initInspector(layoutEl: HTMLElement, instance: Instance) {
     const { splitterEl, inspectorEl, controller } = instance
     if (!splitterEl || !inspectorEl || !controller) return
 
-    const entry = localStorage.getItem("blueLayoutInspectorEnabled")
-    const enabled = entry != null
+    const enabled = localStorage.getItem("blueLayoutInspectorEnabled") != null
 
     if (enabled && getComputedStyle(inspectorEl).position !== "fixed") {
-        splitterEl.disabled = false
+        enableSplitter(layoutEl, splitterEl)
+    } else {
+        disableSplitter(layoutEl, splitterEl)
     }
+    updateInspectorState(layoutEl)
 
     window.addEventListener(
         "resize",
         () => {
-            if (splitterEl && inspectorEl && getComputedStyle(inspectorEl).display === "none") {
-                splitterEl.disabled = true
-                splitterEl.position = 0
+            if (splitterEl) {
+                if ((inspectorEl && getComputedStyle(inspectorEl).display === "none") || !splitterEl.resizable) {
+                    disableSplitter(layoutEl, splitterEl)
+                    updateInspectorState(layoutEl)
+                } else if (splitterEl.resizable && splitterEl.dataset.blueInspectorSize) {
+                    setSplitterPosition(
+                        splitterEl,
+                        splitterEl.viewSize - parseInt(splitterEl.dataset.blueInspectorSize)
+                    )
+                    updateInspectorState(layoutEl)
+                }
             }
         },
         { signal: controller.signal }
     )
+
+    splitterEl.addEventListener(
+        "change",
+        (e) => {
+            const splitterEl = e.target as SpSplitViewBaseType
+            let secondPaneSize = splitterEl.viewSize - splitterEl.splitterPos
+
+            if (secondPaneSize) {
+                secondPaneSize = Math.round(secondPaneSize)
+                splitterEl.dataset.blueInspectorSize = secondPaneSize.toString()
+                localStorage.setItem("blueLayoutInspectorSize", secondPaneSize.toString())
+            }
+        },
+        { signal: controller.signal }
+    )
+
+    inspectorEl.addEventListener(
+        "close",
+        () => {
+            updateInspectorState(layoutEl)
+        },
+        { signal: controller.signal }
+    )
+}
+
+function updateInspectorState(layoutTarget: HTMLElement | string) {
+    const layoutEl = typeof layoutTarget === "string" ? document.querySelector<HTMLElement>(layoutTarget) : layoutTarget
+    if (!layoutEl) return
+    const instance = instances.get(layoutEl)
+    if (!instance?.splitterEl || !instance.inspectorEl) return
+    const { splitterEl, inspectorEl } = instance
+
+    const isOpen = getComputedStyle(inspectorEl).position === "fixed" ? inspectorEl.open : splitterEl.resizable
+
+    const previousState = layoutEl.dataset.blueInspectorOpen
+
+    if (isOpen) layoutEl.dataset.blueInspectorOpen = ""
+    else delete layoutEl.dataset.blueInspectorOpen
+
+    if (previousState !== layoutEl.dataset.blueInspectorOpen) {
+        layoutEl.dispatchEvent(new Event("blue-inspector-change"))
+    }
+}
+
+export function openInspector(
+    layoutTarget: HTMLElement | string,
+    showCommand: "show-modal" | "show" | undefined = "show-modal"
+) {
+    const layoutEl = typeof layoutTarget === "string" ? document.querySelector<HTMLElement>(layoutTarget) : layoutTarget
+    if (!layoutEl) return
+
+    const instance = instances.get(layoutEl)
+    if (!instance?.splitterEl || !instance.inspectorEl) return
+
+    const { splitterEl, inspectorEl } = instance
+
+    if (getComputedStyle(inspectorEl).position === "fixed") {
+        // Is active as dialog
+        if (showCommand === "show") {
+            inspectorEl.show()
+        } else {
+            inspectorEl.showModal()
+        }
+    } else {
+        // Is active as split view
+        enableSplitter(layoutEl, splitterEl)
+        localStorage.setItem("blueLayoutInspectorEnabled", "")
+    }
+    updateInspectorState(layoutEl)
+}
+
+export function closeInspector(layoutTarget: HTMLElement | string) {
+    const layoutEl = typeof layoutTarget === "string" ? document.querySelector<HTMLElement>(layoutTarget) : layoutTarget
+
+    if (!layoutEl) return
+
+    const instance = instances.get(layoutEl)
+    if (!instance?.splitterEl || !instance.inspectorEl) return
+
+    const { splitterEl, inspectorEl } = instance
+
+    if (getComputedStyle(inspectorEl).position === "fixed") {
+        // Is active as dialog
+        inspectorEl.close()
+    } else {
+        // Is active as split view
+        disableSplitter(layoutEl, splitterEl)
+        localStorage.removeItem("blueLayoutInspectorEnabled")
+    }
+    updateInspectorState(layoutEl)
 }
 
 export function toggleInspector(
     layoutTarget: HTMLElement | string,
     showCommand: "show-modal" | "show" | undefined = "show-modal"
 ) {
-    console.log("toggleInspector")
-    console.log(layoutTarget, showCommand)
-
-    let layoutEl: HTMLElement | null = layoutTarget as HTMLElement
-    if (typeof layoutTarget === "string" || layoutTarget instanceof String) {
-        layoutEl = document.querySelector(layoutTarget as string)
-    }
-
-    console.log(layoutEl)
+    const layoutEl = typeof layoutTarget === "string" ? document.querySelector<HTMLElement>(layoutTarget) : layoutTarget
 
     if (!layoutEl) return
 
     const instance = instances.get(layoutEl)
-    if (!instance) return
-    const { splitterEl, toggleInspectorEl, inspectorEl } = instance
-    if (!splitterEl || !inspectorEl) return
+    if (!instance?.splitterEl || !instance.inspectorEl) return
 
-    if (getComputedStyle(inspectorEl).position === "fixed") {
-        // Is active as dialog
-        if (inspectorEl.open) {
-            inspectorEl.close()
-        } else {
-            if (showCommand === "show" || toggleInspectorEl?.dataset.blueShowCommand === "show") {
-                inspectorEl.show()
-            } else {
-                inspectorEl.showModal()
-            }
-        }
+    const { splitterEl, inspectorEl } = instance
+
+    const isOpen = getComputedStyle(inspectorEl).position === "fixed" ? inspectorEl.open : splitterEl.resizable
+
+    if (isOpen) {
+        closeInspector(layoutTarget)
     } else {
-        if (splitterEl.disabled) {
-            splitterEl.disabled = false
-            localStorage.setItem("blueLayoutInspectorEnabled", "")
-        } else {
-            splitterEl.disabled = true
-            splitterEl.position = 0
-            localStorage.removeItem("blueLayoutInspectorEnabled")
-        }
+        openInspector(layoutTarget, showCommand)
     }
 }
 
 if (typeof window !== "undefined") {
     window.blueWeb = window.blueWeb || {}
-    window.blueWeb.layout = { init, dispose, instances, toggleInspector }
+    window.blueWeb.layout = { init, dispose, instances, toggleInspector, openInspector, closeInspector }
 }

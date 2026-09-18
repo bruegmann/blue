@@ -1,4 +1,4 @@
-import React, { ComponentProps, CSSProperties, ReactNode, RefObject, useEffect, useId, useRef } from "react"
+import React, { ComponentProps, ReactNode, RefObject, useEffect, useId, useRef } from "react"
 import clsx from "clsx"
 import { init, dispose } from "blue-web/dist/js/layout.js"
 import { getPhrase } from "./shared"
@@ -6,12 +6,26 @@ import { getPhrase } from "./shared"
 export type LayoutProps = {
     header?: React.ReactNode
     side?: React.ReactNode
+
+    noPageBorder?: boolean
+    /**
+     * If you don't use `LayoutSplitter`, put page's body content in here.
+     */
+    page?: React.ReactNode
+
     drawerTitle?: ReactNode
 
     /**
      * For SSR you can pass server's country code to solve hydration problems.
      */
     countryCode?: string
+
+    /**
+     * If set, an event listener will be added to the Blue Web Layout element.
+     * This callback function helps you get the current state of the inspector. To control the
+     * inspector, use the `toggleInspector`, `openInspector`, `closeInspector` by Blue Web.
+     */
+    onInspectorChange?: (open: boolean) => void
     ref?: RefObject<HTMLDivElement | null>
 } & ComponentProps<"div">
 
@@ -23,12 +37,16 @@ export default function Layout({
     className,
     header,
     side,
+    noPageBorder,
+    page,
     drawerTitle,
     countryCode,
+    onInspectorChange,
     ref,
     ...props
 }: LayoutProps) {
-    const divRef = ref || useRef<HTMLDivElement>(null)
+    const fallbackRef = useRef<HTMLDivElement>(null)
+    const divRef = ref || fallbackRef
 
     const idPrefix = useId()
     const sideId = `${idPrefix}side`
@@ -37,7 +55,25 @@ export default function Layout({
 
     useEffect(() => {
         if (divRef.current) {
-            init(divRef.current)
+            const instance = init(divRef.current)
+
+            if (onInspectorChange) {
+                const isOpen = divRef.current.dataset.blueInspectorOpen !== undefined
+                onInspectorChange(isOpen)
+            }
+
+            if (onInspectorChange) {
+                divRef.current.addEventListener(
+                    "blue-inspector-change",
+                    ({ target }) => {
+                        if (target) {
+                            const isOpen = (target as HTMLElement).dataset.blueInspectorOpen !== undefined
+                            onInspectorChange(isOpen)
+                        }
+                    },
+                    { signal: instance?.controller.signal }
+                )
+            }
         }
 
         return () => {
@@ -121,7 +157,17 @@ export default function Layout({
                 </dialog>
             </div>
 
-            <main className="blue-layout-main">{children}</main>
+            <main className="blue-layout-main">
+                {children || (
+                    <div
+                        className={clsx("blue-layout-body", {
+                            "border-0": noPageBorder
+                        })}
+                    >
+                        {page}
+                    </div>
+                )}
+            </main>
         </div>
     )
 }

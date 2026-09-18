@@ -258,6 +258,10 @@ const mixedMenuItems = Object.keys(import.meta.glob("/src/pages/mixed/*")).map((
                                 {item.label === "Text and Icons" && <Type slot="iconBefore" />}
                                 {item.label === "Tooltip" && <MenuUp slot="iconBefore" />}
                                 {item.label === "Utilities" && <Tools slot="iconBefore" />}
+
+                                {["LayoutSplitter"].includes(item.label) && (
+                                    <span slot="buttonContent" class="docs-badge docs-badge-new" />
+                                )}
                             </MenuItem>
                         ))}
                     </div>

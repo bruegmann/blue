@@ -9,6 +9,9 @@ export default global
 export { default as Layout } from "./dist/components/Layout"
 export { LayoutProps } from "./dist/components/Layout"
 
+export { default as LayoutSplitter } from "./dist/components/LayoutSplitter"
+export { LayoutSplitterProps } from "./dist/components/LayoutSplitter"
+
 export { default as A } from "./dist/components/A"
 export { AProps } from "./dist/components/A"
 
@@ -73,12 +76,6 @@ export { StatusProps } from "./dist/components/Status"
 
 export { StatusProvider, useStatus } from "./dist/components/StatusProvider"
 
-export {
-    ToastProvider,
-    ToastProviderProps,
-    useToast,
-    ToastItem,
-    ToastItemType
-} from "./dist/components/ToastProvider"
+export { ToastProvider, ToastProviderProps, useToast, ToastItem, ToastItemType } from "./dist/components/ToastProvider"
 
 export { default as Utilities } from "./dist/components/Utilities"

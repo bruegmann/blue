@@ -24,8 +24,8 @@
         "release": "npm publish && npm run deploy"
     },
     "dependencies": {
-        "@awesome.me/webawesome": "^3.12.0",
         "@popperjs/core": "^2.11.5",
+        "@spectrum-web-components/split-view": "^1.12.2",
         "blue-web": "workspace:*",
         "bootstrap": "~5.3.3",
         "clsx": "^1.1.1"

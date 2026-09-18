@@ -1,8 +1,6 @@
 ---
 import "$/styles/site.scss"
 import BlueReactLayout from "blue-react/dist/components/Layout.js"
-import LayoutBody from "blue-react/dist/components/LayoutBody.js"
-import LayoutSplitter from "blue-react/dist/components/LayoutSplitter.js"
 import HeaderTitle from "blue-react/dist/components/HeaderTitle.js"
 import Menu from "../components/Menu.astro"
 import { ThemeGeneratorSwitch } from "$/components/ThemeGenerator"
@@ -130,7 +128,7 @@ const { title, description } = Astro.props
             </Fragment>
             <Menu slot="side" />
 
-            <LayoutBody>
+            <div class="blue-layout-body">
                 <slot />
 
                 <footer class="docs-footer mt-auto">
@@ -161,7 +159,7 @@ const { title, description } = Astro.props
                         <!-- <ColorModeSwitch client:only /> -->
                     </div>
                 </footer>
-            </LayoutBody>
+            </div>
         </BlueReactLayout>
     </body>
 </html>

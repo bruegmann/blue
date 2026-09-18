@@ -1,5 +1,5 @@
 /*!
- * Blue Web v1.30.3012 (https://bruegmann.github.io/blue-web)
+ * Blue Web v1.30.3020 (https://bruegmann.github.io/blue-web)
  * Licensed under GNU General Public License v3.0 (https://github.com/bruegmann/blue-web/blob/master/LICENSE).
 */
 
@@ -12129,19 +12129,38 @@ dialog.blue-modal:has(.offcanvas-start) {
 .blue-layout-splitter {
     height: 100%;
 
-    &:is(wa-split-panel) {
-        &:not([disabled]) {
-            --min: 244px;
-            --max: calc(100% - 4rem);
+    // Set styles for sp-split-view
+    &:is(sp-split-view) {
+        --mod-splitview-handle-background-color: transparent;
+        --mod-splitview-handle-background-color-down: var(--bs-primary-text-emphasis);
+        --mod-splitview-handle-background-color-hover: var(--bs-gray-400);
+        --mod-splitview-handle-background-color-key-focus: var(--bs-gray-300);
+        --mod-splitview-handle-background-color-mouse-focus: var(--bs-gray-300);
+        --mod-splitview-handle-width: 6px;
+        --mod-splitview-handle-height: 6px;
+        --mod-splitview-gripper-width: 0;
+        --mod-splitview-gripper-border-width-vertical: 0;
+        --mod-splitview-gripper-border-width-horizontal: 0;
 
-            &::part(divider) {
-                cursor: ew-resize;
+        @media (prefers-color-scheme: dark) {
+            & {
+                --mod-splitview-handle-background-color: transparent;
+                --mod-splitview-handle-background-color-down: var(--bs-primary-text-emphasis);
+                --mod-splitview-handle-background-color-hover: var(--bs-gray-600);
+                --mod-splitview-handle-background-color-key-focus: var(--bs-gray-700);
+                --mod-splitview-handle-background-color-mouse-focus: var(--bs-gray-700);
             }
         }
 
-        &[disabled]::part(divider) {
-            width: 0;
-            overflow: hidden;
+        &:not([resizable]) {
+            & > *:first-child {
+                width: 100%;
+            }
+            & > *:last-child {
+                @include media-breakpoint-up(lg) {
+                    display: none;
+                }
+            }
         }
     }
 }
