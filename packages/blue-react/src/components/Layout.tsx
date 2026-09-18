@@ -133,7 +133,7 @@ export default function Layout({
             </header>
 
             <div id={sideId} className="blue-layout-side">
-                <dialog className="blue-lg-modal blue-modal modal" id={drawerId} aria-describedby={drawerLabelId}>
+                <dialog className="blue-lg-modal blue-modal modal" id={drawerId} aria-labelledby={drawerLabelId}>
                     <div className="offcanvas offcanvas-start">
                         <div className="offcanvas-header">
                             <h1 className="h5 offcanvas-title" id={drawerLabelId}>

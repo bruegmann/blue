@@ -36,6 +36,7 @@ export type LayoutSplitterProps = Omit<ComponentProps<"sp-split-view">, "childre
 }
 
 /**
+ * Might require React 19 or higher!
  * Allows to create a split view between the layout's main content and an inspector next to it.
  * Doesn't support SSR out of the box.
  */
@@ -68,7 +69,7 @@ export default function LayoutSplitter({
                 <dialog
                     className="blue-layout-inspector blue-lg-modal blue-modal modal"
                     id={inspectorId}
-                    aria-describedby={drawerLabelId}
+                    aria-labelledby={drawerLabelId}
                 >
                     <div className="offcanvas offcanvas-end">
                         <div className="offcanvas-header">

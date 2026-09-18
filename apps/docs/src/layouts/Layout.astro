@@ -128,7 +128,7 @@ const { title, description } = Astro.props
             </Fragment>
             <Menu slot="side" />
 
-            <div class="blue-layout-body">
+            <Fragment slot="page">
                 <slot />
 
                 <footer class="docs-footer mt-auto">
@@ -159,7 +159,7 @@ const { title, description } = Astro.props
                         <!-- <ColorModeSwitch client:only /> -->
                     </div>
                 </footer>
-            </div>
+            </Fragment>
         </BlueReactLayout>
     </body>
 </html>

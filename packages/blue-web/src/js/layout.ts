@@ -107,11 +107,8 @@ function setSplitterPosition(splitterEl: SpSplitViewBaseType, value: number) {
 
 function enableSplitter(layoutEl: HTMLElement, splitterEl: SpSplitViewBaseType) {
     const inspectorSizeEntry = localStorage.getItem("blueLayoutInspectorSize")
-    if (inspectorSizeEntry) {
-        setSplitterPosition(splitterEl, splitterEl.viewSize - parseInt(inspectorSizeEntry))
-    } else {
-        setSplitterPosition(splitterEl, splitterEl.viewSize - 244)
-    }
+    const inspectorSize = inspectorSizeEntry ? Number.parseInt(inspectorSizeEntry, 10) : NaN
+    setSplitterPosition(splitterEl, splitterEl.viewSize - (Number.isFinite(inspectorSize) ? inspectorSize : 244))
     splitterEl.resizable = true
 
     splitterEl.dataset.blueInspectorSize = (splitterEl.viewSize - splitterEl.splitterPos).toString()
