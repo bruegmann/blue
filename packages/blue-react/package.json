@@ -20,7 +20,7 @@
         "build-types": "tsc -p tsconfig.app.json --declaration --emitDeclarationOnly --declarationDir ./dist --noEmit false --composite false",
         "build": "babel ./src/components --out-dir ./dist/components --extensions \".tsx,.js,.ts\"",
         "build-release": "npm run build-types && npm run build",
-        "prepublishOnly": "npm i && npm run build-release",
+        "NOT_prepublishOnly": "npm i && npm run build-release",
         "release": "npm publish && npm run deploy"
     },
     "dependencies": {

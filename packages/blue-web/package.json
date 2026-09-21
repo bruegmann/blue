@@ -20,7 +20,7 @@
         "build-css": "node ./setVersionToStyleScss.cjs && sass --load-path=. ./dist/style.scss:./dist/style.css && npx postcss ./dist/style.css --use autoprefixer -r && npx postcss ./dist/style.css --use postcss-minify -o ./dist/style.min.css",
         "build-neu-css": "sass --load-path=. ./dist/neu.scss:./dist/neu.css && npx postcss ./dist/neu.css --use autoprefixer -r && npx postcss ./dist/neu.css --use postcss-minify -o ./dist/neu.min.css",
         "build-release": "npm run build-types && npm run build && npm run build-bundles && npm run build-css && node merge-scss.cjs dist/style.scss",
-        "prepublishOnly": "npm i && npm run build-release",
+        "NOT_prepublishOnly": "npm i && npm run build-release",
         "prettier": "npx prettier --write .",
         "version": "npm run build-release && git add -A",
         "postversion": "git push --follow-tags"
