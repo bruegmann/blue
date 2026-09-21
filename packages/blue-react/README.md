@@ -21,44 +21,57 @@ npm i blue-react
 
 `blue-react` has `blue-web` and `bootstrap` as dependencies, so these will be installed automatically.
 
+## Breaking changes between v11 and v12
+
+### Changes in Layout component
+
+`children` doesn't get wrapped around a `div.blue-layout-body` anymore. Put your page's content into the `page` slot instead:
+
+```diff
+- <Layout><h1>Hello World</h1></Layout>
++ <Layout page={<h1>Hello World</h1>} />
+```
+
+This lets you place other elements, such as the new `LayoutSplitter` component, in the layout's main area through `children`.
+
 ## Breaking changes between v10 and v11
 
 ### Fundamental changes in `MenuItem`
 
--   Removed props
-    -   onClickAttached
-    -   iconClassName
-    -   labelClassName
-    -   caretClassName
-    -   caretStyle
-    -   isHome
-    -   dropdownClassName
-    -   dropdownStyle
-    -   showDropdown
-    -   onShowDropdown
-    -   supportOutside
-    -   outsideIgnoreClasses
--   Renamed
-    -   iconForActive -> iconForCurrent
-    -   isActive -> current
-    -   highlighted -> active
--   Changed behviour. Menu item no longer has built in styling if `draggable`. But since Menu item extends HTML Button or A element, props `draggable`, `onDragStart` etc. should still work.
--   Added
-    -   sm
-    -   lg
-    -   iconBefore
-    -   iconAfter
-    -   labelHidden
-    -   busy
-    -   success
-    -   defaultDisplay
-    -   buttonContent
-    -   as
+- Removed props
+    - onClickAttached
+    - iconClassName
+    - labelClassName
+    - caretClassName
+    - caretStyle
+    - isHome
+    - dropdownClassName
+    - dropdownStyle
+    - showDropdown
+    - onShowDropdown
+    - supportOutside
+    - outsideIgnoreClasses
+- Renamed
+    - iconForActive -> iconForCurrent
+    - isActive -> current
+    - highlighted -> active
+- Changed behviour. Menu item no longer has built in styling if `draggable`. But since Menu item extends HTML Button or A element, props `draggable`, `onDragStart` etc. should still work.
+- Added
+    - sm
+    - lg
+    - iconBefore
+    - iconAfter
+    - labelHidden
+    - busy
+    - success
+    - defaultDisplay
+    - buttonContent
+    - as
 
 The previous Menu Item with the older API is still available as `LegacyMenuItem`, but will be removed in a future release. Because of styling changes in Blue Web, it might not behave the same.
 
 ### Removed deprecated components
 
--   Body
--   Page
--   SidebarToggler
+- Body
+- Page
+- SidebarToggler
