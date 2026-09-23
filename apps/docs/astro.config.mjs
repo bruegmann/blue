@@ -7,6 +7,7 @@ import remarkRender from "./src/plugins/remark-render.mjs"
 import fs from "fs"
 import { fileURLToPath } from "url"
 import path from "path"
+import { getComponents } from "./src/utils/react"
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -62,7 +63,12 @@ directories.forEach((dir) => {
 // Schreibe den gesammelten Inhalt in die llms.txt-Datei
 fs.writeFileSync(llmsTxtOutput, allContent.trim(), "utf-8")
 
-const searchIndex = [...readPages("css"), ...readPages("js")]
+const searchIndex = [
+    ...readPages("css"),
+    ...readPages("js"),
+    ...readPages("mixed"),
+    ...(await getComponents()).map((c) => `react/${c}`)
+]
 fs.writeFileSync(searchIndexOutput, JSON.stringify(searchIndex), "utf-8")
 
 console.log("llms.txt wurde erfolgreich erstellt!")

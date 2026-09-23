@@ -3,7 +3,9 @@ import SidebarMenu from "blue-react/dist/components/SidebarMenu.js"
 import MenuItem from "blue-react/dist/components/MenuItem.js"
 import {
     ArrowRepeat,
+    ArrowsExpand,
     ArrowsVertical,
+    App,
     BarChartSteps,
     BodyText,
     CardChecklist,
@@ -12,15 +14,16 @@ import {
     Columns,
     CursorText,
     HandIndex,
-    House,
-    HouseFill,
     Icon9Square,
     InputCursorText,
     LayersHalf,
     LayoutSidebarInset,
+    LayoutSidebarReverse,
     LayoutTextWindowReverse,
+    Link45deg,
     MenuApp,
     MenuButton,
+    MenuButtonWide,
     MenuDown,
     MenuUp,
     Palette,
@@ -31,7 +34,9 @@ import {
     ThreeDots,
     Tools,
     Type,
-    WindowStack
+    WindowStack,
+    Window as WindowIcon,
+    ChevronRight
 } from "react-bootstrap-icons"
 import { getComponents } from "$/utils/react"
 
@@ -57,7 +62,7 @@ function prepareSectionMenuItem(path: string, section: "css" | "js" | "mixed" | 
     return {
         path: itemPath,
         label: cleanPath,
-        isActive: currentPath.startsWith(itemPath)
+        isActive: currentPath === itemPath
     }
 }
 
@@ -96,16 +101,6 @@ const mixedMenuItems = Object.keys(import.meta.glob("/src/pages/mixed/*")).map((
         !isCurrent("react") && (
             <>
                 <ul class="list-unstyled d-flex flex-column">
-                    <li>
-                        <MenuItem href="." label="Start" current={currentPath === import.meta.env.BASE_URL}>
-                            {currentPath === import.meta.env.BASE_URL ? (
-                                <HouseFill slot="iconBefore" />
-                            ) : (
-                                <House slot="iconBefore" />
-                            )}
-                        </MenuItem>
-                    </li>
-
                     <li>
                         <MenuItem
                             href="typography"
@@ -149,6 +144,7 @@ const mixedMenuItems = Object.keys(import.meta.glob("/src/pages/mixed/*")).map((
                         <div class="vstack">
                             {cssMenuItems.map((item) => (
                                 <MenuItem href={item.path} label={item.label} current={item.isActive}>
+                                    {item.label === "Accordion" && <ArrowsExpand slot="iconBefore" />}
                                     {item.label === "Buttons" && <PlayBtnFill slot="iconBefore" />}
                                     {item.label === "Collapse" && <CardHeading slot="iconBefore" />}
                                     {item.label === "Container Grid" && <Columns slot="iconBefore" />}
@@ -166,6 +162,10 @@ const mixedMenuItems = Object.keys(import.meta.glob("/src/pages/mixed/*")).map((
                                     {item.label === "Text and Icons" && <Type slot="iconBefore" />}
                                     {item.label === "Tooltip" && <MenuUp slot="iconBefore" />}
                                     {item.label === "Utilities" && <Tools slot="iconBefore" />}
+
+                                    {["Accordion"].includes(item.label) && (
+                                        <span slot="buttonContent" class="docs-badge docs-badge-new" />
+                                    )}
 
                                     {["Layout", "Modal"].includes(item.label) && (
                                         <span slot="buttonContent" class="docs-badge docs-badge-update" />
@@ -230,36 +230,30 @@ const mixedMenuItems = Object.keys(import.meta.glob("/src/pages/mixed/*")).map((
     {
         isCurrent("react") && (
             <ul class="list-unstyled d-flex flex-column">
-                <li class="mb-3">
-                    <MenuItem href="react" label="Start" current={isCurrent("react", true)}>
-                        {isCurrent("react", true) ? <HouseFill slot="iconBefore" /> : <House slot="iconBefore" />}
-                    </MenuItem>
-                </li>
-
                 <li>
                     <strong class="ps-2">Components</strong>
                     <div class="vstack">
                         {reactMenuItems.map((item) => (
                             <MenuItem href={item.path} label={item.label} current={item.isActive}>
-                                {item.label === "Buttons" && <PlayBtnFill slot="iconBefore" />}
-                                {item.label === "Collapse" && <CardHeading slot="iconBefore" />}
-                                {item.label === "Container Grid" && <Columns slot="iconBefore" />}
-                                {item.label === "Header" && <CardHeading slot="iconBefore" />}
-                                {item.label === "Hover" && <HandIndex slot="iconBefore" />}
-                                {item.label === "Menu Item" && <MenuButton slot="iconBefore" />}
-                                {item.label === "Modal" && <WindowStack slot="iconBefore" />}
-                                {item.label === "Neumorphism" && <LayersHalf slot="iconBefore" />}
-                                {item.label === "Popover" && <MenuDown slot="iconBefore" />}
-                                {item.label === "Scrollbar" && <ArrowsVertical slot="iconBefore" />}
-                                {item.label === "Scrollspy" && <SegmentedNav slot="iconBefore" />}
-                                {item.label === "Input group" && <Search slot="iconBefore" />}
+                                {item.label === "A" && <Link45deg slot="iconBefore" />}
+                                {item.label === "Actions" && <MenuButtonWide slot="iconBefore" />}
+                                {(item.label === "Accordion" || item.label === "AccordionItem") && (
+                                    <ArrowsExpand slot="iconBefore" />
+                                )}
+                                {item.label === "Chevron" && <ChevronRight slot="iconBefore" />}
+                                {item.label === "FieldGroup" && <CardHeading slot="iconBefore" />}
+                                {item.label === "Search" && <Search slot="iconBefore" />}
+                                {item.label === "SimpleLayout" && <WindowIcon slot="iconBefore" />}
+                                {item.label === "MenuItem" && <App slot="iconBefore" />}
+                                {item.label === "Button" && <PlayBtnFill slot="iconBefore" />}
                                 {item.label === "Intro" && <Postcard slot="iconBefore" />}
-                                {item.label === "Tabs" && <SegmentedNav slot="iconBefore" />}
-                                {item.label === "Text and Icons" && <Type slot="iconBefore" />}
-                                {item.label === "Tooltip" && <MenuUp slot="iconBefore" />}
-                                {item.label === "Utilities" && <Tools slot="iconBefore" />}
+                                {item.label === "Header" && <CardHeading slot="iconBefore" />}
+                                {item.label === "Layout" && <LayoutTextWindowReverse slot="iconBefore" />}
+                                {item.label === "LayoutSplitter" && <LayoutSidebarReverse slot="iconBefore" />}
+                                {item.label === "Modal" && <WindowStack slot="iconBefore" />}
+                                {(item.label === "Tab" || item.label === "Tabs") && <SegmentedNav slot="iconBefore" />}
 
-                                {["LayoutSplitter"].includes(item.label) && (
+                                {["LayoutSplitter", "Accordion", "AccordionItem"].includes(item.label) && (
                                     <span slot="buttonContent" class="docs-badge docs-badge-new" />
                                 )}
                             </MenuItem>
