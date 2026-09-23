@@ -15,6 +15,12 @@ export { LayoutSplitterProps } from "./dist/components/LayoutSplitter"
 export { default as A } from "./dist/components/A"
 export { AProps } from "./dist/components/A"
 
+export { default as Accordion } from "./dist/components/Accordion"
+export { AccordionProps } from "./dist/components/Accordion"
+
+export { default as AccordionItem } from "./dist/components/AccordionItem"
+export { AccordionItemProps } from "./dist/components/AccordionItem"
+
 export { default as ActionMenu } from "./dist/components/ActionMenu"
 export { ActionMenuProps } from "./dist/components/ActionMenu"
 

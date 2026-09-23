@@ -1,4 +1,6 @@
 export { default as A } from "./dist/components/A.js"
+export { default as Accordion } from "./dist/components/Accordion.js"
+export { default as AccordionItem } from "./dist/components/AccordionItem.js"
 export { default as ActionMenu } from "./dist/components/ActionMenu.js"
 export { default as Actions } from "./dist/components/Actions.js"
 export { default as Button } from "./dist/components/Button.js"
