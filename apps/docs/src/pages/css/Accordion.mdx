@@ -1,0 +1,37 @@
+---
+layout: $/layouts/DocsLayout.astro
+---
+
+import RenderBlock from "$/components/RenderBlock.astro"
+import Grab from "$/components/Grab.astro"
+
+# Accordion
+
+Give a set of `detail` elements the same `name` attribute and they will behave like an accordion, with only one item open at a time.
+
+```html use:RenderBlock
+<div class="accordion">
+    <details class="accordion-item blue-collapse" name="accordion">
+        <summary class="accordion-header">
+            <header class="accordion-button collapsed">Accordion item 1</header>
+        </summary>
+        <div class="accordion-body">Show something</div>
+    </details>
+
+    <details class="accordion-item blue-collapse" name="accordion">
+        <summary class="accordion-header">
+            <header class="accordion-button collapsed">Accordion item 2</header>
+        </summary>
+        <div class="accordion-body">Show something</div>
+    </details>
+
+    <details class="accordion-item blue-collapse" name="accordion">
+        <summary class="accordion-header">
+            <header class="accordion-button collapsed">Accordion item 3</header>
+        </summary>
+        <div class="accordion-body">Show something</div>
+    </details>
+</div>
+```
+
+<Grab items={[{ src: "@/dist/styles/_accordion.scss" }, { src: "@/dist/styles/_collapse.scss" }]} />

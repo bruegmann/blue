@@ -74,6 +74,40 @@ An example of how to override CSS variables:
 ```
 
 
+
+## Accordion
+
+Give a set of `detail` elements the same `name` attribute and they will behave like an accordion, with only one item open at a time.
+
+```html
+<div class="accordion">
+    <details class="accordion-item blue-collapse" name="accordion">
+        <summary class="accordion-header">
+            <header class="accordion-button collapsed">Accordion item 1</header>
+        </summary>
+        <div class="accordion-body">Show something</div>
+    </details>
+
+    <details class="accordion-item blue-collapse" name="accordion">
+        <summary class="accordion-header">
+            <header class="accordion-button collapsed">Accordion item 2</header>
+        </summary>
+        <div class="accordion-body">Show something</div>
+    </details>
+
+    <details class="accordion-item blue-collapse" name="accordion">
+        <summary class="accordion-header">
+            <header class="accordion-button collapsed">Accordion item 3</header>
+        </summary>
+        <div class="accordion-body">Show something</div>
+    </details>
+</div>
+```
+
+
+
+
+
 ## Buttons
 
 Blue Web added some button variants to Bootstrap's default button styles. These variants are designed to be used in conjunction with the default Bootstrap button classes.
