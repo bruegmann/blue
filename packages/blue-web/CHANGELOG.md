@@ -1,5 +1,11 @@
 # blue-web
 
+## 1.32.1
+
+### Patch Changes
+
+- Improved styling for inspector.
+
 ## 1.32.0
 
 ### Minor Changes

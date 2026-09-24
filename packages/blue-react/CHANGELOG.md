@@ -1,5 +1,13 @@
 # blue-react
 
+## 13.0.1
+
+### Patch Changes
+
+- Improved styling for inspector.
+- Updated dependencies []:
+    - blue-web@1.32.1
+
 ## 13.0.0
 
 ### Major Changes
@@ -13,7 +21,7 @@
 ### Patch Changes
 
 - Updated dependencies [[`559fa8b`](https://github.com/bruegmann/blue/commit/559fa8bfe81289fde2395cce924bd4be37168ff3)]:
-  - blue-web@1.32.0
+    - blue-web@1.32.0
 
 ## 12.0.0
 
@@ -24,4 +32,4 @@
 ### Patch Changes
 
 - Updated dependencies []:
-  - blue-web@1.31.0
+    - blue-web@1.31.0
