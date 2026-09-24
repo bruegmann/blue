@@ -85,7 +85,7 @@ export function dispose(layoutEl: HTMLElement) {
 function toggleSidebar(layoutEl: HTMLElement) {
     const instance = instances.get(layoutEl)
     if (!instance) return
-    const { layoutSideEl, toggleLayoutSideEl } = instance
+    const { layoutSideEl, toggleLayoutSideEl, splitterEl } = instance
     if (!layoutSideEl || !toggleLayoutSideEl) return
 
     layoutSideEl.classList.toggle("d-lg-none")
@@ -97,6 +97,11 @@ function toggleSidebar(layoutEl: HTMLElement) {
     } else {
         localStorage.setItem("blueLayoutSideShrink", "")
     }
+
+    if (!splitterEl) return
+    setTimeout(() => {
+        adjustSplitter(layoutEl, splitterEl)
+    }, 10)
 }
 
 function setSplitterPosition(splitterEl: SpSplitViewBaseType, value: number) {
@@ -121,6 +126,13 @@ function disableSplitter(layoutEl: HTMLElement, splitterEl: SpSplitViewBaseType)
     delete layoutEl.dataset.blueSplitterEnabled
 }
 
+function adjustSplitter(layoutEl: HTMLElement, splitterEl: SpSplitViewBaseType) {
+    if (splitterEl.resizable && splitterEl.dataset.blueInspectorSize) {
+        setSplitterPosition(splitterEl, splitterEl.viewSize - parseInt(splitterEl.dataset.blueInspectorSize))
+        updateInspectorState(layoutEl)
+    }
+}
+
 function initInspector(layoutEl: HTMLElement, instance: Instance) {
     const { splitterEl, inspectorEl, controller } = instance
     if (!splitterEl || !inspectorEl || !controller) return
@@ -141,12 +153,8 @@ function initInspector(layoutEl: HTMLElement, instance: Instance) {
                 if ((inspectorEl && getComputedStyle(inspectorEl).display === "none") || !splitterEl.resizable) {
                     disableSplitter(layoutEl, splitterEl)
                     updateInspectorState(layoutEl)
-                } else if (splitterEl.resizable && splitterEl.dataset.blueInspectorSize) {
-                    setSplitterPosition(
-                        splitterEl,
-                        splitterEl.viewSize - parseInt(splitterEl.dataset.blueInspectorSize)
-                    )
-                    updateInspectorState(layoutEl)
+                } else {
+                    adjustSplitter(layoutEl, splitterEl)
                 }
             }
         },

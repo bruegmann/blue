@@ -84,7 +84,9 @@ export default function LayoutSplitter({
                                 ></button>
                             </form>
                         </div>
-                        <div className="offcanvas-body">{end}</div>
+                        <div className="offcanvas-body">
+                            <div className="blue-layout-inspector-body">{end}</div>
+                        </div>
                     </div>
                     <form method="dialog" className="blue-modal-backdrop">
                         <button>{getPhrase("Close", countryCode)}</button>

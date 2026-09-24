@@ -52,7 +52,7 @@ export default function LayoutWithSplitterExample() {
                 }
                 end={
                     <div className="vstack h-100">
-                        <div className="d-flex border rounded-2">
+                        <div className="d-flex border-bottom">
                             <Button label="New Chat" iconBefore={<>➕</>} sm variant="menu-item" />
                             <Button label="Save" iconBefore={<>✔️</>} sm variant="menu-item" />
                         </div>
@@ -62,18 +62,20 @@ export default function LayoutWithSplitterExample() {
                             <small>The chat is empty</small>
                         </div>
 
-                        <div className="bg-body border rounded p-1">
-                            <div className="text-secondary p-2 pb-5">Placeholder text...</div>
-                            <div className="text-end">
-                                <Button
-                                    label="Send"
-                                    labelHidden
-                                    iconBefore={<>⬆️</>}
-                                    color="primary"
-                                    variant="filled"
-                                    square
-                                    disabled
-                                />
+                        <div className="p-2">
+                            <div className="bg-body border rounded p-1">
+                                <div className="text-secondary p-2 pb-5">Placeholder text...</div>
+                                <div className="text-end">
+                                    <Button
+                                        label="Send"
+                                        labelHidden
+                                        iconBefore={<>⬆️</>}
+                                        color="primary"
+                                        variant="filled"
+                                        square
+                                        disabled
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>
