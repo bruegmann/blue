@@ -83,7 +83,8 @@ export default defineConfig({
             preprocessorOptions: {
                 scss: {
                     api: "legacy",
-                    includePaths: ["node_modules"]
+                    includePaths: ["node_modules"],
+                    silenceDeprecations: ["color-functions", "global-builtin", "if-function", "import", "legacy-js-api"]
                 }
             }
         }
