@@ -27,7 +27,7 @@ Blue Web offers a set of code to create a layout with a header, collapsible side
     <header class="blue-layout-header">
         <button
             type="button"
-            class="btn blue-menu-item blue-btn-square d-flex lg:d-none"
+            class="btn-icon blue-menu-item d-flex lg:d-none"
             command="show-modal"
             commandfor="layoutDrawer"
             aria-label="Open drawer"
@@ -40,7 +40,7 @@ Blue Web offers a set of code to create a layout with a header, collapsible side
         <button
             id="toggleLayoutSide"
             type="button"
-            class="btn blue-menu-item blue-btn-square d-none lg:d-flex"
+            class="btn-icon blue-menu-item d-none lg:d-flex"
             data-blue-toggle="layout-side"
             aria-controls="layoutSide"
             aria-expanded="true"
@@ -82,7 +82,7 @@ Blue Web offers a set of code to create a layout with a header, collapsible side
         <div class="blue-layout-body">
             <p>Your main content here</p>
 
-            <button type="button" class="btn blue-btn-soft-primary" onclick="blueWeb.layout.dispose(newLayout)">
+            <button type="button" class="btn theme-primary btn-subtle" onclick="blueWeb.layout.dispose(newLayout)">
                 Dispose layout instance
             </button>
         </div>

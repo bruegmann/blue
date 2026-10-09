@@ -74,7 +74,7 @@ export default function LayoutWithSplitterExample() {
                                         iconBefore={<>⬆️</>}
                                         color="primary"
                                         variant="filled"
-                                        square
+                                        icon
                                         disabled
                                     />
                                 </div>

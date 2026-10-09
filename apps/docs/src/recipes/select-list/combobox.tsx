@@ -111,6 +111,7 @@ export function Combobox({
     style,
     popoverEnd,
     labelHidden,
+    icon,
     scrollspy,
     selectListMaxHeight = "400px"
 }: {
@@ -125,6 +126,7 @@ export function Combobox({
     style?: CSSProperties
     popoverEnd?: boolean
     labelHidden?: boolean
+    icon?: boolean
     scrollspy?: boolean
     selectListMaxHeight?: string
 }) {
@@ -148,6 +150,7 @@ export function Combobox({
                 id={id}
                 label={currentDisplay || `${t.Select}...`}
                 labelHidden={labelHidden}
+                icon={icon}
                 iconAfter={<ChevronDown />}
                 popoverTarget={popoverId}
                 variant={variant}

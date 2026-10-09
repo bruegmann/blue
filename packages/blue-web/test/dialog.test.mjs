@@ -97,6 +97,18 @@ test("confirmation acceptance resolves true", async () => {
     assert.equal(await result, true)
 })
 
+test("dialog action buttons use Bootstrap's text and solid variants", async () => {
+    const { verify, elements, markup } = setup()
+    for (const switchPrimaryBtn of [false, true]) {
+        const result = verify("Confirm", { switchPrimaryBtn })
+        assert.match(markup(), new RegExp(`class="btn theme-primary ${switchPrimaryBtn ? "btn-solid" : "btn-text"}"`))
+        assert.match(markup(), new RegExp(`class="btn theme-primary ${switchPrimaryBtn ? "btn-text" : "btn-solid"}"`))
+        assert.doesNotMatch(markup(), /blue-btn-(?:soft|plain)-/)
+        elements.get("test-dialog").submit()
+        assert.equal(await result, true)
+    }
+})
+
 test("a delayed close event cannot remove a subsequent dialog reusing its ID", async () => {
     const { ask, elements, flushCloses } = setup()
     const first = ask("First", { id: "reused" })

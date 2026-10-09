@@ -45,6 +45,8 @@ JavaScript files are compiled as ES modules. This allows you to use import funct
 
 ## Customization and theming
 
+For changes specific to Blue's styles, see the [Blue Web migration guide](MIGRATION.md). React component changes have a [separate guide](../blue-react/MIGRATION.md).
+
 Blue Web now uses **Bootstrap 6.0.0-alpha.1**. This is a breaking, prerelease upgrade: migrate Bootstrap classes and markup as well as your Sass. See the [Bootstrap migration guide](https://getbootstrap.com/docs/6.0/migration/).
 
 Sass uses modules rather than global imports. Blue's configuration is forwarded by the entrypoint; configure it once with `@use ... with`. Bootstrap token maps merge overrides with their defaults. Blue's additional settings live in [dist/styles/_variables.scss](dist/styles/_variables.scss).
@@ -95,7 +97,7 @@ Use `light-dark()` for adaptive colors and `data-bs-theme="light"` / `"dark"` to
 - Replace v5 scalar variables such as `$border-radius` with `$radius`, and component scalars with their `$*-tokens` maps.
 - Replace `--bs-body-bg`, `--bs-body-color`, and `--bs-primary` with `--bg-body`, `--fg-body`, and `--primary-base`. RGB tokens are gone; use `color-mix()`.
 - Use `lg:d-none`, `md:col-6`, and `2xl:*` responsive classes. Blue retains its existing viewport thresholds (992px, 1200px, 1400px) under the new names.
-- Use `btn-solid theme-primary`, `btn-subtle theme-primary`, and `btn-text theme-primary`. Blue's `btn blue-btn-soft-*` and `btn blue-btn-plain-*` hooks remain available.
+- Use `btn-solid theme-primary`, `btn-subtle theme-primary`, and `btn-text theme-primary`. The custom button variants have been removed: replace `blue-btn-soft-*` with `theme-* btn-subtle` and `blue-btn-plain-*` with `theme-* btn-text`. Map legacy `light`/`dark` suffixes to `secondary`/`inverse`. Blue's `theme-theme` remains available for the configured Blue theme color.
 - Dialogs and drawers must be native `<dialog>` elements with `.dialog` or `.drawer`; remove the old content/positioning wrappers. `.blue-modal` and `.blue-lg-modal` remain Blue hooks on that same element.
 - Bootstrap JavaScript is ESM-only; import `Dialog`, `Drawer`, and `Menu` instead of `Modal`, `Offcanvas`, and `Dropdown`. Remove `@types/bootstrap`; the alpha includes declarations.
 - Blue overrides are in `@layer custom`, so Bootstrap helpers and utilities can still override them.

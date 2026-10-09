@@ -66,17 +66,14 @@ async function dialog(dialogType: DialogType, text: string, options: DialogOptio
                             dialogType === "verify" || dialogType === "ask"
                                 ? /* HTML */ `<button
                                       type="button"
-                                      class="btn ${switchPrimaryBtn ? "btn-solid theme-primary" : "blue-btn-plain-primary"}"
+                                      class="btn theme-primary ${switchPrimaryBtn ? "btn-solid" : "btn-text"}"
                                       onclick="document.getElementById('${_id}').close()"
                                   >
                                       ${cancelBtnText}
                                   </button>`
                                 : ""
                         }
-                        <button
-                            type="submit"
-                            class="btn ${switchPrimaryBtn ? "blue-btn-plain-primary" : "btn-solid theme-primary"}"
-                        >
+                        <button type="submit" class="btn theme-primary ${switchPrimaryBtn ? "btn-text" : "btn-solid"}">
                             ${acceptBtnText}
                         </button>
                     </div>

@@ -12,6 +12,8 @@
     & > svg {
         width: var(--icon-link-icon-size, 1em);
         height: var(--icon-link-icon-size, 1em);
+        min-width: 16px;
+        min-height: 16px;
         fill: currentcolor;
     }
 }
@@ -23,9 +25,4 @@
             transform: var(--icon-link-transform, var(--icon-link-icon-transform, translateX(0.25em)));
         }
     }
-}
-
-.blue-btn-square {
-    padding-inline: var(--btn-padding-y);
-    aspect-ratio: 1;
 }

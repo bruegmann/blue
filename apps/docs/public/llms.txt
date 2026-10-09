@@ -45,6 +45,8 @@ JavaScript files are compiled as ES modules. This allows you to use import funct
 
 ## Customization and theming
 
+For changes specific to Blue's styles, see the [Blue Web migration guide](MIGRATION.md). React component changes have a [separate guide](../blue-react/MIGRATION.md).
+
 Blue Web now uses **Bootstrap 6.0.0-alpha.1**. This is a breaking, prerelease upgrade: migrate Bootstrap classes and markup as well as your Sass. See the [Bootstrap migration guide](https://getbootstrap.com/docs/6.0/migration/).
 
 Sass uses modules rather than global imports. Blue's configuration is forwarded by the entrypoint; configure it once with `@use ... with`. Bootstrap token maps merge overrides with their defaults. Blue's additional settings live in [dist/styles/_variables.scss](dist/styles/_variables.scss).
@@ -95,7 +97,7 @@ Use `light-dark()` for adaptive colors and `data-bs-theme="light"` / `"dark"` to
 - Replace v5 scalar variables such as `$border-radius` with `$radius`, and component scalars with their `$*-tokens` maps.
 - Replace `--bs-body-bg`, `--bs-body-color`, and `--bs-primary` with `--bg-body`, `--fg-body`, and `--primary-base`. RGB tokens are gone; use `color-mix()`.
 - Use `lg:d-none`, `md:col-6`, and `2xl:*` responsive classes. Blue retains its existing viewport thresholds (992px, 1200px, 1400px) under the new names.
-- Use `btn-solid theme-primary`, `btn-subtle theme-primary`, and `btn-text theme-primary`. Blue's `btn blue-btn-soft-*` and `btn blue-btn-plain-*` hooks remain available.
+- Use `btn-solid theme-primary`, `btn-subtle theme-primary`, and `btn-text theme-primary`. The custom button variants have been removed: replace `blue-btn-soft-*` with `theme-* btn-subtle` and `blue-btn-plain-*` with `theme-* btn-text`. Map legacy `light`/`dark` suffixes to `secondary`/`inverse`. Blue's `theme-theme` remains available for the configured Blue theme color.
 - Dialogs and drawers must be native `<dialog>` elements with `.dialog` or `.drawer`; remove the old content/positioning wrappers. `.blue-modal` and `.blue-lg-modal` remain Blue hooks on that same element.
 - Bootstrap JavaScript is ESM-only; import `Dialog`, `Drawer`, and `Menu` instead of `Modal`, `Offcanvas`, and `Dropdown`. Remove `@types/bootstrap`; the alpha includes declarations.
 - Blue overrides are in `@layer custom`, so Bootstrap helpers and utilities can still override them.
@@ -143,74 +145,6 @@ Give a set of `detail` elements the same `name` attribute and they will behave l
 ```
 
 
-
-
-
-## Buttons
-
-Blue Web added some button variants to Bootstrap's default button styles. These variants are designed to be used in conjunction with the default Bootstrap button classes.
-
-### `.blue-btn-soft-*`
-
-```html
-<button type="button" class="btn blue-btn-soft-primary">Primary</button>
-<button type="button" class="btn blue-btn-soft-secondary">Secondary</button>
-<button type="button" class="btn blue-btn-soft-success">Success</button>
-<button type="button" class="btn blue-btn-soft-danger">Danger</button>
-<button type="button" class="btn blue-btn-soft-warning">Warning</button>
-<button type="button" class="btn blue-btn-soft-info">Info</button>
-<button type="button" class="btn blue-btn-soft-light">Light</button>
-<button type="button" class="btn blue-btn-soft-dark">Dark</button>
-```
-
-### `.blue-btn-plain-*`
-
-A plain variant of Bootstrap's buttons. Always use together with `.btn`!
-
-```html
-<button type="button" class="btn blue-btn-plain-primary">Primary</button>
-<button type="button" class="btn blue-btn-plain-secondary">Secondary</button>
-<button type="button" class="btn blue-btn-plain-success">Success</button>
-<button type="button" class="btn blue-btn-plain-danger">Danger</button>
-<button type="button" class="btn blue-btn-plain-warning">Warning</button>
-<button type="button" class="btn blue-btn-plain-info">Info</button>
-<button type="button" class="btn blue-btn-plain-light">Light</button>
-<button type="button" class="btn blue-btn-plain-dark">Dark</button>
-```
-
-### Button with icon
-
-Blue Web enhances [Bootstrap's icon link helper](https://getbootstrap.com/docs/6.0/helpers/icon-link/#example) with the `.blue-btn-icon-wrapper`
-class, enabling icons to be wrapped in a `span` element.
-This simplifies the integration for Blue React and Blue Blazor by allowing icons to be passed as props more easily.
-
-```html
-<button type="button" class="btn blue-btn-soft-secondary icon-link icon-link-hover">
-    Hover me!
-    <span class="blue-btn-icon-wrapper" aria-hidden="true"
-        ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10240 10240">
-            <path
-                d="M1634 3023l3200-1600c186-93 386-93 572 0l3200 1600c222 111 354 324 354 573v3688c0 249-132 462-354 573L5406 9457c-186 93-386 93-572 0L1634 7857c-222-111-354-324-354-573V3596c0-249 132-462 354-573zm286 853v3408l2880 1440V5316L1920 3876zm5968-496L5120 1996 2352 3380l2768 1384 2768-1384z"
-            ></path></svg
-    ></span>
-</button>
-```
-
-### Button with icon only
-
-Use `.icon-link` together with `.blue-btn-square` to adjust the padding, so the button is a square.
-
-```html
-<button type="button" class="btn blue-btn-soft-secondary icon-link blue-btn-square">
-    <span class="visually-hidden">Hover me!</span>
-    <span class="blue-btn-icon-wrapper" aria-hidden="true"
-        ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10240 10240">
-            <path
-                d="M1634 3023l3200-1600c186-93 386-93 572 0l3200 1600c222 111 354 324 354 573v3688c0 249-132 462-354 573L5406 9457c-186 93-386 93-572 0L1634 7857c-222-111-354-324-354-573V3596c0-249 132-462 354-573zm286 853v3408l2880 1440V5316L1920 3876zm5968-496L5120 1996 2352 3380l2768 1384 2768-1384z"
-            ></path></svg
-    ></span>
-</button>
-```
 
 
 
@@ -314,7 +248,7 @@ Element with class `blue-collapse-chevron` will be rotated to `90deg` by default
 <div class="blue-collapse-group">
     <button type="button" class="btn blue-menu-item">Parent</button>
     <details class="blue-collapse">
-        <summary class="btn blue-collapse-header blue-menu-item icon-link blue-btn-square">
+        <summary class="btn-icon blue-collapse-header blue-menu-item icon-link">
             <span class="visually-hidden">Collapse sub menu</span>
             <span class="blue-btn-icon-wrapper" aria-hidden>
                 <svg xmlns="http://www.w3.org/2000/svg" class="blue-collapse-chevron" viewBox="0 0 16 16">
@@ -349,7 +283,7 @@ Element with class `blue-collapse-chevron` will be rotated to `90deg` by default
             Parent
         </button>
         <details class="blue-collapse">
-            <summary class="btn blue-collapse-header blue-menu-item icon-link blue-btn-square">
+            <summary class="btn-icon blue-collapse-header blue-menu-item icon-link">
                 <span class="visually-hidden">Collapse sub menu</span>
                 <span class="blue-btn-icon-wrapper" aria-hidden>
                     <svg xmlns="http://www.w3.org/2000/svg" class="blue-collapse-chevron" viewBox="0 0 16 16">
@@ -550,7 +484,7 @@ Styles for interactive elements in sidebar and in header area.
 
 ### With icon
 
-This is the same approach as in [Buttons](Buttons#button-with-icon).
+Blue's `.blue-btn-icon-wrapper` lets icons be wrapped in a `span` when using [Bootstrap's icon link helper](https://getbootstrap.com/docs/6.0/helpers/icon-link/). Use `.btn-icon` instead of `.btn` for an icon-only button and give it an accessible label.
 
 ```html
 <button class="btn blue-menu-item icon-link">
@@ -568,7 +502,7 @@ This is the same approach as in [Buttons](Buttons#button-with-icon).
     Hover me
 </button>
 
-<button class="btn blue-menu-item icon-link blue-btn-square">
+<button class="btn-icon blue-menu-item icon-link">
     <span class="blue-btn-icon-wrapper" aria-hidden>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
             <path
@@ -761,7 +695,7 @@ Could be used inside the sidebar.
 Bootstrap 6 [Dialogs](https://getbootstrap.com/docs/6.0/components/dialog/) use the native dialog element. Blue's `.blue-modal` hook remains available, without positioning/content wrappers or a separate backdrop form. Use `closedby="any"` for native backdrop dismissal in supporting browsers, or Bootstrap's `Dialog` JavaScript for its dismissal API.
 
 ```html
-<button type="button" class="btn blue-btn-soft-primary" onclick="my_modal.showModal()">Open modal</button>
+<button type="button" class="btn theme-primary btn-subtle" onclick="my_modal.showModal()">Open modal</button>
 
 <dialog class="blue-modal dialog" id="my_modal" closedby="any">
     <div class="dialog-header">
@@ -779,7 +713,7 @@ Bootstrap 6 [Dialogs](https://getbootstrap.com/docs/6.0/components/dialog/) use 
 Bootstrap 6 [Drawers](https://getbootstrap.com/docs/6.0/components/drawer/) also use a native dialog, with `.drawer` and a placement class on that same element.
 
 ```html
-<button type="button" class="btn blue-btn-soft-primary" onclick="my_drawer.showModal()">Open drawer</button>
+<button type="button" class="btn theme-primary btn-subtle" onclick="my_drawer.showModal()">Open drawer</button>
 
 <dialog class="blue-modal drawer drawer-start" id="my_drawer" aria-labelledby="drawerExampleLabel" closedby="any">
     <div class="drawer-header">
@@ -800,7 +734,7 @@ Bootstrap 6 [Drawers](https://getbootstrap.com/docs/6.0/components/drawer/) also
 ### Dialog in Drawer
 
 ```html
-<button type="button" class="btn blue-btn-soft-primary" onclick="my_drawer2.showModal()">Open drawer</button>
+<button type="button" class="btn theme-primary btn-subtle" onclick="my_drawer2.showModal()">Open drawer</button>
 
 <dialog class="blue-modal drawer drawer-start" id="my_drawer2" aria-labelledby="drawerExampleLabel2" closedby="any">
     <div class="drawer-header">
@@ -815,7 +749,7 @@ Bootstrap 6 [Drawers](https://getbootstrap.com/docs/6.0/components/drawer/) also
             etc.
         </div>
 
-        <button type="button" class="btn blue-btn-soft-primary" onclick="my_modal2.showModal()">Open modal</button>
+        <button type="button" class="btn theme-primary btn-subtle" onclick="my_modal2.showModal()">Open modal</button>
 
         <dialog class="blue-modal dialog" id="my_modal2" closedby="any">
             <div class="dialog-header">
@@ -835,17 +769,17 @@ Bootstrap 6 [Drawers](https://getbootstrap.com/docs/6.0/components/drawer/) also
 If you use `dialog.showModal()`, the dialog will be inside the top layer, above anything else on your page, also if other elements have an higher `z-index`. Use `dialog.show()` instead and it will be inside the main layer.
 
 ```html
-<button type="button" class="btn blue-btn-soft-primary" onclick="my_modal.show()">Open modal with .show()</button>
-<button type="button" class="btn blue-btn-soft-primary" onclick="my_drawer.show()">
+<button type="button" class="btn theme-primary btn-subtle" onclick="my_modal.show()">Open modal with .show()</button>
+<button type="button" class="btn theme-primary btn-subtle" onclick="my_drawer.show()">
     Open drawer with .show()
 </button>
 
 <br />
 
-<button type="button" class="btn blue-btn-soft-primary" onclick="my_modal.showModal()">
+<button type="button" class="btn theme-primary btn-subtle" onclick="my_modal.showModal()">
     Open modal with .showModal()
 </button>
-<button type="button" class="btn blue-btn-soft-primary" onclick="my_drawer.showModal()">
+<button type="button" class="btn theme-primary btn-subtle" onclick="my_drawer.showModal()">
     Open drawer with .showModal()
 </button>
 
@@ -1711,7 +1645,7 @@ The JavaScript function `init` returns an object with the function `destroy()`. 
 and global event listeners will be removed. Try to click the button. It will destroy the actions from above.
 
 ```html
-<button id="destroyActionsDemoMenuItems" type="button" class="btn blue-btn-soft-danger">Destroy</button>
+<button id="destroyActionsDemoMenuItems" type="button" class="btn theme-danger btn-subtle">Destroy</button>
 <script>
     destroyActionsDemoMenuItems.addEventListener("click", () => {
         window.actionDemoPopoverResponse.destroy()
@@ -1862,7 +1796,7 @@ They are not meant to be used as a replacement for more complex modals.
 #### Verify
 
 ```html
-<button type="button" class="btn blue-btn-soft-secondary" onclick="verifyUser()">Verify</button>
+<button type="button" class="btn theme-secondary btn-subtle" onclick="verifyUser()">Verify</button>
 
 <script>
     async function verifyUser() {
@@ -1875,7 +1809,7 @@ They are not meant to be used as a replacement for more complex modals.
 #### Tell
 
 ```html
-<button type="button" class="btn blue-btn-soft-secondary" onclick="tellUser()">Tell</button>
+<button type="button" class="btn theme-secondary btn-subtle" onclick="tellUser()">Tell</button>
 
 <script>
     async function tellUser() {
@@ -1887,7 +1821,7 @@ They are not meant to be used as a replacement for more complex modals.
 #### Ask
 
 ```html
-<button type="button" class="btn blue-btn-soft-secondary" onclick="askUser()">Ask</button>
+<button type="button" class="btn theme-secondary btn-subtle" onclick="askUser()">Ask</button>
 
 <script>
     async function askUser() {
@@ -1902,7 +1836,7 @@ They are not meant to be used as a replacement for more complex modals.
 #### Ask with default value
 
 ```html
-<button type="button" class="btn blue-btn-soft-secondary" onclick="askUserWithDefaultValue()">Ask</button>
+<button type="button" class="btn theme-secondary btn-subtle" onclick="askUserWithDefaultValue()">Ask</button>
 
 <script>
     async function askUserWithDefaultValue() {
@@ -1918,7 +1852,7 @@ They are not meant to be used as a replacement for more complex modals.
 #### Control dialog by ID
 
 ```html
-<button type="button" class="btn blue-btn-soft-secondary" onclick="openControlledTellDialog()">
+<button type="button" class="btn theme-secondary btn-subtle" onclick="openControlledTellDialog()">
     Open controlled dialog
 </button>
 
@@ -1949,7 +1883,7 @@ Group of input fields. Perfect e.g. for entering PIN or TOTP.
 
 ```html
 <bl-input-splitted id="disabledInputSplitted" length="4" disabled></bl-input-splitted>
-<button type="button" class="btn blue-btn-soft-secondary" onclick="toggleDisabled()">Toggle disabled</button>
+<button type="button" class="btn theme-secondary btn-subtle" onclick="toggleDisabled()">Toggle disabled</button>
 
 <script>
     function toggleDisabled() {
@@ -2028,14 +1962,14 @@ It’s designed for use in badges, notifications, dashboards, or any place where
 
 <div class="btn-group" role="group">
     <button
-        class="btn blue-btn-soft-secondary"
+        class="btn theme-secondary btn-subtle"
         onclick="this.parentNode.previousElementSibling.value--"
         aria-label="Decrement"
     >
         ➖
     </button>
     <button
-        class="btn blue-btn-soft-secondary"
+        class="btn theme-secondary btn-subtle"
         onclick="this.parentNode.previousElementSibling.value++"
         aria-label="Increment"
     >
@@ -2056,14 +1990,14 @@ It’s designed for use in badges, notifications, dashboards, or any place where
 
 <div class="btn-group" role="group">
     <button
-        class="btn blue-btn-soft-secondary"
+        class="btn theme-secondary btn-subtle"
         onclick="this.parentNode.previousElementSibling.querySelector('bl-odometer').value--"
         aria-label="Decrement"
     >
         ➖
     </button>
     <button
-        class="btn blue-btn-soft-secondary"
+        class="btn theme-secondary btn-subtle"
         onclick="this.parentNode.previousElementSibling.querySelector('bl-odometer').value++"
         aria-label="Increment"
     >
@@ -2079,14 +2013,14 @@ It’s designed for use in badges, notifications, dashboards, or any place where
 
 <div class="btn-group" role="group">
     <button
-        class="btn blue-btn-soft-secondary"
+        class="btn theme-secondary btn-subtle"
         onclick="this.parentNode.previousElementSibling.value--"
         aria-label="Decrement"
     >
         ➖
     </button>
     <button
-        class="btn blue-btn-soft-secondary"
+        class="btn theme-secondary btn-subtle"
         onclick="this.parentNode.previousElementSibling.value++"
         aria-label="Increment"
     >
@@ -2136,14 +2070,14 @@ This allows you to add styling based on the new state. After 3 seconds the attri
 
 <div class="btn-group" role="group">
     <button
-        class="btn blue-btn-soft-secondary"
+        class="btn theme-secondary btn-subtle"
         onclick="this.parentNode.previousElementSibling.querySelector('bl-odometer').value--"
         aria-label="Decrement"
     >
         ➖
     </button>
     <button
-        class="btn blue-btn-soft-secondary"
+        class="btn theme-secondary btn-subtle"
         onclick="this.parentNode.previousElementSibling.querySelector('bl-odometer').value++"
         aria-label="Increment"
     >
@@ -2161,14 +2095,14 @@ You can change the duration using CSS variable `--bl-odometer-duration`. Default
 
 <div class="btn-group" role="group">
     <button
-        class="btn blue-btn-soft-secondary"
+        class="btn theme-secondary btn-subtle"
         onclick="this.parentNode.previousElementSibling.value--"
         aria-label="Decrement"
     >
         ➖
     </button>
     <button
-        class="btn blue-btn-soft-secondary"
+        class="btn theme-secondary btn-subtle"
         onclick="this.parentNode.previousElementSibling.value++"
         aria-label="Increment"
     >
@@ -2320,7 +2254,7 @@ A "fake" progress bar that will appear fixed at the top of the page.
 ### Start and stop
 
 ```html
-<button id="startButton" type="button" class="btn blue-btn-soft-secondary">Start</button>
+<button id="startButton" type="button" class="btn theme-secondary btn-subtle">Start</button>
 
 <script>
     startButton.addEventListener("click", async () => {
@@ -2330,7 +2264,7 @@ A "fake" progress bar that will appear fixed at the top of the page.
 ```
 
 ```html
-<button id="stopButton" type="button" class="btn blue-btn-soft-secondary">Stop</button>
+<button id="stopButton" type="button" class="btn theme-secondary btn-subtle">Stop</button>
 
 <script>
     stopButton.addEventListener("click", async () => {
@@ -2347,8 +2281,8 @@ You can customize the element further by setting a custom ID, parent element and
 <div id="myElement" class="bg-subtle-secondary border border-primary rounded-2 p-5 position-relative mb-1">
     Add progress bar to this
 </div>
-<button id="startButton2" type="button" class="btn blue-btn-soft-secondary">Start</button>
-<button id="stopButton2" type="button" class="btn blue-btn-soft-secondary">Stop</button>
+<button id="startButton2" type="button" class="btn theme-secondary btn-subtle">Start</button>
+<button id="stopButton2" type="button" class="btn theme-secondary btn-subtle">Stop</button>
 
 <script>
     startButton2.addEventListener("click", async () => {
@@ -2370,13 +2304,13 @@ You can customize the element further by setting a custom ID, parent element and
 
 ```html
 <div id="instance1" class="border rounded-2 p-5 position-relative mb-1">
-    <button id="startButton3a" type="button" class="btn blue-btn-soft-secondary">Start</button>
-    <button id="stopButton3a" type="button" class="btn blue-btn-soft-secondary">Stop</button>
+    <button id="startButton3a" type="button" class="btn theme-secondary btn-subtle">Start</button>
+    <button id="stopButton3a" type="button" class="btn theme-secondary btn-subtle">Stop</button>
 </div>
 
 <div id="instance2" class="border rounded-2 p-5 position-relative mb-1">
-    <button id="startButton3b" type="button" class="btn blue-btn-soft-secondary">Start</button>
-    <button id="stopButton3b" type="button" class="btn blue-btn-soft-secondary">Stop</button>
+    <button id="startButton3b" type="button" class="btn theme-secondary btn-subtle">Start</button>
+    <button id="stopButton3b" type="button" class="btn theme-secondary btn-subtle">Stop</button>
 </div>
 
 <script>
@@ -2428,7 +2362,7 @@ A Web Component that displays a read view of its content and allows the user to 
 </bl-read-view>
 <form id="readViewDemo_form" class="d-none">
     <input type="text" placeholder="Edit me" value="https://bruegmann.github.io/blue-web/" class="form-control" />
-    <button type="submit" class="btn blue-btn-soft-secondary">Submit</button>
+    <button type="submit" class="btn theme-secondary btn-subtle">Submit</button>
 </form>
 
 <script>
@@ -2542,7 +2476,7 @@ or like this:
 `utils.js` is provided as ESM, so you can use it as a module in the browser:
 
 ```html
-<button type="button" id="btn" class="btn blue-btn-soft-primary">Start loader</button>
+<button type="button" id="btn" class="btn theme-primary btn-subtle">Start loader</button>
 
 <script type="module">
     import { startLoading } from "./node_modules/blue-web/dist/js/utils.js"
@@ -2711,7 +2645,7 @@ Blue Web offers a set of code to create a layout with a header, collapsible side
     <header class="blue-layout-header">
         <button
             type="button"
-            class="btn blue-menu-item blue-btn-square d-flex lg:d-none"
+            class="btn-icon blue-menu-item d-flex lg:d-none"
             command="show-modal"
             commandfor="layoutDrawer"
             aria-label="Open drawer"
@@ -2724,7 +2658,7 @@ Blue Web offers a set of code to create a layout with a header, collapsible side
         <button
             id="toggleLayoutSide"
             type="button"
-            class="btn blue-menu-item blue-btn-square d-none lg:d-flex"
+            class="btn-icon blue-menu-item d-none lg:d-flex"
             data-blue-toggle="layout-side"
             aria-controls="layoutSide"
             aria-expanded="true"
@@ -2766,7 +2700,7 @@ Blue Web offers a set of code to create a layout with a header, collapsible side
         <div class="blue-layout-body">
             <p>Your main content here</p>
 
-            <button type="button" class="btn blue-btn-soft-primary" onclick="blueWeb.layout.dispose(newLayout)">
+            <button type="button" class="btn theme-primary btn-subtle" onclick="blueWeb.layout.dispose(newLayout)">
                 Dispose layout instance
             </button>
         </div>
@@ -2824,7 +2758,7 @@ If your logo has another width than height, you can also use a combination of `-
 Bootstrap 6 drawers use a native `dialog`. Blue's responsive hooks show the same element inline above the selected viewport breakpoint and as a drawer below it.
 
 ```html
-<button type="button" class="btn blue-btn-soft-primary lg:d-none" command="show-modal" commandfor="myDrawer">
+<button type="button" class="btn theme-primary btn-subtle lg:d-none" command="show-modal" commandfor="myDrawer">
     Open drawer
 </button>
 

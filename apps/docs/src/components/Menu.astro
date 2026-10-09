@@ -145,7 +145,6 @@ const mixedMenuItems = Object.keys(import.meta.glob("/src/pages/mixed/*")).map((
                             {cssMenuItems.map((item) => (
                                 <MenuItem href={item.path} label={item.label} current={item.isActive}>
                                     {item.label === "Accordion" && <ArrowsExpand slot="iconBefore" />}
-                                    {item.label === "Buttons" && <PlayBtnFill slot="iconBefore" />}
                                     {item.label === "Collapse" && <CardHeading slot="iconBefore" />}
                                     {item.label === "Container Grid" && <Columns slot="iconBefore" />}
                                     {item.label === "Header" && <CardHeading slot="iconBefore" />}

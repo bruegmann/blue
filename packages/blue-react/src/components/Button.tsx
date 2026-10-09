@@ -16,23 +16,20 @@ export type ButtonColor =
     | "light"
     | "dark"
 
-function getButtonVariantClass(variant: ButtonVariant, buttonColor?: ButtonColor) {
-    const color = buttonColor || "secondary"
-    const theme = `theme-${color === "dark" ? "inverse" : color === "light" ? "secondary" : color}`
-
+function getButtonVariantClass(variant: ButtonVariant) {
     switch (variant) {
         case "soft":
-            return `btn-subtle ${theme}`
+            return "btn-subtle"
         case "plain":
-            return `btn-text ${theme}`
+            return "btn-text"
         case "outline":
-            return `btn-outline ${theme}`
+            return "btn-outline"
         case "link":
-            return `btn-link${buttonColor !== undefined ? ` ${theme}` : ""}`
+            return "btn-link"
         case "menu-item":
             return "blue-menu-item"
         default:
-            return `btn-solid ${theme}`
+            return "btn-solid"
     }
 }
 
@@ -54,9 +51,8 @@ export type ButtonProps = ComponentProps<"a"> &
 
         active?: boolean
 
-        /** Button's width and height should be equal. Useful, if you want your body only to have one symbol.
-         *  When your body only has an icon and hidden label, this will be set automatically. */
-        square?: boolean
+        /** Use Bootstrap's icon-only button styling. Provide an accessible name. */
+        icon?: boolean
     } & {
         /**
          * For compatibility with React Router NavLink
@@ -72,7 +68,7 @@ export default function Button({
     elementType,
     className,
     type,
-    variant = "soft",
+    variant,
     color,
     sm,
     lg,
@@ -83,7 +79,7 @@ export default function Button({
     busy: busyProp,
     success: successProp,
     active,
-    square,
+    icon,
     ...props
 }: ButtonProps) {
     const Comp = elementType || (props.href ? "a" : "button")
@@ -98,21 +94,24 @@ export default function Button({
         }
     }, [successProp])
 
-    const variantClass = getButtonVariantClass(variant, color)
+    const hasVariantOrColor = variant !== undefined || color !== undefined
+    const variantClass = getButtonVariantClass(variant ?? "soft")
+    const buttonColor = color || "secondary"
+    const themeClass = `theme-${buttonColor === "dark" ? "inverse" : buttonColor === "light" ? "secondary" : buttonColor}`
+    const themed = hasVariantOrColor && variant !== "menu-item" && (variant !== "link" || color !== undefined)
 
     return (
         <Comp
             type={Comp === "button" && type === undefined ? "button" : type}
             className={clsx(
-                "btn",
+                icon ? "btn-icon" : "btn",
                 {
-                    [variantClass]: !success,
+                    [variantClass]: !success && hasVariantOrColor,
+                    [themeClass]: !success && themed,
                     "btn-solid theme-success": success,
                     "btn-sm": sm,
                     "btn-lg": lg,
-                    "icon-link": busyProp || iconBefore !== undefined || iconAfter !== undefined,
-                    active: active,
-                    "blue-btn-square": square
+                    active: active
                 },
                 className
             )}

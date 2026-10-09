@@ -148,7 +148,8 @@ export default function Usage() {
                     <Combobox
                         value={selectedValue}
                         onChange={setSelectedValue}
-                        className="rounded-end blue-btn-square"
+                        className="rounded-end"
+                        icon
                         popoverEnd
                         labelHidden
                     >

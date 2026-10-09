@@ -18,3 +18,14 @@
     --blue-menu-item-height: #{$normal-size};
     --blue-corner-shape: #{$corner-shape};
 }
+
+.theme-theme {
+    --theme-bg: var(--blue-theme);
+    --theme-bg-subtle: var(--blue-theme);
+    --theme-bg-muted: var(--bg-2);
+    --theme-fg: var(--blue-sidebar-color);
+    --theme-fg-emphasis: var(--fg-body);
+    --theme-contrast: var(--blue-sidebar-color);
+    --theme-border: var(--border-color);
+    --theme-focus-ring: var(--focus-ring-color);
+}

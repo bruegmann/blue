@@ -10,7 +10,7 @@ import Grab from "$/components/Grab.astro"
 Bootstrap 6 [Dialogs](https://getbootstrap.com/docs/6.0/components/dialog/) use the native dialog element. Blue's `.blue-modal` hook remains available, without positioning/content wrappers or a separate backdrop form. Use `closedby="any"` for native backdrop dismissal in supporting browsers, or Bootstrap's `Dialog` JavaScript for its dismissal API.
 
 ```html use:RenderBlock
-<button type="button" class="btn blue-btn-soft-primary" onclick="my_modal.showModal()">Open modal</button>
+<button type="button" class="btn theme-primary btn-subtle" onclick="my_modal.showModal()">Open modal</button>
 
 <dialog class="blue-modal dialog" id="my_modal" closedby="any">
     <div class="dialog-header">
@@ -28,7 +28,7 @@ Bootstrap 6 [Dialogs](https://getbootstrap.com/docs/6.0/components/dialog/) use 
 Bootstrap 6 [Drawers](https://getbootstrap.com/docs/6.0/components/drawer/) also use a native dialog, with `.drawer` and a placement class on that same element.
 
 ```html use:RenderBlock
-<button type="button" class="btn blue-btn-soft-primary" onclick="my_drawer.showModal()">Open drawer</button>
+<button type="button" class="btn theme-primary btn-subtle" onclick="my_drawer.showModal()">Open drawer</button>
 
 <dialog class="blue-modal drawer drawer-start" id="my_drawer" aria-labelledby="drawerExampleLabel" closedby="any">
     <div class="drawer-header">
@@ -49,7 +49,7 @@ Bootstrap 6 [Drawers](https://getbootstrap.com/docs/6.0/components/drawer/) also
 ## Dialog in Drawer
 
 ```html use:RenderBlock
-<button type="button" class="btn blue-btn-soft-primary" onclick="my_drawer2.showModal()">Open drawer</button>
+<button type="button" class="btn theme-primary btn-subtle" onclick="my_drawer2.showModal()">Open drawer</button>
 
 <dialog class="blue-modal drawer drawer-start" id="my_drawer2" aria-labelledby="drawerExampleLabel2" closedby="any">
     <div class="drawer-header">
@@ -64,7 +64,7 @@ Bootstrap 6 [Drawers](https://getbootstrap.com/docs/6.0/components/drawer/) also
             etc.
         </div>
 
-        <button type="button" class="btn blue-btn-soft-primary" onclick="my_modal2.showModal()">Open modal</button>
+        <button type="button" class="btn theme-primary btn-subtle" onclick="my_modal2.showModal()">Open modal</button>
 
         <dialog class="blue-modal dialog" id="my_modal2" closedby="any">
             <div class="dialog-header">
@@ -84,17 +84,17 @@ Bootstrap 6 [Drawers](https://getbootstrap.com/docs/6.0/components/drawer/) also
 If you use `dialog.showModal()`, the dialog will be inside the top layer, above anything else on your page, also if other elements have an higher `z-index`. Use `dialog.show()` instead and it will be inside the main layer.
 
 ```html use:RenderBlock
-<button type="button" class="btn blue-btn-soft-primary" onclick="my_modal.show()">Open modal with .show()</button>
-<button type="button" class="btn blue-btn-soft-primary" onclick="my_drawer.show()">
+<button type="button" class="btn theme-primary btn-subtle" onclick="my_modal.show()">Open modal with .show()</button>
+<button type="button" class="btn theme-primary btn-subtle" onclick="my_drawer.show()">
     Open drawer with .show()
 </button>
 
 <br />
 
-<button type="button" class="btn blue-btn-soft-primary" onclick="my_modal.showModal()">
+<button type="button" class="btn theme-primary btn-subtle" onclick="my_modal.showModal()">
     Open modal with .showModal()
 </button>
-<button type="button" class="btn blue-btn-soft-primary" onclick="my_drawer.showModal()">
+<button type="button" class="btn theme-primary btn-subtle" onclick="my_drawer.showModal()">
     Open drawer with .showModal()
 </button>
 
