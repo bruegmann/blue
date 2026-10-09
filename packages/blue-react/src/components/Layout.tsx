@@ -88,7 +88,7 @@ export default function Layout({
             <header className="blue-layout-header">
                 <button
                     type="button"
-                    className="btn-icon btn-text theme-accent d-flex lg:d-none"
+                    className="btn-icon btn-solid theme-theme d-flex lg:d-none"
                     /* @ts-ignore */
                     command="show-modal"
                     commandfor={drawerId}
@@ -110,7 +110,7 @@ export default function Layout({
 
                 <button
                     type="button"
-                    className="btn-icon btn-text theme-accent d-none lg:d-flex"
+                    className="btn-icon btn-solid theme-theme d-none lg:d-flex"
                     data-blue-toggle="layout-side"
                     aria-controls={sideId}
                     aria-expanded="true"

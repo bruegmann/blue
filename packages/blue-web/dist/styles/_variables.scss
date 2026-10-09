@@ -43,12 +43,6 @@ $bla-sidebar-width: 16.563rem !default;
 $sidebar-bg: $theme !default;
 $sidebar-bg-dark: $theme-dark !default;
 
-// Background of sidebar when it's opened (on mobile devices).
-$sidebar-open-bg: color.adjust($sidebar-bg, $lightness: -30%) !default;
-
-// Background of sidebar menu dropdown menus
-$sidebar-deep-bg: color.adjust($sidebar-bg, $lightness: -4%) !default;
-
 // Text color of sidebar.
 $sidebar-color: functions.contrast-color($sidebar-bg) !default;
 $sidebar-color-dark: functions.contrast-color($sidebar-bg-dark) !default;
