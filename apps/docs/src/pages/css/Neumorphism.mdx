@@ -12,16 +12,16 @@ The effects can have some weird side-effects, that's why they are not included b
 
 ## Getting started
 
-1. Import neu.css in your main SCSS file:
+1. Load the module in your main SCSS file:
 
     ```scss
-    @import "~blue-react/dist/neu";
+    @use "blue-web/dist/neu";
     ```
 
 2. Apply the mixin "neu()" at the area you want to use it:
     ```scss
     :root {
-        @include neu(#610dfd);
+        @include neu.neu(#610dfd);
     }
     ```
     First parameter takes the areas's background color. As second parameter you can set the background color for inset.
@@ -39,7 +39,7 @@ The notation looks like this: `.neu-shadow{-inset?}{-switch?}{-size}`
     - `4` - distance and blur values multiplied with `1.5`
     - `5` - distance and blur values multiplied with `3`
 
-Format and the values are inspired by [Bootstrap](https://getbootstrap.com/docs/5.3/utilities/spacing/#notation).
+Format and the values are inspired by [Bootstrap](https://getbootstrap.com/docs/6.0/utilities/spacing/#notation).
 
 ## Combining classes
 
@@ -56,13 +56,11 @@ You can combine shadows with inset shadows like this:
 
 ```scss
 .bg-body {
-    @include neu($body-bg, $body-bg);
+    @include neu.neu(#f8f9fa);
 }
 
-@include color-mode(dark) {
-    .bg-body {
-        @include neu($body-bg-dark, $body-bg-dark);
-    }
+[data-bs-theme="dark"] .bg-body {
+    @include neu.neu(#212529);
 }
 ```
 
@@ -79,10 +77,10 @@ You can combine shadows to different soft effects.
 
 ```html use:RenderBlock
 <section class="bg-body">
-    <div class="my-5 rounded-5 p-4 mx-4" style="box-shadow: var(--neu-shadow-5), var(--neu-shadow-inset-switch-1);">
+    <div class="my-12 rounded-5 p-7 mx-7" style="box-shadow: var(--neu-shadow-5), var(--neu-shadow-inset-switch-1);">
         Neumorph card<br />
         <button
-            class="btn btn-lg btn-primary mt-3 rounded-4"
+            class="btn btn-lg btn-solid theme-primary mt-5 rounded-4"
             style="var(--neu-shadow-4), var(--neu-shadow-inset-switch-3)"
         >
             Click me

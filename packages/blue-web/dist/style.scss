@@ -3,55 +3,44 @@
  * Licensed under GNU General Public License v3.0 (https://github.com/bruegmann/blue-web/blob/master/LICENSE).
 */
 
-@import "./styles/bootstrap-variables";
+@use "sass:meta";
+@forward "./styles/bootstrap-variables";
+@forward "./styles/bootstrap" hide $root-tokens, $accordion-tokens, $utilities, $radius;
+@forward "./styles/variables";
+@forward "./styles/mixins";
 
-@import "node_modules/bootstrap/scss/functions";
-@import "node_modules/bootstrap/scss/variables";
-@import "node_modules/bootstrap/scss/mixins";
-@import "./styles/variables";
+@layer custom {
+    @include meta.load-css("./styles/root");
+    @include meta.load-css("./styles/keyframes");
+    @include meta.load-css("./styles/text-icons");
+    @include meta.load-css("./styles/general");
+    @include meta.load-css("./styles/utils");
+    @include meta.load-css("./styles/status");
+    @include meta.load-css("./styles/menu-item");
+    @include meta.load-css("./styles/page-header");
+    @include meta.load-css("./styles/input-group");
+    @include meta.load-css("./styles/action-menu");
+    @include meta.load-css("./styles/tooltips");
+    @include meta.load-css("./styles/hover");
+    @include meta.load-css("./styles/button-icon-wrapper");
+    @include meta.load-css("./styles/buttons");
+    @include meta.load-css("./styles/container-grid");
+    @include meta.load-css("./styles/tabs");
+    @include meta.load-css("./styles/modal");
+    @include meta.load-css("./styles/modal-responsive");
+    @include meta.load-css("./styles/layout");
+    @include meta.load-css("./styles/collapse");
+    @include meta.load-css("./styles/actions");
+    @include meta.load-css("./styles/anchor");
+    @include meta.load-css("./styles/scrollspy");
+    @include meta.load-css("./styles/intro");
+    @include meta.load-css("./styles/accordion");
+    @include meta.load-css("./styles/devexpress");
+    @include meta.load-css("./styles/inter");
 
-@import "./styles/mixins";
-@import "./styles/keyframes";
-
-@import "./styles/bootstrap";
-
-// Make it overridable via CSS variables, as it is not yet possible in Bootstrap.
-// Check with a newer Bootstrap version to see if it is still necessary.
-.form-check-input:checked {
-    background-color: var(--bs-primary, #{$form-check-input-checked-bg-color});
-    border-color: var(--bs-primary, #{$form-check-input-checked-border-color});
-}
-
-@import "./styles/text-icons";
-@import "./styles/general";
-@import "./styles/utils";
-@import "./styles/status";
-@import "./styles/menu-item";
-@import "./styles/page-header";
-@import "./styles/input-group";
-@import "./styles/action-menu";
-@import "./styles/tooltips";
-@import "./styles/hover";
-@import "./styles/button-icon-wrapper";
-@import "./styles/buttons";
-@import "./styles/buttons-outline";
-@import "./styles/container-grid";
-@import "./styles/tabs";
-@import "./styles/modal";
-@import "./styles/modal-responsive";
-@import "./styles/layout";
-@import "./styles/collapse";
-@import "./styles/actions";
-@import "./styles/anchor";
-@import "./styles/scrollspy";
-@import "./styles/intro";
-@import "./styles/accordion";
-
-@import "./styles/devexpress";
-@import "./styles/inter";
-
-*,
-*:before,
-*:after {
-    corner-shape: var(--blue-corner-shape);
+    *,
+    *:before,
+    *:after {
+        corner-shape: var(--blue-corner-shape);
+    }
 }

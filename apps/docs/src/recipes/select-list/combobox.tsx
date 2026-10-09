@@ -46,7 +46,7 @@ export function ComboboxOptionGroup({
 }) {
     return (
         <div role="group" aria-label={label} className={clsx("blue-scrollspy-group", className)} style={style}>
-            <div className="list-group-item fw-medium small text-primary-emphasis" style={{ border: 0 }}>
+            <div className="list-group-item fw-medium small fg-emphasis-primary" style={{ border: 0 }}>
                 {label}
             </div>
             {children}
@@ -87,7 +87,7 @@ export function ComboboxOption({
             data-selected={isThisSelected ? "" : undefined}
         >
             {children || description || value}
-            {!children && description && <span className="ms-2 opacity-75 small">{value}</span>}
+            {!children && description && <span className="ms-3 opacity-75 small">{value}</span>}
 
             {isThisSelected && (
                 <span className="ms-auto">
@@ -174,7 +174,7 @@ export function Combobox({
                 className={clsx("blue-anchored blue-anchored-fallback border rounded-bottom-4 shadow bg-body mt-1", {
                     "blue-anchored-end": popoverEnd
                 })}
-                style={{ borderRadius: "calc(var(--bs-border-radius-xl) + .5rem)" }}
+                style={{ borderRadius: "calc(var(--radius-8) + .5rem)" }}
             >
                 <div className="m-1">
                     <div className="blue-input-group input-group rounded-pill">
@@ -208,7 +208,7 @@ export function Combobox({
                             "--blue-scrollspy-marker-group-gap": ".25rem"
                         } as CSSProperties
                     }
-                    active-class={`bg-${color || "primary"}-subtle text-${color || "primary"}-emphasis`}
+                    active-class={`bg-subtle-${color || "primary"} fg-emphasis-${color || "primary"}`}
                     id={listboxId}
                     for={inputId}
                     onbl-select={({ item }) => {

@@ -7,7 +7,7 @@ import Grab from "$/components/Grab.astro"
 
 # Color Mode
 
-Use `color-mode.js` for better support for [Bootstrap's color modes](https://getbootstrap.com/docs/5.3/customize/color-modes/).
+Use `color-mode.js` for better support for [Bootstrap's color modes](https://getbootstrap.com/docs/6.0/customize/color-modes/).
 
 The script automatically detects if the user uses light or dark mode and sets the `data-bs-theme` attribute to the document element (`<html>`). It also updates it if the color mode changes.
 It also exports these functions:
@@ -23,7 +23,7 @@ Example about, how you could create a color mode switch.
 
 ```html use:RenderBlock
 <div class="form-floating">
-    <select class="form-select w-auto" id="colorModeSelect" aria-label="Selector for color mode">
+    <select class="form-control w-auto" id="colorModeSelect" aria-label="Selector for color mode">
         <option value="auto">Auto</option>
         <option value="light">Light</option>
         <option value="dark">Dark</option>

@@ -39,7 +39,7 @@ Otherwise they will be visible in the dropdown menu. JavaScript detects if space
         </div>
 
         <div class="blue-actions-collapse" style="--blue-anchor-name: --actionDemoPopoverAnchor">
-            <button type="button" popovertarget="actionDemoPopoverPopover" class="blue-anchor blue-menu-item btn px-3">
+            <button type="button" popovertarget="actionDemoPopoverPopover" class="blue-anchor blue-menu-item btn px-5">
                 <span class="blue-menu-item-icon" aria-hidden="true">&#8942;</span>
                 <span class="visually-hidden">Toggle menu</span>
             </button>
@@ -47,8 +47,8 @@ Otherwise they will be visible in the dropdown menu. JavaScript detects if space
             <div
                 id="actionDemoPopoverPopover"
                 popover
-                class="blue-actions-collapse-menu blue-anchored blue-anchored-end blue-anchored-fallback blue-menu-item-dropdown text-body gap-1 flex-column p-1"
-                style="--blue-menu-item-dropdown-bg: var(--bs-body-bg); --display: flex;"
+                class="blue-actions-collapse-menu blue-anchored blue-anchored-end blue-anchored-fallback blue-menu-item-dropdown fg-body gap-1 flex-column p-1"
+                style="--blue-menu-item-dropdown-bg: var(--bg-body); --display: flex;"
             >
                 <button type="button" class="blue-menu-item btn">
                     <span class="blue-menu-item-icon" aria-hidden="true">🌍</span>
@@ -109,26 +109,26 @@ and global event listeners will be removed. Try to click the button. It will des
 ```html use:RenderBlock
 <div id="actionsDemoButtonGroups" class="border p-1" style="width: 460px">
     <div class="blue-actions" role="toolbar" aria-label="Toolbar with button groups">
-        <div class="blue-actions-menu gap-2">
+        <div class="blue-actions-menu gap-3">
             <div class="btn-group" role="group" aria-label="First group">
-                <button type="button" class="btn btn-primary">1</button>
-                <button type="button" class="btn btn-primary">2</button>
-                <button type="button" class="btn btn-primary">3</button>
-                <button type="button" class="btn btn-primary">4</button>
+                <button type="button" class="btn btn-solid theme-primary">1</button>
+                <button type="button" class="btn btn-solid theme-primary">2</button>
+                <button type="button" class="btn btn-solid theme-primary">3</button>
+                <button type="button" class="btn btn-solid theme-primary">4</button>
             </div>
             <div class="btn-group" role="group" aria-label="Second group">
-                <button type="button" class="btn btn-secondary">5</button>
-                <button type="button" class="btn btn-secondary">6</button>
-                <button type="button" class="btn btn-secondary">7</button>
+                <button type="button" class="btn btn-solid theme-secondary">5</button>
+                <button type="button" class="btn btn-solid theme-secondary">6</button>
+                <button type="button" class="btn btn-solid theme-secondary">7</button>
             </div>
             <div class="btn-group" role="group" aria-label="Third group">
-                <button type="button" class="btn btn-info">8</button>
+                <button type="button" class="btn btn-solid theme-info">8</button>
             </div>
             <div class="btn-group" role="group" aria-label="Fourth group">
-                <button type="button" class="btn btn-primary">9</button>
-                <button type="button" class="btn btn-primary">10</button>
-                <button type="button" class="btn btn-primary">11</button>
-                <button type="button" class="btn btn-primary">12</button>
+                <button type="button" class="btn btn-solid theme-primary">9</button>
+                <button type="button" class="btn btn-solid theme-primary">10</button>
+                <button type="button" class="btn btn-solid theme-primary">11</button>
+                <button type="button" class="btn btn-solid theme-primary">12</button>
             </div>
         </div>
 
@@ -136,7 +136,7 @@ and global event listeners will be removed. Try to click the button. It will des
             <button
                 type="button"
                 popovertarget="actionsDemoButtonGroupsPopover"
-                class="blue-anchor blue-menu-item btn px-3"
+                class="blue-anchor blue-menu-item btn px-5"
             >
                 <span class="blue-menu-item-icon" aria-hidden="true">&#8942;</span>
                 <span class="visually-hidden">Toggle menu</span>
@@ -145,28 +145,28 @@ and global event listeners will be removed. Try to click the button. It will des
             <div
                 id="actionsDemoButtonGroupsPopover"
                 popover
-                class="blue-actions-collapse-menu blue-anchored blue-anchored-end blue-anchored-fallback blue-menu-item-dropdown text-body gap-1 flex-column p-1"
-                style="--blue-menu-item-dropdown-bg: var(--bs-body-bg); --display: flex;"
+                class="blue-actions-collapse-menu blue-anchored blue-anchored-end blue-anchored-fallback blue-menu-item-dropdown fg-body gap-1 flex-column p-1"
+                style="--blue-menu-item-dropdown-bg: var(--bg-body); --display: flex;"
             >
                 <div class="btn-group" role="group" aria-label="First group">
-                    <button type="button" class="btn btn-primary">1</button>
-                    <button type="button" class="btn btn-primary">2</button>
-                    <button type="button" class="btn btn-primary">3</button>
-                    <button type="button" class="btn btn-primary">4</button>
+                    <button type="button" class="btn btn-solid theme-primary">1</button>
+                    <button type="button" class="btn btn-solid theme-primary">2</button>
+                    <button type="button" class="btn btn-solid theme-primary">3</button>
+                    <button type="button" class="btn btn-solid theme-primary">4</button>
                 </div>
                 <div class="btn-group" role="group" aria-label="Second group">
-                    <button type="button" class="btn btn-secondary">5</button>
-                    <button type="button" class="btn btn-secondary">6</button>
-                    <button type="button" class="btn btn-secondary">7</button>
+                    <button type="button" class="btn btn-solid theme-secondary">5</button>
+                    <button type="button" class="btn btn-solid theme-secondary">6</button>
+                    <button type="button" class="btn btn-solid theme-secondary">7</button>
                 </div>
                 <div class="btn-group" role="group" aria-label="Third group">
-                    <button type="button" class="btn btn-info">8</button>
+                    <button type="button" class="btn btn-solid theme-info">8</button>
                 </div>
                 <div class="btn-group" role="group" aria-label="Fourth group">
-                    <button type="button" class="btn btn-primary">9</button>
-                    <button type="button" class="btn btn-primary">10</button>
-                    <button type="button" class="btn btn-primary">11</button>
-                    <button type="button" class="btn btn-primary">12</button>
+                    <button type="button" class="btn btn-solid theme-primary">9</button>
+                    <button type="button" class="btn btn-solid theme-primary">10</button>
+                    <button type="button" class="btn btn-solid theme-primary">11</button>
+                    <button type="button" class="btn btn-solid theme-primary">12</button>
                 </div>
             </div>
         </div>

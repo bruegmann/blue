@@ -20,7 +20,16 @@ export default function AccordionItem({
     return (
         <details className={clsx("accordion-item blue-collapse", className)} {...props}>
             <summary className={clsx("accordion-header", headerClassName)}>
-                <div className={clsx("accordion-button collapsed", headerButtonClassName)}>{header}</div>
+                <span className={headerButtonClassName}>{header}</span>
+                <svg
+                    className="accordion-icon"
+                    aria-hidden="true"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    stroke="currentColor"
+                >
+                    <path d="m2 5 6 6 6-6" />
+                </svg>
             </summary>
             <div className={clsx("accordion-body", bodyClassName)}>{children}</div>
         </details>

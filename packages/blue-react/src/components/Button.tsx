@@ -1,20 +1,8 @@
-import {
-    useEffect,
-    useState,
-    ComponentProps,
-    ReactNode,
-    ElementType
-} from "react"
+import { useEffect, useState, ComponentProps, ReactNode, ElementType } from "react"
 import clsx from "clsx"
 import { getPhrase } from "./shared"
 
-export type ButtonVariant =
-    | "filled"
-    | "soft"
-    | "plain"
-    | "outline"
-    | "link"
-    | "menu-item"
+export type ButtonVariant = "filled" | "soft" | "plain" | "outline" | "link" | "menu-item"
 export type ButtonColor =
     | "theme"
     | "primary"
@@ -23,30 +11,28 @@ export type ButtonColor =
     | "danger"
     | "warning"
     | "info"
+    | "accent"
+    | "inverse"
     | "light"
     | "dark"
 
-function getButtonVariantClass(
-    variant: ButtonVariant,
-    buttonColor?: ButtonColor
-) {
+function getButtonVariantClass(variant: ButtonVariant, buttonColor?: ButtonColor) {
     const color = buttonColor || "secondary"
+    const theme = `theme-${color === "dark" ? "inverse" : color === "light" ? "secondary" : color}`
 
     switch (variant) {
         case "soft":
-            return `blue-btn-soft-${color}`
+            return `btn-subtle ${theme}`
         case "plain":
-            return `blue-btn-plain-${color}`
+            return `btn-text ${theme}`
         case "outline":
-            return `btn-outline-${color}`
+            return `btn-outline ${theme}`
         case "link":
-            return `btn-link${
-                buttonColor !== undefined ? ` link-${color}` : ""
-            }`
+            return `btn-link${buttonColor !== undefined ? ` ${theme}` : ""}`
         case "menu-item":
             return "blue-menu-item"
         default:
-            return `btn-${color}`
+            return `btn-solid ${theme}`
     }
 }
 
@@ -121,13 +107,10 @@ export default function Button({
                 "btn",
                 {
                     [variantClass]: !success,
-                    "btn-success": success,
+                    "btn-solid theme-success": success,
                     "btn-sm": sm,
                     "btn-lg": lg,
-                    "icon-link":
-                        busyProp ||
-                        iconBefore !== undefined ||
-                        iconAfter !== undefined,
+                    "icon-link": busyProp || iconBefore !== undefined || iconAfter !== undefined,
                     active: active,
                     "blue-btn-square": square
                 },
@@ -137,10 +120,7 @@ export default function Button({
         >
             {busyProp ? (
                 <>
-                    <span
-                        className="spinner-border spinner-border-sm bi me-1"
-                        aria-hidden
-                    ></span>
+                    <span className="spinner-border spinner-border-sm bi me-1" aria-hidden></span>
                     <span role="status">{getPhrase("Loading")}…</span>
                 </>
             ) : success ? (
@@ -165,9 +145,7 @@ export default function Button({
                             {iconBefore}
                         </span>
                     )}
-                    {label && !labelHidden && (
-                        <span className="text-truncate">{label}</span>
-                    )}
+                    {label && !labelHidden && <span className="text-truncate">{label}</span>}
                     {props.children}
                     {iconAfter != null && (
                         <span className="blue-btn-icon-wrapper" aria-hidden>

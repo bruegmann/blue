@@ -1,7 +1,10 @@
+@use "mixins" as *;
+@use "bootstrap/scss/config" as *;
+
 // Customize style of Bootstrap's nav-underline
 .nav-underline {
     .nav-link {
-        --#{$prefix}nav-link-color: var(--#{$prefix}list-group-action-color);
+        --nav-link-color: var(--fg-2);
     }
 
     .nav-link:hover,
@@ -26,7 +29,7 @@
         }
 
         position: relative;
-        font-weight: var(--blue-tabs-underline-active-font-weight, $font-weight-base);
+        font-weight: var(--blue-tabs-underline-active-font-weight, var(--font-weight-normal));
         border-bottom-color: transparent;
         color: currentColor;
     }
@@ -73,13 +76,13 @@ input.blue-tab:checked + .blue-tab-content {
     border-bottom: none;
 
     .blue-tab-content {
-        border-top: var(--#{$prefix}nav-tabs-border-width) solid var(--#{$prefix}nav-tabs-border-color);
+        border-top: var(--nav-tabs-border-width) solid var(--nav-tabs-border-color);
     }
 
     .blue-tab:checked {
-        color: var(--bs-nav-tabs-link-active-color);
-        background-color: var(--bs-nav-tabs-link-active-bg);
-        border-color: var(--bs-nav-tabs-link-active-border-color);
+        color: var(--nav-tabs-link-active-color);
+        background-color: var(--nav-tabs-link-active-bg);
+        border-color: var(--nav-tabs-link-active-border-color);
     }
 }
 

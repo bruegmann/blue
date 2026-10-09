@@ -3,7 +3,7 @@ import { ToastProvider, useToast } from "blue-react"
 function SubComponent() {
     const { addToast, clearToasts } = useToast()
     return (
-        <div className="d-flex gap-3">
+        <div className="d-flex gap-5">
             <button
                 type="button"
                 className="btn blue-btn-soft-primary"

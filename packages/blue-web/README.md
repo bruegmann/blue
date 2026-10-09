@@ -45,30 +45,59 @@ JavaScript files are compiled as ES modules. This allows you to use import funct
 
 ## Customization and theming
 
-Since Blue Web is based on Bootstrap, you can customize many things by overriding Sass or CSS variables. For more information, see the [Bootstrap documentation](https://getbootstrap.com/docs/5.3/customize/overview/). Blue Web also provides some additional variables that you can use and override. Take a look at [dist/styles/\_variables.scss](https://github.com/bruegmann/blue-web/blob/main/dist/styles/_variables.scss) to see all of them.
+Blue Web now uses **Bootstrap 6.0.0-alpha.1**. This is a breaking, prerelease upgrade: migrate Bootstrap classes and markup as well as your Sass. See the [Bootstrap migration guide](https://getbootstrap.com/docs/6.0/migration/).
+
+Sass uses modules rather than global imports. Blue's configuration is forwarded by the entrypoint; configure it once with `@use ... with`. Bootstrap token maps merge overrides with their defaults. Blue's additional settings live in [dist/styles/_variables.scss](dist/styles/_variables.scss).
 
 Here is an example of how to override variables using Sass:
 
 ```scss
-// Override Bootstrap Sass variable
-$primary: tomato;
-
-// Override Blue Web Sass variables
-$theme: orange;
-$theme-dark: darken(orange, 10%);
-
 // Stylesheet for Blue Web. Already contains Bootstrap.
-@import "~blue-web/dist/style";
+@use "blue-web/dist/style" with (
+    $primary: tomato,
+    $theme: orange,
+    $theme-dark: #995f00,
+    $radius: 0.7rem,
+    $root-tokens: (
+        --body-font-family: (
+            "Inter",
+            sans-serif
+        ),
+        --focus-ring-width: 0.125rem
+    ),
+    $accordion-tokens: (
+        --accordion-padding-x: 1rem
+    )
+);
 ```
+
+For the Sass CLI, add `--load-path=node_modules`. Bundlers must resolve the `bootstrap/scss/*` modules from `node_modules`. Additional Blue partials declare their own dependencies; do not concatenate them or pre-import Bootstrap's configuration with conflicting settings. To configure Bootstrap directly, do so **before** loading Blue.
+
+Both the compiled Blue CSS and Sass output use **unprefixed Bootstrap 6 tokens** (`--primary-base`, `--bg-body`, `--radius-5`). Bootstrap's own prebuilt CSS uses `--bs-*`; do not mix it with Blue's stylesheet.
 
 An example of how to override CSS variables:
 
 ```css
 :root {
     /* Override Bootstrap CSS variable */
-    --bs-body-font-family: "Inter", sans-serif;
+    --body-font-family: "Inter", sans-serif;
 
     /* Override Blue Web CSS variable */
     --blue-sidebar-bg: #333;
 }
 ```
+
+Use `light-dark()` for adaptive colors and `data-bs-theme="light"` / `"dark"` to force a mode. Without a forced mode, CSS follows the OS preference.
+
+### Migrating existing consumers
+
+- Replace `@import` with `@use ... with`; setting global Sass variables before an import no longer configures Blue.
+- Replace v5 scalar variables such as `$border-radius` with `$radius`, and component scalars with their `$*-tokens` maps.
+- Replace `--bs-body-bg`, `--bs-body-color`, and `--bs-primary` with `--bg-body`, `--fg-body`, and `--primary-base`. RGB tokens are gone; use `color-mix()`.
+- Use `lg:d-none`, `md:col-6`, and `2xl:*` responsive classes. Blue retains its existing viewport thresholds (992px, 1200px, 1400px) under the new names.
+- Use `btn-solid theme-primary`, `btn-subtle theme-primary`, and `btn-text theme-primary`. Blue's `btn blue-btn-soft-*` and `btn blue-btn-plain-*` hooks remain available.
+- Dialogs and drawers must be native `<dialog>` elements with `.dialog` or `.drawer`; remove the old content/positioning wrappers. `.blue-modal` and `.blue-lg-modal` remain Blue hooks on that same element.
+- Bootstrap JavaScript is ESM-only; import `Dialog`, `Drawer`, and `Menu` instead of `Modal`, `Offcanvas`, and `Dropdown`. Remove `@types/bootstrap`; the alpha includes declarations.
+- Blue overrides are in `@layer custom`, so Bootstrap helpers and utilities can still override them.
+
+The flattened `merged.scss` distribution and its merge script have been removed: flattening loses module scope and configuration. The docs' legacy Theme Generator is unavailable in this alpha.

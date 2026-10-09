@@ -1,5 +1,5 @@
-import React, { FormEvent, useEffect, useState, useRef, ReactNode } from "react"
-import { Modal as BootstrapModal } from "bootstrap"
+import { FormEvent, useEffect, useState, useRef, ReactNode, useId } from "react"
+import type Dialog from "bootstrap/js/dist/dialog.js"
 import { getPhrase, ModalType } from "./shared"
 
 export interface ModalProps {
@@ -7,19 +7,12 @@ export interface ModalProps {
     modalTitle?: string
     modalIcon?: ReactNode
     unSetModalContent: (modalContent?: string) => void
-
     /**
-     * Type of `input` depends on `type` prop and which action occured.
-     * When it's a string, the user entered something. When it's a boolean, the user clicked "Yes" or "No".
-     * When it's `null`, the user cancelled the modal.
+     * A string is the entered value, a boolean is a confirmation, and null is cancellation.
      */
     onSubmit?: (input: string | boolean | null) => void
     defaultInput?: string
-    /**
-     * `"ask"` | `"tell"` | `"verify"`
-     */
     type: ModalType
-
     inputType?: string
     switchPrimaryBtn?: boolean
     acceptBtnText?: string
@@ -27,10 +20,7 @@ export interface ModalProps {
 }
 
 /**
- * Simple modal/dialog. Designed to work as an alternative to JavaScript's native `alert()`, `prompt()` and `confirm()` functions.
- * It uses Bootstrap's Modal components.
- *
- * For easy use, you should use the hook `useModal` together with `ModalProvider`. See the example there.
+ * Native Bootstrap 6 dialog. The Modal API name is retained for existing Blue consumers.
  */
 export default function Modal({
     modalContent,
@@ -45,151 +35,129 @@ export default function Modal({
     acceptBtnText,
     cancelBtnText
 }: ModalProps) {
-    const modalRef = useRef(null)
-    const [input, setInput] = useState<string>(defaultInput || "")
-    const cancel = () => {
-        unSetModalContent()
-        if (onSubmit) {
-            onSubmit(null)
-        }
-    }
-    const sayNo = () => {
-        unSetModalContent()
-        if (onSubmit) {
-            onSubmit(false)
-        }
-    }
-    const submit = (e: FormEvent) => {
-        e.preventDefault()
-        if (onSubmit) {
-            onSubmit(input || true)
-        }
-    }
-    const btnStyle = { maxWidth: "10rem" }
+    const modalRef = useRef<HTMLDialogElement>(null)
+    const instanceRef = useRef<Dialog | null>(null)
+    const instanceReady = useRef<Promise<Dialog | null>>(Promise.resolve(null))
+    const callbacks = useRef({ unSetModalContent, onSubmit })
+    const submitted = useRef(false)
+    const transition = useRef<Promise<void>>(Promise.resolve())
+    const titleId = useId()
+    const [input, setInput] = useState(defaultInput || "")
 
-    const focusFirstControl = () => {
-        const myModal = modalRef.current as unknown as Element
-        myModal.removeEventListener("shown.bs.modal", focusFirstControl)
-        const firstControl = myModal.querySelector(
-            ".btn-primary, .form-control"
-        ) as HTMLElement | null
-        if (firstControl) {
-            firstControl.focus()
+    useEffect(() => {
+        callbacks.current = { unSetModalContent, onSubmit }
+    }, [unSetModalContent, onSubmit])
+
+    useEffect(() => {
+        const element = modalRef.current
+        if (!element) return
+        let disposed = false
+        const onHidden = () => {
+            if (!submitted.current) {
+                callbacks.current.unSetModalContent()
+                callbacks.current.onSubmit?.(null)
+            }
         }
-    }
+        const onShown = () => element.querySelector<HTMLElement>(".form-control, .btn-solid")?.focus()
+        instanceReady.current = import("bootstrap/js/dist/dialog.js").then(({ default: Dialog }) => {
+            if (disposed) return null
+            const instance = new Dialog(element)
+            instanceRef.current = instance
+            element.addEventListener("hidden.bs.dialog", onHidden)
+            element.addEventListener("shown.bs.dialog", onShown)
+            return instance
+        })
+        return () => {
+            disposed = true
+            element.removeEventListener("hidden.bs.dialog", onHidden)
+            element.removeEventListener("shown.bs.dialog", onShown)
+            instanceRef.current?.dispose()
+            instanceRef.current = null
+        }
+    }, [])
 
     useEffect(() => {
         setInput(defaultInput || "")
-    }, [defaultInput])
+    }, [defaultInput, modalContent])
 
     useEffect(() => {
-        const myModal = modalRef.current as unknown as Element
-        let bsModal = BootstrapModal.getInstance(myModal)
-
-        if (!bsModal) {
-            bsModal = new BootstrapModal(myModal)
-            bsModal.hide()
-
-            // When the user clicks on underlay to close the modal
-            myModal.addEventListener("hidden.bs.modal", () => {
-                cancel()
-            })
-        } else {
-            modalContent !== undefined ? bsModal.show() : bsModal.hide()
-
-            // Will focus first button or text field inside of modal when it is shown.
-            // For accessibility: This way you can control the modal actions with a keyboard.
-            myModal.addEventListener("shown.bs.modal", focusFirstControl)
-        }
+        const ready = instanceReady.current
+        transition.current = transition.current.then(async () => {
+            const instance = await ready
+            if (!instance || instanceRef.current !== instance) return
+            if (modalContent !== undefined) {
+                submitted.current = false
+                await instance.show()
+            } else {
+                await instance.hide()
+            }
+        })
     }, [modalContent])
 
+    const finish = (result: string | boolean | null) => {
+        if (submitted.current) return
+        submitted.current = true
+        const ready = instanceReady.current
+        transition.current = transition.current.then(async () => {
+            const instance = await ready
+            if (instance && instanceRef.current === instance) await instance.hide()
+        })
+        unSetModalContent()
+        onSubmit?.(result)
+    }
+    const submit = (event: FormEvent) => {
+        event.preventDefault()
+        finish(type === "ask" ? input : true)
+    }
+    const btnStyle = { maxWidth: "10rem" }
+
     return (
-        <div className="modal" ref={modalRef} tabIndex={-1}>
-            <div className="modal-dialog">
-                <div className="modal-content">
-                    <form onSubmit={submit}>
-                        <div className="modal-header align-items-center">
-                            {modalIcon !== undefined && (
-                                <div className="me-2">{modalIcon}</div>
-                            )}
-                            <h5 className="modal-title">
-                                {modalTitle || getPhrase("Message")}
-                            </h5>
-                            <button
-                                type="button"
-                                className="btn-close"
-                                onClick={cancel}
-                            />
-                        </div>
-
-                        <div
-                            className="modal-body"
-                            style={{ whiteSpace: "pre-wrap" }}
-                        >
-                            {modalContent}
-                            {type === "ask" && (
-                                <input
-                                    type={inputType}
-                                    className="form-control mt-1"
-                                    value={input}
-                                    onChange={({ target }) =>
-                                        setInput(target.value)
-                                    }
-                                    autoFocus
-                                />
-                            )}
-                        </div>
-
-                        <div className="modal-footer">
-                            <button
-                                type="submit"
-                                className={`btn ${
-                                    switchPrimaryBtn
-                                        ? "btn-outline-primary"
-                                        : "btn-primary"
-                                } d-block w-100`}
-                                style={btnStyle}
-                            >
-                                {type === "verify"
-                                    ? acceptBtnText
-                                        ? acceptBtnText
-                                        : getPhrase("Yes")
-                                    : acceptBtnText
-                                    ? acceptBtnText
-                                    : "OK"}
-                            </button>
-                            {(type === "ask" || type === "verify") &&
-                                (type === "verify" ? (
-                                    <button
-                                        type="button"
-                                        className={`btn ${
-                                            switchPrimaryBtn
-                                                ? "btn-primary"
-                                                : "btn-outline-primary"
-                                        } d-block w-100`}
-                                        style={btnStyle}
-                                        onClick={sayNo}
-                                    >
-                                        {cancelBtnText
-                                            ? cancelBtnText
-                                            : getPhrase("No")}
-                                    </button>
-                                ) : (
-                                    <button
-                                        type="button"
-                                        className="btn btn-outline-primary d-block w-100"
-                                        style={btnStyle}
-                                        onClick={cancel}
-                                    >
-                                        {cancelBtnText
-                                            ? cancelBtnText
-                                            : getPhrase("Cancel")}
-                                    </button>
-                                ))}
-                        </div>
-                    </form>
+        <dialog className="dialog blue-modal" ref={modalRef} aria-labelledby={titleId}>
+            <form onSubmit={submit}>
+                <div className="dialog-header align-items-center">
+                    {modalIcon !== undefined && <div className="me-3">{modalIcon}</div>}
+                    <h5 className="dialog-title" id={titleId}>
+                        {modalTitle || getPhrase("Message")}
+                    </h5>
+                    <button
+                        type="button"
+                        className="btn-close"
+                        onClick={() => finish(null)}
+                        aria-label={getPhrase("Close")}
+                    />
                 </div>
-            </div>
-        </div>
+                <div className="dialog-body" style={{ whiteSpace: "pre-wrap" }}>
+                    {modalContent}
+                    {type === "ask" && (
+                        <input
+                            type={inputType}
+                            className="form-control mt-1"
+                            value={input}
+                            onChange={({ target }) => setInput(target.value)}
+                            autoFocus
+                        />
+                    )}
+                </div>
+                <div className="dialog-footer">
+                    <button
+                        type="submit"
+                        className={`theme-primary ${switchPrimaryBtn ? "btn-outline" : "btn-solid"} d-block w-100`}
+                        style={btnStyle}
+                    >
+                        {acceptBtnText || (type === "verify" ? getPhrase("Yes") : "OK")}
+                    </button>
+                    {(type === "ask" || type === "verify") && (
+                        <button
+                            type="button"
+                            className={`theme-primary ${switchPrimaryBtn && type === "verify" ? "btn-solid" : "btn-outline"} d-block w-100`}
+                            style={btnStyle}
+                            onClick={() => finish(type === "verify" ? false : null)}
+                        >
+                            {cancelBtnText || getPhrase(type === "verify" ? "No" : "Cancel")}
+                        </button>
+                    )}
+                </div>
+            </form>
+        </dialog>
     )
 }

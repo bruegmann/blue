@@ -84,7 +84,7 @@ const mixedMenuItems = Object.keys(import.meta.glob("/src/pages/mixed/*")).map((
 ---
 
 <SidebarMenu>
-    <nav class="nav nav-underline text-center d-grid mb-2" style="grid-template-columns: repeat(3, 1fr);">
+    <nav class="nav nav-underline text-center d-grid mb-3" style="grid-template-columns: repeat(3, 1fr);">
         <a
             class:list={["nav-link", { active: !isCurrent("react") }]}
             aria-current={!isCurrent("react") ? "page" : null}
@@ -121,8 +121,8 @@ const mixedMenuItems = Object.keys(import.meta.glob("/src/pages/mixed/*")).map((
                         </MenuItem>
                     </li>
 
-                    <li class="mb-3">
-                        <strong class="ps-2">Mixed</strong>
+                    <li class="mb-5">
+                        <strong class="ps-3">Mixed</strong>
                         <ul class="list-unstyled">
                             {mixedMenuItems.map((item) => (
                                 <li>
@@ -139,8 +139,8 @@ const mixedMenuItems = Object.keys(import.meta.glob("/src/pages/mixed/*")).map((
                         </ul>
                     </li>
 
-                    <li class="mb-3">
-                        <strong class="ps-2">CSS</strong>
+                    <li class="mb-5">
+                        <strong class="ps-3">CSS</strong>
                         <div class="vstack">
                             {cssMenuItems.map((item) => (
                                 <MenuItem href={item.path} label={item.label} current={item.isActive}>
@@ -175,8 +175,8 @@ const mixedMenuItems = Object.keys(import.meta.glob("/src/pages/mixed/*")).map((
                         </div>
                     </li>
 
-                    <li class="mb-3">
-                        <strong class="ps-2">JavaScript</strong>
+                    <li class="mb-5">
+                        <strong class="ps-3">JavaScript</strong>
                         <ul class="list-unstyled">
                             {jsMenuItems.map((item) => (
                                 <li>
@@ -207,7 +207,7 @@ const mixedMenuItems = Object.keys(import.meta.glob("/src/pages/mixed/*")).map((
                     </li>
 
                     <li>
-                        <strong class="ps-2">Resources for AI agents</strong>
+                        <strong class="ps-3">Resources for AI agents</strong>
                         <ul class="list-unstyled">
                             <li>
                                 <MenuItem href={import.meta.env.BASE_URL + "llms.txt"} label="llms.txt">
@@ -231,7 +231,7 @@ const mixedMenuItems = Object.keys(import.meta.glob("/src/pages/mixed/*")).map((
         isCurrent("react") && (
             <ul class="list-unstyled d-flex flex-column">
                 <li>
-                    <strong class="ps-2">Components</strong>
+                    <strong class="ps-3">Components</strong>
                     <div class="vstack">
                         {reactMenuItems.map((item) => (
                             <MenuItem href={item.path} label={item.label} current={item.isActive}>

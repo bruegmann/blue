@@ -1,7 +1,7 @@
-@import "./mixins/misc";
-@import "./mixins/menu-item";
-@import "./mixins/action-menu";
-@import "./mixins/switch";
-@import "./mixins/custom-property";
-@import "./mixins/scroll-shadow";
-@import "./mixins/layout";
+@forward "./mixins/misc";
+@forward "./mixins/menu-item";
+@forward "./mixins/action-menu";
+@forward "./mixins/switch";
+@forward "./mixins/custom-property";
+@forward "./mixins/scroll-shadow";
+@forward "./mixins/layout";

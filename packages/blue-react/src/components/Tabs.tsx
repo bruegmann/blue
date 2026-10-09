@@ -23,5 +23,3 @@ export default function Tabs({ children, className, underline }: TabsProps) {
         </div>
     )
 }
-
-

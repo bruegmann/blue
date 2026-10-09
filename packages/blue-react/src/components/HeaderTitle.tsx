@@ -1,4 +1,5 @@
-import React, { createElement, ReactNode, useEffect } from "react"
+import React, { cloneElement, createElement, Fragment, isValidElement, ReactNode, useEffect } from "react"
+import clsx from "clsx"
 import { guid } from "blue-web/dist/js/utils.js"
 
 export interface HeaderTitleProps {
@@ -69,16 +70,12 @@ export default function HeaderTitle({
             window.blueHashRouterRef.props &&
             window.blueHashRouterRef.props.disableTitleSet === false
         ) {
-            const element = document.querySelector(
-                `#${uniqueId} .blue-header-title-labels`
-            ) as HTMLElement
+            const element = document.querySelector(`#${uniqueId} .blue-header-title-labels`) as HTMLElement
             const titleElement = document.querySelector("title")
             if (element && element.innerText && titleElement) {
                 const titlePaths = element.innerText.split("/")
                 if (titlePaths.length > 1) {
-                    titleElement.innerText = `${titlePaths[
-                        titlePaths.length - 1
-                    ].trim()} - ${titlePaths[0].trim()}`
+                    titleElement.innerText = `${titlePaths[titlePaths.length - 1].trim()} - ${titlePaths[0].trim()}`
                 } else {
                     titleElement.innerText = element.innerText
                 }
@@ -93,7 +90,7 @@ export default function HeaderTitle({
         <div
             id={uniqueId}
             className={
-                "blue-header-title d-inline-flex gap-2 fw-medium align-items-center" +
+                "blue-header-title d-inline-flex gap-3 fw-medium align-items-center" +
                 (className ? ` ${className}` : "") +
                 (sidebar ? " sidebar" : "")
             }
@@ -102,33 +99,37 @@ export default function HeaderTitle({
                 createElement(
                     elementType,
                     { to, href },
-                    <img
-                        src={logo}
-                        alt={logoAlt}
-                        className="blue-header-title-image"
-                    />
+                    <img src={logo} alt={logoAlt} className="blue-header-title-image" />
                 )}
 
             <nav aria-label="breadcrumb">
                 <ol className="breadcrumb mb-0">
                     {appTitle !== undefined && appTitle !== "" && (
                         <li className="breadcrumb-item">
-                            {createElement(elementType, { to, href }, appTitle)}
+                            {createElement(elementType, { to, href, className: "breadcrumb-link" }, appTitle)}
                         </li>
                     )}
 
                     {breadcrumb?.map((item, index) => {
                         const active = index === breadcrumb.length - 1
                         return (
-                            <li
-                                key={index}
-                                className={`breadcrumb-item ${
-                                    active ? "active" : ""
-                                }`}
-                                aria-current={active ? "page" : undefined}
-                            >
-                                {item}
-                            </li>
+                            <Fragment key={index}>
+                                {(index > 0 || Boolean(appTitle)) && (
+                                    <li className="breadcrumb-divider" aria-hidden="true" />
+                                )}
+                                <li
+                                    className={`breadcrumb-item ${active ? "active" : ""}`}
+                                    aria-current={active ? "page" : undefined}
+                                >
+                                    {isValidElement<{ className?: string }>(item) ? (
+                                        cloneElement(item, {
+                                            className: clsx(item.props.className, "breadcrumb-link", { active })
+                                        })
+                                    ) : (
+                                        <span className={clsx("breadcrumb-link", { active })}>{item}</span>
+                                    )}
+                                </li>
+                            </Fragment>
                         )
                     })}
                 </ol>

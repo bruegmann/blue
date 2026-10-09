@@ -21,6 +21,16 @@ npm i blue-react
 
 `blue-react` has `blue-web` and `bootstrap` as dependencies, so these will be installed automatically.
 
+## Bootstrap 6 Alpha migration
+
+Blue React and Blue Web now require Bootstrap **6.0.0-alpha.1**. Use Blue Web's stylesheet, not an additional Bootstrap prebuilt stylesheet. See [Blue Web's migration and Sass configuration](../blue-web/README.md#customization-and-theming).
+
+`Button` keeps its `filled`, `soft`, `plain`, and `outline` prop values, but renders Bootstrap 6 variant/theme classes. `accent` and `inverse` colors are available; legacy `light`/`dark` color props map to `secondary`/`inverse`.
+
+`Modal`, `ModalProvider`, and `useModal` keep their public names. The rendered element is now a native Bootstrap `Dialog`, with `shown.bs.dialog` / `hidden.bs.dialog` events. Empty prompt submissions return an empty string. Accordion items use native details/summary markup and an explicit icon.
+
+Custom class names, Bootstrap event listeners, and CSS variable overrides passed to components must use Bootstrap 6 names. Blue's CSS uses unprefixed Bootstrap tokens and retains `--blue-*` tokens.
+
 ## Breaking changes between v11 and v12
 
 ### Changes in Layout component

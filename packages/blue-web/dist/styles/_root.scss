@@ -1,0 +1,20 @@
+@use "bootstrap-variables" as *;
+@use "variables" as *;
+
+:root,
+:host {
+    --blue-app-bg: light-dark(#{$app-bg}, #{$app-bg-dark});
+    --blue-scrollbar-thumb-color-rgb: #{$scrollbar-thumb-color-rgb};
+    --blue-sidebar-width: #{$bla-sidebar-width};
+    --blue-sidebar-color: light-dark(#{$sidebar-color}, #{$sidebar-color-dark});
+    --blue-theme: light-dark(#{$theme}, #{$theme-dark});
+    --blue-shimmering: 0.9;
+    --blue-sidebar-bg: light-dark(#{$sidebar-bg}, #{$sidebar-bg-dark});
+    --blue-header-bg: light-dark(#{$header-bg}, #{$header-bg-dark});
+    --blue-header-height: 3.429rem;
+    --blue-header-color: light-dark(#{$header-color}, #{$header-color-dark});
+    --blue-action-link-bg-color: var(--blue-theme);
+    --blue-menu-item-indicator-bg: light-dark(#{$sidebar-indicator-color}, #{$sidebar-indicator-color-dark});
+    --blue-menu-item-height: #{$normal-size};
+    --blue-corner-shape: #{$corner-shape};
+}

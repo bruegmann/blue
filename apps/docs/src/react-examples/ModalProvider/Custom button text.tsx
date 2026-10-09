@@ -6,7 +6,7 @@ function InsideComp() {
 
     return (
         <button
-            className="btn btn-outline-secondary"
+            className="btn btn-outline theme-secondary"
             onClick={async () => {
                 const answer = await verify("Are you sure?", {
                     title: "Say yay or nay",

@@ -1,3 +1,6 @@
+@use "sass:color";
+@use "../bootstrap-variables" as *;
+
 @mixin show-action-menu-again() {
     max-height: initial;
     overflow: initial;
@@ -23,7 +26,7 @@
                 animation-duration: 0s;
             }
 
-            border-radius: $border-radius;
+            border-radius: var(--radius-5);
 
             @include show-action-menu-again();
 
@@ -34,7 +37,7 @@
             .blue-legacy-actions-menu {
                 flex-direction: column;
                 .blue-menu-item-dropdown {
-                    --blue-sidebar-bg: #{darken($theme, 34%)};
+                    --blue-sidebar-bg: #{color.adjust($theme, $lightness: -34%)};
                 }
             }
         }

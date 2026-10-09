@@ -45,33 +45,62 @@ JavaScript files are compiled as ES modules. This allows you to use import funct
 
 ## Customization and theming
 
-Since Blue Web is based on Bootstrap, you can customize many things by overriding Sass or CSS variables. For more information, see the [Bootstrap documentation](https://getbootstrap.com/docs/5.3/customize/overview/). Blue Web also provides some additional variables that you can use and override. Take a look at [dist/styles/\_variables.scss](https://github.com/bruegmann/blue-web/blob/main/dist/styles/_variables.scss) to see all of them.
+Blue Web now uses **Bootstrap 6.0.0-alpha.1**. This is a breaking, prerelease upgrade: migrate Bootstrap classes and markup as well as your Sass. See the [Bootstrap migration guide](https://getbootstrap.com/docs/6.0/migration/).
+
+Sass uses modules rather than global imports. Blue's configuration is forwarded by the entrypoint; configure it once with `@use ... with`. Bootstrap token maps merge overrides with their defaults. Blue's additional settings live in [dist/styles/_variables.scss](dist/styles/_variables.scss).
 
 Here is an example of how to override variables using Sass:
 
 ```scss
-// Override Bootstrap Sass variable
-$primary: tomato;
-
-// Override Blue Web Sass variables
-$theme: orange;
-$theme-dark: darken(orange, 10%);
-
 // Stylesheet for Blue Web. Already contains Bootstrap.
-@import "~blue-web/dist/style";
+@use "blue-web/dist/style" with (
+    $primary: tomato,
+    $theme: orange,
+    $theme-dark: #995f00,
+    $radius: 0.7rem,
+    $root-tokens: (
+        --body-font-family: (
+            "Inter",
+            sans-serif
+        ),
+        --focus-ring-width: 0.125rem
+    ),
+    $accordion-tokens: (
+        --accordion-padding-x: 1rem
+    )
+);
 ```
+
+For the Sass CLI, add `--load-path=node_modules`. Bundlers must resolve the `bootstrap/scss/*` modules from `node_modules`. Additional Blue partials declare their own dependencies; do not concatenate them or pre-import Bootstrap's configuration with conflicting settings. To configure Bootstrap directly, do so **before** loading Blue.
+
+Both the compiled Blue CSS and Sass output use **unprefixed Bootstrap 6 tokens** (`--primary-base`, `--bg-body`, `--radius-5`). Bootstrap's own prebuilt CSS uses `--bs-*`; do not mix it with Blue's stylesheet.
 
 An example of how to override CSS variables:
 
 ```css
 :root {
     /* Override Bootstrap CSS variable */
-    --bs-body-font-family: "Inter", sans-serif;
+    --body-font-family: "Inter", sans-serif;
 
     /* Override Blue Web CSS variable */
     --blue-sidebar-bg: #333;
 }
 ```
+
+Use `light-dark()` for adaptive colors and `data-bs-theme="light"` / `"dark"` to force a mode. Without a forced mode, CSS follows the OS preference.
+
+### Migrating existing consumers
+
+- Replace `@import` with `@use ... with`; setting global Sass variables before an import no longer configures Blue.
+- Replace v5 scalar variables such as `$border-radius` with `$radius`, and component scalars with their `$*-tokens` maps.
+- Replace `--bs-body-bg`, `--bs-body-color`, and `--bs-primary` with `--bg-body`, `--fg-body`, and `--primary-base`. RGB tokens are gone; use `color-mix()`.
+- Use `lg:d-none`, `md:col-6`, and `2xl:*` responsive classes. Blue retains its existing viewport thresholds (992px, 1200px, 1400px) under the new names.
+- Use `btn-solid theme-primary`, `btn-subtle theme-primary`, and `btn-text theme-primary`. Blue's `btn blue-btn-soft-*` and `btn blue-btn-plain-*` hooks remain available.
+- Dialogs and drawers must be native `<dialog>` elements with `.dialog` or `.drawer`; remove the old content/positioning wrappers. `.blue-modal` and `.blue-lg-modal` remain Blue hooks on that same element.
+- Bootstrap JavaScript is ESM-only; import `Dialog`, `Drawer`, and `Menu` instead of `Modal`, `Offcanvas`, and `Dropdown`. Remove `@types/bootstrap`; the alpha includes declarations.
+- Blue overrides are in `@layer custom`, so Bootstrap helpers and utilities can still override them.
+
+The flattened `merged.scss` distribution and its merge script have been removed: flattening loses module scope and configuration. The docs' legacy Theme Generator is unavailable in this alpha.
 
 
 
@@ -83,21 +112,30 @@ Give a set of `detail` elements the same `name` attribute and they will behave l
 <div class="accordion">
     <details class="accordion-item blue-collapse" name="accordion">
         <summary class="accordion-header">
-            <header class="accordion-button collapsed">Accordion item 1</header>
+            Accordion item 1
+            <svg class="accordion-icon" aria-hidden="true" viewBox="0 0 16 16" fill="none" stroke="currentColor">
+                <path d="m2 5 6 6 6-6" />
+            </svg>
         </summary>
         <div class="accordion-body">Show something</div>
     </details>
 
     <details class="accordion-item blue-collapse" name="accordion">
         <summary class="accordion-header">
-            <header class="accordion-button collapsed">Accordion item 2</header>
+            Accordion item 2
+            <svg class="accordion-icon" aria-hidden="true" viewBox="0 0 16 16" fill="none" stroke="currentColor">
+                <path d="m2 5 6 6 6-6" />
+            </svg>
         </summary>
         <div class="accordion-body">Show something</div>
     </details>
 
     <details class="accordion-item blue-collapse" name="accordion">
         <summary class="accordion-header">
-            <header class="accordion-button collapsed">Accordion item 3</header>
+            Accordion item 3
+            <svg class="accordion-icon" aria-hidden="true" viewBox="0 0 16 16" fill="none" stroke="currentColor">
+                <path d="m2 5 6 6 6-6" />
+            </svg>
         </summary>
         <div class="accordion-body">Show something</div>
     </details>
@@ -142,7 +180,7 @@ A plain variant of Bootstrap's buttons. Always use together with `.btn`!
 
 ### Button with icon
 
-Blue Web enhances [Bootstrap's icon link helper](https://getbootstrap.com/docs/5.3/helpers/icon-link/#example) with the `.blue-btn-icon-wrapper`
+Blue Web enhances [Bootstrap's icon link helper](https://getbootstrap.com/docs/6.0/helpers/icon-link/#example) with the `.blue-btn-icon-wrapper`
 class, enabling icons to be wrapped in a `span` element.
 This simplifies the integration for Blue React and Blue Blazor by allowing icons to be passed as props more easily.
 
@@ -221,7 +259,7 @@ Element with class `blue-collapse-chevron` will be rotated to `90deg` by default
                 height="1em"
                 fill="currentColor"
                 aria-hidden="true"
-                class="blue-collapse-chevron bi bi-chevron-right fs-6 opacity-50"
+                class="blue-collapse-chevron bi bi-chevron-right fs-md opacity-50"
                 viewBox="0 0 16 16"
             >
                 <path
@@ -298,7 +336,7 @@ Element with class `blue-collapse-chevron` will be rotated to `90deg` by default
 ---
 
 ```html
-<div class="bg-body-secondary py-4" style="width: 16.563rem">
+<div class="bg-2 py-7" style="width: 16.563rem">
     <div class="blue-collapse-group">
         <button type="button" class="btn blue-menu-item icon-link">
             <span class="blue-btn-icon-wrapper" aria-hidden="true">
@@ -344,25 +382,25 @@ Adds container query support to Bootstrap's grid system. By default, Bootstrap's
 With container queries, you can apply breaks based on a custom container.
 
 - [Read more about container queries](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Container_Queries)
-- [Read more about Bootstrap's grid system](https://getbootstrap.com/docs/5.3/layout/grid/)
+- [Read more about Bootstrap's grid system](https://getbootstrap.com/docs/6.0/layout/grid/)
 
 ```html
 <div class="blue-container-grid">
     <div class="row">
-        <div class="col-md-4">col-md-4</div>
-        <div class="col-md-8">col-md-8</div>
+        <div class="md:col-4">md:col-4</div>
+        <div class="md:col-8">md:col-8</div>
     </div>
 </div>
 ```
 
 ```html
 <div
-    class="blue-container-grid border-primary-subtle px-3"
+    class="blue-container-grid border-primary-subtle px-5"
     style="resize: both; overflow: auto; border: 1px dashed; width: 958px; height: 140px;"
 >
     <div class="row">
-        <div class="col-md-4 bg-primary-subtle border border-primary text-primary p-3 text-center">col-md-4</div>
-        <div class="col-md-8 bg-primary-subtle border border-primary text-primary p-3 text-center">col-md-8</div>
+        <div class="md:col-4 bg-subtle-primary border border-primary fg-primary p-5 text-center">md:col-4</div>
+        <div class="md:col-8 bg-subtle-primary border border-primary fg-primary p-5 text-center">md:col-8</div>
     </div>
     This is a container grid. Resize the box around to see the effect.
 </div>
@@ -378,7 +416,7 @@ With container queries, you can apply breaks based on a custom container.
 Provided helper classes designed to be used inside a header.
 
 ```html
-<header class="blue-header-title d-inline-flex gap-2 fw-medium align-items-center">
+<header class="blue-header-title d-inline-flex gap-3 fw-medium align-items-center">
     <a href="#">
         <img src="blue.svg" alt="Logo" class="blue-header-title-image" />
     </a>
@@ -401,10 +439,10 @@ This way you can simplify the UI a bit and make controls disappear when they are
 Usage:
 
 ```html
-<div class="card blue-opacity-hover p-3 flex-row justify-content-between">
+<div class="card blue-opacity-hover p-5 flex-row justify-content-between">
     <h5 class="blue-opacity-hover-content-default">Hover here to see a button</h5>
     <input type="text" class="form-control me-1" placeholder="When you focus me, the button should appear too" />
-    <button class="btn btn-secondary blue-opacity-hover-content-active">Hey there</button>
+    <button class="btn btn-solid theme-secondary blue-opacity-hover-content-active">Hey there</button>
 </div>
 ```
 
@@ -415,7 +453,7 @@ It is ideal if you want to replace something with something else when the user h
 Usage:
 
 ```html
-<button class="btn btn-secondary blue-d-hover d-inline-flex align-items-center gap-1">
+<button class="btn btn-solid theme-secondary blue-d-hover d-inline-flex align-items-center gap-1">
     <span class="blue-d-hover-content-default">⭕</span>
     <span class="blue-d-hover-content-active">🔵</span>
     Hover to fill the icon
@@ -433,7 +471,7 @@ Changes background color on hover.
 With CSS property `--blue-hover-bg` you can set the background color on hover:
 
 ```html
-<div class="blue-bg-hover" style="--blue-hover-bg: var(--bs-primary)">Hover to change background color</div>
+<div class="blue-bg-hover" style="--blue-hover-bg: var(--primary-base)">Hover to change background color</div>
 ```
 
 
@@ -443,7 +481,7 @@ With CSS property `--blue-hover-bg` you can set the background color on hover:
 
 ## Input group
 
-Special variant of [input group](https://getbootstrap.com/docs/5.3/forms/input-group).
+Special variant of [input group](https://getbootstrap.com/docs/6.0/forms/input-group).
 The whole group will have a focus ring when an inner input is focussed. And styling for `.input-group-text` is simplified.
 
 ### Search
@@ -468,7 +506,7 @@ This variant is especially useful for search input.
         <span class="visually-hidden">Search</span>
     </label>
     <input type="search" class="form-control" id="529142a0-0ba9-4e54-aec6-e45902aca5e1" placeholder="Enter something" />
-    <button type="button" class="btn btn-primary">Search</button>
+    <button type="button" class="btn btn-solid theme-primary">Search</button>
 </div>
 ```
 
@@ -485,10 +523,10 @@ Styles for a login screen.
 <div style="background: var(--blue-app-bg)">
     <div class="blue-intro">
         <div class="blue-intro-container mx-1">
-            <div class="bg-body rounded-3 shadow-lg px-4 py-5">
+            <div class="bg-body rounded-3 shadow-lg px-7 py-12">
                 <div class="text-center">
                     <img class="blue-intro-image" src="blue.svg" alt="Logo" />
-                    <h1 class="h2 mt-4 mb-3">Hello World</h1>
+                    <h1 class="h2 mt-7 mb-5">Hello World</h1>
                 </div>
                 Here could be a sign in form.
             </div>
@@ -720,91 +758,75 @@ Could be used inside the sidebar.
 
 ## Modal
 
-Allows to use [Bootstrap Modals](https://getbootstrap.com/docs/5.3/components/modal/) but with the native dialog element and without the need of Bootstrap's JavaScript.
+Bootstrap 6 [Dialogs](https://getbootstrap.com/docs/6.0/components/dialog/) use the native dialog element. Blue's `.blue-modal` hook remains available, without positioning/content wrappers or a separate backdrop form. Use `closedby="any"` for native backdrop dismissal in supporting browsers, or Bootstrap's `Dialog` JavaScript for its dismissal API.
 
 ```html
 <button type="button" class="btn blue-btn-soft-primary" onclick="my_modal.showModal()">Open modal</button>
 
-<dialog class="blue-modal modal" id="my_modal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5">Modal title</h1>
+<dialog class="blue-modal dialog" id="my_modal" closedby="any">
+    <div class="dialog-header">
+        <h1 class="dialog-title fs-lg">Modal title</h1>
+        <form method="dialog" style="display: contents;">
+            <button type="submit" class="btn-close" aria-label="Close"></button>
+        </form>
+    </div>
+    <div class="dialog-body">Hello World</div>
+</dialog>
+```
+
+### Drawer
+
+Bootstrap 6 [Drawers](https://getbootstrap.com/docs/6.0/components/drawer/) also use a native dialog, with `.drawer` and a placement class on that same element.
+
+```html
+<button type="button" class="btn blue-btn-soft-primary" onclick="my_drawer.showModal()">Open drawer</button>
+
+<dialog class="blue-modal drawer drawer-start" id="my_drawer" aria-labelledby="drawerExampleLabel" closedby="any">
+    <div class="drawer-header">
+        <h5 class="drawer-title" id="drawerExampleLabel">Drawer</h5>
+        <form method="dialog" style="display: contents;">
+            <button type="submit" class="btn-close" aria-label="Close"></button>
+        </form>
+    </div>
+    <div class="drawer-body">
+        <div>
+            Some text as placeholder. In real life you can have the elements you have chosen. Like, text, images, lists,
+            etc.
+        </div>
+    </div>
+</dialog>
+```
+
+### Dialog in Drawer
+
+```html
+<button type="button" class="btn blue-btn-soft-primary" onclick="my_drawer2.showModal()">Open drawer</button>
+
+<dialog class="blue-modal drawer drawer-start" id="my_drawer2" aria-labelledby="drawerExampleLabel2" closedby="any">
+    <div class="drawer-header">
+        <h5 class="drawer-title" id="drawerExampleLabel2">Drawer</h5>
+        <form method="dialog" style="display: contents;">
+            <button type="submit" class="btn-close" aria-label="Close"></button>
+        </form>
+    </div>
+    <div class="drawer-body">
+        <div>
+            Some text as placeholder. In real life you can have the elements you have chosen. Like, text, images, lists,
+            etc.
+        </div>
+
+        <button type="button" class="btn blue-btn-soft-primary" onclick="my_modal2.showModal()">Open modal</button>
+
+        <dialog class="blue-modal dialog" id="my_modal2" closedby="any">
+            <div class="dialog-header">
+                <h1 class="dialog-title fs-lg">Modal title</h1>
                 <form method="dialog" style="display: contents;">
                     <button type="submit" class="btn-close" aria-label="Close"></button>
                 </form>
             </div>
-            <div class="modal-body">Hello World</div>
-        </div>
+            <div class="dialog-body">Hello World</div>
+        </dialog>
     </div>
-    <form method="dialog" class="blue-modal-backdrop"><button>Close</button></form>
-</dialog>
-```
-
-### Offcanvas
-
-Because [Bootstrap Offcanvas](https://getbootstrap.com/docs/5.3/components/offcanvas/) works quite similar, you can also use `.blue-modal` with that.
-
-```html
-<button type="button" class="btn blue-btn-soft-primary" onclick="my_offcanvas.showModal()">Open offcanvas</button>
-
-<dialog class="blue-modal modal" id="my_offcanvas">
-    <div class="offcanvas offcanvas-start">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasExampleLabel">Offcanvas</h5>
-            <form method="dialog" style="display: contents;">
-                <button type="submit" class="btn-close" aria-label="Close"></button>
-            </form>
-        </div>
-        <div class="offcanvas-body">
-            <div>
-                Some text as placeholder. In real life you can have the elements you have chosen. Like, text, images,
-                lists, etc.
-            </div>
-        </div>
-    </div>
-    <form method="dialog" class="blue-modal-backdrop"><button>Close</button></form>
-</dialog>
-```
-
-### Modal in Offcanvas
-
-```html
-<button type="button" class="btn blue-btn-soft-primary" onclick="my_offcanvas2.showModal()">Open offcanvas</button>
-
-<dialog class="blue-modal modal" id="my_offcanvas2">
-    <div class="offcanvas offcanvas-start">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasExampleLabel">Offcanvas</h5>
-            <form method="dialog" style="display: contents;">
-                <button type="submit" class="btn-close" aria-label="Close"></button>
-            </form>
-        </div>
-        <div class="offcanvas-body">
-            <div>
-                Some text as placeholder. In real life you can have the elements you have chosen. Like, text, images,
-                lists, etc.
-            </div>
-
-            <button type="button" class="btn blue-btn-soft-primary" onclick="my_modal2.showModal()">Open modal</button>
-
-            <dialog class="blue-modal modal" id="my_modal2">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5">Modal title</h1>
-                            <form method="dialog" style="display: contents;">
-                                <button type="submit" class="btn-close" aria-label="Close"></button>
-                            </form>
-                        </div>
-                        <div class="modal-body">Hello World</div>
-                    </div>
-                </div>
-                <form method="dialog" class="blue-modal-backdrop"><button>Close</button></form>
-            </dialog>
-        </div>
-    </div>
-    <form method="dialog" class="blue-modal-backdrop"><button>Close</button></form>
 </dialog>
 ```
 
@@ -814,8 +836,8 @@ If you use `dialog.showModal()`, the dialog will be inside the top layer, above 
 
 ```html
 <button type="button" class="btn blue-btn-soft-primary" onclick="my_modal.show()">Open modal with .show()</button>
-<button type="button" class="btn blue-btn-soft-primary" onclick="my_offcanvas.show()">
-    Open offcanvas with .show()
+<button type="button" class="btn blue-btn-soft-primary" onclick="my_drawer.show()">
+    Open drawer with .show()
 </button>
 
 <br />
@@ -823,11 +845,11 @@ If you use `dialog.showModal()`, the dialog will be inside the top layer, above 
 <button type="button" class="btn blue-btn-soft-primary" onclick="my_modal.showModal()">
     Open modal with .showModal()
 </button>
-<button type="button" class="btn blue-btn-soft-primary" onclick="my_offcanvas.showModal()">
-    Open offcanvas with .showModal()
+<button type="button" class="btn blue-btn-soft-primary" onclick="my_drawer.showModal()">
+    Open drawer with .showModal()
 </button>
 
-<div class="border border-primary bg-body text-body rounded p-3 mt-3 position-relative" style="z-index: 5000">
+<div class="border border-primary bg-body fg-body rounded p-5 mt-5 position-relative" style="z-index: 5000">
     This has a really high z-index. It should be over the dialog, when you open it with .show() and underneath it when
     you open it with .showModal().
 </div>
@@ -845,16 +867,16 @@ The effects can have some weird side-effects, that's why they are not included b
 
 ### Getting started
 
-1. Import neu.css in your main SCSS file:
+1. Load the module in your main SCSS file:
 
     ```scss
-    @import "~blue-react/dist/neu";
+    @use "blue-web/dist/neu";
     ```
 
 2. Apply the mixin "neu()" at the area you want to use it:
     ```scss
     :root {
-        @include neu(#610dfd);
+        @include neu.neu(#610dfd);
     }
     ```
     First parameter takes the areas's background color. As second parameter you can set the background color for inset.
@@ -872,7 +894,7 @@ The notation looks like this: `.neu-shadow{-inset?}{-switch?}{-size}`
     - `4` - distance and blur values multiplied with `1.5`
     - `5` - distance and blur values multiplied with `3`
 
-Format and the values are inspired by [Bootstrap](https://getbootstrap.com/docs/5.3/utilities/spacing/#notation).
+Format and the values are inspired by [Bootstrap](https://getbootstrap.com/docs/6.0/utilities/spacing/#notation).
 
 ### Combining classes
 
@@ -889,13 +911,11 @@ You can combine shadows with inset shadows like this:
 
 ```scss
 .bg-body {
-    @include neu($body-bg, $body-bg);
+    @include neu.neu(#f8f9fa);
 }
 
-@include color-mode(dark) {
-    .bg-body {
-        @include neu($body-bg-dark, $body-bg-dark);
-    }
+[data-bs-theme="dark"] .bg-body {
+    @include neu.neu(#212529);
 }
 ```
 
@@ -912,10 +932,10 @@ You can combine shadows to different soft effects.
 
 ```html
 <section class="bg-body">
-    <div class="my-5 rounded-5 p-4 mx-4" style="box-shadow: var(--neu-shadow-5), var(--neu-shadow-inset-switch-1);">
+    <div class="my-12 rounded-5 p-7 mx-7" style="box-shadow: var(--neu-shadow-5), var(--neu-shadow-inset-switch-1);">
         Neumorph card<br />
         <button
-            class="btn btn-lg btn-primary mt-3 rounded-4"
+            class="btn btn-lg btn-solid theme-primary mt-5 rounded-4"
             style="var(--neu-shadow-4), var(--neu-shadow-inset-switch-3)"
         >
             Click me
@@ -948,7 +968,7 @@ Add `.blue-anchored-fallback` to the dropdown element and on not supported brows
 <div
     id="popover-basic"
     popover
-    class="blue-anchored-fallback position-fixed m-0 p-3 border rounded shadow"
+    class="blue-anchored-fallback position-fixed m-0 p-5 border rounded shadow"
     style="position-area: bottom span-right"
 >
     Hello from popover!
@@ -994,7 +1014,7 @@ Add `.blue-anchored-fallback` to the dropdown element and on not supported brows
 Adds shadow if area is scrollable.
 
 ```html
-<div class="blue-normal-scrollbar mb-3 p-3 rounded border border-primary-subtle">
+<div class="blue-normal-scrollbar mb-5 p-5 rounded border border-primary-subtle">
     <label> Area with <code>.blue-normal-scrollbar</code> and also <code>.blue-scroll-shadow</code> </label>
     <select class="form-control blue-scroll-shadow" multiple aria-readonly>
         <option>one</option>
@@ -1021,7 +1041,7 @@ Some browsers might not be supported. As of writing works best with Chromium bas
 ```html
 <div class="blue-scrollspy" aria-live="polite" style="height: 200px">
     <section aria-label="Group 1" class="list-group mb-1 m-last-0">
-        <header class="list-group-item bg-body-tertiary fw-bold">Group 1</header>
+        <header class="list-group-item bg-1 fw-bold">Group 1</header>
         <div class="list-group-item">Item 1.1</div>
         <div class="list-group-item">Item 1.2</div>
         <div class="list-group-item">Item 1.3</div>
@@ -1029,7 +1049,7 @@ Some browsers might not be supported. As of writing works best with Chromium bas
     </section>
 
     <section aria-label="Group 2" class="list-group mb-1 m-last-0">
-        <header class="list-group-item bg-body-tertiary fw-bold">Group 2</header>
+        <header class="list-group-item bg-1 fw-bold">Group 2</header>
         <div class="list-group-item">Item 2.1</div>
         <div class="list-group-item">Item 2.2</div>
         <div class="list-group-item">Item 2.3</div>
@@ -1037,7 +1057,7 @@ Some browsers might not be supported. As of writing works best with Chromium bas
     </section>
 
     <section aria-label="Group 3" class="list-group mb-1 m-last-0">
-        <header class="list-group-item bg-body-tertiary fw-bold">Group 3</header>
+        <header class="list-group-item bg-1 fw-bold">Group 3</header>
         <div class="list-group-item">Item 3.1</div>
         <div class="list-group-item">Item 3.2</div>
         <div class="list-group-item">Item 3.3</div>
@@ -1045,7 +1065,7 @@ Some browsers might not be supported. As of writing works best with Chromium bas
     </section>
 
     <section aria-label="Group 4" class="list-group mb-1 m-last-0">
-        <header class="list-group-item bg-body-tertiary fw-bold">Group 4</header>
+        <header class="list-group-item bg-1 fw-bold">Group 4</header>
         <div class="list-group-item">Item 4.1</div>
         <div class="list-group-item">Item 4.2</div>
         <div class="list-group-item">Item 4.3</div>
@@ -1059,7 +1079,7 @@ Some browsers might not be supported. As of writing works best with Chromium bas
 ```html
 <div class="blue-scrollspy blue-scrollspy-after" aria-live="polite" style="height: 200px">
     <section aria-label="Group 1" class="list-group mb-1">
-        <header class="list-group-item bg-body-tertiary fw-bold">Group 1</header>
+        <header class="list-group-item bg-1 fw-bold">Group 1</header>
         <div class="list-group-item">Item 1.1</div>
         <div class="list-group-item">Item 1.2</div>
         <div class="list-group-item">Item 1.3</div>
@@ -1067,7 +1087,7 @@ Some browsers might not be supported. As of writing works best with Chromium bas
     </section>
 
     <section aria-label="Group 2" class="list-group mb-1">
-        <header class="list-group-item bg-body-tertiary fw-bold">Group 2</header>
+        <header class="list-group-item bg-1 fw-bold">Group 2</header>
         <div class="list-group-item">Item 2.1</div>
         <div class="list-group-item">Item 2.2</div>
         <div class="list-group-item">Item 2.3</div>
@@ -1075,7 +1095,7 @@ Some browsers might not be supported. As of writing works best with Chromium bas
     </section>
 
     <section aria-label="Group 3" class="list-group mb-1">
-        <header class="list-group-item bg-body-tertiary fw-bold">Group 3</header>
+        <header class="list-group-item bg-1 fw-bold">Group 3</header>
         <div class="list-group-item">Item 3.1</div>
         <div class="list-group-item">Item 3.2</div>
         <div class="list-group-item">Item 3.3</div>
@@ -1083,7 +1103,7 @@ Some browsers might not be supported. As of writing works best with Chromium bas
     </section>
 
     <section aria-label="Group 4" class="list-group">
-        <header class="list-group-item bg-body-tertiary fw-bold">Group 4</header>
+        <header class="list-group-item bg-1 fw-bold">Group 4</header>
         <div class="list-group-item">Item 4.1</div>
         <div class="list-group-item">Item 4.2</div>
         <div class="list-group-item">Item 4.3</div>
@@ -1098,7 +1118,7 @@ Some browsers might not be supported. As of writing works best with Chromium bas
 <div style="width: 300px">
     <div class="blue-scrollspy" aria-live="polite" style="height: 200px">
         <section aria-label="Group number 1" class="list-group mb-1 m-last-0">
-            <header class="list-group-item bg-body-tertiary fw-bold">Group number 1</header>
+            <header class="list-group-item bg-1 fw-bold">Group number 1</header>
             <div class="list-group-item">Item 1.1</div>
             <div class="list-group-item">Item 1.2</div>
             <div class="list-group-item">Item 1.3</div>
@@ -1106,7 +1126,7 @@ Some browsers might not be supported. As of writing works best with Chromium bas
         </section>
 
         <section aria-label="Group number 2" class="list-group mb-1 m-last-0">
-            <header class="list-group-item bg-body-tertiary fw-bold">Group number 2</header>
+            <header class="list-group-item bg-1 fw-bold">Group number 2</header>
             <div class="list-group-item">Item 2.1</div>
             <div class="list-group-item">Item 2.2</div>
             <div class="list-group-item">Item 2.3</div>
@@ -1114,7 +1134,7 @@ Some browsers might not be supported. As of writing works best with Chromium bas
         </section>
 
         <section aria-label="Group number 3" class="list-group mb-1 m-last-0">
-            <header class="list-group-item bg-body-tertiary fw-bold">Group number 3</header>
+            <header class="list-group-item bg-1 fw-bold">Group number 3</header>
             <div class="list-group-item">Item 3.1</div>
             <div class="list-group-item">Item 3.2</div>
             <div class="list-group-item">Item 3.3</div>
@@ -1122,7 +1142,7 @@ Some browsers might not be supported. As of writing works best with Chromium bas
         </section>
 
         <section aria-label="Group number 4" class="list-group mb-1 m-last-0">
-            <header class="list-group-item bg-body-tertiary fw-bold">Group 4</header>
+            <header class="list-group-item bg-1 fw-bold">Group 4</header>
             <div class="list-group-item">Item 4.1</div>
             <div class="list-group-item">Item 4.2</div>
             <div class="list-group-item">Item 4.3</div>
@@ -1261,7 +1281,7 @@ You should combine them with `.nav.nav-tabs` and `.nav-link` by Bootstrap.
         id="my_tabs_1_tabpanel_1"
         aria-labelledby="my_tabs_1_tab_1"
         tabindex="0"
-        class="blue-tab-content p-3"
+        class="blue-tab-content p-5"
     >
         Tab content 1
     </div>
@@ -1280,7 +1300,7 @@ You should combine them with `.nav.nav-tabs` and `.nav-link` by Bootstrap.
         id="my_tabs_1_tabpanel_2"
         aria-labelledby="my_tabs_1_tab_2"
         tabindex="0"
-        class="blue-tab-content p-3"
+        class="blue-tab-content p-5"
     >
         Tab content 2
     </div>
@@ -1299,7 +1319,7 @@ You should combine them with `.nav.nav-tabs` and `.nav-link` by Bootstrap.
         id="my_tabs_1_tabpanel_3"
         aria-labelledby="my_tabs_1_tab_3"
         tabindex="0"
-        class="blue-tab-content p-3"
+        class="blue-tab-content p-5"
     >
         Tab content 3
     </div>
@@ -1325,7 +1345,7 @@ You should combine them with `.nav.nav-tabs` and `.nav-link` by Bootstrap.
         id="my_tabs_2_tabpanel_1"
         aria-labelledby="my_tabs_2_tab_1"
         tabindex="0"
-        class="blue-tab-content p-3"
+        class="blue-tab-content p-5"
     >
         Tab content 1
     </div>
@@ -1344,7 +1364,7 @@ You should combine them with `.nav.nav-tabs` and `.nav-link` by Bootstrap.
         id="my_tabs_2_tabpanel_2"
         aria-labelledby="my_tabs_2_tab_2"
         tabindex="0"
-        class="blue-tab-content p-3"
+        class="blue-tab-content p-5"
     >
         Tab content 2
     </div>
@@ -1363,7 +1383,7 @@ You should combine them with `.nav.nav-tabs` and `.nav-link` by Bootstrap.
         id="my_tabs_2_tabpanel_3"
         aria-labelledby="my_tabs_2_tab_3"
         tabindex="0"
-        class="blue-tab-content p-3"
+        class="blue-tab-content p-5"
     >
         Tab content 3
     </div>
@@ -1378,7 +1398,7 @@ You can customize the look more by overriding the CSS variables coming from Boot
 <div
     role="tablist"
     class="blue-tabs nav nav-underline"
-    style="--bs-nav-link-color: var(--bs-emphasis-color);
+    style="--nav-link-color: var(--fg-body);
         --blue-tabs-underline-active-font-weight: 600;
         --blue-tabs-underline-active-border-bottom-color: tomato;"
 >
@@ -1397,7 +1417,7 @@ You can customize the look more by overriding the CSS variables coming from Boot
         id="my_tabs_3_tabpanel_1"
         aria-labelledby="my_tabs_3_tab_1"
         tabindex="0"
-        class="blue-tab-content p-3"
+        class="blue-tab-content p-5"
     >
         Tab content 1
     </div>
@@ -1416,7 +1436,7 @@ You can customize the look more by overriding the CSS variables coming from Boot
         id="my_tabs_3_tabpanel_2"
         aria-labelledby="my_tabs_3_tab_2"
         tabindex="0"
-        class="blue-tab-content p-3"
+        class="blue-tab-content p-5"
     >
         Tab content 2
     </div>
@@ -1435,7 +1455,7 @@ You can customize the look more by overriding the CSS variables coming from Boot
         id="my_tabs_3_tabpanel_3"
         aria-labelledby="my_tabs_3_tab_3"
         tabindex="0"
-        class="blue-tab-content p-3"
+        class="blue-tab-content p-5"
     >
         Tab content 3
     </div>
@@ -1455,7 +1475,7 @@ In previous versions of Bootstrap, `.page-header` was a class that could be used
 Unfortunately his class was removed in Bootstrap 5, so it's now part of Blue Web CSS.
 
 ```html
-<div class="border rounded p-3">
+<div class="border rounded p-5">
     <div class="h1 blue-page-header">Example headline</div>
 </div>
 ```
@@ -1465,7 +1485,7 @@ Unfortunately his class was removed in Bootstrap 5, so it's now part of Blue Web
 Combined with `h1`-`h6` elements or `.h1`-`.h6` classes, the border width changes.
 
 ```html
-<div class="border rounded p-3">
+<div class="border rounded p-5">
     <div class="h1 blue-page-header">Example headline</div>
     <div class="h2 blue-page-header">Example headline</div>
     <div class="h3 blue-page-header">Example headline</div>
@@ -1532,13 +1552,13 @@ This is how you can customize the tooltip content with HTML.
 
 ## Additional utility classes
 
-Bootstrap already comes with a bunch of [utility classes](https://getbootstrap.com/docs/5.3/utilities/background/).
+Bootstrap already comes with a bunch of [utility classes](https://getbootstrap.com/docs/6.0/utilities/background/).
 Blue Web adds some additional to them.
 
 ### `.m-last-0:last-child`
 
 Sets `margin: 0` to last child.
-Useful for creating a gap between items together with `mb-3`.
+Useful for creating a gap between items together with `mb-5`.
 Inspired by Tailwind CSS class `last:m-0`.
 
 ### `.blue-empty-message`
@@ -1556,11 +1576,11 @@ For localization you should override CSS variable `--message` dynamically.
 Fixing border radius clipping.
 
 ```html
-<div class="border border-primary rounded-5 mb-3">
-    <div class="text-bg-danger p-3">Child background destroys border radius of parent. ☹️</div>
+<div class="border border-primary rounded-5 mb-5">
+    <div class="bg-danger fg-contrast-danger p-5">Child background destroys border radius of parent. ☹️</div>
 </div>
 <div class="border border-primary rounded-5 blue-contain-paint">
-    <div class="text-bg-success p-3">Much better! 🥳</div>
+    <div class="bg-success fg-contrast-success p-5">Much better! 🥳</div>
 </div>
 ```
 
@@ -1569,7 +1589,7 @@ We automatically add it to Bootstrap's `.card`.
 ```html
 <div class="card">
     <header class="card-header">My card</header>
-    <div class="text-bg-success p-3"></div>
+    <div class="bg-success fg-contrast-success p-5"></div>
 </div>
 ```
 
@@ -1634,7 +1654,7 @@ Otherwise they will be visible in the dropdown menu. JavaScript detects if space
         </div>
 
         <div class="blue-actions-collapse" style="--blue-anchor-name: --actionDemoPopoverAnchor">
-            <button type="button" popovertarget="actionDemoPopoverPopover" class="blue-anchor blue-menu-item btn px-3">
+            <button type="button" popovertarget="actionDemoPopoverPopover" class="blue-anchor blue-menu-item btn px-5">
                 <span class="blue-menu-item-icon" aria-hidden="true">&#8942;</span>
                 <span class="visually-hidden">Toggle menu</span>
             </button>
@@ -1642,8 +1662,8 @@ Otherwise they will be visible in the dropdown menu. JavaScript detects if space
             <div
                 id="actionDemoPopoverPopover"
                 popover
-                class="blue-actions-collapse-menu blue-anchored blue-anchored-end blue-anchored-fallback blue-menu-item-dropdown text-body gap-1 flex-column p-1"
-                style="--blue-menu-item-dropdown-bg: var(--bs-body-bg); --display: flex;"
+                class="blue-actions-collapse-menu blue-anchored blue-anchored-end blue-anchored-fallback blue-menu-item-dropdown fg-body gap-1 flex-column p-1"
+                style="--blue-menu-item-dropdown-bg: var(--bg-body); --display: flex;"
             >
                 <button type="button" class="blue-menu-item btn">
                     <span class="blue-menu-item-icon" aria-hidden="true">🌍</span>
@@ -1704,26 +1724,26 @@ and global event listeners will be removed. Try to click the button. It will des
 ```html
 <div id="actionsDemoButtonGroups" class="border p-1" style="width: 460px">
     <div class="blue-actions" role="toolbar" aria-label="Toolbar with button groups">
-        <div class="blue-actions-menu gap-2">
+        <div class="blue-actions-menu gap-3">
             <div class="btn-group" role="group" aria-label="First group">
-                <button type="button" class="btn btn-primary">1</button>
-                <button type="button" class="btn btn-primary">2</button>
-                <button type="button" class="btn btn-primary">3</button>
-                <button type="button" class="btn btn-primary">4</button>
+                <button type="button" class="btn btn-solid theme-primary">1</button>
+                <button type="button" class="btn btn-solid theme-primary">2</button>
+                <button type="button" class="btn btn-solid theme-primary">3</button>
+                <button type="button" class="btn btn-solid theme-primary">4</button>
             </div>
             <div class="btn-group" role="group" aria-label="Second group">
-                <button type="button" class="btn btn-secondary">5</button>
-                <button type="button" class="btn btn-secondary">6</button>
-                <button type="button" class="btn btn-secondary">7</button>
+                <button type="button" class="btn btn-solid theme-secondary">5</button>
+                <button type="button" class="btn btn-solid theme-secondary">6</button>
+                <button type="button" class="btn btn-solid theme-secondary">7</button>
             </div>
             <div class="btn-group" role="group" aria-label="Third group">
-                <button type="button" class="btn btn-info">8</button>
+                <button type="button" class="btn btn-solid theme-info">8</button>
             </div>
             <div class="btn-group" role="group" aria-label="Fourth group">
-                <button type="button" class="btn btn-primary">9</button>
-                <button type="button" class="btn btn-primary">10</button>
-                <button type="button" class="btn btn-primary">11</button>
-                <button type="button" class="btn btn-primary">12</button>
+                <button type="button" class="btn btn-solid theme-primary">9</button>
+                <button type="button" class="btn btn-solid theme-primary">10</button>
+                <button type="button" class="btn btn-solid theme-primary">11</button>
+                <button type="button" class="btn btn-solid theme-primary">12</button>
             </div>
         </div>
 
@@ -1731,7 +1751,7 @@ and global event listeners will be removed. Try to click the button. It will des
             <button
                 type="button"
                 popovertarget="actionsDemoButtonGroupsPopover"
-                class="blue-anchor blue-menu-item btn px-3"
+                class="blue-anchor blue-menu-item btn px-5"
             >
                 <span class="blue-menu-item-icon" aria-hidden="true">&#8942;</span>
                 <span class="visually-hidden">Toggle menu</span>
@@ -1740,28 +1760,28 @@ and global event listeners will be removed. Try to click the button. It will des
             <div
                 id="actionsDemoButtonGroupsPopover"
                 popover
-                class="blue-actions-collapse-menu blue-anchored blue-anchored-end blue-anchored-fallback blue-menu-item-dropdown text-body gap-1 flex-column p-1"
-                style="--blue-menu-item-dropdown-bg: var(--bs-body-bg); --display: flex;"
+                class="blue-actions-collapse-menu blue-anchored blue-anchored-end blue-anchored-fallback blue-menu-item-dropdown fg-body gap-1 flex-column p-1"
+                style="--blue-menu-item-dropdown-bg: var(--bg-body); --display: flex;"
             >
                 <div class="btn-group" role="group" aria-label="First group">
-                    <button type="button" class="btn btn-primary">1</button>
-                    <button type="button" class="btn btn-primary">2</button>
-                    <button type="button" class="btn btn-primary">3</button>
-                    <button type="button" class="btn btn-primary">4</button>
+                    <button type="button" class="btn btn-solid theme-primary">1</button>
+                    <button type="button" class="btn btn-solid theme-primary">2</button>
+                    <button type="button" class="btn btn-solid theme-primary">3</button>
+                    <button type="button" class="btn btn-solid theme-primary">4</button>
                 </div>
                 <div class="btn-group" role="group" aria-label="Second group">
-                    <button type="button" class="btn btn-secondary">5</button>
-                    <button type="button" class="btn btn-secondary">6</button>
-                    <button type="button" class="btn btn-secondary">7</button>
+                    <button type="button" class="btn btn-solid theme-secondary">5</button>
+                    <button type="button" class="btn btn-solid theme-secondary">6</button>
+                    <button type="button" class="btn btn-solid theme-secondary">7</button>
                 </div>
                 <div class="btn-group" role="group" aria-label="Third group">
-                    <button type="button" class="btn btn-info">8</button>
+                    <button type="button" class="btn btn-solid theme-info">8</button>
                 </div>
                 <div class="btn-group" role="group" aria-label="Fourth group">
-                    <button type="button" class="btn btn-primary">9</button>
-                    <button type="button" class="btn btn-primary">10</button>
-                    <button type="button" class="btn btn-primary">11</button>
-                    <button type="button" class="btn btn-primary">12</button>
+                    <button type="button" class="btn btn-solid theme-primary">9</button>
+                    <button type="button" class="btn btn-solid theme-primary">10</button>
+                    <button type="button" class="btn btn-solid theme-primary">11</button>
+                    <button type="button" class="btn btn-solid theme-primary">12</button>
                 </div>
             </div>
         </div>
@@ -1791,7 +1811,7 @@ and global event listeners will be removed. Try to click the button. It will des
 
 ## Color Mode
 
-Use `color-mode.js` for better support for [Bootstrap's color modes](https://getbootstrap.com/docs/5.3/customize/color-modes/).
+Use `color-mode.js` for better support for [Bootstrap's color modes](https://getbootstrap.com/docs/6.0/customize/color-modes/).
 
 The script automatically detects if the user uses light or dark mode and sets the `data-bs-theme` attribute to the document element (`<html>`). It also updates it if the color mode changes.
 It also exports these functions:
@@ -1807,7 +1827,7 @@ Example about, how you could create a color mode switch.
 
 ```html
 <div class="form-floating">
-    <select class="form-select w-auto" id="colorModeSelect" aria-label="Selector for color mode">
+    <select class="form-control w-auto" id="colorModeSelect" aria-label="Selector for color mode">
         <option value="auto">Auto</option>
         <option value="light">Light</option>
         <option value="dark">Dark</option>
@@ -2027,9 +2047,9 @@ It’s designed for use in badges, notifications, dashboards, or any place where
 ### Styled as badge
 
 ```html
-<button type="button" class="btn btn-outline-primary">
+<button type="button" class="btn btn-outline theme-primary">
     <span aria-hidden="true">🔔</span> Notifications
-    <span class="badge bg-primary-subtle text-primary-emphasis">
+    <span class="badge bg-subtle-primary fg-emphasis-primary">
         <bl-odometer value="2"></bl-odometer>
     </span>
 </button>
@@ -2081,7 +2101,7 @@ When the value changes, the element will get attribute `data-change="up"` or `da
 This allows you to add styling based on the new state. After 3 seconds the attribute will be reset.
 
 ```html
-<span class="badge rounded-pill bg-body-tertiary text-body border">
+<span class="badge rounded-pill bg-1 fg-body border">
     <style>
         @scope {
             :scope {
@@ -2091,15 +2111,15 @@ This allows you to add styling based on the new state. After 3 seconds the attri
             }
 
             :scope:has([data-change="up"]) {
-                background-color: var(--bs-success-bg-subtle) !important;
-                color: var(--bs-success-text-emphasis) !important;
-                border-color: var(--bs-success-bg-subtle) !important;
+                background-color: var(--success-bg-subtle) !important;
+                color: var(--success-fg-emphasis) !important;
+                border-color: var(--success-bg-subtle) !important;
             }
 
             :scope:has([data-change="down"]) {
-                background-color: var(--bs-danger-bg-subtle) !important;
-                color: var(--bs-danger-text-emphasis) !important;
-                border-color: var(--bs-danger-bg-subtle) !important;
+                background-color: var(--danger-bg-subtle) !important;
+                color: var(--danger-fg-emphasis) !important;
+                border-color: var(--danger-bg-subtle) !important;
             }
 
             bl-odometer[data-change="up"]::after {
@@ -2324,7 +2344,7 @@ A "fake" progress bar that will appear fixed at the top of the page.
 You can customize the element further by setting a custom ID, parent element and position class name. This allows you to attach the progress element to some other element than the body.
 
 ```html
-<div id="myElement" class="bg-secondary-subtle border border-primary rounded-2 p-3 position-relative mb-1">
+<div id="myElement" class="bg-subtle-secondary border border-primary rounded-2 p-5 position-relative mb-1">
     Add progress bar to this
 </div>
 <button id="startButton2" type="button" class="btn blue-btn-soft-secondary">Start</button>
@@ -2349,12 +2369,12 @@ You can customize the element further by setting a custom ID, parent element and
 ### Multiple instances
 
 ```html
-<div id="instance1" class="border rounded-2 p-3 position-relative mb-1">
+<div id="instance1" class="border rounded-2 p-5 position-relative mb-1">
     <button id="startButton3a" type="button" class="btn blue-btn-soft-secondary">Start</button>
     <button id="stopButton3a" type="button" class="btn blue-btn-soft-secondary">Stop</button>
 </div>
 
-<div id="instance2" class="border rounded-2 p-3 position-relative mb-1">
+<div id="instance2" class="border rounded-2 p-5 position-relative mb-1">
     <button id="startButton3b" type="button" class="btn blue-btn-soft-secondary">Start</button>
     <button id="stopButton3b" type="button" class="btn blue-btn-soft-secondary">Stop</button>
 </div>
@@ -2454,7 +2474,7 @@ A Web Component to create a list with selectable items. Combine it an input elem
 Take a look at the browser console. When you select an item, an event listener will log it.
 
 ```html
-<input type="search" class="form-control mb-3" id="myinput" />
+<input type="search" class="form-control mb-5" id="myinput" />
 
 <bl-select-list class="list-group" id="myselectlist" for="myinput">
     <button class="list-group-item list-group-item-action">Item 1</button>
@@ -2589,7 +2609,7 @@ It allows you to easily animate transitions between different UI states.
     }
 </style>
 
-<div class="position-relative mb-5">
+<div class="position-relative mb-12">
     <button type="button" class="blue-menu-item btn">
         <span id="bellIcon" class="blue-menu-item-icon" aria-hidden="true" style="view-transition-name: bellIcon"
             ><svg
@@ -2619,8 +2639,8 @@ It allows you to easily animate transitions between different UI states.
     </button>
     <div
         id="targetMenu"
-        class="blue-menu-item-dropdown d-inline-flex flex-column text-body"
-        style="--blue-menu-item-dropdown-bg: var(--bs-body-bg);"
+        class="blue-menu-item-dropdown d-inline-flex flex-column fg-body"
+        style="--blue-menu-item-dropdown-bg: var(--bg-body);"
     >
         <button type="button" class="blue-menu-item btn">
             <span class="blue-menu-item-icon" aria-hidden="true">🌍</span>
@@ -2691,7 +2711,7 @@ Blue Web offers a set of code to create a layout with a header, collapsible side
     <header class="blue-layout-header">
         <button
             type="button"
-            class="btn blue-menu-item blue-btn-square d-flex d-lg-none"
+            class="btn blue-menu-item blue-btn-square d-flex lg:d-none"
             command="show-modal"
             commandfor="layoutDrawer"
             aria-label="Open drawer"
@@ -2704,7 +2724,7 @@ Blue Web offers a set of code to create a layout with a header, collapsible side
         <button
             id="toggleLayoutSide"
             type="button"
-            class="btn blue-menu-item blue-btn-square d-none d-lg-flex"
+            class="btn blue-menu-item blue-btn-square d-none lg:d-flex"
             data-blue-toggle="layout-side"
             aria-controls="layoutSide"
             aria-expanded="true"
@@ -2719,25 +2739,27 @@ Blue Web offers a set of code to create a layout with a header, collapsible side
     </header>
 
     <div id="layoutSide" class="blue-layout-side">
-        <dialog class="blue-lg-modal blue-modal modal" id="layoutDrawer" aria-describedby="layoutDrawerLabel">
-            <div class="offcanvas offcanvas-start">
-                <div class="offcanvas-header">
-                    <h1 class="h5 offcanvas-title" id="layoutDrawerLabel">Offcanvas</h1>
-                    <form method="dialog" style="display: contents;">
-                        <button type="submit" class="btn-close" aria-label="Close"></button>
-                    </form>
-                </div>
-                <div class="offcanvas-body">
-                    <div class="blue-layout-side-body">
-                        <ul class="list-unstyled vstack">
-                            <li><a href="#" class="btn blue-menu-item icon-link d-flex">Item 1</a></li>
-                            <li><a href="#" class="btn blue-menu-item icon-link d-flex">Item 2</a></li>
-                            <li><a href="#" class="btn blue-menu-item icon-link d-flex">Item 3</a></li>
-                        </ul>
-                    </div>
+        <dialog
+            class="blue-lg-modal blue-modal drawer drawer-start"
+            id="layoutDrawer"
+            aria-describedby="layoutDrawerLabel"
+            closedby="any"
+        >
+            <div class="drawer-header">
+                <h1 class="h5 drawer-title" id="layoutDrawerLabel">Offcanvas</h1>
+                <form method="dialog" style="display: contents;">
+                    <button type="submit" class="btn-close" aria-label="Close"></button>
+                </form>
+            </div>
+            <div class="drawer-body">
+                <div class="blue-layout-side-body">
+                    <ul class="list-unstyled vstack">
+                        <li><a href="#" class="btn blue-menu-item icon-link d-flex">Item 1</a></li>
+                        <li><a href="#" class="btn blue-menu-item icon-link d-flex">Item 2</a></li>
+                        <li><a href="#" class="btn blue-menu-item icon-link d-flex">Item 3</a></li>
+                    </ul>
                 </div>
             </div>
-            <form method="dialog" class="blue-modal-backdrop"><button>Close</button></form>
         </dialog>
     </div>
     <main class="blue-layout-main">
@@ -2779,7 +2801,7 @@ By default the logo size is `2rem`. You can override that value with CSS variabl
 
 ```html
 <div style="--blue-header-title-image-size: 1rem">
-    <div class="blue-header-title d-inline-flex gap-2 fw-medium align-items-center px-3 py-2">
+    <div class="blue-header-title d-inline-flex gap-3 fw-medium align-items-center px-5 py-3">
         <a href="."><img src="blue.svg" alt="My logo" class="blue-header-title-image" /></a>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb mb-0">
@@ -2799,29 +2821,31 @@ If your logo has another width than height, you can also use a combination of `-
 
 ## Responsive Drawer
 
-Responsive Drawers will be introduced in Bootstrap 6. Blue Web implemented ways that allow you to use it already today.
+Bootstrap 6 drawers use a native `dialog`. Blue's responsive hooks show the same element inline above the selected viewport breakpoint and as a drawer below it.
 
 ```html
-<button type="button" class="btn blue-btn-soft-primary d-lg-none" command="show-modal" commandfor="myDrawer">
-    Open offcanvas
+<button type="button" class="btn blue-btn-soft-primary lg:d-none" command="show-modal" commandfor="myDrawer">
+    Open drawer
 </button>
 
-<dialog class="blue-lg-modal blue-modal modal" id="myDrawer" aria-describedby="offcanvasLabel">
-    <div class="offcanvas offcanvas-start">
-        <div class="offcanvas-header">
-            <h1 class="h5 offcanvas-title" id="offcanvasLabel">Offcanvas</h1>
-            <form method="dialog" style="display: contents;">
-                <button type="submit" class="btn-close" aria-label="Close"></button>
-            </form>
-        </div>
-        <div class="offcanvas-body">
-            <div>
-                On larger screens, you will see this content immediately. On smaller screens, it will be hidden inside a
-                drawer and you can open it using a button.
-            </div>
+<dialog
+    class="blue-lg-modal blue-modal drawer drawer-start"
+    id="myDrawer"
+    aria-labelledby="drawerLabel"
+    closedby="any"
+>
+    <div class="drawer-header">
+        <h1 class="h5 drawer-title" id="drawerLabel">Drawer</h1>
+        <form method="dialog" style="display: contents;">
+            <button type="submit" class="btn-close" aria-label="Close"></button>
+        </form>
+    </div>
+    <div class="drawer-body">
+        <div>
+            On larger screens, you will see this content immediately. On smaller screens, it will be hidden inside a
+            drawer and you can open it using a button.
         </div>
     </div>
-    <form method="dialog" class="blue-modal-backdrop"><button>Close</button></form>
 </dialog>
 
 <script>
@@ -2838,7 +2862,7 @@ Responsive Drawers will be introduced in Bootstrap 6. Blue Web implemented ways 
 
 ## Typography
 
-Since Blue Web builds on top of Bootstrap, you should also check out [their section about typography](https://getbootstrap.com/docs/5.3/content/typography/).
+Since Blue Web builds on top of Bootstrap, you should also check out [their section about typography](https://getbootstrap.com/docs/6.0/content/typography/).
 
 ### Inter as font family
 

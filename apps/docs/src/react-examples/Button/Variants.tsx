@@ -2,13 +2,13 @@ import { Button } from "blue-react"
 
 export default function Variants() {
     return (
-        <div className="vstack gap-2">
-            <div className="hstack gap-2">
+        <div className="vstack gap-3">
+            <div className="hstack gap-3">
                 <Button label="Default is plain and secondary" />
                 <Button label="Make button look like menu item" variant="menu-item" />
                 <Button label="Make button look like a link" variant="link" />
             </div>
-            <div className="hstack gap-2">
+            <div className="hstack gap-3">
                 <Button label="Primary" color="primary" />
                 <Button label="Secondary" />
                 <Button label="Success" color="success" />
@@ -18,7 +18,7 @@ export default function Variants() {
                 <Button label="Light" color="light" />
                 <Button label="Dark" color="dark" />
             </div>
-            <div className="hstack gap-2">
+            <div className="hstack gap-3">
                 <Button label="Primary" color="primary" variant="plain" />
                 <Button label="Secondary" variant="plain" />
                 <Button label="Success" color="success" variant="plain" />
@@ -28,7 +28,7 @@ export default function Variants() {
                 <Button label="Light" color="light" variant="plain" />
                 <Button label="Dark" color="dark" variant="plain" />
             </div>
-            <div className="hstack gap-2">
+            <div className="hstack gap-3">
                 <Button label="Primary" color="primary" variant="filled" />
                 <Button label="Secondary" variant="filled" />
                 <Button label="Success" color="success" variant="filled" />
@@ -38,7 +38,7 @@ export default function Variants() {
                 <Button label="Light" color="light" variant="filled" />
                 <Button label="Dark" color="dark" variant="filled" />
             </div>
-            <div className="hstack gap-2">
+            <div className="hstack gap-3">
                 <Button label="Primary" color="primary" variant="outline" />
                 <Button label="Secondary" variant="outline" />
                 <Button label="Success" color="success" variant="outline" />
@@ -48,7 +48,7 @@ export default function Variants() {
                 <Button label="Light" color="light" variant="outline" />
                 <Button label="Dark" color="dark" variant="outline" />
             </div>
-            <div className="hstack gap-2">
+            <div className="hstack gap-3">
                 <Button label="Primary" color="primary" variant="link" />
                 <Button label="Secondary" variant="link" />
                 <Button label="Success" color="success" variant="link" />

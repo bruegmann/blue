@@ -1,120 +1,61 @@
-// Inspired by Bootstrap's button system but extended with more variants
+@use "sass:map";
+@use "bootstrap/scss/theme";
 
-// Soft buttons
+// Keep Blue's soft/plain variants as aliases backed by v6's runtime theme tokens.
+$blue-button-themes: map.merge(
+    theme.$theme-colors,
+    (
+        "light": map.get(theme.$theme-colors, "secondary"),
+        "dark": map.get(theme.$theme-colors, "inverse"),
+        "theme": (
+            "bg": var(--blue-theme),
+            "bg-subtle": var(--blue-theme),
+            "bg-muted": var(--bg-2),
+            "fg": var(--blue-sidebar-color),
+            "fg-emphasis": var(--fg-body),
+            "contrast": var(--blue-sidebar-color),
+            "border": var(--border-color),
+            "focus-ring": var(--focus-ring-color)
+        )
+    )
+);
 
-// scss-docs-start btn-variant-loops
-@each $color, $value in $theme-colors {
-    $bg: tint-color($value, 80%);
-    $text-color: shade-color($value, 60%);
-
-    .blue-btn-soft-#{$color} {
-        @if $color == "light" {
-            $text-color: color-contrast($value);
+@each $name, $roles in $blue-button-themes {
+    .blue-btn-soft-#{$name},
+    .blue-btn-plain-#{$name} {
+        @each $role, $value in $roles {
+            --theme-#{$role}: var(--#{$name}-#{$role});
         }
+        --btn-color: var(--theme-fg);
+        --btn-border-color: transparent;
+        --btn-hover-border-color: transparent;
+        --btn-hover-color: var(--theme-fg-emphasis);
+        --btn-hover-bg: var(--theme-bg-muted);
+        --btn-active-color: var(--theme-fg-emphasis);
+        --btn-active-bg: var(--theme-bg-subtle);
+        --btn-active-border-color: transparent;
+        --btn-disabled-color: var(--theme-fg);
+        --btn-disabled-bg: transparent;
+        --btn-disabled-border-color: transparent;
+    }
 
-        @include button-variant(
-            $bg,
-            $bg,
-            $text-color,
-            $hover-background: shade-color($bg, $btn-hover-bg-shade-amount),
-            $hover-border: shade-color($bg, $btn-hover-border-shade-amount),
-            $active-background: shade-color($bg, $btn-active-bg-shade-amount),
-            $active-border: shade-color($bg, $btn-active-border-shade-amount)
-        );
+    .blue-btn-soft-#{$name} {
+        --btn-bg: var(--theme-bg-subtle);
+    }
+
+    .blue-btn-plain-#{$name} {
+        --btn-bg: transparent;
+        --btn-hover-bg: var(--theme-bg-subtle);
     }
 }
 
-@include color-mode(dark) {
-    @each $color, $value in $theme-colors {
-        $bg: shade-color($value, 80%);
-        $text-color: tint-color($value, 60%);
-
-        .blue-btn-soft-#{$color} {
-            @if $color == "dark" {
-                $text-color: color-contrast($value);
-            }
-
-            @include button-variant(
-                $bg,
-                $bg,
-                $text-color,
-                $hover-background: tint-color($bg, $btn-hover-bg-tint-amount),
-                $hover-border: tint-color($bg, $btn-hover-border-tint-amount),
-                $active-background: tint-color($bg, $btn-active-bg-tint-amount),
-                $active-border: tint-color($bg, $btn-active-border-tint-amount)
-            );
-        }
-    }
-}
-
-// Plain buttons
-
-// scss-docs-start btn-variant-loops
-@each $color, $value in $theme-colors {
-    $bg: tint-color($value, 80%);
-    $text-color: $value;
-
-    $active-background: if(
-        $color == $color-contrast-light,
-        shade-color($value, $btn-active-bg-shade-amount),
-        tint-color($value, $btn-active-bg-tint-amount)
-    );
-
-    .blue-btn-plain-#{$color} {
-        &:not(:hover) {
-            box-shadow: none;
-            background-image: none;
-        }
-
-        @if $color == "light" {
-            $text-color: color-contrast($value);
-        }
-
-        // More contrast for secondary plain button
-        @if $color == "secondary" {
-            $text-color: shade-color($value, 60%);
-        }
-
-        @include button-variant(
-            transparent,
-            transparent,
-            $text-color,
-            $hover-background: tint-color($value, 80%),
-            $hover-border: tint-color($value, 80%),
-            $hover-color: if($color == "light", color-contrast($value), shade-color($value, 60%)),
-            $active-background: shade-color($bg, $btn-hover-bg-shade-amount),
-            $active-border: shade-color($bg, $btn-hover-border-shade-amount),
-            $disabled-background: transparent,
-            $disabled-border: transparent,
-            $disabled-color: $text-color
-        );
-    }
-}
-
-@include color-mode(dark) {
-    @each $color, $value in $theme-colors {
-        $bg: shade-color($value, 80%);
-        $text-color: tint-color($value, 40%);
-
-        .blue-btn-plain-#{$color} {
-            @if $color == "dark" {
-                $text-color: color-contrast($value);
-            }
-
-            // More contrast for secondary plain button
-            @if $color == "secondary" {
-                $text-color: tint-color($value, 60%);
-            }
-
-            @include button-variant(
-                transparent,
-                transparent,
-                $text-color,
-                $hover-background: tint-color($bg, $btn-hover-bg-tint-amount),
-                $hover-border: tint-color($bg, $btn-hover-border-tint-amount),
-                $active-background: tint-color($bg, $btn-active-bg-tint-amount),
-                $active-border: tint-color($bg, $btn-active-border-tint-amount)
-            );
-        }
-    }
+.theme-theme {
+    --theme-bg: var(--blue-theme);
+    --theme-bg-subtle: var(--blue-theme);
+    --theme-bg-muted: var(--bg-2);
+    --theme-fg: var(--blue-sidebar-color);
+    --theme-fg-emphasis: var(--fg-body);
+    --theme-contrast: var(--blue-sidebar-color);
+    --theme-border: var(--border-color);
+    --theme-focus-ring: var(--focus-ring-color);
 }

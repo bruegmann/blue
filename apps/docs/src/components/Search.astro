@@ -13,21 +13,20 @@ import { Search } from "react-bootstrap-icons"
     class="form-control w-auto btn-sm rounded-pill ms-auto my-1"
 >
     <Search aria-hidden className="me-1" />
-    Search <kbd class="ms-1 d-none d-md-inline bg-body-secondary text-body"
-        ><kbd class="small bg-body-secondary text-body"
+    Search <kbd class="ms-1 d-none md:d-inline bg-2 fg-body"
+        ><kbd class="small bg-2 fg-body"
             >{
                 /(Mac|iPhone|iPod|iPad)/i.test((navigator as any).userAgentData?.platform || navigator.platform)
                     ? "⌘"
                     : "Ctrl"
             }</kbd
-        >+<kbd class="small bg-body-secondary text-body">K</kbd></kbd
+        >+<kbd class="small bg-2 fg-body">K</kbd></kbd
     ></button
 >
 
-<dialog class="blue-modal modal" id="mysearchdialog" closedby="any">
-    <div class="modal-dialog">
-        <div class="modal-content rounded-5">
-            <div class="modal-body">
+<dialog class="blue-modal dialog" id="mysearchdialog" closedby="any">
+
+<div class="dialog-body">
                 <search>
                     <div class="blue-input-group input-group rounded-pill">
                         <label for="docsSearchInput" class="input-group-text">
@@ -57,9 +56,7 @@ import { Search } from "react-bootstrap-icons"
                     </bl-select-list>
                 </search>
             </div>
-        </div>
-    </div>
-    <form method="dialog" class="blue-modal-backdrop"><button>Close</button></form>
+
 </dialog>
 
 <script type="module">

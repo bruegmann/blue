@@ -88,7 +88,7 @@ export default function Layout({
             <header className="blue-layout-header">
                 <button
                     type="button"
-                    className="btn blue-menu-item blue-btn-square d-flex d-lg-none"
+                    className="btn blue-menu-item blue-btn-square d-flex lg:d-none"
                     /* @ts-ignore */
                     command="show-modal"
                     commandfor={drawerId}
@@ -110,7 +110,7 @@ export default function Layout({
 
                 <button
                     type="button"
-                    className="btn blue-menu-item blue-btn-square d-none d-lg-flex"
+                    className="btn blue-menu-item blue-btn-square d-none lg:d-flex"
                     data-blue-toggle="layout-side"
                     aria-controls={sideId}
                     aria-expanded="true"
@@ -133,27 +133,27 @@ export default function Layout({
             </header>
 
             <div id={sideId} className="blue-layout-side">
-                <dialog className="blue-lg-modal blue-modal modal" id={drawerId} aria-labelledby={drawerLabelId}>
-                    <div className="offcanvas offcanvas-start">
-                        <div className="offcanvas-header">
-                            <h1 className="h5 offcanvas-title" id={drawerLabelId}>
-                                {drawerTitle || getPhrase("Menu", countryCode)}
-                            </h1>
-                            <form method="dialog" style={{ display: "contents" }}>
-                                <button
-                                    type="submit"
-                                    className="btn-close"
-                                    aria-label={getPhrase("Close", countryCode)}
-                                ></button>
-                            </form>
-                        </div>
-                        <div className="offcanvas-body">
-                            <div className="blue-layout-side-body">{side}</div>
-                        </div>
+                <dialog
+                    className="blue-lg-modal blue-modal drawer drawer-start"
+                    id={drawerId}
+                    aria-labelledby={drawerLabelId}
+                    closedby="any"
+                >
+                    <div className="drawer-header">
+                        <h1 className="h5 drawer-title" id={drawerLabelId}>
+                            {drawerTitle || getPhrase("Menu", countryCode)}
+                        </h1>
+                        <form method="dialog" style={{ display: "contents" }}>
+                            <button
+                                type="submit"
+                                className="btn-close"
+                                aria-label={getPhrase("Close", countryCode)}
+                            ></button>
+                        </form>
                     </div>
-                    <form method="dialog" className="blue-modal-backdrop">
-                        <button>{getPhrase("Close", countryCode)}</button>
-                    </form>
+                    <div className="drawer-body">
+                        <div className="blue-layout-side-body">{side}</div>
+                    </div>
                 </dialog>
             </div>
 

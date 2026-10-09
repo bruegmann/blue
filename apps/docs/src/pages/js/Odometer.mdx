@@ -34,9 +34,9 @@ It’s designed for use in badges, notifications, dashboards, or any place where
 ## Styled as badge
 
 ```html use:RenderBlock
-<button type="button" class="btn btn-outline-primary">
+<button type="button" class="btn btn-outline theme-primary">
     <span aria-hidden="true">🔔</span> Notifications
-    <span class="badge bg-primary-subtle text-primary-emphasis">
+    <span class="badge bg-subtle-primary fg-emphasis-primary">
         <bl-odometer value="2"></bl-odometer>
     </span>
 </button>
@@ -88,7 +88,7 @@ When the value changes, the element will get attribute `data-change="up"` or `da
 This allows you to add styling based on the new state. After 3 seconds the attribute will be reset.
 
 ```html use:RenderBlock
-<span class="badge rounded-pill bg-body-tertiary text-body border">
+<span class="badge rounded-pill bg-1 fg-body border">
     <style>
         @scope {
             :scope {
@@ -98,15 +98,15 @@ This allows you to add styling based on the new state. After 3 seconds the attri
             }
 
             :scope:has([data-change="up"]) {
-                background-color: var(--bs-success-bg-subtle) !important;
-                color: var(--bs-success-text-emphasis) !important;
-                border-color: var(--bs-success-bg-subtle) !important;
+                background-color: var(--success-bg-subtle) !important;
+                color: var(--success-fg-emphasis) !important;
+                border-color: var(--success-bg-subtle) !important;
             }
 
             :scope:has([data-change="down"]) {
-                background-color: var(--bs-danger-bg-subtle) !important;
-                color: var(--bs-danger-text-emphasis) !important;
-                border-color: var(--bs-danger-bg-subtle) !important;
+                background-color: var(--danger-bg-subtle) !important;
+                color: var(--danger-fg-emphasis) !important;
+                border-color: var(--danger-bg-subtle) !important;
             }
 
             bl-odometer[data-change="up"]::after {

@@ -1,15 +1,16 @@
 .blue-input-group {
-    border: $input-border-width solid $input-border-color;
-    border-radius: $input-border-radius;
-    background-color: $input-bg;
+    border: var(--border-width) solid var(--border-color);
+    border-radius: var(--radius-5);
+    background-color: var(--bg-body);
 
     &.focus,
     &:has(input:focus) {
-        box-shadow: $input-btn-focus-box-shadow;
-        border-color: $input-focus-border-color;
+        outline: var(--focus-ring);
+        outline-offset: var(--focus-ring-offset);
+        border-color: var(--primary-border);
 
         .input-group-text {
-            color: #{var(--bs-primary-text-emphasis)};
+            color: #{var(--primary-fg-emphasis)};
         }
     }
 

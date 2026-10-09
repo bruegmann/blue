@@ -54,7 +54,7 @@ export function init(layoutEl: HTMLElement) {
     const entry = localStorage.getItem("blueLayoutSideShrink")
     const shrink = entry != null
     if (shrink) {
-        layoutSideEl.classList.add("d-lg-none", "w-lg-0")
+        layoutSideEl.classList.add("lg:d-none", "lg:w-0")
         toggleLayoutSideEl.setAttribute("aria-expanded", "false")
     }
 
@@ -74,10 +74,11 @@ export function init(layoutEl: HTMLElement) {
 export function dispose(layoutEl: HTMLElement) {
     const instance = instances.get(layoutEl)
     if (!instance) return
-    const { controller, modalEl } = instance
+    const { controller, modalEl, inspectorEl } = instance
 
     controller.abort()
     if (modalEl) mrDispose(modalEl)
+    if (inspectorEl) mrDispose(inspectorEl)
 
     instances.delete(layoutEl)
 }
@@ -88,9 +89,9 @@ function toggleSidebar(layoutEl: HTMLElement) {
     const { layoutSideEl, toggleLayoutSideEl, splitterEl } = instance
     if (!layoutSideEl || !toggleLayoutSideEl) return
 
-    layoutSideEl.classList.toggle("d-lg-none")
-    layoutSideEl.classList.toggle("w-lg-0")
-    const expanded = !layoutSideEl.classList.contains("d-lg-none")
+    layoutSideEl.classList.toggle("lg:d-none")
+    layoutSideEl.classList.toggle("lg:w-0")
+    const expanded = !layoutSideEl.classList.contains("lg:d-none")
     toggleLayoutSideEl.setAttribute("aria-expanded", expanded.toString())
     if (expanded) {
         localStorage.removeItem("blueLayoutSideShrink")
