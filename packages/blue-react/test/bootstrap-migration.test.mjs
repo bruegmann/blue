@@ -1,12 +1,14 @@
 import assert from "node:assert/strict"
 import test from "node:test"
-import { createElement } from "react"
+import { createElement, Fragment } from "react"
 import { renderToStaticMarkup } from "react-dom/server"
 import Button from "../dist/components/Button.js"
 import AccordionItem from "../dist/components/AccordionItem.js"
 import Modal from "../dist/components/Modal.js"
 import MenuItem from "../dist/components/MenuItem.js"
 import Search from "../dist/components/Search.js"
+import Tab from "../dist/components/Tab.js"
+import Tabs from "../dist/components/Tabs.js"
 
 test("existing Button variant props render Bootstrap 6 variant/theme composition", () => {
     for (const [variant, expected] of [
@@ -173,6 +175,51 @@ test("AccordionItem retains details props and renders the v6 summary and icon", 
     assert.match(html, /<summary class="accordion-header">/)
     assert.match(html, /class="accordion-icon"/)
     assert.doesNotMatch(html, /accordion-button|collapsed|data-bs-toggle/)
+})
+
+test("Tabs render accessible Bootstrap markup without changing the component props", () => {
+    const html = renderToStaticMarkup(
+        createElement(
+            Tabs,
+            { underline: true, className: "custom-tabs" },
+            createElement(
+                Tab,
+                { label: "First", active: true, className: "custom-link", contentClassName: "p-5" },
+                "First panel"
+            ),
+            createElement(Tab, { label: "Second" }, "Second panel")
+        )
+    )
+    assert.match(html, /<ul[^>]*role="tablist"[^>]*class="nav nav-underline custom-tabs"/)
+    assert.match(
+        html,
+        /<button[^>]*role="tab"[^>]*aria-selected="true"[^>]*tabindex="0"[^>]*class="nav-link active custom-link"/
+    )
+    assert.match(html, /<button[^>]*role="tab"[^>]*aria-selected="false"[^>]*tabindex="-1"[^>]*class="nav-link"/)
+    assert.match(html, /class="tab-content"/)
+    assert.match(html, /role="tabpanel"[^>]*class="tab-pane active p-5"/)
+    assert.match(html, /role="tabpanel"[^>]*hidden=""[^>]*class="tab-pane"/)
+    assert.match(html, /First panel/)
+    assert.match(html, /Second panel/)
+    assert.doesNotMatch(html, /blue-tabs|blue-tab|type="radio"|data-bs-toggle/)
+})
+
+test("Tabs select the first enabled tab when no tab is marked active", () => {
+    const html = renderToStaticMarkup(
+        createElement(
+            Tabs,
+            null,
+            createElement(
+                Fragment,
+                null,
+                createElement(Tab, { label: "Disabled", disabled: true }, "Disabled panel"),
+                createElement(Tab, { label: "Available" }, "Available panel")
+            )
+        )
+    )
+    assert.match(html, /aria-selected="false"[^>]*tabindex="-1"[^>]*class="nav-link"/)
+    assert.match(html, /aria-selected="true"[^>]*tabindex="0"[^>]*class="nav-link active"/)
+    assert.match(html, /Available panel/)
 })
 
 test("Modal keeps its API while rendering one native dialog without v5 wrappers", () => {

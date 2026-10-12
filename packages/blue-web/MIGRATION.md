@@ -65,6 +65,12 @@ Blue now supplies its Inter font stack through `--blue-font-family`. The default
 
 Blue's compiled stylesheet and source Sass both use unprefixed base tokens. Do not add Bootstrap's separately compiled, prefixed stylesheet alongside Blue's CSS. For custom overrides of Blue elements, use the token names consumed by the current Blue source rather than assuming `--bs-*` aliases exist.
 
+## Replace Blue's CSS-only tabs
+
+Blue's `.blue-tabs`, `.blue-tab`, and `.blue-tab-content` styles have been removed. The `--blue-tabs-underline-active-font-weight` custom property is also no longer used. Use Bootstrap's `.nav.nav-tabs` or `.nav.nav-underline`, `.nav-link`, and `.tab-content` / `.tab-pane` classes instead. For standalone HTML tabs, follow Bootstrap's tab markup and load its JavaScript plugin to activate the buttons.
+
+Blue React's `Tabs` and `Tab` components keep their public props and manage tab activation in React, so they do not require Bootstrap's JavaScript plugin. Update custom CSS selectors that target the removed Blue tab classes.
+
 ## Replace removed Blue button variants
 
 Blue no longer defines the `blue-btn-soft-*` or `blue-btn-plain-*` classes.

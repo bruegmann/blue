@@ -80,6 +80,14 @@ Icon slots and busy indicators remain supported; this change only removes their 
 
 These are changes to the component's output and lifecycle, not a new provider API.
 
+## Tabs
+
+`Tabs` and `Tab` keep their existing exports and props. They now render a Bootstrap tab list (`ul.nav.nav-tabs` or `ul.nav.nav-underline`) with buttons and separate `.tab-content` / `.tab-pane` panels instead of radio inputs with Blue-specific classes.
+
+Tab activation is managed by React and does not require Bootstrap's JavaScript tab plugin. `active` selects the initial tab; when none is marked active, the first tab is selected. Keyboard users can move between tabs with the arrow keys, Home, and End.
+
+The `className` on `Tab` is still applied to its tab control, and `contentClassName` remains on the panel. Custom CSS targeting `.blue-tabs`, `.blue-tab`, or `.blue-tab-content` should be updated to target the Bootstrap nav and tab classes instead.
+
 ## Layout and LayoutSplitter
 
 Existing props and content slots remain unchanged.

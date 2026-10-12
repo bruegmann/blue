@@ -97,22 +97,28 @@ import { BarChartLine } from "react-bootstrap-icons"
             </div>
 
             <div class="sm:col-6 lg:col-4 mb-7">
-                <div role="tablist" class="blue-tabs nav nav-tabs">
-                    <input
-                        role="tab"
-                        class="blue-tab nav-link"
-                        aria-label="Tab 1"
-                        type="radio"
-                        checked=""
-                        name="my_tabs_1"
-                    />
-                    <div
-                        role="tabpanel"
-                        class="blue-tab-content p-5 border rounded"
-                        style="border-top-left-radius: 0 !important;"
-                    >
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="showcase-tab-1" data-bs-toggle="tab"
+                            data-bs-target="#showcase-panel-1" type="button" role="tab"
+                            aria-controls="showcase-panel-1" aria-selected="true">Tab 1</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="showcase-tab-2" data-bs-toggle="tab"
+                            data-bs-target="#showcase-panel-2" type="button" role="tab"
+                            aria-controls="showcase-panel-2" aria-selected="false">Tab 2</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="showcase-tab-3" data-bs-toggle="tab"
+                            data-bs-target="#showcase-panel-3" type="button" role="tab"
+                            aria-controls="showcase-panel-3" aria-selected="false">Tab 3</button>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div id="showcase-panel-1" class="tab-pane fade show active p-5 border rounded"
+                        role="tabpanel" aria-labelledby="showcase-tab-1" tabindex="0"
+                        style="border-top-left-radius: 0 !important;">
                         Tab content 1
-
                         <select class="form-control" aria-label="Default select example">
                             <option selected>Open this select menu</option>
                             <option value="1">One</option>
@@ -167,12 +173,10 @@ import { BarChartLine } from "react-bootstrap-icons"
                             <option value="50">Fifty</option>
                         </select>
                     </div>
-
-                    <input role="tab" class="blue-tab nav-link" aria-label="Tab 2" type="radio" name="my_tabs_1" />
-                    <div role="tabpanel" class="blue-tab-content p-5 border rounded">Tab content 2</div>
-
-                    <input role="tab" class="blue-tab nav-link" aria-label="Tab 3" type="radio" name="my_tabs_1" />
-                    <div role="tabpanel" class="blue-tab-content p-5 border rounded">Tab content 3</div>
+                    <div id="showcase-panel-2" class="tab-pane fade p-5 border rounded" role="tabpanel"
+                        aria-labelledby="showcase-tab-2" tabindex="0">Tab content 2</div>
+                    <div id="showcase-panel-3" class="tab-pane fade p-5 border rounded" role="tabpanel"
+                        aria-labelledby="showcase-tab-3" tabindex="0">Tab content 3</div>
                 </div>
             </div>
 
