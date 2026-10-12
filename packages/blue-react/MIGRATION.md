@@ -105,6 +105,14 @@ Existing props remain. Breadcrumb output now includes separate divider elements,
 
 Custom breadcrumb elements supplied to the component are cloned to add that class while retaining their existing `className`. Update selectors or tests that assumed every breadcrumb list item was a content item rather than a divider.
 
+## Search
+
+The public Search props remain unchanged. Its inner wrapper now uses `form-control form-adorn` instead of `blue-input-group input-group`; the icon label uses `form-adorn-icon`, and the input uses `form-ghost`. Pill rounding and `noRounding` remain supported.
+
+Update custom CSS and DOM tests targeting the removed input-group classes. `inputClassName` is still applied to the input, not the wrapper. If you supply a custom input through `children`, give it `form-ghost` rather than `form-control` so it shares the wrapper's border and focus ring.
+
+The reset button now sits directly in the adorned wrapper as `btn-icon btn-text`; the intermediate `.input-group-btn` element has been removed. Reset behavior and callbacks are unchanged.
+
 ## Other component styling
 
 `Header`, `Status`, and `ToastProvider` now render current theme classes/tokens internally. `Header` no longer sets a background-opacity token for its dropdown background.

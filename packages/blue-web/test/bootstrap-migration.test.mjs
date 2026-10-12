@@ -31,6 +31,9 @@ test("default stylesheet emits Bootstrap 6 and Blue once, in ordered layers", ()
     assert.doesNotMatch(css, /\.blue-btn-(?:soft|plain)-/)
     assert.match(css, /\.btn-icon\s*\{/)
     assert.doesNotMatch(css, /\.blue-btn-square/)
+    assert.match(css, /\.form-adorn\s*\{/)
+    assert.match(css, /\.form-ghost\s*\{/)
+    assert.doesNotMatch(css, /\.blue-input-group/)
     assert.match(css, /--blue-app-bg: light-dark\(/)
     assert.doesNotMatch(
         css,
@@ -65,17 +68,14 @@ test("entrypoint configuration reaches Bootstrap and every Blue partial", () => 
     assert.doesNotMatch(css, /\.w-25\s*\{/)
 })
 
-test("Blue mixins and neumorphism are usable through module namespaces", () => {
+test("Blue mixins are usable through module namespaces", () => {
     const css = compile(`
         @use "dist/style" as blue;
-        @use "dist/neu";
         .example {
             @include blue.blue-layout-body(var(--bg-body));
             @include blue.switch();
-            @include neu.neu(#610dfd);
         }
     `)
-    assert.match(css, /--neu-bg: #610dfd/)
     assert.match(css, /color-mix\(in srgb, var\(--fg-body\) 50%, transparent\)/)
     assert.match(css, /color: var\(--fg-body\)/)
 })

@@ -18,7 +18,7 @@ export default function AccordionItem({
     ...props
 }: AccordionItemProps) {
     return (
-        <details className={clsx("accordion-item blue-collapse", className)} {...props}>
+        <details className={clsx("accordion-item", className)} {...props}>
             <summary className={clsx("accordion-header", headerClassName)}>
                 <span className={headerButtonClassName}>{header}</span>
                 <svg

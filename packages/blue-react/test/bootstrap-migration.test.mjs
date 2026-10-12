@@ -6,6 +6,7 @@ import Button from "../dist/components/Button.js"
 import AccordionItem from "../dist/components/AccordionItem.js"
 import Modal from "../dist/components/Modal.js"
 import MenuItem from "../dist/components/MenuItem.js"
+import Search from "../dist/components/Search.js"
 
 test("existing Button variant props render Bootstrap 6 variant/theme composition", () => {
     for (const [variant, expected] of [
@@ -127,13 +128,41 @@ test("icon-link styling is opt-in for icons and busy indicators", () => {
 })
 
 test("MenuItem collapse-group uses btn-icon for its icon-only summary", () => {
-    const html = renderToStaticMarkup(
-        createElement(MenuItem, { as: "collapse-group", label: "Group" }, "Content")
-    )
+    const html = renderToStaticMarkup(createElement(MenuItem, { as: "collapse-group", label: "Group" }, "Content"))
     const classes = html.match(/<summary[^>]*class="([^"]+)"/)[1].split(" ")
     assert.ok(classes.includes("btn-icon"))
     assert.equal(classes.includes("btn"), false)
     assert.doesNotMatch(html, /blue-btn-square/)
+})
+
+test("Search uses form-adorn markup while preserving rounding, labels and reset controls", () => {
+    for (const noRounding of [false, true]) {
+        const html = renderToStaticMarkup(
+            createElement(Search, {
+                id: "search-test",
+                value: "query",
+                reset: true,
+                noRounding,
+                inputClassName: "custom-input"
+            })
+        )
+        assert.match(html, /class="form-control form-adorn/)
+        assert.equal(html.includes("rounded-pill"), !noRounding)
+        assert.match(html, /<label[^>]*for="search-test"[^>]*class="form-adorn-icon"/)
+        assert.match(html, /class="form-ghost custom-input"/)
+        assert.match(html, /value="query"/)
+        assert.match(html, /class="btn-icon btn-text"/)
+        assert.doesNotMatch(html, /blue-input-group|input-group-text|input-group-btn/)
+    }
+    const custom = renderToStaticMarkup(
+        createElement(
+            Search,
+            { id: "custom-search" },
+            createElement("input", { id: "custom-search", className: "form-ghost" })
+        )
+    )
+    assert.match(custom, /id="custom-search" class="form-ghost"/)
+    assert.equal((custom.match(/<input/g) || []).length, 1)
 })
 
 test("AccordionItem retains details props and renders the v6 summary and icon", () => {

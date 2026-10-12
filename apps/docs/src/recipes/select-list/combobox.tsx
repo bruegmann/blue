@@ -180,15 +180,15 @@ export function Combobox({
                 style={{ borderRadius: "calc(var(--radius-8) + .5rem)" }}
             >
                 <div className="m-1">
-                    <div className="blue-input-group input-group rounded-pill">
-                        <label htmlFor={inputId} className="input-group-text">
+                    <div className="form-control form-adorn rounded-pill">
+                        <label htmlFor={inputId} className="form-adorn-icon">
                             <Search />
                             <span className="visually-hidden">{t.Search}</span>
                         </label>
                         <input
                             ref={inputRef}
                             type="search"
-                            className="form-control"
+                            className="form-ghost"
                             id={inputId}
                             placeholder={`${t.Search}...`}
                             autoComplete="off"

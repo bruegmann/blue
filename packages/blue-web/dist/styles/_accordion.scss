@@ -1,10 +1,13 @@
-.blue-accordion {
+// Apply this class to an .accordion to make open item bodies grow to fill the available height.
+
+.blue-growing-accordion {
     &,
     details.accordion-item {
         display: flex;
         flex-direction: column;
     }
 
+    &,
     details.accordion-item[open],
     details.accordion-item[open]::details-content {
         flex-grow: 1;

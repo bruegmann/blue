@@ -16,7 +16,6 @@ import {
     HandIndex,
     Icon9Square,
     InputCursorText,
-    LayersHalf,
     LayoutSidebarInset,
     LayoutSidebarReverse,
     LayoutTextWindowReverse,
@@ -151,11 +150,9 @@ const mixedMenuItems = Object.keys(import.meta.glob("/src/pages/mixed/*")).map((
                                     {item.label === "Hover" && <HandIndex slot="iconBefore" />}
                                     {item.label === "Menu Item" && <MenuButton slot="iconBefore" />}
                                     {item.label === "Modal" && <WindowStack slot="iconBefore" />}
-                                    {item.label === "Neumorphism" && <LayersHalf slot="iconBefore" />}
                                     {item.label === "Popover" && <MenuDown slot="iconBefore" />}
                                     {item.label === "Scrollbar" && <ArrowsVertical slot="iconBefore" />}
                                     {item.label === "Scrollspy" && <SegmentedNav slot="iconBefore" />}
-                                    {item.label === "Input group" && <Search slot="iconBefore" />}
                                     {item.label === "Intro" && <Postcard slot="iconBefore" />}
                                     {item.label === "Tabs" && <SegmentedNav slot="iconBefore" />}
                                     {item.label === "Text and Icons" && <Type slot="iconBefore" />}

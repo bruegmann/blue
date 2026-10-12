@@ -92,11 +92,11 @@ export default function Search(props: SearchProps) {
             }}
         >
             <div
-                className={clsx("blue-input-group input-group", {
+                className={clsx("form-control form-adorn", {
                     "rounded-pill": !noRounding
                 })}
             >
-                <label htmlFor={SearchControlId} className="input-group-text">
+                <label htmlFor={SearchControlId} className="form-adorn-icon">
                     {icon || (
                         <svg
                             width="1em"
@@ -117,9 +117,7 @@ export default function Search(props: SearchProps) {
                             />
                         </svg>
                     )}
-                    <span className="visually-hidden">
-                        {getPhrase("Search")}
-                    </span>
+                    <span className="visually-hidden">{getPhrase("Search")}</span>
                 </label>
 
                 {props.children || (
@@ -132,45 +130,41 @@ export default function Search(props: SearchProps) {
                             if (onChange) onChange(event)
                         }}
                         id={SearchControlId}
-                        className={"form-control " + inputClassName}
+                        className={"form-ghost " + inputClassName}
                         placeholder={placeholder}
                         autoFocus={autoFocus}
                     />
                 )}
 
                 {reset && value.length > 0 && (
-                    <div className="input-group-btn">
-                        <button
-                            type="button"
-                            className="btn btn-link"
-                            onClick={() => {
-                                setValue("")
-                                document
-                                    .getElementById(SearchControlId)
-                                    ?.focus()
-                                if (onChange)
-                                    onChange({
-                                        target: {
-                                            value: ""
-                                        }
-                                        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                                    } as any)
-                            }}
-                        >
-                            {resetIcon || (
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="1em"
-                                    height="1em"
-                                    fill="currentColor"
-                                    className="bi bi-x mt-n1"
-                                    viewBox="0 0 16 16"
-                                >
-                                    <path d="M4.646 4.646a.5.5 0 01.708 0L8 7.293l2.646-2.647a.5.5 0 01.708.708L8.707 8l2.647 2.646a.5.5 0 01-.708.708L8 8.707l-2.646 2.647a.5.5 0 01-.708-.708L7.293 8 4.646 5.354a.5.5 0 010-.708z"></path>
-                                </svg>
-                            )}
-                        </button>
-                    </div>
+                    <button
+                        type="button"
+                        className="btn-icon btn-text"
+                        onClick={() => {
+                            setValue("")
+                            document.getElementById(SearchControlId)?.focus()
+                            if (onChange)
+                                onChange({
+                                    target: {
+                                        value: ""
+                                    }
+                                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                                } as any)
+                        }}
+                    >
+                        {resetIcon || (
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="1em"
+                                height="1em"
+                                fill="currentColor"
+                                className="bi bi-x mt-n1"
+                                viewBox="0 0 16 16"
+                            >
+                                <path d="M4.646 4.646a.5.5 0 01.708 0L8 7.293l2.646-2.647a.5.5 0 01.708.708L8.707 8l2.647 2.646a.5.5 0 01-.708.708L8 8.707l-2.646 2.647a.5.5 0 01-.708-.708L7.293 8 4.646 5.354a.5.5 0 010-.708z"></path>
+                            </svg>
+                        )}
+                    </button>
                 )}
             </div>
         </form>

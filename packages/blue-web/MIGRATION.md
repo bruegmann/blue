@@ -39,15 +39,13 @@ Use a namespace when calling Blue's forwarded mixins:
 }
 ```
 
-Neumorphism remains available as a separate module:
+## Remove experimental neumorphism
 
-```scss
-@use "blue-web/dist/neu" as neu;
+The experimental neumorphism feature has been removed completely. Remove imports of `blue-web/dist/neu.scss` (including module imports without the extension) and links to `neu.css` or `neu.min.css`.
 
-.surface {
-    @include neu.neu(#610dfd);
-}
-```
+Remove calls to the `neu` and `neu-define-utility-classes` mixins, the `neu-shadow` function, and overrides of `$neu-steps`. The `.neu-shadow-*` utility classes and `--neu-*` CSS variables are no longer supplied. Replace any remaining usage with your own application styles if needed; Blue provides no compatibility layer or direct replacement.
+
+The `build-neu-css` command and the CSS Neumorphism documentation page have also been removed.
 
 ## Review overrides of Blue styles
 
@@ -87,6 +85,34 @@ Apply the same replacement to other color suffixes, such as `success`, `danger`,
 `theme-theme` remains a Blue-specific theme class backed by `--blue-theme` and Blue's sidebar foreground colors. The button variants themselves are no longer supplied by Blue.
 
 Blue's `blue-btn-icon-wrapper` helper remains available. The `blue-btn-square` CSS helper has been removed. Replace `btn blue-btn-square` with `btn-icon` for icon-only buttons, retaining an accessible name. React consumers should use the Button's `icon` prop.
+
+## Replace Blue's input group
+
+The `blue-input-group` class and its Sass partial have been removed. Use `form-control form-adorn` on the wrapper, `form-adorn-icon` on the icon container, and `form-ghost` on the input. This is a markup migration, not just a wrapper-class rename:
+
+```html
+<!-- Before -->
+<div class="blue-input-group input-group rounded-pill">
+    <label for="search" class="input-group-text">
+        <!-- Search icon -->
+        <span class="visually-hidden">Search</span>
+    </label>
+    <input id="search" type="search" class="form-control" />
+</div>
+
+<!-- After -->
+<div class="form-control form-adorn rounded-pill">
+    <label for="search" class="form-adorn-icon">
+        <!-- Search icon -->
+        <span class="visually-hidden">Search</span>
+    </label>
+    <input id="search" type="search" class="form-ghost" />
+</div>
+```
+
+Keep the input's accessible label and any rounding utilities. Remove overrides targeting `blue-input-group`, its `.focus` state, or its `.input-group-text` descendants; style the new wrapper and adornment classes instead. The wrapper now supplies the border and focus ring.
+
+The Blue CSS Input group docs page has been removed because these styles are supplied by Bootstrap, not Blue.
 
 ## Update markup using Blue's dialog hooks
 
