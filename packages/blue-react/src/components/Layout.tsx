@@ -160,7 +160,7 @@ export default function Layout({
             <main className="blue-layout-main">
                 {children || (
                     <div
-                        className={clsx("blue-layout-body", {
+                        className={clsx("blue-layout-body theme-reset", {
                             "border-0": noPageBorder
                         })}
                     >

@@ -7,19 +7,22 @@ import Grab from "$/components/Grab.astro"
 
 # Responsive Drawer
 
-Bootstrap 6 drawers use a native `dialog`. Blue's responsive hooks show the same element inline above the selected viewport breakpoint and as a drawer below it.
+<div class="alert theme-accent">
+    Replaceable with{" "}
+    <a href="https://getbootstrap.com/docs/6.0/components/drawer/#responsive" className="alert-link">
+        Bootstrap 6 Drawer Responsive
+    </a>
+</div>
+
+Bootstrap 6 drawers use a native `dialog`. Blue's responsive hooks show the same element inline above the selected
+viewport breakpoint and as a drawer below it.
 
 ```html use:RenderBlock
 <button type="button" class="btn theme-primary btn-subtle lg:d-none" command="show-modal" commandfor="myDrawer">
     Open drawer
 </button>
 
-<dialog
-    class="blue-lg-modal blue-modal drawer drawer-start"
-    id="myDrawer"
-    aria-labelledby="drawerLabel"
-    closedby="any"
->
+<dialog class="blue-lg-modal blue-modal drawer drawer-start" id="myDrawer" aria-labelledby="drawerLabel" closedby="any">
     <div class="drawer-header">
         <h1 class="h5 drawer-title" id="drawerLabel">Drawer</h1>
         <form method="dialog" style="display: contents;">

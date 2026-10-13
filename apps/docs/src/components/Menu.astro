@@ -67,14 +67,9 @@ function prepareSectionMenuItem(path: string, section: "css" | "js" | "mixed" | 
 
 const reactMenuItems = (await getComponents()).map((componentName) => prepareSectionMenuItem(componentName, "react"))
 
-const deprecated = ["Sidebar"]
-
-const allCssMenuItems = Object.keys(import.meta.glob("/src/pages/css/*")).map((path) =>
+const cssMenuItems = Object.keys(import.meta.glob("/src/pages/css/*")).map((path) =>
     prepareSectionMenuItem(path, "css")
 )
-
-const cssMenuItems = allCssMenuItems.filter((item) => !deprecated.includes(item.label))
-const deprecatedMenuItems = allCssMenuItems.filter((item) => deprecated.includes(item.label))
 
 const jsMenuItems = Object.keys(import.meta.glob("/src/pages/js/*")).map((path) => prepareSectionMenuItem(path, "js"))
 const mixedMenuItems = Object.keys(import.meta.glob("/src/pages/mixed/*")).map((path) =>
@@ -129,8 +124,8 @@ const mixedMenuItems = Object.keys(import.meta.glob("/src/pages/mixed/*")).map((
                                         {item.label === "Layout" && <LayoutTextWindowReverse slot="iconBefore" />}
                                         {item.label === "Responsive Drawer" && <LayoutSidebarInset slot="iconBefore" />}
 
-                                        {["Mixed"].includes(item.label) && (
-                                            <span slot="buttonContent" class="docs-badge docs-badge-update" />
+                                        {["Responsive Drawer"].includes(item.label) && (
+                                            <span slot="buttonContent" class="docs-badge docs-badge-deprecated" />
                                         )}
                                     </MenuItem>
                                 </li>
@@ -190,8 +185,8 @@ const mixedMenuItems = Object.keys(import.meta.glob("/src/pages/mixed/*")).map((
                                         {item.label === "Utils" && <Tools slot="iconBefore" />}
                                         {item.label === "View Transition API" && <BarChartSteps slot="iconBefore" />}
 
-                                        {item.label === "Actions" && (
-                                            <span slot="buttonContent" class="docs-badge docs-badge-experimental" />
+                                        {["Actions", "Input Splitted"].includes(item.label) && (
+                                            <span slot="buttonContent" class="docs-badge docs-badge-deprecated" />
                                         )}
                                         {/* {["Progress"].includes(item.label) && (
                                     <span slot="buttonContent" class="docs-badge docs-badge-update" />
@@ -213,12 +208,6 @@ const mixedMenuItems = Object.keys(import.meta.glob("/src/pages/mixed/*")).map((
                         </ul>
                     </li>
                 </ul>
-
-                <MenuItem label="Deprecated" as="collapse">
-                    {deprecatedMenuItems.map((item) => (
-                        <MenuItem href={item.path} label={item.label} current={item.isActive} />
-                    ))}
-                </MenuItem>
             </>
         )
     }

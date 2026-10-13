@@ -14,6 +14,6 @@
     background-color: $bg;
     color: var(--fg-body);
     box-shadow: var(--box-shadow-sm);
-    border: var(--border-width) var(--border-style) var(--border-color);
+    border: var(--border-width) var(--border-style) var(--theme-border, var(--border-color));
     border-radius: var(--radius-7);
 }
