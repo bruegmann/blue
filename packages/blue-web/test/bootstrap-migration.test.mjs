@@ -48,7 +48,7 @@ test("entrypoint configuration reaches Bootstrap and every Blue partial", () => 
             $theme: orange,
             $theme-dark: #102030,
             $radius: 1rem,
-            $bla-sidebar-width: 20rem,
+            $sidebar-width: 20rem,
             $root-tokens: (--focus-ring-width: 4px, --body-font-family: serif),
             $accordion-tokens: (--accordion-padding-x: 2rem),
             $utilities: ("width": (property: width, responsive: true, class: w, values: (0: 0, 100: 100%)))

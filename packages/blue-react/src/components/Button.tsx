@@ -2,8 +2,8 @@ import { useEffect, useState, ComponentProps, ReactNode, ElementType } from "rea
 import clsx from "clsx"
 import { getPhrase } from "./shared"
 
-export type ButtonVariant = "filled" | "soft" | "plain" | "outline" | "link" | "menu-item"
-export type ButtonColor =
+export type ButtonVariant = "solid" | "outline" | "subtle" | "text" | "link"
+export type ButtonTheme =
     | "theme"
     | "primary"
     | "secondary"
@@ -16,28 +16,11 @@ export type ButtonColor =
     | "light"
     | "dark"
 
-function getButtonVariantClass(variant: ButtonVariant) {
-    switch (variant) {
-        case "soft":
-            return "btn-subtle"
-        case "plain":
-            return "btn-text"
-        case "outline":
-            return "btn-outline"
-        case "link":
-            return "btn-link"
-        case "menu-item":
-            return "blue-menu-item"
-        default:
-            return "btn-solid"
-    }
-}
-
 export type ButtonProps = ComponentProps<"a"> &
     ComponentProps<"button"> & {
         elementType?: ElementType
         variant?: ButtonVariant
-        color?: ButtonColor
+        theme?: ButtonTheme
         sm?: boolean
         lg?: boolean
         iconBefore?: ReactNode
@@ -69,7 +52,7 @@ export default function Button({
     className,
     type,
     variant,
-    color,
+    theme,
     sm,
     lg,
     iconBefore,
@@ -94,25 +77,23 @@ export default function Button({
         }
     }, [successProp])
 
-    const hasVariantOrColor = variant !== undefined || color !== undefined
-    const variantClass = getButtonVariantClass(variant ?? "soft")
-    const buttonColor = color || "secondary"
-    const themeClass = `theme-${buttonColor === "dark" ? "inverse" : buttonColor === "light" ? "secondary" : buttonColor}`
-    const themed = hasVariantOrColor && variant !== "menu-item" && (variant !== "link" || color !== undefined)
+    const variantClass = variant && !success ? `btn-${variant}` : theme ? "btn-subtle" : undefined
+    const themeClass = theme && !success ? `theme-${theme}` : undefined
 
     return (
         <Comp
             type={Comp === "button" && type === undefined ? "button" : type}
             className={clsx(
-                icon ? "btn-icon" : "btn",
+                themeClass,
                 {
-                    [variantClass]: !success && hasVariantOrColor,
-                    [themeClass]: !success && themed,
+                    btn: !variant || variant === "link",
+                    "btn-icon": icon,
                     "btn-solid theme-success": success,
                     "btn-sm": sm,
                     "btn-lg": lg,
                     active: active
                 },
+                variantClass,
                 className
             )}
             {...props}

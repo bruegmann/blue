@@ -84,11 +84,11 @@ export default function Layout({
     }, [])
 
     return (
-        <div ref={divRef} className={clsx("blue-layout", className)} {...props}>
+        <div ref={divRef} className={clsx("blue-layout theme-layout theme-contrast", className)} {...props}>
             <header className="blue-layout-header">
                 <button
                     type="button"
-                    className="btn-icon btn-solid theme-theme d-flex lg:d-none"
+                    className="btn-icon btn-solid d-flex lg:d-none"
                     /* @ts-ignore */
                     command="show-modal"
                     commandfor={drawerId}
@@ -110,7 +110,7 @@ export default function Layout({
 
                 <button
                     type="button"
-                    className="btn-icon btn-solid theme-theme d-none lg:d-flex"
+                    className="btn-icon btn-solid d-none lg:d-flex"
                     data-blue-toggle="layout-side"
                     aria-controls={sideId}
                     aria-expanded="true"

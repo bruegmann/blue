@@ -1,9 +1,0 @@
-@use "../variables" as *;
-
-@mixin header-bg() {
-    background-image: linear-gradient(
-        var(--blue-header-bg, $header-bg),
-        color-mix(in srgb, var(--blue-header-bg) calc(var(--blue-shimmering, #{$shimmering}) * 100%), transparent)
-    );
-    backdrop-filter: blur(3px) saturate(125%);
-}

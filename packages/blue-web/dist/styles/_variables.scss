@@ -1,18 +1,5 @@
 @use "sass:color";
 @use "functions";
-@use "bootstrap-variables" as *;
-
-// Alpha value (RGBA) e.g. for header background.
-$shimmering: 0.8 !default;
-
-// Thumb color of scrollbar.
-$scrollbar-thumb-color: white !default;
-
-// Thumb color of scrollbar as RGB (like `255, 255, 255`).
-$scrollbar-thumb-color-rgb:
-    color.channel($scrollbar-thumb-color, "red", $space: rgb),
-    color.channel($scrollbar-thumb-color, "green", $space: rgb),
-    color.channel($scrollbar-thumb-color, "blue", $space: rgb) !default;
 
 // Default size for many components, like sidebar menu items.
 $normal-size: calc(
@@ -21,56 +8,18 @@ $normal-size: calc(
         var(--btn-border-width, 1px)
 ) !default;
 
-// Height of actions menu when it is expanded, like on mobile devices.
-$actions-height: 7.5rem !default;
-
-// Background color of menu toggle button.
-$bla-button-bg-normal: rgba(0, 0, 0, 0.1) !default;
-
-// Background color of menu toggle button on hover state.
-$bla-button-bg-hover: rgba(white, 0.25) !default;
-
-// Font size for sidebar menu items.
-$bla-btn-font-size: 1em !default;
-
-// Padding for action menu items.
-$bla-header-nav-padding: 0.75rem !default;
-
 // Width of the sidebar.
-$bla-sidebar-width: 16.563rem !default;
-
-// Background of sidebar.
-$sidebar-bg: $theme !default;
-$sidebar-bg-dark: $theme-dark !default;
-
-// Text color of sidebar.
-$sidebar-color: functions.contrast-color($sidebar-bg) !default;
-$sidebar-color-dark: functions.contrast-color($sidebar-bg-dark) !default;
+$sidebar-width: 16.563rem !default;
 
 // Color of indicator for active menu item in sidebar.
-$sidebar-indicator-color: $primary !default;
+$sidebar-indicator-color: var(--primary) !default;
 $sidebar-indicator-color-dark: white !default;
 
 // Background of search control in sidebar.
 $sidebar-search-bg: var(--bg-body) !default;
 
-// Background of the body element
-$app-bg: $theme !default;
-$app-bg-dark: $theme-dark !default;
-
-// Background color of Header
-$header-bg: $theme !default;
-$header-bg-dark: $theme-dark !default;
-
-// Text color of header elements
-$header-color: functions.contrast-color($header-bg) !default;
-$header-color-dark: functions.contrast-color($header-bg-dark) !default;
-
 // Background of header action menu dropdown menus
-$header-deep-bg: color.adjust($header-bg, $lightness: -4%) !default;
-
-// Background color, when hovering action menu item.
-$actions-control-bg-hover: $bla-button-bg-hover !default;
+// $header-deep-bg: color.adjust($header-bg, $lightness: -4%) !default;
 
 // Shrink sidebar on smaller screens
 $sidebar-shrink: true !default;

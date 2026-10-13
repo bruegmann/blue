@@ -5,68 +5,67 @@ export default function Variants() {
         <div className="vstack gap-3">
             <div className="d-flex flex-wrap gap-3">
                 <Button label="Default uses Bootstrap's base styling" />
-                <Button label="Make button look like menu item" variant="menu-item" />
                 <Button label="Make button look like a link" variant="link" />
             </div>
             <div className="d-flex flex-wrap gap-3">
-                <Button label="Primary" color="primary" />
-                <Button label="Secondary" color="secondary" />
-                <Button label="Success" color="success" />
-                <Button label="Danger" color="danger" />
-                <Button label="Warning" color="warning" />
-                <Button label="Info" color="info" />
-                <Button label="Accent" color="accent" />
-                <Button label="Inverse" color="inverse" />
-                <Button label="Light" color="light" />
-                <Button label="Dark" color="dark" />
+                <Button label="Primary" theme="primary" />
+                <Button label="Secondary" theme="secondary" />
+                <Button label="Success" theme="success" />
+                <Button label="Danger" theme="danger" />
+                <Button label="Warning" theme="warning" />
+                <Button label="Info" theme="info" />
+                <Button label="Accent" theme="accent" />
+                <Button label="Inverse" theme="inverse" />
+                <Button label="Light" theme="light" />
+                <Button label="Dark" theme="dark" />
             </div>
             <div className="d-flex flex-wrap gap-3">
-                <Button label="Primary" color="primary" variant="plain" />
-                <Button label="Secondary" variant="plain" />
-                <Button label="Success" color="success" variant="plain" />
-                <Button label="Danger" color="danger" variant="plain" />
-                <Button label="Warning" color="warning" variant="plain" />
-                <Button label="Info" color="info" variant="plain" />
-                <Button label="Accent" color="accent" variant="plain" />
-                <Button label="Inverse" color="inverse" variant="plain" />
-                <Button label="Light" color="light" variant="plain" />
-                <Button label="Dark" color="dark" variant="plain" />
+                <Button label="Primary" theme="primary" variant="text" />
+                <Button label="Secondary" variant="text" />
+                <Button label="Success" theme="success" variant="text" />
+                <Button label="Danger" theme="danger" variant="text" />
+                <Button label="Warning" theme="warning" variant="text" />
+                <Button label="Info" theme="info" variant="text" />
+                <Button label="Accent" theme="accent" variant="text" />
+                <Button label="Inverse" theme="inverse" variant="text" />
+                <Button label="Light" theme="light" variant="text" />
+                <Button label="Dark" theme="dark" variant="text" />
             </div>
             <div className="d-flex flex-wrap gap-3">
-                <Button label="Primary" color="primary" variant="filled" />
-                <Button label="Secondary" variant="filled" />
-                <Button label="Success" color="success" variant="filled" />
-                <Button label="Danger" color="danger" variant="filled" />
-                <Button label="Warning" color="warning" variant="filled" />
-                <Button label="Info" color="info" variant="filled" />
-                <Button label="Accent" color="accent" variant="filled" />
-                <Button label="Inverse" color="inverse" variant="filled" />
-                <Button label="Light" color="light" variant="filled" />
-                <Button label="Dark" color="dark" variant="filled" />
+                <Button label="Primary" theme="primary" variant="solid" />
+                <Button label="Secondary" variant="solid" />
+                <Button label="Success" theme="success" variant="solid" />
+                <Button label="Danger" theme="danger" variant="solid" />
+                <Button label="Warning" theme="warning" variant="solid" />
+                <Button label="Info" theme="info" variant="solid" />
+                <Button label="Accent" theme="accent" variant="solid" />
+                <Button label="Inverse" theme="inverse" variant="solid" />
+                <Button label="Light" theme="light" variant="solid" />
+                <Button label="Dark" theme="dark" variant="solid" />
             </div>
             <div className="d-flex flex-wrap gap-3">
-                <Button label="Primary" color="primary" variant="outline" />
+                <Button label="Primary" theme="primary" variant="outline" />
                 <Button label="Secondary" variant="outline" />
-                <Button label="Success" color="success" variant="outline" />
-                <Button label="Danger" color="danger" variant="outline" />
-                <Button label="Warning" color="warning" variant="outline" />
-                <Button label="Info" color="info" variant="outline" />
-                <Button label="Accent" color="accent" variant="outline" />
-                <Button label="Inverse" color="inverse" variant="outline" />
-                <Button label="Light" color="light" variant="outline" />
-                <Button label="Dark" color="dark" variant="outline" />
+                <Button label="Success" theme="success" variant="outline" />
+                <Button label="Danger" theme="danger" variant="outline" />
+                <Button label="Warning" theme="warning" variant="outline" />
+                <Button label="Info" theme="info" variant="outline" />
+                <Button label="Accent" theme="accent" variant="outline" />
+                <Button label="Inverse" theme="inverse" variant="outline" />
+                <Button label="Light" theme="light" variant="outline" />
+                <Button label="Dark" theme="dark" variant="outline" />
             </div>
             <div className="d-flex flex-wrap gap-3">
-                <Button label="Primary" color="primary" variant="link" />
+                <Button label="Primary" theme="primary" variant="link" />
                 <Button label="Secondary" variant="link" />
-                <Button label="Success" color="success" variant="link" />
-                <Button label="Danger" color="danger" variant="link" />
-                <Button label="Warning" color="warning" variant="link" />
-                <Button label="Info" color="info" variant="link" />
-                <Button label="Accent" color="accent" variant="link" />
-                <Button label="Inverse" color="inverse" variant="link" />
-                <Button label="Light" color="light" variant="link" />
-                <Button label="Dark" color="dark" variant="link" />
+                <Button label="Success" theme="success" variant="link" />
+                <Button label="Danger" theme="danger" variant="link" />
+                <Button label="Warning" theme="warning" variant="link" />
+                <Button label="Info" theme="info" variant="link" />
+                <Button label="Accent" theme="accent" variant="link" />
+                <Button label="Inverse" theme="inverse" variant="link" />
+                <Button label="Light" theme="light" variant="link" />
+                <Button label="Dark" theme="dark" variant="link" />
             </div>
         </div>
     )

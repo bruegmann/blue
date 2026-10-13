@@ -10,10 +10,6 @@ body {
     height: 100%;
 }
 
-body {
-    background: var(--blue-app-bg, #{$app-bg});
-}
-
 // Idee für Effekt von http://www.w3schools.com/howto/howto_css_animate_buttons.asp
 .btn,
 .btn-solid,
@@ -44,19 +40,6 @@ body {
         }
     }
 }
-
-// .blue-header-title.sidebar {
-//     width: $bla-sidebar-width;
-//     padding-left: calc(#{$normal-size} + #{$spacer});
-//     transform: translateX(-100%);
-//     transition: transform 0.4s;
-//     background: var(--blue-sidebar-bg);
-//     color: $sidebar-color;
-
-//     @media (prefers-reduced-motion) {
-//         transition: none;
-//     }
-// }
 
 .blue-scroll-shadow {
     @include scroll-shadow(var(--bg-body));

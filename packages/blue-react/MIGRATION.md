@@ -4,43 +4,39 @@ This guide covers React component changes made during the Bootstrap 6 alpha migr
 
 ## Button
 
-### Default styling
+### Variant and theme props
 
-With neither `variant` nor `color` set, `Button` now renders only the base `btn` class. It no longer automatically applies `btn-subtle theme-secondary`.
+Rename the `color` prop to `theme`, and update the variant values:
+
+| Previous `variant` | Migration |
+| --- | --- |
+| `filled` | `solid` |
+| `soft` | `subtle` |
+| `plain` | `text` |
+| `outline` | Keep `outline` |
+| `link` | Keep `link` |
+| `menu-item` | Use `MenuItem` instead |
+
+The variant classes are now `btn-solid`, `btn-outline`, `btn-subtle`, `btn-text`, and `btn-link`. A `theme` prop adds the corresponding `theme-*` class. `theme="accent"` and `theme="inverse"` are supported:
 
 ```tsx
-// Base button styling
+<Button theme="accent" variant="solid" label="Highlight" />
+<Button theme="inverse" variant="text" label="Contrast" />
+```
+
+`light` and `dark` are still accepted theme values, but now produce `theme-light` and `theme-dark`. To preserve the old `color="light"` or `color="dark"` appearance, use `theme="secondary"` or `theme="inverse"`, respectively.
+
+With neither `variant` nor `theme`, `Button` now renders the base `btn` class only; it no longer defaults to the soft secondary styling. A theme without a variant adds `theme-*`, `btn`, and `btn-subtle`. Explicit non-link variants render only their matching `btn-*` class, without the base `btn`; `link` renders `btn btn-link`. Add an explicit theme and variant to preserve the old appearance:
+
+```tsx
+// Base Bootstrap button
 <Button label="Continue" />
 
-// Explicitly retain the previous soft/secondary appearance
-<Button variant="soft" color="secondary" label="Continue" />
+// Previous soft/secondary appearance
+<Button variant="subtle" theme="secondary" label="Continue" />
 ```
 
-An explicit color without a variant still selects `soft`. An explicit themed variant without a color still selects `secondary`. A `link` without a color remains unthemed; `menu-item` retains Blue's menu-item styling without a theme class.
-
-### Variant and color props
-
-The existing variant prop values remain supported, but the rendered classes no longer depend on Blue's removed soft/plain CSS variants:
-
-| `variant` | Rendered variant class |
-| --- | --- |
-| `filled` | `btn-solid` |
-| `soft` | `btn-subtle` |
-| `plain` | `btn-text` |
-| `outline` | `btn-outline` |
-| `link` | `btn-link` |
-| `menu-item` | `blue-menu-item` |
-
-Themed variants compose with `theme-*`. Update any custom selectors that depended on the old combined Blue button class.
-
-`color="accent"` and `color="inverse"` are now supported:
-
-```tsx
-<Button color="accent" variant="filled" label="Highlight" />
-<Button color="inverse" variant="plain" label="Contrast" />
-```
-
-Legacy `light` and `dark` color props remain accepted, but map to `theme-secondary` and `theme-inverse`, respectively. `color="theme"` retains Blue's configured theme through `theme-theme`.
+Use the `MenuItem` component instead of `Button variant="menu-item"`. It now composes `variant="solid"` with the `blue-menu-item` class.
 
 ### Rename `square` to `icon`
 
@@ -51,7 +47,7 @@ The `square` prop was removed. Use `icon` instead:
 + <Button icon iconBefore={<Gear />} aria-label="Settings" />
 ```
 
-When `icon` is true, the base class is `btn-icon` **instead of** `btn`. The component no longer adds `blue-btn-square`. Existing variant, color, size, and state props still compose with the icon button.
+`icon` adds `btn-icon`; whether `btn` is also present follows the variant behavior described above. The component no longer adds `blue-btn-square`. Existing variant, theme, size, and state props still compose with the icon button.
 
 This is an explicit opt-in; passing `iconBefore` or `iconAfter` does not automatically set `icon`. Give icon-only buttons an accessible name.
 
@@ -92,6 +88,7 @@ The `className` on `Tab` is still applied to its tab control, and `contentClassN
 
 Existing props and content slots remain unchanged.
 
+- `Layout` now adds the Bootstrap theme classes `theme-layout theme-contrast` to its root element. Update custom selectors or overrides that assumed Blue's previous `theme-theme` styling.
 - `Layout` renders its sidebar as a native drawer on the dialog itself. The nested `.offcanvas` wrapper and separate backdrop form were removed.
 - `LayoutSplitter` makes the equivalent change for its end-side inspector drawer.
 - The Blue hooks `blue-modal`, `blue-lg-modal`, `blue-layout-side-body`, and `blue-layout-inspector-body` remain. Update custom descendant selectors to target `.drawer-header` and `.drawer-body` without an intervening offcanvas wrapper.
@@ -124,6 +121,8 @@ The reset button now sits directly in the adorned wrapper as `btn-icon btn-text`
 ## Other component styling
 
 `Header`, `Status`, and `ToastProvider` now render current theme classes/tokens internally. `Header` no longer sets a background-opacity token for its dropdown background.
+
+`ActionMenu` is deprecated, and Blue Web no longer supplies the responsive styles for its legacy action-menu classes. Migrate to `Actions`; the old component's markup may remain, but its previous responsive presentation will not.
 
 `Actions`, `FieldGroup`, `Intro`, and `SlimContainer` also emit updated internal utility classes. Their prop APIs are unchanged. Prefer the components' class-name hooks or your own supplied classes over selecting their internal utility-class combinations.
 

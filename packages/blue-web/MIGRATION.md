@@ -4,11 +4,10 @@ This guide covers Blue Web's style changes made during the Bootstrap 6 alpha mig
 
 ## Configure Blue through its Sass entrypoint
 
-Blue's stylesheet no longer reads configuration from global Sass variables. Configure it once through `@use ... with`:
+Blue's stylesheet no longer reads configuration from global Sass variables. Configure supported Sass settings through `@use ... with`:
 
 ```scss
 // Before
-$theme: orange;
 $bla-sidebar-width: 20rem;
 @import "blue-web/dist/style";
 ```
@@ -16,13 +15,12 @@ $bla-sidebar-width: 20rem;
 ```scss
 // After
 @use "blue-web/dist/style" with (
-    $theme: orange,
-    $theme-dark: #102030,
-    $bla-sidebar-width: 20rem
+    $blue: hsl(221, 97%, 53%),
+    $sidebar-width: 20rem
 );
 ```
 
-Blue's settings are forwarded through this entrypoint. See [the public defaults](dist/styles/_bootstrap-variables.scss) and [Blue-specific variables](dist/styles/_variables.scss) for available configuration.
+`$bla-sidebar-width` is now `$sidebar-width`. The `$theme`, `$theme-dark`, and `$primary` settings from the removed `dist/styles/bootstrap-variables` module are no longer available; `$blue` configures Bootstrap's blue palette instead. The `style` entrypoint also no longer exposes `$radius`, `$root-tokens`, `$accordion-tokens`, or `$utilities` for configuration. Removed Blue settings also include `$shimmering`, `$scrollbar-thumb-color`, `$actions-height`, `$bla-button-bg-normal`, `$bla-button-bg-hover`, `$bla-btn-font-size`, `$bla-header-nav-padding`, the old sidebar/app/header background and foreground settings, and `$actions-control-bg-hover`. The `$theme-colors` Bootstrap setting and Blue's current Sass variables remain available through the entrypoint; see [Bootstrap settings](dist/styles/_bootstrap.scss) and [Blue-specific variables](dist/styles/_variables.scss).
 
 - Keep `node_modules` on your Sass load path, for example `sass --load-path=node_modules app.scss app.css`.
 - Stop loading `blue-web/dist/merged.scss`; the flattened Sass distribution was removed. Load `blue-web/dist/style` instead.
@@ -51,15 +49,17 @@ The `build-neu-css` command and the CSS Neumorphism documentation page have also
 
 Blue's additional styles now live in the `custom` cascade layer. Utilities can override them; custom overrides must account for cascade-layer precedence rather than relying only on selector specificity or source order.
 
-Blue's existing `--blue-*` tokens remain available. Adaptive root colors now use `light-dark()`, and tokens are emitted on both `:root` and `:host`. Configure the paired light/dark Sass settings, or override the Blue token directly:
+The generated root tokens have changed. Blue no longer emits `--blue-app-bg`, `--blue-scrollbar-thumb-color-rgb`, `--blue-sidebar-bg`, `--blue-sidebar-color`, `--blue-header-bg`, `--blue-header-color`, `--blue-theme`, `--blue-shimmering`, or `--blue-action-link-bg-color`; `.theme-theme` no longer receives Blue-specific theme tokens. The root now emits structural tokens such as `--blue-sidebar-width`, `--blue-header-height`, `--blue-menu-item-indicator-bg`, `--blue-menu-item-height`, and `--blue-corner-shape`. The old Sass settings for the removed colors and backgrounds are gone as well.
+
+Blue's layout background now uses `--blue-layout-bg`. Override current Bootstrap theme tokens or define your own application tokens instead of relying on the removed Blue background variables. For example:
 
 ```css
 :root {
-    --blue-sidebar-bg: light-dark(#f5f5f5, #202020);
+    --blue-layout-bg: #202020;
 }
 ```
 
-The old `--theme` fallback no longer controls `--blue-theme`. Override `--blue-theme` directly, or configure `$theme` and `$theme-dark`.
+Blue no longer sets the body background from `--blue-app-bg`. Status backgrounds now use the semantic `--primary-bg`, `--success-bg`, `--info-bg`, `--warning-bg`, and `--danger-bg` tokens instead of Blue's fixed Sass colors. Override the current semantic tokens if you need different colors.
 
 Blue now supplies its Inter font stack through `--blue-font-family`. The default body font references that token; an explicitly configured body font is no longer overwritten by Blue's Inter styles.
 
@@ -75,22 +75,28 @@ Blue React's `Tabs` and `Tab` components keep their public props and manage tab 
 
 Blue no longer defines the `blue-btn-soft-*` or `blue-btn-plain-*` classes.
 
-| Removed Blue class | Replacement |
-| --- | --- |
-| `blue-btn-soft-primary` | `theme-primary btn-subtle` |
-| `blue-btn-plain-primary` | `theme-primary btn-text` |
-| `blue-btn-soft-light` | `theme-secondary btn-subtle` |
-| `blue-btn-plain-light` | `theme-secondary btn-text` |
-| `blue-btn-soft-dark` | `theme-inverse btn-subtle` |
-| `blue-btn-plain-dark` | `theme-inverse btn-text` |
-| `blue-btn-soft-theme` | `theme-theme btn-subtle` |
-| `blue-btn-plain-theme` | `theme-theme btn-text` |
+| Removed Blue class       | Replacement                    |
+| ------------------------ | ------------------------------ |
+| `blue-btn-soft-primary`  | `theme-primary btn-subtle`     |
+| `blue-btn-plain-primary` | `theme-primary btn-text`       |
+| `blue-btn-soft-light`    | `theme-secondary btn-subtle`   |
+| `blue-btn-plain-light`   | `theme-secondary btn-text`     |
+| `blue-btn-soft-dark`     | `theme-inverse btn-subtle`     |
+| `blue-btn-plain-dark`    | `theme-inverse btn-text`       |
+| `blue-btn-soft-theme`    | app theme class + `btn-subtle` |
+| `blue-btn-plain-theme`   | app theme class + `btn-text`   |
 
 Apply the same replacement to other color suffixes, such as `success`, `danger`, `warning`, and `info`. Replace custom selectors targeting the removed classes as well as markup.
 
-`theme-theme` remains a Blue-specific theme class backed by `--blue-theme` and Blue's sidebar foreground colors. The button variants themselves are no longer supplied by Blue.
+Blue no longer provides `theme-theme` as a configured theme backed by `--blue-theme`; define any application-specific theme tokens and styles yourself. The button variants themselves are supplied by Bootstrap.
 
 Blue's `blue-btn-icon-wrapper` helper remains available. The `blue-btn-square` CSS helper has been removed. Replace `btn blue-btn-square` with `btn-icon` for icon-only buttons, retaining an accessible name. React consumers should use the Button's `icon` prop.
+
+## Replace the legacy action-menu styles
+
+The responsive `.blue-legacy-actions` and `.blue-legacy-actions-menu` styles and the `actions()` and `show-action-menu-again()` mixins have been removed. The deprecated Blue React `ActionMenu` still emits these class names, but Blue Web no longer supplies their responsive styling. Migrate React consumers to `Actions`, or provide and maintain equivalent application styles.
+
+The `header-bg()` mixin and its `dist/styles/mixins/_misc.scss` partial have also been removed. Replace direct imports or calls with application-owned styling.
 
 ## Replace Blue's input group
 
@@ -127,11 +133,7 @@ The `blue-modal` hook remains, but no longer supplies the old positioning/conten
 For Blue's responsive drawer hooks, remove the nested offcanvas wrapper and put the drawer classes on the element carrying `blue-modal` and `blue-lg-modal`:
 
 ```html
-<dialog
-    class="blue-modal blue-lg-modal drawer drawer-start"
-    aria-labelledby="navigation-title"
-    closedby="any"
->
+<dialog class="blue-modal blue-lg-modal drawer drawer-start" aria-labelledby="navigation-title" closedby="any">
     <div class="drawer-header">
         <h2 class="drawer-title" id="navigation-title">Navigation</h2>
     </div>

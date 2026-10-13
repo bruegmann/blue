@@ -27,7 +27,7 @@
     right: initial;
     width: 3px;
     height: auto;
-    background-color: var(--blue-menu-item-indicator-bg);
+    background-color: var(--primary-bg);
     border-radius: 1rem;
     animation: blue-menu-item-indicator-in-from-side 0.2s ease-in-out;
 
@@ -116,12 +116,12 @@
 
             position: absolute;
             top: 0;
-            width: $bla-sidebar-width;
+            width: $sidebar-width;
             left: $normal-size;
             max-height: calc(100vh - (var(--offset-top, 0px) + 1rem));
             overflow-y: auto;
             overflow-x: hidden;
-            background-color: var(--blue-sidebar-bg);
+            background-color: var(--blue-layout-bg);
 
             &::before {
                 content: none;

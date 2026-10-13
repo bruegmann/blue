@@ -4,7 +4,6 @@
 */
 
 @use "sass:meta";
-@forward "./styles/bootstrap-variables";
 @forward "./styles/bootstrap" hide $root-tokens, $accordion-tokens, $utilities, $radius;
 @forward "./styles/variables";
 @forward "./styles/mixins";
@@ -18,7 +17,6 @@
     @include meta.load-css("./styles/status");
     @include meta.load-css("./styles/menu-item");
     @include meta.load-css("./styles/page-header");
-    @include meta.load-css("./styles/action-menu");
     @include meta.load-css("./styles/tooltips");
     @include meta.load-css("./styles/hover");
     @include meta.load-css("./styles/button-icon-wrapper");

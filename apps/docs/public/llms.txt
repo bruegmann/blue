@@ -1367,13 +1367,13 @@ It also exports these functions:
 Example about, how you could create a color mode switch.
 
 ```html
-<div class="form-floating">
-    <select class="form-control w-auto" id="colorModeSelect" aria-label="Selector for color mode">
+<div class="form-floating d-inline-block" style="min-width: 100px">
+    <label for="colorModeSelect">Select</label>
+    <select class="form-control" id="colorModeSelect" aria-label="Selector for color mode">
         <option value="auto">Auto</option>
         <option value="light">Light</option>
         <option value="dark">Dark</option>
     </select>
-    <label for="colorModeSelect">Select</label>
 </div>
 
 <script>
@@ -1388,6 +1388,7 @@ Example about, how you could create a color mode switch.
     })
 </script>
 ```
+
 
 
 
@@ -1472,6 +1473,8 @@ They are not meant to be used as a replacement for more complex modals.
     }
 </script>
 ```
+
+
 
 
 

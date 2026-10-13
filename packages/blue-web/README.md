@@ -85,7 +85,7 @@ An example of how to override CSS variables:
     --body-font-family: "Inter", sans-serif;
 
     /* Override Blue Web CSS variable */
-    --blue-sidebar-bg: #333;
+    --blue-layout-bg: #333;
 }
 ```
 
