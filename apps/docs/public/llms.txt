@@ -1127,6 +1127,13 @@ You can set the background color using CSS variable `--blue-odd-bg`.
 
 ## Actions
 
+<div class="alert theme-accent">
+    Replaceable with{" "}
+    <a href="https://getbootstrap.com/docs/6.0/components/nav-overflow" className="alert-link">
+        Bootstrap 6 Nav Overflow
+    </a>
+</div>
+
 Combination of toolbar and a dropdown menu. Items in toolbar will only be shown if there is enough space.
 Otherwise they will be visible in the dropdown menu. JavaScript detects if space is changing and rearranges.
 
@@ -1368,7 +1375,7 @@ They are not meant to be used as a replacement for more complex modals.
 #### Verify
 
 ```html
-<button type="button" class="btn theme-secondary btn-subtle" onclick="verifyUser()">Verify</button>
+<button type="button" class="btn" onclick="verifyUser()">Verify</button>
 
 <script>
     async function verifyUser() {
@@ -1381,7 +1388,7 @@ They are not meant to be used as a replacement for more complex modals.
 #### Tell
 
 ```html
-<button type="button" class="btn theme-secondary btn-subtle" onclick="tellUser()">Tell</button>
+<button type="button" class="btn" onclick="tellUser()">Tell</button>
 
 <script>
     async function tellUser() {
@@ -1393,7 +1400,7 @@ They are not meant to be used as a replacement for more complex modals.
 #### Ask
 
 ```html
-<button type="button" class="btn theme-secondary btn-subtle" onclick="askUser()">Ask</button>
+<button type="button" class="btn" onclick="askUser()">Ask</button>
 
 <script>
     async function askUser() {
@@ -1408,7 +1415,7 @@ They are not meant to be used as a replacement for more complex modals.
 #### Ask with default value
 
 ```html
-<button type="button" class="btn theme-secondary btn-subtle" onclick="askUserWithDefaultValue()">Ask</button>
+<button type="button" class="btn" onclick="askUserWithDefaultValue()">Ask</button>
 
 <script>
     async function askUserWithDefaultValue() {
@@ -1424,9 +1431,7 @@ They are not meant to be used as a replacement for more complex modals.
 #### Control dialog by ID
 
 ```html
-<button type="button" class="btn theme-secondary btn-subtle" onclick="openControlledTellDialog()">
-    Open controlled dialog
-</button>
+<button type="button" class="btn" onclick="openControlledTellDialog()">Open controlled dialog</button>
 
 <script>
     async function openControlledTellDialog() {
@@ -1444,6 +1449,13 @@ They are not meant to be used as a replacement for more complex modals.
 
 
 ## Input Splitted
+
+<div class="alert theme-accent">
+    Replaceable with{" "}
+    <a href="https://getbootstrap.com/docs/6.0/forms/otp-input" className="alert-link">
+        Bootstrap 6 OTP Input
+    </a>
+</div>
 
 Group of input fields. Perfect e.g. for entering PIN or TOTP.
 
@@ -1828,7 +1840,7 @@ A "fake" progress bar that will appear fixed at the top of the page.
 ### Start and stop
 
 ```html
-<button id="startButton" type="button" class="btn theme-secondary btn-subtle">Start</button>
+<button id="startButton" type="button" class="btn">Start</button>
 
 <script>
     startButton.addEventListener("click", async () => {
@@ -1838,7 +1850,7 @@ A "fake" progress bar that will appear fixed at the top of the page.
 ```
 
 ```html
-<button id="stopButton" type="button" class="btn theme-secondary btn-subtle">Stop</button>
+<button id="stopButton" type="button" class="btn">Stop</button>
 
 <script>
     stopButton.addEventListener("click", async () => {
@@ -1855,8 +1867,8 @@ You can customize the element further by setting a custom ID, parent element and
 <div id="myElement" class="bg-subtle-secondary border border-primary rounded-2 p-5 position-relative mb-1">
     Add progress bar to this
 </div>
-<button id="startButton2" type="button" class="btn theme-secondary btn-subtle">Start</button>
-<button id="stopButton2" type="button" class="btn theme-secondary btn-subtle">Stop</button>
+<button id="startButton2" type="button" class="btn">Start</button>
+<button id="stopButton2" type="button" class="btn">Stop</button>
 
 <script>
     startButton2.addEventListener("click", async () => {
@@ -1878,13 +1890,13 @@ You can customize the element further by setting a custom ID, parent element and
 
 ```html
 <div id="instance1" class="border rounded-2 p-5 position-relative mb-1">
-    <button id="startButton3a" type="button" class="btn theme-secondary btn-subtle">Start</button>
-    <button id="stopButton3a" type="button" class="btn theme-secondary btn-subtle">Stop</button>
+    <button id="startButton3a" type="button" class="btn">Start</button>
+    <button id="stopButton3a" type="button" class="btn">Stop</button>
 </div>
 
 <div id="instance2" class="border rounded-2 p-5 position-relative mb-1">
-    <button id="startButton3b" type="button" class="btn theme-secondary btn-subtle">Start</button>
-    <button id="stopButton3b" type="button" class="btn theme-secondary btn-subtle">Stop</button>
+    <button id="startButton3b" type="button" class="btn">Start</button>
+    <button id="stopButton3b" type="button" class="btn">Stop</button>
 </div>
 
 <script>
@@ -2344,19 +2356,22 @@ If your logo has another width than height, you can also use a combination of `-
 
 ## Responsive Drawer
 
-Bootstrap 6 drawers use a native `dialog`. Blue's responsive hooks show the same element inline above the selected viewport breakpoint and as a drawer below it.
+<div class="alert theme-accent">
+    Replaceable with{" "}
+    <a href="https://getbootstrap.com/docs/6.0/components/drawer/#responsive" className="alert-link">
+        Bootstrap 6 Drawer Responsive
+    </a>
+</div>
+
+Bootstrap 6 drawers use a native `dialog`. Blue's responsive hooks show the same element inline above the selected
+viewport breakpoint and as a drawer below it.
 
 ```html
 <button type="button" class="btn theme-primary btn-subtle lg:d-none" command="show-modal" commandfor="myDrawer">
     Open drawer
 </button>
 
-<dialog
-    class="blue-lg-modal blue-modal drawer drawer-start"
-    id="myDrawer"
-    aria-labelledby="drawerLabel"
-    closedby="any"
->
+<dialog class="blue-lg-modal blue-modal drawer drawer-start" id="myDrawer" aria-labelledby="drawerLabel" closedby="any">
     <div class="drawer-header">
         <h1 class="h5 drawer-title" id="drawerLabel">Drawer</h1>
         <form method="dialog" style="display: contents;">

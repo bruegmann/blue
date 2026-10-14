@@ -78,7 +78,7 @@ export class ReadView extends HTMLElement {
                 }
 
                 div:hover {
-                    background: var(--blue-read-view-hover-bg, var(--secondary-bg-subtle, var(--bs-secondary-bg)));
+                    background: var(--blue-read-view-hover-bg, var(--bg-2));
                 }
 
                 :host([disabled]) div {
