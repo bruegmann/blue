@@ -1,5 +1,11 @@
 # blue-web
 
+## 1.32.2
+
+### Patch Changes
+
+- Added style options for Web Component `bl-read-view` by adding CSS part `presentation` and CSS variable `--blue-read-view-bg`.
+
 ## 1.32.1
 
 ### Patch Changes

@@ -73,11 +73,12 @@ export class ReadView extends HTMLElement {
                     max-width: 100%;
                     border-color: transparent;
                     border-radius: var(--bs-border-radius-sm, 3px);
+                    background: var(--blue-read-view-bg, transparent);
                     transition: background 0.2s;
                 }
 
                 div:hover {
-                    background-color: var(--bs-secondary-bg-subtle);
+                    background: var(--blue-read-view-hover-bg, var(--bs-secondary-bg));
                 }
 
                 :host([disabled]) div {
@@ -85,7 +86,7 @@ export class ReadView extends HTMLElement {
                 }
             </style>
             <button aria-label="Edit"></button>
-            <div role="presentation">
+            <div role="presentation" part="presentation">
                 <slot></slot>
             </div>
         `
