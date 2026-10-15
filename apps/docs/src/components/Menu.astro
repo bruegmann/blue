@@ -174,7 +174,7 @@ const mixedMenuItems = Object.keys(import.meta.glob("/src/pages/mixed/*")).map((
                                     <MenuItem href={item.path} label={item.label} current={item.isActive}>
                                         {item.label === "Actions" && <MenuApp slot="iconBefore" />}
                                         {item.label === "Color Mode" && <CircleHalf slot="iconBefore" />}
-                                        {item.label === "Dialog" && <WindowStack slot="iconBefore" />}
+                                        {item.label === "Message" && <WindowStack slot="iconBefore" />}
                                         {item.label === "Input Splitted" && <InputCursorText slot="iconBefore" />}
                                         {item.label === "Odometer" && <Icon9Square slot="iconBefore" />}
                                         {item.label === "Overflow Detector" && <ThreeDots slot="iconBefore" />}
@@ -240,6 +240,10 @@ const mixedMenuItems = Object.keys(import.meta.glob("/src/pages/mixed/*")).map((
 
                                 {["LayoutSplitter", "Accordion", "AccordionItem"].includes(item.label) && (
                                     <span slot="buttonContent" class="docs-badge docs-badge-new" />
+                                )}
+
+                                {["ModalProvider"].includes(item.label) && (
+                                    <span slot="buttonContent" class="docs-badge docs-badge-deprecated" />
                                 )}
                             </MenuItem>
                         ))}

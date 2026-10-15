@@ -1,9 +1,9 @@
 import { guid } from "./utils.js"
 import { getPhrase } from "./shared.js"
 
-export type DialogType = "ask" | "tell" | "verify"
+export type MessageType = "ask" | "tell" | "verify"
 
-export interface DialogOptions {
+export interface MessageOptions {
     title?: string
     icon?: string
     switchPrimaryBtn?: boolean
@@ -14,21 +14,21 @@ export interface DialogOptions {
     id?: string
 }
 
-export async function ask(text: string, options: DialogOptions | string = {}): Promise<string | boolean> {
-    return await dialog("ask", text, options)
+export async function ask(text: string, options: MessageOptions | string = {}): Promise<string | boolean> {
+    return await message("ask", text, options)
 }
 
-export async function tell(text: string, options: DialogOptions | string = {}): Promise<void> {
-    await dialog("tell", text, options)
+export async function tell(text: string, options: MessageOptions | string = {}): Promise<void> {
+    await message("tell", text, options)
 }
 
-export async function verify(text: string, options: DialogOptions | string = {}): Promise<boolean> {
-    return (await dialog("verify", text, options)) === true
+export async function verify(text: string, options: MessageOptions | string = {}): Promise<boolean> {
+    return (await message("verify", text, options)) === true
 }
 
-async function dialog(dialogType: DialogType, text: string, options: DialogOptions | string = {}) {
+async function message(messageType: MessageType, text: string, options: MessageOptions | string = {}) {
     let {
-        title = getPhrase(dialogType === "verify" ? "Confirm" : dialogType === "ask" ? "Question" : "Message"),
+        title = getPhrase(messageType === "verify" ? "Confirm" : messageType === "ask" ? "Question" : "Message"),
         icon = undefined,
         switchPrimaryBtn = false,
         acceptBtnText = "OK",
@@ -50,7 +50,7 @@ async function dialog(dialogType: DialogType, text: string, options: DialogOptio
                     </div>
                     <div class="dialog-body">
                         ${
-                            dialogType === "ask"
+                            messageType === "ask"
                                 ? /* HTML */ `<label for="${_id}-input" class="blue-label">${text}</label>
                                       <input
                                           type="${inputType}"
@@ -63,7 +63,7 @@ async function dialog(dialogType: DialogType, text: string, options: DialogOptio
                     </div>
                     <div class="dialog-footer">
                         ${
-                            dialogType === "verify" || dialogType === "ask"
+                            messageType === "verify" || messageType === "ask"
                                 ? /* HTML */ `<button
                                       type="button"
                                       class="btn theme-primary ${switchPrimaryBtn ? "btn-solid" : "btn-text"}"
@@ -92,7 +92,7 @@ async function dialog(dialogType: DialogType, text: string, options: DialogOptio
     }
     const form = modalEl.querySelector<HTMLFormElement>(":scope > form:not(.blue-modal-backdrop)")
     const input = modalEl.querySelector<HTMLInputElement>("input")
-    if (!form || (dialogType === "ask" && !input)) {
+    if (!form || (messageType === "ask" && !input)) {
         throw new Error(`Dialog "${_id}" is missing its form or prompt input.`)
     }
 
@@ -112,7 +112,7 @@ async function dialog(dialogType: DialogType, text: string, options: DialogOptio
         form.addEventListener("submit", (e) => {
             e.preventDefault()
 
-            if (dialogType === "ask" && input) {
+            if (messageType === "ask" && input) {
                 resolve(input.value)
             } else {
                 resolve(true)
@@ -131,7 +131,7 @@ declare global {
 }
 
 window.blueWeb = window.blueWeb || {}
-window.blueWeb.dialog = {
+window.blueWeb.message = {
     ask,
     tell,
     verify

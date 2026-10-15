@@ -2,6 +2,22 @@
 
 This guide covers Blue Web's style changes made during the Bootstrap 6 alpha migration. It is not a general Bootstrap migration guide. React component changes are documented separately in the [Blue React migration guide](../blue-react/MIGRATION.md).
 
+## Rename Blue's message API
+
+The promise-based API formerly exposed as `window.blueWeb.dialog` is now `window.blueWeb.message`. Rename the imported module from `dialog.js` to `message.js` and update calls to the new namespace:
+
+```js
+// Before
+import "blue-web/dist/js/dialog.js"
+await blueWeb.dialog.tell("A message for you")
+
+// After
+import "blue-web/dist/js/message.js"
+await blueWeb.message.tell("A message for you")
+```
+
+The `ask`, `tell`, and `verify` methods keep their names and behavior. The old module and namespace are removed; there is no compatibility alias. This only renames Blue's message API: native `<dialog>` elements, Bootstrap's `Dialog`, and Blue's dialog and drawer markup hooks are unchanged.
+
 ## Configure Blue through its Sass entrypoint
 
 Blue's stylesheet no longer reads configuration from global Sass variables. Configure supported Sass settings through `@use ... with`:

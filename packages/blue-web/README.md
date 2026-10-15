@@ -19,7 +19,7 @@ If you have a React or Blazor project, you should use the components of [Blue Re
 For the JavaScript solutions you have to import the associated file. When installed using NPM, you can do it like this:
 
 ```js
-import "blue-web/dist/js/dialog.js"
+import "blue-web/dist/js/message.js"
 import "blue-web/dist/js/progress.js"
 // ...
 ```
@@ -29,7 +29,7 @@ import "blue-web/dist/js/progress.js"
 You can also use a CDN like unpkg.com. Only recommended for testing, not for production.
 
 ```html
-<script type="module" src="https://unpkg.com/blue-web@latest/dist/js/dialog.js"></script>
+<script type="module" src="https://unpkg.com/blue-web@latest/dist/js/message.js"></script>
 <script type="module" src="https://unpkg.com/blue-web@latest/dist/js/progress.js"></script>
 <!-- ... -->
 ```
@@ -38,7 +38,7 @@ JavaScript files are compiled as ES modules. This allows you to use import funct
 
 ```html
 <script type="module">
-    import { tell } from "https://unpkg.com/blue-web@latest/dist/js/dialog.js"
+    import { tell } from "https://unpkg.com/blue-web@latest/dist/js/message.js"
     tell("You are awesome!")
 </script>
 ```

@@ -19,7 +19,7 @@ If you have a React or Blazor project, you should use the components of [Blue Re
 For the JavaScript solutions you have to import the associated file. When installed using NPM, you can do it like this:
 
 ```js
-import "blue-web/dist/js/dialog.js"
+import "blue-web/dist/js/message.js"
 import "blue-web/dist/js/progress.js"
 // ...
 ```
@@ -29,7 +29,7 @@ import "blue-web/dist/js/progress.js"
 You can also use a CDN like unpkg.com. Only recommended for testing, not for production.
 
 ```html
-<script type="module" src="https://unpkg.com/blue-web@latest/dist/js/dialog.js"></script>
+<script type="module" src="https://unpkg.com/blue-web@latest/dist/js/message.js"></script>
 <script type="module" src="https://unpkg.com/blue-web@latest/dist/js/progress.js"></script>
 <!-- ... -->
 ```
@@ -38,7 +38,7 @@ JavaScript files are compiled as ES modules. This allows you to use import funct
 
 ```html
 <script type="module">
-    import { tell } from "https://unpkg.com/blue-web@latest/dist/js/dialog.js"
+    import { tell } from "https://unpkg.com/blue-web@latest/dist/js/message.js"
     tell("You are awesome!")
 </script>
 ```
@@ -1365,89 +1365,6 @@ Example about, how you could create a color mode switch.
 
 
 
-## Dialog
-
-These functions are meant as a nicer alternative to the native `alert`, `confirm` and `prompt` functions.
-They are not meant to be used as a replacement for more complex modals.
-
-### Functions
-
-#### Verify
-
-```html
-<button type="button" class="btn" onclick="verifyUser()">Verify</button>
-
-<script>
-    async function verifyUser() {
-        const yesOrNo = await blueWeb.dialog.verify("Do you want to continue?")
-        await blueWeb.dialog.tell(yesOrNo ? "You clicked yes" : "You clicked no")
-    }
-</script>
-```
-
-#### Tell
-
-```html
-<button type="button" class="btn" onclick="tellUser()">Tell</button>
-
-<script>
-    async function tellUser() {
-        await blueWeb.dialog.tell("A message for you")
-    }
-</script>
-```
-
-#### Ask
-
-```html
-<button type="button" class="btn" onclick="askUser()">Ask</button>
-
-<script>
-    async function askUser() {
-        const answer = await blueWeb.dialog.ask("What is the question?", {
-            title: "Question"
-        })
-        await blueWeb.dialog.tell("You asked: " + answer)
-    }
-</script>
-```
-
-#### Ask with default value
-
-```html
-<button type="button" class="btn" onclick="askUserWithDefaultValue()">Ask</button>
-
-<script>
-    async function askUserWithDefaultValue() {
-        const answer = await blueWeb.dialog.ask(
-            "What is your name?",
-            `{"title":"Save Query","defaultValue":"DEFAULT LGK"}`
-        )
-        await blueWeb.dialog.tell("You asked: " + answer)
-    }
-</script>
-```
-
-#### Control dialog by ID
-
-```html
-<button type="button" class="btn" onclick="openControlledTellDialog()">Open controlled dialog</button>
-
-<script>
-    async function openControlledTellDialog() {
-        setTimeout(() => {
-            document.getElementById("myControlledDialog").close()
-        }, 3000)
-        await blueWeb.dialog.tell("Dialog will close after a few seconds.", { id: "myControlledDialog" })
-    }
-</script>
-```
-
-
-
-
-
-
 ## Input Splitted
 
 <div class="alert theme-accent">
@@ -1531,6 +1448,89 @@ Even if `light-dom` isn't enabled, you can still use CSS variables to style the 
     <label for="my-pin-input">Enter a PIN</label>
     <bl-input-splitted light-dom control-1-id="my-pin-input" length="4"></bl-input-splitted>
 </div>
+```
+
+
+
+
+
+
+## Message
+
+These functions are meant as a nicer alternative to the native `alert`, `confirm` and `prompt` functions.
+They are not meant to be used as a replacement for more complex modals.
+
+### Functions
+
+#### Verify
+
+```html
+<button type="button" class="btn" onclick="verifyUser()">Verify</button>
+
+<script>
+    async function verifyUser() {
+        const yesOrNo = await blueWeb.message.verify("Do you want to continue?")
+        await blueWeb.message.tell(yesOrNo ? "You clicked yes" : "You clicked no")
+    }
+</script>
+```
+
+#### Tell
+
+```html
+<button type="button" class="btn" onclick="tellUser()">Tell</button>
+
+<script>
+    async function tellUser() {
+        await blueWeb.message.tell("A message for you")
+    }
+</script>
+```
+
+#### Ask
+
+```html
+<button type="button" class="btn" onclick="askUser()">Ask</button>
+
+<script>
+    async function askUser() {
+        const answer = await blueWeb.message.ask("What is the question?", {
+            title: "Question"
+        })
+        await blueWeb.message.tell("You asked: " + answer)
+    }
+</script>
+```
+
+#### Ask with default value
+
+```html
+<button type="button" class="btn" onclick="askUserWithDefaultValue()">Ask</button>
+
+<script>
+    async function askUserWithDefaultValue() {
+        const answer = await blueWeb.message.ask(
+            "What is your name?",
+            `{"title":"Save Query","defaultValue":"DEFAULT LGK"}`
+        )
+        await blueWeb.message.tell("You asked: " + answer)
+    }
+</script>
+```
+
+#### Control dialog by ID
+
+```html
+<button type="button" class="btn" onclick="openControlledTellDialog()">Open controlled dialog</button>
+
+<script>
+    async function openControlledTellDialog() {
+        setTimeout(() => {
+            document.getElementById("myControlledDialog").close()
+        }, 3000)
+        await blueWeb.message.tell("Dialog will close after a few seconds.", { id: "myControlledDialog" })
+    }
+</script>
 ```
 
 
@@ -1984,9 +1984,9 @@ A Web Component that displays a read view of its content and allows the user to 
 <style>
     ##readViewDemo_styledParts::part(presentation) {
         box-shadow:
-            inset 0 0 0 var(--bs-border-width, 1px) var(--bs-border-color),
-            0 1px 0 var(--bs-secondary-bg);
-        --blue-read-view-bg: var(--bs-tertiary-bg);
+            inset 0 0 0 var(--border-width, 1px) var(--border-color),
+            0 1px 0 var(--secondary-bg);
+        --blue-read-view-bg: var(--bg-1);
     }
 </style>
 

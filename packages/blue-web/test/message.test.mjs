@@ -5,7 +5,7 @@ import vm from "node:vm"
 import ts from "typescript"
 
 function setup() {
-    const source = readFileSync(new URL("../src/js/dialog.ts", import.meta.url), "utf8")
+    const source = readFileSync(new URL("../src/js/message.ts", import.meta.url), "utf8")
     const { outputText } = ts.transpileModule(source, {
         compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2020 }
     })
@@ -52,7 +52,7 @@ function setup() {
             }
         },
         require(id) {
-            if (id === "./utils.js") return { guid: () => "test-dialog" }
+            if (id === "./utils.js") return { guid: () => "test-message" }
             if (id === "./shared.js") return { getPhrase: (phrase) => phrase }
             throw new Error(`Unexpected dependency: ${id}`)
         }
@@ -60,17 +60,24 @@ function setup() {
     vm.runInNewContext(outputText, context)
     return {
         ...context.exports,
+        window: context.window,
         elements,
         flushCloses: () => pendingCloses.splice(0).forEach((close) => close()),
         markup: () => markup
     }
 }
 
+test("message API is exposed without the old dialog namespace", () => {
+    const { window } = setup()
+    assert.deepEqual(Object.keys(window.blueWeb.message), ["ask", "tell", "verify"])
+    assert.equal("dialog" in window.blueWeb, false)
+})
+
 test("prompt acceptance preserves empty and non-empty strings", async () => {
     const { ask, elements, markup } = setup()
     for (const value of ["", "password"]) {
         const result = ask("Question")
-        const dialog = elements.get("test-dialog")
+        const dialog = elements.get("test-message")
         assert.equal(dialog.open, true)
         assert.match(markup(), /<dialog class="blue-modal dialog"/)
         assert.doesNotMatch(markup(), /modal-content|modal-dialog/)
@@ -84,7 +91,7 @@ test("prompt acceptance preserves empty and non-empty strings", async () => {
 test("native close resolves cancellation and removes the dialog", async () => {
     const { ask, elements, flushCloses } = setup()
     const result = ask("Question")
-    elements.get("test-dialog").close()
+    elements.get("test-message").close()
     flushCloses()
     assert.equal(await result, false)
     assert.equal(elements.size, 0)
@@ -93,7 +100,7 @@ test("native close resolves cancellation and removes the dialog", async () => {
 test("confirmation acceptance resolves true", async () => {
     const { verify, elements } = setup()
     const result = verify("Confirm")
-    elements.get("test-dialog").submit()
+    elements.get("test-message").submit()
     assert.equal(await result, true)
 })
 
@@ -104,7 +111,7 @@ test("dialog action buttons use Bootstrap's text and solid variants", async () =
         assert.match(markup(), new RegExp(`class="btn theme-primary ${switchPrimaryBtn ? "btn-solid" : "btn-text"}"`))
         assert.match(markup(), new RegExp(`class="btn theme-primary ${switchPrimaryBtn ? "btn-text" : "btn-solid"}"`))
         assert.doesNotMatch(markup(), /blue-btn-(?:soft|plain)-/)
-        elements.get("test-dialog").submit()
+        elements.get("test-message").submit()
         assert.equal(await result, true)
     }
 })
@@ -129,9 +136,9 @@ test("invalid existing dialog markup rejects rather than hanging", async () => {
     elements.set("invalid", {})
     await assert.rejects(ask("Question", { id: "invalid" }), /must be a native dialog element/)
     const result = ask("Valid")
-    const dialog = elements.get("test-dialog")
+    const dialog = elements.get("test-message")
     dialog.input = null
-    await assert.rejects(ask("Invalid", { id: "test-dialog" }), /missing its form or prompt input/)
+    await assert.rejects(ask("Invalid", { id: "test-message" }), /missing its form or prompt input/)
     dialog.close()
     dialog.dispatchEvent(new Event("close"))
     assert.equal(await result, false)
