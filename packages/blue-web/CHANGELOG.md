@@ -1,5 +1,11 @@
 # blue-web
 
+## 1.33.0
+
+### Minor Changes
+
+- Enhance Read View Web Component with new default styles and styling options (CSS variables). Also changed border radii a bit.
+
 ## 1.32.2
 
 ### Patch Changes

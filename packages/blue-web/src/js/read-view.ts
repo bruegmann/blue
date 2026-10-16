@@ -67,18 +67,22 @@ export class ReadView extends HTMLElement {
                 }
 
                 div {
-                    display: inline-block;
+                    --padding: var(--blue-read-view-padding);
+
+                    display: var(--display, flex);
                     box-sizing: border-box;
                     width: auto;
                     max-width: 100%;
                     border-color: transparent;
-                    border-radius: var(--bs-border-radius-sm, 3px);
-                    background: var(--blue-read-view-bg, transparent);
-                    transition: background 0.2s;
+                    border-radius: calc(var(--bs-border-radius-sm, 3px) + var(--padding));
+                    background: var(--bg, transparent);
+                    transition: var(--transition, background 0.2s);
+
+                    padding: var(--padding);
                 }
 
                 div:hover {
-                    background: var(--blue-read-view-hover-bg, var(--bs-secondary-bg));
+                    background: var(--hover-bg, var(--bs-secondary-bg));
                 }
 
                 :host([disabled]) div {
