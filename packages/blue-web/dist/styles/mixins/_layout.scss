@@ -1,7 +1,9 @@
+@use "../variables" as *;
+
 @mixin blue-layout-body($bg) {
     --spacing: 0.5rem;
-    --blue-menu-item-indicator-bg: #{$sidebar-indicator-color};
-    --bs-link-hover-color: #{$link-hover-color};
+    --blue-menu-item-indicator-bg: light-dark(#{$sidebar-indicator-color}, #{$sidebar-indicator-color-dark});
+    --link-hover-color: var(--primary-fg);
 
     width: calc(100% - var(--spacing) * 2);
     height: calc(100% - var(--spacing));
@@ -10,15 +12,8 @@
     overflow: auto;
     scrollbar-color: color-mix(in srgb, currentColor 50%, transparent) transparent;
     background-color: $bg;
-    color: rgba(var(--bs-body-color-rgb), var(--bs-text-opacity, 1));
-    box-shadow: var(--bs-box-shadow-sm);
-    border: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color);
-    border-radius: var(--bs-border-radius-lg);
-
-    @include color-mode(dark, false) {
-        & {
-            --blue-menu-item-indicator-bg: #{$sidebar-indicator-color-dark};
-            --bs-link-hover-color: #{$link-hover-color-dark};
-        }
-    }
+    color: var(--fg-body);
+    box-shadow: var(--box-shadow-sm);
+    border: var(--border-width) var(--border-style) var(--theme-border, var(--border-color));
+    border-radius: var(--radius-7);
 }

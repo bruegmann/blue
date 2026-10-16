@@ -47,7 +47,7 @@ export function ToastProvider({
             {children}
 
             <div className="blue-normal-scrollbar">
-                <div className="toast-container position-fixed bottom-0 end-0 p-3 mh-100 pe-auto overflow-auto me-3">
+                <div className="toast-container position-fixed bottom-0 end-0 p-5 max-h-100 pe-auto overflow-auto me-5">
                     {toastItems.length > 1 && (
                         <div
                             className="toast align-items-center fade show position-sticky top-0"
@@ -57,7 +57,7 @@ export function ToastProvider({
                         >
                             <div className="toast-header">
                                 <button
-                                    className="btn btn-outline-light blue-btn-silent btn-sm w-100"
+                                    className="btn btn-outline theme-secondary blue-btn-silent btn-sm w-100"
                                     onClick={clearToasts}
                                 >
                                     {getPhrase("Close all")}
@@ -69,14 +69,14 @@ export function ToastProvider({
                     {toastItems.map(({ type, ...toastItem }, i) => (
                         <div key={i} className="toast fade show" role="alert" aria-live="assertive" aria-atomic="true">
                             <div className="toast-header">
-                                <span className={`rounded me-2 text-${type || "info"}`}>
+                                <span className={`rounded me-3 fg-${type || "info"}`}>
                                     {type === "danger"
                                         ? dangerIcon
                                         : type === "success"
-                                        ? successIcon
-                                        : type === "warning"
-                                        ? warningIcon
-                                        : infoIcon}
+                                          ? successIcon
+                                          : type === "warning"
+                                            ? warningIcon
+                                            : infoIcon}
                                 </span>
 
                                 <strong className="me-auto">

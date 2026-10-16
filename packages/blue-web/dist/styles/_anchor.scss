@@ -26,17 +26,17 @@
         translate: -50% -50%;
 
         &::backdrop {
-            --bs-backdrop-bg: #000;
-            --bs-backdrop-opacity: 0.5;
-            background-color: var(--bs-backdrop-bg);
+            --backdrop-bg: #000;
+            --backdrop-opacity: 0.5;
+            background-color: var(--backdrop-bg);
             transition: opacity 0.2s;
-            opacity: var(--bs-backdrop-opacity);
+            opacity: var(--backdrop-opacity);
         }
     }
 }
 
 .btn:has(+ :popover-open):not(:focus-visible):not(.blue-menu-item) {
-    --bs-focus-ring-color: rgba(var(--bs-secondary-rgb), 0.25);
-    box-shadow: var(--bs-focus-ring-x, 0) var(--bs-focus-ring-y, 0) var(--bs-focus-ring-blur, 0)
-        var(--bs-focus-ring-width) var(--bs-focus-ring-color);
+    --focus-ring-color: var(--secondary-focus-ring);
+    box-shadow: var(--focus-ring-x, 0) var(--focus-ring-y, 0) var(--focus-ring-blur, 0) var(--focus-ring-width)
+        var(--focus-ring-color);
 }

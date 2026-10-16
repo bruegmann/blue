@@ -16,7 +16,6 @@ import {
     HandIndex,
     Icon9Square,
     InputCursorText,
-    LayersHalf,
     LayoutSidebarInset,
     LayoutSidebarReverse,
     LayoutTextWindowReverse,
@@ -68,14 +67,9 @@ function prepareSectionMenuItem(path: string, section: "css" | "js" | "mixed" | 
 
 const reactMenuItems = (await getComponents()).map((componentName) => prepareSectionMenuItem(componentName, "react"))
 
-const deprecated = ["Sidebar"]
-
-const allCssMenuItems = Object.keys(import.meta.glob("/src/pages/css/*")).map((path) =>
+const cssMenuItems = Object.keys(import.meta.glob("/src/pages/css/*")).map((path) =>
     prepareSectionMenuItem(path, "css")
 )
-
-const cssMenuItems = allCssMenuItems.filter((item) => !deprecated.includes(item.label))
-const deprecatedMenuItems = allCssMenuItems.filter((item) => deprecated.includes(item.label))
 
 const jsMenuItems = Object.keys(import.meta.glob("/src/pages/js/*")).map((path) => prepareSectionMenuItem(path, "js"))
 const mixedMenuItems = Object.keys(import.meta.glob("/src/pages/mixed/*")).map((path) =>
@@ -84,7 +78,7 @@ const mixedMenuItems = Object.keys(import.meta.glob("/src/pages/mixed/*")).map((
 ---
 
 <SidebarMenu>
-    <nav class="nav nav-underline text-center d-grid mb-2" style="grid-template-columns: repeat(3, 1fr);">
+    <nav class="nav nav-underline text-center d-grid mb-3" style="grid-template-columns: repeat(3, 1fr);">
         <a
             class:list={["nav-link", { active: !isCurrent("react") }]}
             aria-current={!isCurrent("react") ? "page" : null}
@@ -121,8 +115,8 @@ const mixedMenuItems = Object.keys(import.meta.glob("/src/pages/mixed/*")).map((
                         </MenuItem>
                     </li>
 
-                    <li class="mb-3">
-                        <strong class="ps-2">Mixed</strong>
+                    <li class="mb-5">
+                        <strong class="ps-3">Mixed</strong>
                         <ul class="list-unstyled">
                             {mixedMenuItems.map((item) => (
                                 <li>
@@ -130,8 +124,8 @@ const mixedMenuItems = Object.keys(import.meta.glob("/src/pages/mixed/*")).map((
                                         {item.label === "Layout" && <LayoutTextWindowReverse slot="iconBefore" />}
                                         {item.label === "Responsive Drawer" && <LayoutSidebarInset slot="iconBefore" />}
 
-                                        {["Mixed"].includes(item.label) && (
-                                            <span slot="buttonContent" class="docs-badge docs-badge-update" />
+                                        {["Responsive Drawer"].includes(item.label) && (
+                                            <span slot="buttonContent" class="docs-badge docs-badge-deprecated" />
                                         )}
                                     </MenuItem>
                                 </li>
@@ -139,24 +133,21 @@ const mixedMenuItems = Object.keys(import.meta.glob("/src/pages/mixed/*")).map((
                         </ul>
                     </li>
 
-                    <li class="mb-3">
-                        <strong class="ps-2">CSS</strong>
+                    <li class="mb-5">
+                        <strong class="ps-3">CSS</strong>
                         <div class="vstack">
                             {cssMenuItems.map((item) => (
                                 <MenuItem href={item.path} label={item.label} current={item.isActive}>
                                     {item.label === "Accordion" && <ArrowsExpand slot="iconBefore" />}
-                                    {item.label === "Buttons" && <PlayBtnFill slot="iconBefore" />}
                                     {item.label === "Collapse" && <CardHeading slot="iconBefore" />}
                                     {item.label === "Container Grid" && <Columns slot="iconBefore" />}
                                     {item.label === "Header" && <CardHeading slot="iconBefore" />}
                                     {item.label === "Hover" && <HandIndex slot="iconBefore" />}
                                     {item.label === "Menu Item" && <MenuButton slot="iconBefore" />}
                                     {item.label === "Modal" && <WindowStack slot="iconBefore" />}
-                                    {item.label === "Neumorphism" && <LayersHalf slot="iconBefore" />}
                                     {item.label === "Popover" && <MenuDown slot="iconBefore" />}
                                     {item.label === "Scrollbar" && <ArrowsVertical slot="iconBefore" />}
                                     {item.label === "Scrollspy" && <SegmentedNav slot="iconBefore" />}
-                                    {item.label === "Input group" && <Search slot="iconBefore" />}
                                     {item.label === "Intro" && <Postcard slot="iconBefore" />}
                                     {item.label === "Tabs" && <SegmentedNav slot="iconBefore" />}
                                     {item.label === "Text and Icons" && <Type slot="iconBefore" />}
@@ -175,15 +166,15 @@ const mixedMenuItems = Object.keys(import.meta.glob("/src/pages/mixed/*")).map((
                         </div>
                     </li>
 
-                    <li class="mb-3">
-                        <strong class="ps-2">JavaScript</strong>
+                    <li class="mb-5">
+                        <strong class="ps-3">JavaScript</strong>
                         <ul class="list-unstyled">
                             {jsMenuItems.map((item) => (
                                 <li>
                                     <MenuItem href={item.path} label={item.label} current={item.isActive}>
                                         {item.label === "Actions" && <MenuApp slot="iconBefore" />}
                                         {item.label === "Color Mode" && <CircleHalf slot="iconBefore" />}
-                                        {item.label === "Dialog" && <WindowStack slot="iconBefore" />}
+                                        {item.label === "Message" && <WindowStack slot="iconBefore" />}
                                         {item.label === "Input Splitted" && <InputCursorText slot="iconBefore" />}
                                         {item.label === "Odometer" && <Icon9Square slot="iconBefore" />}
                                         {item.label === "Overflow Detector" && <ThreeDots slot="iconBefore" />}
@@ -194,8 +185,8 @@ const mixedMenuItems = Object.keys(import.meta.glob("/src/pages/mixed/*")).map((
                                         {item.label === "Utils" && <Tools slot="iconBefore" />}
                                         {item.label === "View Transition API" && <BarChartSteps slot="iconBefore" />}
 
-                                        {item.label === "Actions" && (
-                                            <span slot="buttonContent" class="docs-badge docs-badge-experimental" />
+                                        {["Actions", "Input Splitted"].includes(item.label) && (
+                                            <span slot="buttonContent" class="docs-badge docs-badge-deprecated" />
                                         )}
                                         {/* {["Progress"].includes(item.label) && (
                                     <span slot="buttonContent" class="docs-badge docs-badge-update" />
@@ -207,7 +198,7 @@ const mixedMenuItems = Object.keys(import.meta.glob("/src/pages/mixed/*")).map((
                     </li>
 
                     <li>
-                        <strong class="ps-2">Resources for AI agents</strong>
+                        <strong class="ps-3">Resources for AI agents</strong>
                         <ul class="list-unstyled">
                             <li>
                                 <MenuItem href={import.meta.env.BASE_URL + "llms.txt"} label="llms.txt">
@@ -217,12 +208,6 @@ const mixedMenuItems = Object.keys(import.meta.glob("/src/pages/mixed/*")).map((
                         </ul>
                     </li>
                 </ul>
-
-                <MenuItem label="Deprecated" as="collapse">
-                    {deprecatedMenuItems.map((item) => (
-                        <MenuItem href={item.path} label={item.label} current={item.isActive} />
-                    ))}
-                </MenuItem>
             </>
         )
     }
@@ -231,7 +216,7 @@ const mixedMenuItems = Object.keys(import.meta.glob("/src/pages/mixed/*")).map((
         isCurrent("react") && (
             <ul class="list-unstyled d-flex flex-column">
                 <li>
-                    <strong class="ps-2">Components</strong>
+                    <strong class="ps-3">Components</strong>
                     <div class="vstack">
                         {reactMenuItems.map((item) => (
                             <MenuItem href={item.path} label={item.label} current={item.isActive}>
@@ -255,6 +240,10 @@ const mixedMenuItems = Object.keys(import.meta.glob("/src/pages/mixed/*")).map((
 
                                 {["LayoutSplitter", "Accordion", "AccordionItem"].includes(item.label) && (
                                     <span slot="buttonContent" class="docs-badge docs-badge-new" />
+                                )}
+
+                                {["ModalProvider"].includes(item.label) && (
+                                    <span slot="buttonContent" class="docs-badge docs-badge-deprecated" />
                                 )}
                             </MenuItem>
                         ))}

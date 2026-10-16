@@ -1,4 +1,4 @@
-@mixin switch($width: 35px, $height: 20px, $padding: 3px, $color: $body-color, $color-active: $success) {
+@mixin switch($width: 35px, $height: 20px, $padding: 3px, $color: var(--fg-body), $color-active: var(--success-base)) {
     $slider-size: $height - ($padding * 2);
 
     & {
@@ -27,14 +27,14 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-color: $input-group-addon-bg;
+            background-color: var(--bg-2);
             transition: 0.4s;
 
             @media (prefers-reduced-motion) {
                 transition: none;
             }
 
-            box-shadow: inset 0 0 0 1px rgba($color, 0.5);
+            box-shadow: inset 0 0 0 1px color-mix(in srgb, #{$color} 50%, transparent);
 
             &::before {
                 content: "";

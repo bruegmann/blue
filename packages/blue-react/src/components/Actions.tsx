@@ -1,10 +1,4 @@
-import React, {
-    CSSProperties,
-    ReactNode,
-    useEffect,
-    useId,
-    useRef
-} from "react"
+import React, { CSSProperties, ReactNode, useEffect, useId, useRef } from "react"
 import { getPhrase } from "./shared"
 import clsx from "clsx"
 import { init } from "blue-web/dist/js/actions.js"
@@ -52,25 +46,14 @@ export default function Actions({
             role="toolbar"
             aria-label={getPhrase("Toolbar with buttons and button groups")}
         >
-            <div className={clsx("blue-actions-menu", menuClassName)}>
-                {children}
-            </div>
+            <div className={clsx("blue-actions-menu", menuClassName)}>{children}</div>
 
-            <div
-                className={clsx("blue-actions-collapse", collapseClassName)}
-                style={collapseStyle}
-            >
-                <button
-                    type="button"
-                    popoverTarget={id}
-                    className="blue-anchor blue-menu-item btn px-3"
-                >
+            <div className={clsx("blue-actions-collapse", collapseClassName)} style={collapseStyle}>
+                <button type="button" popoverTarget={id} className="blue-anchor blue-menu-item btn px-5">
                     <span className="blue-menu-item-icon" aria-hidden>
                         &#8942;
                     </span>
-                    <span className="visually-hidden">
-                        {getPhrase("Toggle menu")}
-                    </span>
+                    <span className="visually-hidden">{getPhrase("Toggle menu")}</span>
                 </button>
 
                 <div
@@ -78,12 +61,12 @@ export default function Actions({
                     popover=""
                     className={clsx(
                         "blue-actions-collapse-menu blue-anchored blue-anchored-end blue-anchored-fallback",
-                        "blue-menu-item-dropdown text-body",
+                        "blue-menu-item-dropdown fg-body",
                         collapseMenuClassName
                     )}
                     style={
                         {
-                            ["--blue-menu-item-dropdown-bg"]: `var(--bs-body-bg)`,
+                            ["--blue-menu-item-dropdown-bg"]: `var(--bg-body)`,
                             ...collapseMenuStyle
                         } as CSSProperties
                     }

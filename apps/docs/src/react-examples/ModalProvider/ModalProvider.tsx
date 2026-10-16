@@ -23,9 +23,9 @@ function InsideComp() {
                 </code>
             </p>
 
-            <div className="d-flex gap-2">
+            <div className="d-flex gap-3">
                 <button
-                    className="btn btn-outline-secondary"
+                    className="btn btn-outline theme-secondary"
                     onClick={() => {
                         tell("Hey, what's up")
                     }}
@@ -34,7 +34,7 @@ function InsideComp() {
                 </button>
 
                 <button
-                    className="btn btn-outline-secondary"
+                    className="btn btn-outline theme-secondary"
                     onClick={
                         // Make sure to make your function "async" when using "await"
                         async () => {
@@ -55,7 +55,7 @@ function InsideComp() {
                 </button>
 
                 <button
-                    className="btn btn-outline-secondary"
+                    className="btn btn-outline theme-secondary"
                     onClick={async () => {
                         const answer = await verify("Are you sure?", {
                             title: "Say yes or no",
@@ -86,7 +86,7 @@ function InsideComp() {
                 </button>
 
                 <button
-                    className="btn btn-secondary"
+                    className="btn btn-solid theme-secondary"
                     onClick={async () => {
                         const name = await ask("What is your name?")
                         console.log(name)
@@ -108,7 +108,7 @@ function InsideComp() {
                 <br />
 
                 <button
-                    className="btn btn-outline-secondary"
+                    className="btn btn-outline theme-secondary"
                     onClick={() => {
                         alert("Hello there!")
                         if (window.confirm("Everything okay?")) {

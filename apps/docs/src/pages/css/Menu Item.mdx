@@ -15,7 +15,7 @@ Styles for interactive elements in sidebar and in header area.
 
 ## With icon
 
-This is the same approach as in [Buttons](Buttons#button-with-icon).
+Blue's `.blue-btn-icon-wrapper` lets icons be wrapped in a `span` when using [Bootstrap's icon link helper](https://getbootstrap.com/docs/6.0/helpers/icon-link/). Use `.btn-icon` instead of `.btn` for an icon-only button and give it an accessible label.
 
 ```html use:RenderBlock
 <button class="btn blue-menu-item icon-link">
@@ -33,7 +33,7 @@ This is the same approach as in [Buttons](Buttons#button-with-icon).
     Hover me
 </button>
 
-<button class="btn blue-menu-item icon-link blue-btn-square">
+<button class="btn-icon blue-menu-item icon-link">
     <span class="blue-btn-icon-wrapper" aria-hidden>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
             <path

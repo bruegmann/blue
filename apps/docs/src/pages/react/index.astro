@@ -46,52 +46,43 @@ const scssCode = (await fetchFromGitHub("src/styles/main.scss")) || ""
 ---
 
 <script>
-    import "bootstrap/js/dist/dropdown"
+    import "bootstrap/js/dist/menu.js"
 </script>
 
 <Layout>
     <div
-        class="welcome-jumbotron text-center p-5 bg-primary-subtle text-primary-emphasis border-bottom position-relative"
+        class="welcome-jumbotron text-center p-12 bg-subtle-primary fg-emphasis-primary border-bottom position-relative"
     >
-        <div class="d-inline-flex align-content-center gap-1 position-absolute top-0 end-0 mt-2 me-2">
-            <div class="dropdown">
+        <div class="d-inline-flex align-content-center gap-1 position-absolute top-0 end-0 mt-3 me-3">
+            <div>
                 <button
-                    class="btn btn-primary dropdown-toggle"
+                    class="btn-solid theme-primary"
                     type="button"
                     title="Switch to another version"
-                    data-bs-toggle="dropdown"
+                    data-bs-toggle="menu"
+                    data-bs-placement="bottom-end"
                     aria-expanded="false"
                 >
                     /v13
                 </button>
-                <ul class="dropdown-menu dropdown-menu-end" style={{ minWidth: "5rem" }}>
-                    <li>
-                        <a class="dropdown-item" href="/blue-react/v11/"> /v11 </a>
+                <div class="menu" style={{ minWidth: "5rem" }}>
+                        <a class="menu-item" href="/blue-react/v11/"> /v11 </a>
+                        <a class="menu-item" href="/blue-react/v10/"> /v10 </a>
+                        <a class="menu-item" href="/blue-react/v9/"> /v9 </a>
+                        <a class="menu-item" href="/blue-react/v8/"> /v8 </a>
+                        <a class="menu-item" href="/blue-react/v7/"> /v7 </a>
                     </li>
                     <li>
-                        <a class="dropdown-item" href="/blue-react/v10/"> /v10 </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="/blue-react/v9/"> /v9 </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="/blue-react/v8/"> /v8 </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="/blue-react/v7/"> /v7 </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="/blue-react/v6/"> /v6 </a>
-                    </li>
-                </ul>
+                        <a class="menu-item" href="/blue-react/v6/"> /v6 </a>
+                </div>
             </div>
         </div>
 
-        <h1 class="display-3 d-inline-flex align-items-center" style={{ fontWeight: "600" }}>
-            <img src={logo.src} alt="Blue logo" style={{ height: "1em" }} class="me-3" /> Blue React
+        <h1 class="fs-4xl d-inline-flex align-items-center" style={{ fontWeight: "600" }}>
+            <img src={logo.src} alt="Blue logo" style={{ height: "1em" }} class="me-5" /> Blue React
         </h1>
 
-        <p class="h2">React component library based on Bootstrap 5</p>
+        <p class="h2">React component library based on Bootstrap 6 Alpha 1</p>
         <div class="h2">
             <Bootstrap />
             <ReactIcon />
@@ -101,7 +92,7 @@ const scssCode = (await fetchFromGitHub("src/styles/main.scss")) || ""
         </div>
     </div>
 
-    <div class="bg-body text-body">
+    <div class="bg-body fg-body">
         <div class="welcome-container container markdown-rendered py-1">
             <ReadMe />
 

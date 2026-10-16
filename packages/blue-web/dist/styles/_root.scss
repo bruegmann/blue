@@ -1,0 +1,10 @@
+@use "variables" as *;
+
+:root,
+:host {
+    --blue-sidebar-width: #{$sidebar-width};
+    --blue-header-height: 3.429rem;
+    --blue-menu-item-indicator-bg: light-dark(#{$sidebar-indicator-color}, #{$sidebar-indicator-color-dark});
+    --blue-menu-item-height: #{$normal-size};
+    --blue-corner-shape: #{$corner-shape};
+}

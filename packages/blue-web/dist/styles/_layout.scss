@@ -1,3 +1,7 @@
+@use "variables" as *;
+@use "mixins" as *;
+@use "bootstrap/scss/layout/breakpoints" as *;
+
 /**
  * The new approach for a global layout with a sidebar, header and main content.
  */
@@ -5,8 +9,8 @@
 .blue-layout {
     --spacing: 0.5rem;
 
-    --blue-menu-item-indicator-bg: #{color-contrast($sidebar-bg, $sidebar-indicator-color)};
-    --bs-link-hover-color: #{color-contrast($sidebar-bg, $link-hover-color)};
+    --blue-menu-item-indicator-bg: light-dark(#{$sidebar-indicator-color}, #{$sidebar-indicator-color-dark});
+    --link-hover-color: var(--blue-sidebar-color);
 
     display: grid;
     grid-template-rows: min-content 1fr;
@@ -14,14 +18,7 @@
     grid-template-areas: "header header" "side main";
     height: 100dvh;
     color: var(--blue-sidebar-color);
-    background-color: var(--blue-sidebar-bg);
-}
-
-@include color-mode(dark, false) {
-    .blue-layout {
-        --blue-menu-item-indicator-bg: #{$sidebar-indicator-color-dark};
-        --bs-link-hover-color: #{color-contrast($sidebar-bg, $link-hover-color-dark)};
-    }
+    background-color: var(--blue-layout-bg);
 }
 
 .blue-layout-header {
@@ -79,7 +76,7 @@
 }
 
 .blue-layout-body {
-    @include blue-layout-body(rgba(var(--bs-body-bg-rgb), var(--bs-bg-opacity, 1)));
+    @include blue-layout-body(var(--bg-body));
 }
 
 .blue-layout-splitter {
@@ -88,25 +85,15 @@
     // Set styles for sp-split-view
     &:is(sp-split-view) {
         --mod-splitview-handle-background-color: transparent;
-        --mod-splitview-handle-background-color-down: var(--bs-primary-text-emphasis);
-        --mod-splitview-handle-background-color-hover: var(--bs-gray-400);
-        --mod-splitview-handle-background-color-key-focus: var(--bs-gray-300);
-        --mod-splitview-handle-background-color-mouse-focus: var(--bs-gray-300);
+        --mod-splitview-handle-background-color-down: var(--primary-fg-emphasis);
+        --mod-splitview-handle-background-color-hover: light-dark(var(--gray-400), var(--gray-600));
+        --mod-splitview-handle-background-color-key-focus: light-dark(var(--gray-300), var(--gray-700));
+        --mod-splitview-handle-background-color-mouse-focus: light-dark(var(--gray-300), var(--gray-700));
         --mod-splitview-handle-width: 6px;
         --mod-splitview-handle-height: 6px;
         --mod-splitview-gripper-width: 0;
         --mod-splitview-gripper-border-width-vertical: 0;
         --mod-splitview-gripper-border-width-horizontal: 0;
-
-        @media (prefers-color-scheme: dark) {
-            & {
-                --mod-splitview-handle-background-color: transparent;
-                --mod-splitview-handle-background-color-down: var(--bs-primary-text-emphasis);
-                --mod-splitview-handle-background-color-hover: var(--bs-gray-600);
-                --mod-splitview-handle-background-color-key-focus: var(--bs-gray-700);
-                --mod-splitview-handle-background-color-mouse-focus: var(--bs-gray-700);
-            }
-        }
 
         &:not([resizable]) {
             & > *:first-child {
@@ -137,9 +124,7 @@
 
 .blue-layout-inspector {
     &:not([open]) {
-        & > .offcanvas {
-            width: 100%;
-        }
+        width: 100%;
     }
 }
 
@@ -150,6 +135,6 @@
 
 @include media-breakpoint-up(lg) {
     .blue-layout-inspector-body {
-        @include blue-layout-body(rgba(var(--bs-tertiary-bg-rgb), var(--bs-bg-opacity, 1)));
+        @include blue-layout-body(var(--bg-1));
     }
 }

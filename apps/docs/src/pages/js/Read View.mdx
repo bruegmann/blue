@@ -22,7 +22,7 @@ A Web Component that displays a read view of its content and allows the user to 
 </bl-read-view>
 <form id="readViewDemo_form" class="d-none">
     <input type="text" placeholder="Edit me" value="https://bruegmann.github.io/blue-web/" class="form-control" />
-    <button type="submit" class="btn blue-btn-soft-secondary">Submit</button>
+    <button type="submit" class="btn theme-secondary btn-subtle">Submit</button>
 </form>
 
 <script>
@@ -58,9 +58,9 @@ A Web Component that displays a read view of its content and allows the user to 
 <style>
     #readViewDemo_styledParts::part(presentation) {
         box-shadow:
-            inset 0 0 0 var(--bs-border-width, 1px) var(--bs-border-color),
-            0 1px 0 var(--bs-secondary-bg);
-        --blue-read-view-bg: var(--bs-tertiary-bg);
+            inset 0 0 0 var(--border-width, 1px) var(--border-color),
+            0 1px 0 var(--secondary-bg);
+        --blue-read-view-bg: var(--bg-1);
     }
 </style>
 
