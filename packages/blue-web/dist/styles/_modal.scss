@@ -1,8 +1,26 @@
-// Blue's native-dialog hook remains available; Bootstrap 6 owns layout and animation.
-dialog.blue-modal > form:not(.blue-modal-backdrop) {
-    display: contents;
-}
+@use "bootstrap/scss/dialog" as *;
+@use "bootstrap/scss/mixins/tokens" as *;
+
+// Backdrop for non-modal dialogs.
 
 .blue-modal-backdrop {
+    @include tokens($dialog-tokens);
+
     display: none;
+    color: #0000;
+    background-color: var(--dialog-backdrop-bg);
+    backdrop-filter: blur(var(--dialog-backdrop-blur));
+    transition: opacity 0.2s;
+    opacity: 0;
+    z-index: calc(var(--z-dialog) - 1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+dialog[open] + .blue-modal-backdrop {
+    display: block;
+    opacity: 1;
 }

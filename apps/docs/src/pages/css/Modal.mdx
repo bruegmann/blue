@@ -7,12 +7,16 @@ import Grab from "$/components/Grab.astro"
 
 # Modal
 
+<div class="alert theme-danger">
+    Class <code>.blue-modal</code> probably also can be removed in code!
+</div>
+
 Bootstrap 6 [Dialogs](https://getbootstrap.com/docs/6.0/components/dialog/) use the native dialog element. Blue's `.blue-modal` hook remains available, without positioning/content wrappers or a separate backdrop form. Use `closedby="any"` for native backdrop dismissal in supporting browsers, or Bootstrap's `Dialog` JavaScript for its dismissal API.
 
 ```html use:RenderBlock
 <button type="button" class="btn theme-primary btn-subtle" onclick="my_modal.showModal()">Open modal</button>
 
-<dialog class="blue-modal dialog" id="my_modal" closedby="any">
+<dialog class="dialog" id="my_modal" closedby="any">
     <div class="dialog-header">
         <h1 class="dialog-title fs-lg">Modal title</h1>
         <form method="dialog" style="display: contents;">
@@ -30,7 +34,7 @@ Bootstrap 6 [Drawers](https://getbootstrap.com/docs/6.0/components/drawer/) also
 ```html use:RenderBlock
 <button type="button" class="btn theme-primary btn-subtle" onclick="my_drawer.showModal()">Open drawer</button>
 
-<dialog class="blue-modal drawer drawer-start" id="my_drawer" aria-labelledby="drawerExampleLabel" closedby="any">
+<dialog class="drawer drawer-start" id="my_drawer" aria-labelledby="drawerExampleLabel" closedby="any">
     <div class="drawer-header">
         <h5 class="drawer-title" id="drawerExampleLabel">Drawer</h5>
         <form method="dialog" style="display: contents;">
@@ -51,7 +55,7 @@ Bootstrap 6 [Drawers](https://getbootstrap.com/docs/6.0/components/drawer/) also
 ```html use:RenderBlock
 <button type="button" class="btn theme-primary btn-subtle" onclick="my_drawer2.showModal()">Open drawer</button>
 
-<dialog class="blue-modal drawer drawer-start" id="my_drawer2" aria-labelledby="drawerExampleLabel2" closedby="any">
+<dialog class="drawer drawer-start" id="my_drawer2" aria-labelledby="drawerExampleLabel2" closedby="any">
     <div class="drawer-header">
         <h5 class="drawer-title" id="drawerExampleLabel2">Drawer</h5>
         <form method="dialog" style="display: contents;">
@@ -85,9 +89,7 @@ If you use `dialog.showModal()`, the dialog will be inside the top layer, above 
 
 ```html use:RenderBlock
 <button type="button" class="btn theme-primary btn-subtle" onclick="my_modal.show()">Open modal with .show()</button>
-<button type="button" class="btn theme-primary btn-subtle" onclick="my_drawer.show()">
-    Open drawer with .show()
-</button>
+<button type="button" class="btn theme-primary btn-subtle" onclick="my_drawer.show()">Open drawer with .show()</button>
 
 <br />
 
