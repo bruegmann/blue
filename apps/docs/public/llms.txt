@@ -662,12 +662,16 @@ Could be used inside the sidebar.
 
 ## Modal
 
+<div class="alert theme-danger">
+    Class <code>.blue-modal</code> probably also can be removed in code!
+</div>
+
 Bootstrap 6 [Dialogs](https://getbootstrap.com/docs/6.0/components/dialog/) use the native dialog element. Blue's `.blue-modal` hook remains available, without positioning/content wrappers or a separate backdrop form. Use `closedby="any"` for native backdrop dismissal in supporting browsers, or Bootstrap's `Dialog` JavaScript for its dismissal API.
 
 ```html
 <button type="button" class="btn theme-primary btn-subtle" onclick="my_modal.showModal()">Open modal</button>
 
-<dialog class="blue-modal dialog" id="my_modal" closedby="any">
+<dialog class="dialog" id="my_modal" closedby="any">
     <div class="dialog-header">
         <h1 class="dialog-title fs-lg">Modal title</h1>
         <form method="dialog" style="display: contents;">
@@ -685,7 +689,7 @@ Bootstrap 6 [Drawers](https://getbootstrap.com/docs/6.0/components/drawer/) also
 ```html
 <button type="button" class="btn theme-primary btn-subtle" onclick="my_drawer.showModal()">Open drawer</button>
 
-<dialog class="blue-modal drawer drawer-start" id="my_drawer" aria-labelledby="drawerExampleLabel" closedby="any">
+<dialog class="drawer drawer-start" id="my_drawer" aria-labelledby="drawerExampleLabel" closedby="any">
     <div class="drawer-header">
         <h5 class="drawer-title" id="drawerExampleLabel">Drawer</h5>
         <form method="dialog" style="display: contents;">
@@ -706,7 +710,7 @@ Bootstrap 6 [Drawers](https://getbootstrap.com/docs/6.0/components/drawer/) also
 ```html
 <button type="button" class="btn theme-primary btn-subtle" onclick="my_drawer2.showModal()">Open drawer</button>
 
-<dialog class="blue-modal drawer drawer-start" id="my_drawer2" aria-labelledby="drawerExampleLabel2" closedby="any">
+<dialog class="drawer drawer-start" id="my_drawer2" aria-labelledby="drawerExampleLabel2" closedby="any">
     <div class="drawer-header">
         <h5 class="drawer-title" id="drawerExampleLabel2">Drawer</h5>
         <form method="dialog" style="display: contents;">
@@ -740,9 +744,7 @@ If you use `dialog.showModal()`, the dialog will be inside the top layer, above 
 
 ```html
 <button type="button" class="btn theme-primary btn-subtle" onclick="my_modal.show()">Open modal with .show()</button>
-<button type="button" class="btn theme-primary btn-subtle" onclick="my_drawer.show()">
-    Open drawer with .show()
-</button>
+<button type="button" class="btn theme-primary btn-subtle" onclick="my_drawer.show()">Open drawer with .show()</button>
 
 <br />
 
@@ -1987,10 +1989,7 @@ A Web Component that displays a read view of its content and allows the user to 
     }
 
     ##readViewDemo_styledParts.with-border::part(presentation) {
-        box-shadow:
-            inset 0 0 0 var(--border-width, 1px) var(--border-color),
-            0 1px 0 var(--secondary-bg);
-        --blue-read-view-bg: var(--bg-1);
+        box-shadow: inset 0 0 0 var(--border-width, 1px) var(--border-color);
 
     }
 </style>
@@ -1999,7 +1998,8 @@ A Web Component that displays a read view of its content and allows the user to 
     <div class="d-flex gap-1">
         <a
             href="#readViewDemo_styledParts"
-            class="border border-secondary-subtle link-offset-1 link-underline link-underline-opacity-75 link-underline-opacity-100-hover rounded-1 px-1"
+            class="bg-body border border-secondary-subtle link-offset-1 link-underline link-underline-opacity-75 link-underline-opacity-100-hover rounded-3 px-1"
+
             style="box-shadow: 0 1px 0 var(--bs-secondary-bg);"
             >ID</a
         >
