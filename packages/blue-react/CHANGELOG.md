@@ -1,5 +1,18 @@
 # blue-react
 
+## 13.0.4
+
+### Patch Changes
+
+- Fix building process to include prop types for components. You will get better autocompletion now.
+
+## 13.0.3
+
+### Patch Changes
+
+- Updated dependencies []:
+    - blue-web@1.33.0
+
 ## 13.0.2
 
 ### Patch Changes

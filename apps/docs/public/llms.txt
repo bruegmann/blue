@@ -1982,15 +1982,38 @@ A Web Component that displays a read view of its content and allows the user to 
 
 ```html
 <style>
-    ##readViewDemo_styledParts::part(presentation) {
+    ##readViewDemo_styledParts {
+        --transition: var(--blue-read-view-transition), box-shadow 0.2s;
+    }
+
+    ##readViewDemo_styledParts.with-border::part(presentation) {
         box-shadow:
             inset 0 0 0 var(--border-width, 1px) var(--border-color),
             0 1px 0 var(--secondary-bg);
         --blue-read-view-bg: var(--bg-1);
+
     }
 </style>
 
-<bl-read-view id="readViewDemo_styledParts"> See the border? </bl-read-view>
+<bl-read-view id="readViewDemo_styledParts" class="with-border">
+    <div class="d-flex gap-1">
+        <a
+            href="#readViewDemo_styledParts"
+            class="border border-secondary-subtle link-offset-1 link-underline link-underline-opacity-75 link-underline-opacity-100-hover rounded-1 px-1"
+            style="box-shadow: 0 1px 0 var(--bs-secondary-bg);"
+            >ID</a
+        >
+        See the border?
+    </div>
+</bl-read-view>
+
+<button class="btn blue-btn-soft-secondary mt-3" onclick="toggleBorderToReadViewDemo()">Toggle border</button>
+
+<script>
+    function toggleBorderToReadViewDemo() {
+        readViewDemo_styledParts.classList.toggle("with-border")
+    }
+</script>
 ```
 
 

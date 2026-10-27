@@ -75,6 +75,7 @@ export class ReadView extends HTMLElement {
                     max-width: 100%;
                     border-color: transparent;
                     border-radius: calc(var(--bs-border-radius-sm, var(--radius-3, 3px)) + var(--padding));
+
                     background: var(--bg, transparent);
                     transition: var(--transition, background 0.2s);
 
@@ -83,6 +84,7 @@ export class ReadView extends HTMLElement {
 
                 div:hover {
                     background: var(--hover-bg, var(--bg-2));
+
                 }
 
                 :host([disabled]) div {
