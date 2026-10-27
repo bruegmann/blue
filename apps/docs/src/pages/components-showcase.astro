@@ -15,7 +15,7 @@ import { BarChartLine } from "react-bootstrap-icons"
         </p>
 
         <masonry class="row" data-masonry='{"percentPosition": true }'>
-            <div class="col-sm-6 col-lg-4 mb-4">
+            <div class="sm:col-6 lg:col-4 mb-7">
                 <card class="card">
                     <div class="card-body">
                         <ul class="nav nav-underline">
@@ -36,7 +36,7 @@ import { BarChartLine } from "react-bootstrap-icons"
                 </card>
             </div>
 
-            <div class="col-sm-6 col-lg-4 mb-4">
+            <div class="sm:col-6 lg:col-4 mb-7">
                 <card class="card">
                     <div class="card-body">
                         <Dropdown />
@@ -44,13 +44,13 @@ import { BarChartLine } from "react-bootstrap-icons"
                 </card>
             </div>
 
-            <div class="col-sm-6 col-lg-4 mb-4">
+            <div class="sm:col-6 lg:col-4 mb-7">
                 <card class="card">
                     <div class="card-body"><StickyListHeaders /></div>
                 </card>
             </div>
 
-            <div class="col-sm-6 col-lg-4 mb-4">
+            <div class="sm:col-6 lg:col-4 mb-7">
                 <card class="card">
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
@@ -65,55 +65,61 @@ import { BarChartLine } from "react-bootstrap-icons"
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item d-flex justify-content-between">
                                 <div>
-                                    <input class="form-check-input me-1" type="checkbox" checked id="firstCheckbox" />
-                                    <label class="form-check-label pe-100" for="firstCheckbox">Hoodies</label>
+                                    <input class="check me-1" type="checkbox" checked id="firstCheckbox" />
+                                    <label class="form-label pe-100" for="firstCheckbox">Hoodies</label>
                                 </div>
-                                <div><span class="badge text-bg-secondary">25</span></div>
+                                <div><span class="badge theme-secondary">25</span></div>
                             </li>
                             <li class="list-group-item d-flex justify-content-between">
                                 <div>
-                                    <input class="form-check-input me-1" type="checkbox" checked id="secondCheckbox" />
-                                    <label class="form-check-label" for="secondCheckbox">Bags</label>
+                                    <input class="check me-1" type="checkbox" checked id="secondCheckbox" />
+                                    <label class="form-label" for="secondCheckbox">Bags</label>
                                 </div>
-                                <div><span class="badge text-bg-secondary">3</span></div>
+                                <div><span class="badge theme-secondary">3</span></div>
                             </li>
                             <li class="list-group-item d-flex justify-content-between">
                                 <div>
-                                    <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox" />
-                                    <label class="form-check-label" for="thirdCheckbox">Shoes</label>
+                                    <input class="check me-1" type="checkbox" value="" id="thirdCheckbox" />
+                                    <label class="form-label" for="thirdCheckbox">Shoes</label>
                                 </div>
-                                <div><span class="badge text-bg-warning">0</span></div>
+                                <div><span class="badge theme-warning">0</span></div>
                             </li>
                             <li class="list-group-item d-flex justify-content-between">
                                 <div>
-                                    <input class="form-check-input me-1" type="checkbox" value="" id="fourthCheckbox" />
-                                    <label class="form-check-label" for="fourthCheckbox">Accessories</label>
+                                    <input class="check me-1" type="checkbox" value="" id="fourthCheckbox" />
+                                    <label class="form-label" for="fourthCheckbox">Accessories</label>
                                 </div>
-                                <div><span class="badge text-bg-secondary">4</span></div>
+                                <div><span class="badge theme-secondary">4</span></div>
                             </li>
                         </ul>
                     </div>
                 </card>
             </div>
 
-            <div class="col-sm-6 col-lg-4 mb-4">
-                <div role="tablist" class="blue-tabs nav nav-tabs">
-                    <input
-                        role="tab"
-                        class="blue-tab nav-link"
-                        aria-label="Tab 1"
-                        type="radio"
-                        checked=""
-                        name="my_tabs_1"
-                    />
-                    <div
-                        role="tabpanel"
-                        class="blue-tab-content p-3 border rounded"
-                        style="border-top-left-radius: 0 !important;"
-                    >
+            <div class="sm:col-6 lg:col-4 mb-7">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="showcase-tab-1" data-bs-toggle="tab"
+                            data-bs-target="#showcase-panel-1" type="button" role="tab"
+                            aria-controls="showcase-panel-1" aria-selected="true">Tab 1</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="showcase-tab-2" data-bs-toggle="tab"
+                            data-bs-target="#showcase-panel-2" type="button" role="tab"
+                            aria-controls="showcase-panel-2" aria-selected="false">Tab 2</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="showcase-tab-3" data-bs-toggle="tab"
+                            data-bs-target="#showcase-panel-3" type="button" role="tab"
+                            aria-controls="showcase-panel-3" aria-selected="false">Tab 3</button>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div id="showcase-panel-1" class="tab-pane fade show active p-5 border rounded"
+                        role="tabpanel" aria-labelledby="showcase-tab-1" tabindex="0"
+                        style="border-top-left-radius: 0 !important;">
                         Tab content 1
-
-                        <select class="form-select" aria-label="Default select example">
+                        <select class="form-control" aria-label="Default select example">
                             <option selected>Open this select menu</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
@@ -167,20 +173,18 @@ import { BarChartLine } from "react-bootstrap-icons"
                             <option value="50">Fifty</option>
                         </select>
                     </div>
-
-                    <input role="tab" class="blue-tab nav-link" aria-label="Tab 2" type="radio" name="my_tabs_1" />
-                    <div role="tabpanel" class="blue-tab-content p-3 border rounded">Tab content 2</div>
-
-                    <input role="tab" class="blue-tab nav-link" aria-label="Tab 3" type="radio" name="my_tabs_1" />
-                    <div role="tabpanel" class="blue-tab-content p-3 border rounded">Tab content 3</div>
+                    <div id="showcase-panel-2" class="tab-pane fade p-5 border rounded" role="tabpanel"
+                        aria-labelledby="showcase-tab-2" tabindex="0">Tab content 2</div>
+                    <div id="showcase-panel-3" class="tab-pane fade p-5 border rounded" role="tabpanel"
+                        aria-labelledby="showcase-tab-3" tabindex="0">Tab content 3</div>
                 </div>
             </div>
 
-            <div class="col-sm-6 col-lg-4 mb-4">
+            <div class="sm:col-6 lg:col-4 mb-7">
                 <card id="area-buttons" class="card">
                     <div class="card-body">
                         <h2 class="h5">Buttons</h2>
-                        <button type="button" id="disableButtons" class="btn blue-btn-soft-secondary btn-sm mb-3"
+                        <button type="button" id="disableButtons" class="btn theme-secondary btn-subtle btn-sm mb-5"
                             >Toggle disable buttons</button
                         >
                         <script>
@@ -191,7 +195,7 @@ import { BarChartLine } from "react-bootstrap-icons"
                             })
                         </script>
 
-                        <button type="button" id="activateButtons" class="btn blue-btn-soft-secondary btn-sm mb-3"
+                        <button type="button" id="activateButtons" class="btn theme-secondary btn-subtle btn-sm mb-5"
                             >Toggle active buttons</button
                         >
                         <script>
@@ -202,168 +206,168 @@ import { BarChartLine } from "react-bootstrap-icons"
                             })
                         </script>
 
-                        <div class="d-flex gap-3 flex-column">
+                        <div class="d-flex gap-5 flex-column">
                             <div class="d-flex gap-1 flex-wrap">
-                                <button type="button" class="btn btn-primary"> Primary </button>
-                                <button type="button" class="btn btn-secondary"> Secondary </button>
-                                <button type="button" class="btn btn-success"> Success </button>
-                                <button type="button" class="btn btn-danger"> Danger </button>
-                                <button type="button" class="btn btn-warning"> Warning </button>
-                                <button type="button" class="btn btn-info"> Info </button>
-                                <button type="button" class="btn btn-light"> Light </button>
-                                <button type="button" class="btn btn-dark"> Dark </button>
+                                <button type="button" class="btn btn-solid theme-primary"> Primary </button>
+                                <button type="button" class="btn btn-solid theme-secondary"> Secondary </button>
+                                <button type="button" class="btn btn-solid theme-success"> Success </button>
+                                <button type="button" class="btn btn-solid theme-danger"> Danger </button>
+                                <button type="button" class="btn btn-solid theme-warning"> Warning </button>
+                                <button type="button" class="btn btn-solid theme-info"> Info </button>
+                                <button type="button" class="btn btn-solid theme-secondary"> Light </button>
+                                <button type="button" class="btn btn-solid theme-inverse"> Dark </button>
                             </div>
 
                             <div class="d-flex gap-1 flex-wrap">
-                                <button type="button" class="btn btn-outline-primary"> Primary </button>
-                                <button type="button" class="btn btn-outline-secondary"> Secondary </button>
-                                <button type="button" class="btn btn-outline-success"> Success </button>
-                                <button type="button" class="btn btn-outline-danger"> Danger </button>
-                                <button type="button" class="btn btn-outline-warning"> Warning </button>
-                                <button type="button" class="btn btn-outline-info"> Info </button>
-                                <button type="button" class="btn btn-outline-light"> Light </button>
-                                <button type="button" class="btn btn-outline-dark"> Dark </button>
+                                <button type="button" class="btn btn-outline theme-primary"> Primary </button>
+                                <button type="button" class="btn btn-outline theme-secondary"> Secondary </button>
+                                <button type="button" class="btn btn-outline theme-success"> Success </button>
+                                <button type="button" class="btn btn-outline theme-danger"> Danger </button>
+                                <button type="button" class="btn btn-outline theme-warning"> Warning </button>
+                                <button type="button" class="btn btn-outline theme-info"> Info </button>
+                                <button type="button" class="btn btn-outline theme-secondary"> Light </button>
+                                <button type="button" class="btn btn-outline theme-inverse"> Dark </button>
                             </div>
 
                             <div class="d-flex gap-1 flex-wrap">
-                                <button type="button" class="btn blue-btn-soft-primary"> Primary </button>
-                                <button type="button" class="btn blue-btn-soft-secondary"> Secondary </button>
-                                <button type="button" class="btn blue-btn-soft-success"> Success </button>
-                                <button type="button" class="btn blue-btn-soft-danger"> Danger </button>
-                                <button type="button" class="btn blue-btn-soft-warning"> Warning </button>
-                                <button type="button" class="btn blue-btn-soft-info"> Info </button>
-                                <button type="button" class="btn blue-btn-soft-light"> Light </button>
-                                <button type="button" class="btn blue-btn-soft-dark"> Dark </button>
+                                <button type="button" class="btn theme-primary btn-subtle"> Primary </button>
+                                <button type="button" class="btn theme-secondary btn-subtle"> Secondary </button>
+                                <button type="button" class="btn theme-success btn-subtle"> Success </button>
+                                <button type="button" class="btn theme-danger btn-subtle"> Danger </button>
+                                <button type="button" class="btn theme-warning btn-subtle"> Warning </button>
+                                <button type="button" class="btn theme-info btn-subtle"> Info </button>
+                                <button type="button" class="btn theme-secondary btn-subtle"> Light </button>
+                                <button type="button" class="btn theme-inverse btn-subtle"> Dark </button>
                             </div>
 
                             <div class="d-flex gap-1 flex-wrap">
-                                <button type="button" class="btn blue-btn-plain-primary"> Primary </button>
-                                <button type="button" class="btn blue-btn-plain-secondary"> Secondary </button>
-                                <button type="button" class="btn blue-btn-plain-success"> Success </button>
-                                <button type="button" class="btn blue-btn-plain-danger"> Danger </button>
-                                <button type="button" class="btn blue-btn-plain-warning"> Warning </button>
-                                <button type="button" class="btn blue-btn-plain-info"> Info </button>
-                                <button type="button" class="btn blue-btn-plain-light"> Light </button>
-                                <button type="button" class="btn blue-btn-plain-dark"> Dark </button>
+                                <button type="button" class="btn theme-primary btn-text"> Primary </button>
+                                <button type="button" class="btn theme-secondary btn-text"> Secondary </button>
+                                <button type="button" class="btn theme-success btn-text"> Success </button>
+                                <button type="button" class="btn theme-danger btn-text"> Danger </button>
+                                <button type="button" class="btn theme-warning btn-text"> Warning </button>
+                                <button type="button" class="btn theme-info btn-text"> Info </button>
+                                <button type="button" class="btn theme-secondary btn-text"> Light </button>
+                                <button type="button" class="btn theme-inverse btn-text"> Dark </button>
                             </div>
                         </div>
                     </div>
                 </card>
             </div>
 
-            <div class="col-sm-6 col-lg-4 mb-4">
+            <div class="sm:col-6 lg:col-4 mb-7">
                 <card class="card">
                     <div class="card-body">
                         <h2 class="h5">Small Buttons</h2>
 
-                        <div class="d-flex gap-3 flex-column">
+                        <div class="d-flex gap-5 flex-column">
                             <div class="d-flex gap-1 flex-wrap">
-                                <button type="button" class="btn btn-sm btn-primary"> Primary </button>
-                                <button type="button" class="btn btn-sm btn-secondary"> Secondary </button>
-                                <button type="button" class="btn btn-sm btn-success"> Success </button>
-                                <button type="button" class="btn btn-sm btn-danger"> Danger </button>
-                                <button type="button" class="btn btn-sm btn-warning"> Warning </button>
-                                <button type="button" class="btn btn-sm btn-info"> Info </button>
-                                <button type="button" class="btn btn-sm btn-light"> Light </button>
-                                <button type="button" class="btn btn-sm btn-dark"> Dark </button>
+                                <button type="button" class="btn btn-sm btn-solid theme-primary"> Primary </button>
+                                <button type="button" class="btn btn-sm btn-solid theme-secondary"> Secondary </button>
+                                <button type="button" class="btn btn-sm btn-solid theme-success"> Success </button>
+                                <button type="button" class="btn btn-sm btn-solid theme-danger"> Danger </button>
+                                <button type="button" class="btn btn-sm btn-solid theme-warning"> Warning </button>
+                                <button type="button" class="btn btn-sm btn-solid theme-info"> Info </button>
+                                <button type="button" class="btn btn-sm btn-solid theme-secondary"> Light </button>
+                                <button type="button" class="btn btn-sm btn-solid theme-inverse"> Dark </button>
                             </div>
 
                             <div class="d-flex gap-1 flex-wrap">
-                                <button type="button" class="btn btn-sm btn-outline-primary"> Primary </button>
-                                <button type="button" class="btn btn-sm btn-outline-secondary"> Secondary </button>
-                                <button type="button" class="btn btn-sm btn-outline-success"> Success </button>
-                                <button type="button" class="btn btn-sm btn-outline-danger"> Danger </button>
-                                <button type="button" class="btn btn-sm btn-outline-warning"> Warning </button>
-                                <button type="button" class="btn btn-sm btn-outline-info"> Info </button>
-                                <button type="button" class="btn btn-sm btn-outline-light"> Light </button>
-                                <button type="button" class="btn btn-sm btn-outline-dark"> Dark </button>
+                                <button type="button" class="btn btn-sm btn-outline theme-primary"> Primary </button>
+                                <button type="button" class="btn btn-sm btn-outline theme-secondary"> Secondary </button>
+                                <button type="button" class="btn btn-sm btn-outline theme-success"> Success </button>
+                                <button type="button" class="btn btn-sm btn-outline theme-danger"> Danger </button>
+                                <button type="button" class="btn btn-sm btn-outline theme-warning"> Warning </button>
+                                <button type="button" class="btn btn-sm btn-outline theme-info"> Info </button>
+                                <button type="button" class="btn btn-sm btn-outline theme-secondary"> Light </button>
+                                <button type="button" class="btn btn-sm btn-outline theme-inverse"> Dark </button>
                             </div>
 
                             <div class="d-flex gap-1 flex-wrap">
-                                <button type="button" class="btn btn-sm blue-btn-soft-primary"> Primary </button>
-                                <button type="button" class="btn btn-sm blue-btn-soft-secondary"> Secondary </button>
-                                <button type="button" class="btn btn-sm blue-btn-soft-success"> Success </button>
-                                <button type="button" class="btn btn-sm blue-btn-soft-danger"> Danger </button>
-                                <button type="button" class="btn btn-sm blue-btn-soft-warning"> Warning </button>
-                                <button type="button" class="btn btn-sm blue-btn-soft-info"> Info </button>
-                                <button type="button" class="btn btn-sm blue-btn-soft-light"> Light </button>
-                                <button type="button" class="btn btn-sm blue-btn-soft-dark"> Dark </button>
+                                <button type="button" class="btn btn-sm theme-primary btn-subtle"> Primary </button>
+                                <button type="button" class="btn btn-sm theme-secondary btn-subtle"> Secondary </button>
+                                <button type="button" class="btn btn-sm theme-success btn-subtle"> Success </button>
+                                <button type="button" class="btn btn-sm theme-danger btn-subtle"> Danger </button>
+                                <button type="button" class="btn btn-sm theme-warning btn-subtle"> Warning </button>
+                                <button type="button" class="btn btn-sm theme-info btn-subtle"> Info </button>
+                                <button type="button" class="btn btn-sm theme-secondary btn-subtle"> Light </button>
+                                <button type="button" class="btn btn-sm theme-inverse btn-subtle"> Dark </button>
                             </div>
 
                             <div class="d-flex gap-1 flex-wrap">
-                                <button type="button" class="btn btn-sm blue-btn-plain-primary"> Primary </button>
-                                <button type="button" class="btn btn-sm blue-btn-plain-secondary"> Secondary </button>
-                                <button type="button" class="btn btn-sm blue-btn-plain-success"> Success </button>
-                                <button type="button" class="btn btn-sm blue-btn-plain-danger"> Danger </button>
-                                <button type="button" class="btn btn-sm blue-btn-plain-warning"> Warning </button>
-                                <button type="button" class="btn btn-sm blue-btn-plain-info"> Info </button>
-                                <button type="button" class="btn btn-sm blue-btn-plain-light"> Light </button>
-                                <button type="button" class="btn btn-sm blue-btn-plain-dark"> Dark </button>
+                                <button type="button" class="btn btn-sm theme-primary btn-text"> Primary </button>
+                                <button type="button" class="btn btn-sm theme-secondary btn-text"> Secondary </button>
+                                <button type="button" class="btn btn-sm theme-success btn-text"> Success </button>
+                                <button type="button" class="btn btn-sm theme-danger btn-text"> Danger </button>
+                                <button type="button" class="btn btn-sm theme-warning btn-text"> Warning </button>
+                                <button type="button" class="btn btn-sm theme-info btn-text"> Info </button>
+                                <button type="button" class="btn btn-sm theme-secondary btn-text"> Light </button>
+                                <button type="button" class="btn btn-sm theme-inverse btn-text"> Dark </button>
                             </div>
                         </div>
                     </div>
                 </card>
             </div>
 
-            <div class="col-sm-6 col-lg-4 mb-4">
+            <div class="sm:col-6 lg:col-4 mb-7">
                 <card class="card">
                     <div class="card-body">
                         <h2 class="h5">Large Buttons</h2>
 
-                        <div class="d-flex gap-3 flex-column">
+                        <div class="d-flex gap-5 flex-column">
                             <div class="d-flex gap-1 flex-wrap">
-                                <button type="button" class="btn btn-lg btn-primary"> Primary </button>
-                                <button type="button" class="btn btn-lg btn-secondary"> Secondary </button>
-                                <button type="button" class="btn btn-lg btn-success"> Success </button>
-                                <button type="button" class="btn btn-lg btn-danger"> Danger </button>
-                                <button type="button" class="btn btn-lg btn-warning"> Warning </button>
-                                <button type="button" class="btn btn-lg btn-info"> Info </button>
-                                <button type="button" class="btn btn-lg btn-light"> Light </button>
-                                <button type="button" class="btn btn-lg btn-dark"> Dark </button>
+                                <button type="button" class="btn btn-lg btn-solid theme-primary"> Primary </button>
+                                <button type="button" class="btn btn-lg btn-solid theme-secondary"> Secondary </button>
+                                <button type="button" class="btn btn-lg btn-solid theme-success"> Success </button>
+                                <button type="button" class="btn btn-lg btn-solid theme-danger"> Danger </button>
+                                <button type="button" class="btn btn-lg btn-solid theme-warning"> Warning </button>
+                                <button type="button" class="btn btn-lg btn-solid theme-info"> Info </button>
+                                <button type="button" class="btn btn-lg btn-solid theme-secondary"> Light </button>
+                                <button type="button" class="btn btn-lg btn-solid theme-inverse"> Dark </button>
                             </div>
 
                             <div class="d-flex gap-1 flex-wrap">
-                                <button type="button" class="btn btn-lg btn-outline-primary"> Primary </button>
-                                <button type="button" class="btn btn-lg btn-outline-secondary"> Secondary </button>
-                                <button type="button" class="btn btn-lg btn-outline-success"> Success </button>
-                                <button type="button" class="btn btn-lg btn-outline-danger"> Danger </button>
-                                <button type="button" class="btn btn-lg btn-outline-warning"> Warning </button>
-                                <button type="button" class="btn btn-lg btn-outline-info"> Info </button>
-                                <button type="button" class="btn btn-lg btn-outline-light"> Light </button>
-                                <button type="button" class="btn btn-lg btn-outline-dark"> Dark </button>
+                                <button type="button" class="btn btn-lg btn-outline theme-primary"> Primary </button>
+                                <button type="button" class="btn btn-lg btn-outline theme-secondary"> Secondary </button>
+                                <button type="button" class="btn btn-lg btn-outline theme-success"> Success </button>
+                                <button type="button" class="btn btn-lg btn-outline theme-danger"> Danger </button>
+                                <button type="button" class="btn btn-lg btn-outline theme-warning"> Warning </button>
+                                <button type="button" class="btn btn-lg btn-outline theme-info"> Info </button>
+                                <button type="button" class="btn btn-lg btn-outline theme-secondary"> Light </button>
+                                <button type="button" class="btn btn-lg btn-outline theme-inverse"> Dark </button>
                             </div>
 
                             <div class="d-flex gap-1 flex-wrap">
-                                <button type="button" class="btn btn-lg blue-btn-soft-primary"> Primary </button>
-                                <button type="button" class="btn btn-lg blue-btn-soft-secondary"> Secondary </button>
-                                <button type="button" class="btn btn-lg blue-btn-soft-success"> Success </button>
-                                <button type="button" class="btn btn-lg blue-btn-soft-danger"> Danger </button>
-                                <button type="button" class="btn btn-lg blue-btn-soft-warning"> Warning </button>
-                                <button type="button" class="btn btn-lg blue-btn-soft-info"> Info </button>
-                                <button type="button" class="btn btn-lg blue-btn-soft-light"> Light </button>
-                                <button type="button" class="btn btn-lg blue-btn-soft-dark"> Dark </button>
+                                <button type="button" class="btn btn-lg theme-primary btn-subtle"> Primary </button>
+                                <button type="button" class="btn btn-lg theme-secondary btn-subtle"> Secondary </button>
+                                <button type="button" class="btn btn-lg theme-success btn-subtle"> Success </button>
+                                <button type="button" class="btn btn-lg theme-danger btn-subtle"> Danger </button>
+                                <button type="button" class="btn btn-lg theme-warning btn-subtle"> Warning </button>
+                                <button type="button" class="btn btn-lg theme-info btn-subtle"> Info </button>
+                                <button type="button" class="btn btn-lg theme-secondary btn-subtle"> Light </button>
+                                <button type="button" class="btn btn-lg theme-inverse btn-subtle"> Dark </button>
                             </div>
 
                             <div class="d-flex gap-1 flex-wrap">
-                                <button type="button" class="btn btn-lg blue-btn-plain-primary"> Primary </button>
-                                <button type="button" class="btn btn-lg blue-btn-plain-secondary"> Secondary </button>
-                                <button type="button" class="btn btn-lg blue-btn-plain-success"> Success </button>
-                                <button type="button" class="btn btn-lg blue-btn-plain-danger"> Danger </button>
-                                <button type="button" class="btn btn-lg blue-btn-plain-warning"> Warning </button>
-                                <button type="button" class="btn btn-lg blue-btn-plain-info"> Info </button>
-                                <button type="button" class="btn btn-lg blue-btn-plain-light"> Light </button>
-                                <button type="button" class="btn btn-lg blue-btn-plain-dark"> Dark </button>
+                                <button type="button" class="btn btn-lg theme-primary btn-text"> Primary </button>
+                                <button type="button" class="btn btn-lg theme-secondary btn-text"> Secondary </button>
+                                <button type="button" class="btn btn-lg theme-success btn-text"> Success </button>
+                                <button type="button" class="btn btn-lg theme-danger btn-text"> Danger </button>
+                                <button type="button" class="btn btn-lg theme-warning btn-text"> Warning </button>
+                                <button type="button" class="btn btn-lg theme-info btn-text"> Info </button>
+                                <button type="button" class="btn btn-lg theme-secondary btn-text"> Light </button>
+                                <button type="button" class="btn btn-lg theme-inverse btn-text"> Dark </button>
                             </div>
                         </div>
                     </div>
                 </card>
             </div>
 
-            <div class="col-sm-6 col-lg-4 mb-4">
+            <div class="sm:col-6 lg:col-4 mb-7">
                 <div class="toast d-block" role="alert" aria-live="assertive" aria-atomic="true">
                     <div class="toast-header">
                         <svg
-                            class="bd-placeholder-img rounded me-2 text-primary"
+                            class="bd-placeholder-img rounded me-3 fg-primary"
                             width="20"
                             height="20"
                             xmlns="http://www.w3.org/2000/svg"
@@ -379,32 +383,32 @@ import { BarChartLine } from "react-bootstrap-icons"
                 </div>
             </div>
 
-            <div class="col-sm-6 col-lg-4 mb-4">
+            <div class="sm:col-6 lg:col-4 mb-7">
                 <card class="card">
                     <div class="card-body">
                         <h2 class="h5">Alerts</h2>
 
-                        <div class="alert alert-primary" role="alert">
+                        <div class="alert theme-primary" role="alert">
                             A simple primary alert with <a href="#" class="alert-link">an example link</a>. Give it a
                             click if you like.
                         </div>
-                        <div class="alert alert-secondary" role="alert">
+                        <div class="alert theme-secondary" role="alert">
                             A simple secondary alert with <a href="#" class="alert-link">an example link</a>. Give it a
                             click if you like.
                         </div>
-                        <div class="alert alert-success" role="alert">
+                        <div class="alert theme-success" role="alert">
                             A simple success alert with <a href="#" class="alert-link">an example link</a>. Give it a
                             click if you like.
                         </div>
-                        <div class="alert alert-danger" role="alert">
+                        <div class="alert theme-danger" role="alert">
                             A simple danger alert with <a href="#" class="alert-link">an example link</a>. Give it a
                             click if you like.
                         </div>
-                        <div class="alert alert-warning" role="alert">
+                        <div class="alert theme-warning" role="alert">
                             A simple warning alert with <a href="#" class="alert-link">an example link</a>. Give it a
                             click if you like.
                         </div>
-                        <div class="alert alert-info" role="alert">
+                        <div class="alert theme-info" role="alert">
                             A simple info alert with <a href="#" class="alert-link">an example link</a>. Give it a click
                             if you like.
                         </div>
@@ -420,7 +424,7 @@ import { BarChartLine } from "react-bootstrap-icons"
                 </card>
             </div>
 
-            <div class="col-sm-6 col-lg-4 mb-4">
+            <div class="sm:col-6 lg:col-4 mb-7">
                 <table class="table table-striped table-bordered">
                     <thead>
                         <tr>
@@ -477,7 +481,7 @@ import { BarChartLine } from "react-bootstrap-icons"
                 </table>
             </div>
 
-            <div class="col-sm-6 col-lg-4 mb-4">
+            <div class="sm:col-6 lg:col-4 mb-7">
                 <div class="form-floating">
                     <textarea
                         class="form-control"

@@ -1,45 +1,34 @@
-@import "node_modules/bootstrap/scss/functions";
+@use "sass:map";
+@use "sass:math";
+@use "bootstrap/scss/config" as config;
+@use "bootstrap/scss/layout/breakpoints" as breakpoints;
 
-@import "node_modules/bootstrap/scss/variables";
-@import "node_modules/bootstrap/scss/variables-dark";
-
-@import "node_modules/bootstrap/scss/maps";
-@import "node_modules/bootstrap/scss/mixins";
-
-@mixin make-grid-columns-cq($columns: $grid-columns, $gutter: $grid-gutter-width, $breakpoints: $grid-breakpoints) {
+@mixin make-grid-columns-cq($columns: config.$grid-columns, $breakpoints: config.$breakpoints) {
     .col {
         flex: initial;
         max-width: initial;
         width: 100%;
     }
 
-    @each $breakpoint in map-keys($breakpoints) {
-        $infix: breakpoint-infix($breakpoint, $breakpoints);
+    @each $breakpoint in map.keys($breakpoints) {
+        $prefix: breakpoints.breakpoint-prefix($breakpoint, $breakpoints);
 
         @for $i from 1 through $columns {
-            .col#{$infix}-#{$i} {
-                @extend .col;
+            .#{$prefix}col-#{$i} {
+                flex: initial;
+                max-width: initial;
+                width: 100%;
             }
         }
     }
 
-    @each $breakpoint in map-keys($breakpoints) {
-        $infix: breakpoint-infix($breakpoint, $breakpoints);
-
-        // @for $i from 1 through $columns {
-        //     .col#{$infix}-#{$i} {
-        //         flex: initial;
-        //         max-width: initial;
-        //         width: 100%;
-        //     }
-        // }
-
-        @if breakpoint-min($breakpoint, $breakpoints) {
-            @container (min-width: #{breakpoint-min($breakpoint, $breakpoints)}) {
-                @for $i from 1 through $columns {
-                    .col#{$infix}-#{$i} {
-                        @include make-col($i, $columns);
-                    }
+    @each $breakpoint in map.keys($breakpoints) {
+        $prefix: breakpoints.breakpoint-prefix($breakpoint, $breakpoints);
+        @include breakpoints.container-breakpoint-up($breakpoint) {
+            @for $i from 1 through $columns {
+                .#{$prefix}col-#{$i} {
+                    flex: 0 0 auto;
+                    width: math.percentage(math.div($i, $columns));
                 }
             }
         }

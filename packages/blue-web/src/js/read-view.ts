@@ -6,9 +6,9 @@ const DRAG_THRESHOLD = 5
  * @element read-view
  * @fires EditRequested
  * @attr {boolean} disabled - Disables the component, preventing interactions and removing hover effects.
- * @cssprop --bs-primary-rgb - The primary color as an RGB value.
- * @cssprop --bs-secondary-bg-subtle - The subtle background color for the read view.
- * @cssprop --bs-border-radius-sm - The border radius for the read view.
+ * @cssprop --primary-base - The primary theme color.
+ * @cssprop --secondary-bg-subtle - The subtle background color for the read view.
+ * @cssprop --radius-3 - The border radius for the read view.
  * @slot - The content to display in the read view.
  * @example
  * <bl-read-view id="my-read-view" onEditRequested="setEditing(true)">
@@ -62,8 +62,8 @@ export class ReadView extends HTMLElement {
                 button:focus-visible + div {
                     outline: 0;
                     box-shadow:
-                        0 0 0 0.25rem rgba(var(--bs-primary-rgb), 25%),
-                        inset 0 0 0 1px rgba(var(--bs-primary-rgb), 50%);
+                        0 0 0 0.25rem color-mix(in srgb, var(--primary-base) 25%, transparent),
+                        inset 0 0 0 1px color-mix(in srgb, var(--primary-base) 50%, transparent);
                 }
 
                 div {
@@ -74,7 +74,8 @@ export class ReadView extends HTMLElement {
                     width: auto;
                     max-width: 100%;
                     border-color: transparent;
-                    border-radius: calc(var(--bs-border-radius-sm, 3px) + var(--padding));
+                    border-radius: calc(var(--bs-border-radius-sm, var(--radius-3, 3px)) + var(--padding));
+
                     background: var(--bg, transparent);
                     transition: var(--transition, background 0.2s);
 
@@ -82,7 +83,8 @@ export class ReadView extends HTMLElement {
                 }
 
                 div:hover {
-                    background: var(--hover-bg, var(--bs-secondary-bg));
+                    background: var(--hover-bg, var(--bg-2));
+
                 }
 
                 :host([disabled]) div {

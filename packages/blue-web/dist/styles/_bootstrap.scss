@@ -1,61 +1,45 @@
-@import "node_modules/bootstrap/scss/mixins/banner";
-@include bsBanner("");
+@use "sass:map";
+// @use "bootstrap-variables" as settings;
 
-// scss-docs-start import-stack
-// Configuration
-@import "node_modules/bootstrap/scss/functions";
-@import "node_modules/bootstrap/scss/variables";
-@import "node_modules/bootstrap/scss/variables-dark";
-@import "node_modules/bootstrap/scss/maps";
-@import "node_modules/bootstrap/scss/mixins";
-@import "node_modules/bootstrap/scss/utilities";
-
-// Layout & components
-@import "node_modules/bootstrap/scss/root";
-@import "node_modules/bootstrap/scss/reboot";
-@import "node_modules/bootstrap/scss/type";
-@import "node_modules/bootstrap/scss/images";
-@import "node_modules/bootstrap/scss/containers";
-@import "node_modules/bootstrap/scss/grid";
-@import "node_modules/bootstrap/scss/tables";
-@import "node_modules/bootstrap/scss/forms";
-@import "node_modules/bootstrap/scss/buttons";
-@import "node_modules/bootstrap/scss/transitions";
-@import "node_modules/bootstrap/scss/dropdown";
-@import "node_modules/bootstrap/scss/button-group";
-@import "node_modules/bootstrap/scss/nav";
-@import "node_modules/bootstrap/scss/navbar";
-@import "node_modules/bootstrap/scss/card";
-@import "node_modules/bootstrap/scss/accordion";
-@import "node_modules/bootstrap/scss/breadcrumb";
-@import "node_modules/bootstrap/scss/pagination";
-@import "node_modules/bootstrap/scss/badge";
-@import "node_modules/bootstrap/scss/alert";
-@import "node_modules/bootstrap/scss/progress";
-@import "node_modules/bootstrap/scss/list-group";
-@import "node_modules/bootstrap/scss/close";
-@import "node_modules/bootstrap/scss/toasts";
-@import "node_modules/bootstrap/scss/modal";
-@import "node_modules/bootstrap/scss/tooltip";
-@import "node_modules/bootstrap/scss/popover";
-@import "node_modules/bootstrap/scss/carousel";
-@import "node_modules/bootstrap/scss/spinners";
-@import "node_modules/bootstrap/scss/offcanvas";
-@import "node_modules/bootstrap/scss/placeholders";
-
-// Helpers
-@import "node_modules/bootstrap/scss/helpers";
-
-// Enable responsive for position
-$utilities: map-merge(
-    $utilities,
-    (
-        "position": map-merge(
-                map-get($utilities, "position"),
-                (
-                    responsive: true
-                )
-            ),
+@forward "bootstrap/scss/bootstrap" with (
+    $blue: hsl(221, 97%, 53%) !default,
+    $radius: 0.7rem !default,
+    $color-mode-type: "data" !default,
+    $breakpoints: (
+        xs: 0,
+        sm: 576px,
+        md: 768px,
+        lg: 992px,
+        xl: 1200px,
+        2xl: 1400px
+    )
+    !default,
+    $theme-colors: (
+        "layout": (
+            "base": light-dark(hsl(217, 17%, 98%), hsl(217deg 10% 8%)),
+            "bg": light-dark(hsl(217, 17%, 98%), hsl(217deg 10% 8%)),
+            "border": light-dark(var(--gray-100), var(--gray-800)),
+            "contrast": light-dark(var(--gray-900), var(--white))
+        )
+    ),
+    $root-tokens: (
+        --body-font-family: var(--blue-font-family),
+        --link-decoration: none,
+        --btn-input-sm-border-radius: 0.5rem,
+        --btn-input-lg-border-radius: 1rem
+    )
+    !default,
+    $accordion-tokens: (
+        --accordion-padding-x: 1rem,
+        --accordion-padding-y: 0.75rem
+    )
+    !default,
+    $utilities: (
+        "position": (
+            property: position,
+            responsive: true,
+            values: static relative absolute fixed sticky
+        ),
         "width": (
             property: width,
             responsive: true,
@@ -70,8 +54,5 @@ $utilities: map-merge(
             )
         )
     )
+    !default
 );
-
-// Utilities
-@import "node_modules/bootstrap/scss/utilities/api";
-// scss-docs-end import-stack

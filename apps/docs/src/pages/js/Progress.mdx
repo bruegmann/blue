@@ -11,7 +11,7 @@ A "fake" progress bar that will appear fixed at the top of the page.
 ## Start and stop
 
 ```html use:RenderBlock
-<button id="startButton" type="button" class="btn blue-btn-soft-secondary">Start</button>
+<button id="startButton" type="button" class="btn">Start</button>
 
 <script>
     startButton.addEventListener("click", async () => {
@@ -21,7 +21,7 @@ A "fake" progress bar that will appear fixed at the top of the page.
 ```
 
 ```html use:RenderBlock
-<button id="stopButton" type="button" class="btn blue-btn-soft-secondary">Stop</button>
+<button id="stopButton" type="button" class="btn">Stop</button>
 
 <script>
     stopButton.addEventListener("click", async () => {
@@ -35,11 +35,11 @@ A "fake" progress bar that will appear fixed at the top of the page.
 You can customize the element further by setting a custom ID, parent element and position class name. This allows you to attach the progress element to some other element than the body.
 
 ```html use:RenderBlock
-<div id="myElement" class="bg-secondary-subtle border border-primary rounded-2 p-3 position-relative mb-1">
+<div id="myElement" class="bg-subtle-secondary border border-primary rounded-2 p-5 position-relative mb-1">
     Add progress bar to this
 </div>
-<button id="startButton2" type="button" class="btn blue-btn-soft-secondary">Start</button>
-<button id="stopButton2" type="button" class="btn blue-btn-soft-secondary">Stop</button>
+<button id="startButton2" type="button" class="btn">Start</button>
+<button id="stopButton2" type="button" class="btn">Stop</button>
 
 <script>
     startButton2.addEventListener("click", async () => {
@@ -60,14 +60,14 @@ You can customize the element further by setting a custom ID, parent element and
 ## Multiple instances
 
 ```html use:RenderBlock
-<div id="instance1" class="border rounded-2 p-3 position-relative mb-1">
-    <button id="startButton3a" type="button" class="btn blue-btn-soft-secondary">Start</button>
-    <button id="stopButton3a" type="button" class="btn blue-btn-soft-secondary">Stop</button>
+<div id="instance1" class="border rounded-2 p-5 position-relative mb-1">
+    <button id="startButton3a" type="button" class="btn">Start</button>
+    <button id="stopButton3a" type="button" class="btn">Stop</button>
 </div>
 
-<div id="instance2" class="border rounded-2 p-3 position-relative mb-1">
-    <button id="startButton3b" type="button" class="btn blue-btn-soft-secondary">Start</button>
-    <button id="stopButton3b" type="button" class="btn blue-btn-soft-secondary">Stop</button>
+<div id="instance2" class="border rounded-2 p-5 position-relative mb-1">
+    <button id="startButton3b" type="button" class="btn">Start</button>
+    <button id="stopButton3b" type="button" class="btn">Stop</button>
 </div>
 
 <script>

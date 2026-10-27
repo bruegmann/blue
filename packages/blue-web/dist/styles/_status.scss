@@ -1,5 +1,5 @@
 .blue-loading {
-    background-color: $primary;
+    background-color: var(--primary-bg);
 }
 
 .blue-status-alert,
@@ -89,19 +89,19 @@
 }
 
 .blue-status-success {
-    background-color: #5cb85c;
+    background-color: var(--success-bg);
 }
 
 .blue-status-info {
-    background-color: #5bc0de;
+    background-color: var(--info-bg);
 }
 
 .blue-status-warning {
-    background-color: #d58512;
+    background-color: var(--warning-bg);
 }
 
 .blue-status-danger {
-    background-color: #d43f3a;
+    background-color: var(--danger-bg);
 }
 
 .spinner-bounce-circle {

@@ -12,7 +12,7 @@
     --message: "No items found.";
     &:empty::before {
         content: var(--message);
-        color: var(--bs-secondary-color);
+        color: var(--fg-2);
         display: flex;
         padding: 1rem;
         justify-content: center;
@@ -26,5 +26,5 @@
 
 // Helps you creating striped items.
 .blue-odd-bg:nth-of-type(odd) {
-    background-color: var(--blue-odd-bg, var(--bs-tertiary-bg));
+    background-color: var(--blue-odd-bg, var(--bg-1));
 }

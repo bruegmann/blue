@@ -4,10 +4,10 @@ import { ToastProvider, useToast } from "blue-react"
 function SubComponent() {
     const { addToast } = useToast()
     return (
-        <div className="d-flex gap-3">
+        <div className="d-flex gap-5">
             <button
                 type="button"
-                className="btn blue-btn-soft-primary"
+                className="btn theme-primary btn-subtle"
                 onClick={() => {
                     addToast({
                         type: "success",

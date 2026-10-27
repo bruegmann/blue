@@ -25,7 +25,7 @@ window.blueWeb.progress = {
             progressEl = document.createElement("div")
             progressEl.id = id
             progressEl.className = `progress ${positionClass} rounded-0`
-            progressEl.setAttribute("style", "--bs-progress-height: 0.25rem")
+            progressEl.setAttribute("style", "--progress-height: 0.25rem")
             progressEl.setAttribute("role", "progressbar")
             progressEl.setAttribute("aria-label", ariaLabel)
             progressEl.setAttribute("aria-valuemin", "0")

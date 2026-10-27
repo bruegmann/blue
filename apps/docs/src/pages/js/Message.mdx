@@ -3,8 +3,9 @@ layout: $/layouts/DocsLayout.astro
 ---
 
 import RenderBlock from "$/components/RenderBlock.astro"
+import Grab from "$/components/Grab.astro"
 
-# Dialog
+# Message
 
 These functions are meant as a nicer alternative to the native `alert`, `confirm` and `prompt` functions.
 They are not meant to be used as a replacement for more complex modals.
@@ -14,12 +15,12 @@ They are not meant to be used as a replacement for more complex modals.
 ### Verify
 
 ```html use:RenderBlock
-<button type="button" class="btn blue-btn-soft-secondary" onclick="verifyUser()">Verify</button>
+<button type="button" class="btn" onclick="verifyUser()">Verify</button>
 
 <script>
     async function verifyUser() {
-        const yesOrNo = await blueWeb.dialog.verify("Do you want to continue?")
-        await blueWeb.dialog.tell(yesOrNo ? "You clicked yes" : "You clicked no")
+        const yesOrNo = await blueWeb.message.verify("Do you want to continue?")
+        await blueWeb.message.tell(yesOrNo ? "You clicked yes" : "You clicked no")
     }
 </script>
 ```
@@ -27,11 +28,11 @@ They are not meant to be used as a replacement for more complex modals.
 ### Tell
 
 ```html use:RenderBlock
-<button type="button" class="btn blue-btn-soft-secondary" onclick="tellUser()">Tell</button>
+<button type="button" class="btn" onclick="tellUser()">Tell</button>
 
 <script>
     async function tellUser() {
-        await blueWeb.dialog.tell("A message for you")
+        await blueWeb.message.tell("A message for you")
     }
 </script>
 ```
@@ -39,14 +40,14 @@ They are not meant to be used as a replacement for more complex modals.
 ### Ask
 
 ```html use:RenderBlock
-<button type="button" class="btn blue-btn-soft-secondary" onclick="askUser()">Ask</button>
+<button type="button" class="btn" onclick="askUser()">Ask</button>
 
 <script>
     async function askUser() {
-        const answer = await blueWeb.dialog.ask("What is the question?", {
+        const answer = await blueWeb.message.ask("What is the question?", {
             title: "Question"
         })
-        await blueWeb.dialog.tell("You asked: " + answer)
+        await blueWeb.message.tell("You asked: " + answer)
     }
 </script>
 ```
@@ -54,15 +55,15 @@ They are not meant to be used as a replacement for more complex modals.
 ### Ask with default value
 
 ```html use:RenderBlock
-<button type="button" class="btn blue-btn-soft-secondary" onclick="askUserWithDefaultValue()">Ask</button>
+<button type="button" class="btn" onclick="askUserWithDefaultValue()">Ask</button>
 
 <script>
     async function askUserWithDefaultValue() {
-        const answer = await blueWeb.dialog.ask(
+        const answer = await blueWeb.message.ask(
             "What is your name?",
             `{"title":"Save Query","defaultValue":"DEFAULT LGK"}`
         )
-        await blueWeb.dialog.tell("You asked: " + answer)
+        await blueWeb.message.tell("You asked: " + answer)
     }
 </script>
 ```
@@ -70,16 +71,16 @@ They are not meant to be used as a replacement for more complex modals.
 ### Control dialog by ID
 
 ```html use:RenderBlock
-<button type="button" class="btn blue-btn-soft-secondary" onclick="openControlledTellDialog()">
-    Open controlled dialog
-</button>
+<button type="button" class="btn" onclick="openControlledTellDialog()">Open controlled dialog</button>
 
 <script>
     async function openControlledTellDialog() {
         setTimeout(() => {
             document.getElementById("myControlledDialog").close()
         }, 3000)
-        await blueWeb.dialog.tell("Dialog will close after a few seconds.", { id: "myControlledDialog" })
+        await blueWeb.message.tell("Dialog will close after a few seconds.", { id: "myControlledDialog" })
     }
 </script>
 ```
+
+<Grab items={[{ src: "@/src/js/message.ts" }]} />

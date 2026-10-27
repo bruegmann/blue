@@ -67,30 +67,26 @@ export default function LayoutSplitter({
 
             <div>
                 <dialog
-                    className="blue-layout-inspector blue-lg-modal blue-modal modal"
+                    className="blue-layout-inspector blue-lg-modal blue-modal drawer drawer-end"
                     id={inspectorId}
                     aria-labelledby={drawerLabelId}
+                    closedby="any"
                 >
-                    <div className="offcanvas offcanvas-end">
-                        <div className="offcanvas-header">
-                            <h1 className="h5 offcanvas-title" id={drawerLabelId}>
-                                {drawerTitle || getPhrase("Inspector", countryCode)}
-                            </h1>
-                            <form method="dialog" style={{ display: "contents" }}>
-                                <button
-                                    type="submit"
-                                    className="btn-close"
-                                    aria-label={getPhrase("Close", countryCode)}
-                                ></button>
-                            </form>
-                        </div>
-                        <div className="offcanvas-body">
-                            <div className="blue-layout-inspector-body">{end}</div>
-                        </div>
+                    <div className="drawer-header">
+                        <h1 className="h5 drawer-title" id={drawerLabelId}>
+                            {drawerTitle || getPhrase("Inspector", countryCode)}
+                        </h1>
+                        <form method="dialog" style={{ display: "contents" }}>
+                            <button
+                                type="submit"
+                                className="btn-close"
+                                aria-label={getPhrase("Close", countryCode)}
+                            ></button>
+                        </form>
                     </div>
-                    <form method="dialog" className="blue-modal-backdrop">
-                        <button>{getPhrase("Close", countryCode)}</button>
-                    </form>
+                    <div className="drawer-body">
+                        <div className="blue-layout-inspector-body">{end}</div>
+                    </div>
                 </dialog>
             </div>
         </sp-split-view>

@@ -1,3 +1,5 @@
+@use "bootstrap/scss/mixins/transition" as *;
+
 // Extending `.icon-link > .bi` by Bootstrap to allow wrapped icons.
 
 .blue-btn-icon-wrapper {
@@ -5,11 +7,13 @@
 
     & > * {
         flex-shrink: 0;
-        @include transition($icon-link-icon-transition);
+        @include transition(var(--icon-link-icon-transition, transform 0.2s ease-in-out));
     }
     & > svg {
-        width: $icon-link-icon-size;
-        height: $icon-link-icon-size;
+        width: var(--icon-link-icon-size, 1em);
+        height: var(--icon-link-icon-size, 1em);
+        min-width: 16px;
+        min-height: 16px;
         fill: currentcolor;
     }
 }
@@ -18,11 +22,7 @@
     &:hover,
     &:focus-visible {
         .blue-btn-icon-wrapper > * {
-            transform: var(--#{$prefix}icon-link-transform, $icon-link-icon-transform);
+            transform: var(--icon-link-transform, var(--icon-link-icon-transform, translateX(0.25em)));
         }
     }
-}
-
-.blue-btn-square {
-    padding: calc(var(--bs-btn-padding-y) + #{$icon-link-underline-offset});
 }

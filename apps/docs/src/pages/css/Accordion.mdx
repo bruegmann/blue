@@ -7,31 +7,46 @@ import Grab from "$/components/Grab.astro"
 
 # Accordion
 
-Give a set of `detail` elements the same `name` attribute and they will behave like an accordion, with only one item open at a time.
+Since Bootstrap 6 you can create accordions just with HTML and CSS: https://getbootstrap.com/docs/6.0/components/accordion
+
+## Growing accordion
+
+Apply this class `.blue-growing-accordion` to an .accordion to make open item bodies grow to fill the available height.
 
 ```html use:RenderBlock
-<div class="accordion">
-    <details class="accordion-item blue-collapse" name="accordion">
-        <summary class="accordion-header">
-            <header class="accordion-button collapsed">Accordion item 1</header>
-        </summary>
-        <div class="accordion-body">Show something</div>
-    </details>
+<div class="d-flex flex-column" style="height: 600px">
+    <div class="blue-growing-accordion accordion">
+        <details class="accordion-item blue-collapse" name="accordion">
+            <summary class="accordion-header">
+                Accordion item 1
+                <svg class="accordion-icon" aria-hidden="true" viewBox="0 0 16 16" fill="none" stroke="currentColor">
+                    <path d="m2 5 6 6 6-6" />
+                </svg>
+            </summary>
+            <div class="accordion-body">Show something</div>
+        </details>
 
-    <details class="accordion-item blue-collapse" name="accordion">
-        <summary class="accordion-header">
-            <header class="accordion-button collapsed">Accordion item 2</header>
-        </summary>
-        <div class="accordion-body">Show something</div>
-    </details>
+        <details class="accordion-item blue-collapse" name="accordion">
+            <summary class="accordion-header">
+                Accordion item 2
+                <svg class="accordion-icon" aria-hidden="true" viewBox="0 0 16 16" fill="none" stroke="currentColor">
+                    <path d="m2 5 6 6 6-6" />
+                </svg>
+            </summary>
+            <div class="accordion-body">Show something</div>
+        </details>
 
-    <details class="accordion-item blue-collapse" name="accordion">
-        <summary class="accordion-header">
-            <header class="accordion-button collapsed">Accordion item 3</header>
-        </summary>
-        <div class="accordion-body">Show something</div>
-    </details>
+        <details class="accordion-item blue-collapse" name="accordion">
+            <summary class="accordion-header">
+                Accordion item 3
+                <svg class="accordion-icon" aria-hidden="true" viewBox="0 0 16 16" fill="none" stroke="currentColor">
+                    <path d="m2 5 6 6 6-6" />
+                </svg>
+            </summary>
+            <div class="accordion-body">Show something</div>
+        </details>
+    </div>
 </div>
 ```
 
-<Grab items={[{ src: "@/dist/styles/_accordion.scss" }, { src: "@/dist/styles/_collapse.scss" }]} />
+<Grab items={[{ src: "@/dist/styles/_accordion.scss" }]} />

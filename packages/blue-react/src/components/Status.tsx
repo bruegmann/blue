@@ -24,12 +24,9 @@ export default function Status({
     return (
         <>
             <div
-                className={clsx(
-                    "blue-status-circle blue-loading blue-status-loading",
-                    {
-                        "d-block": status === "loading" || alert && alert.status === "loading"
-                    }
-                )}
+                className={clsx("blue-status-circle blue-loading blue-status-loading", {
+                    "d-block": status === "loading" || (alert && alert.status === "loading")
+                })}
             >
                 <div className="spinner-bounce-circle">
                     <div></div>
@@ -39,7 +36,7 @@ export default function Status({
 
             <div
                 className={clsx("blue-status-circle blue-status-success", {
-                    "d-flex": status === "success" || alert && alert.status === "success"
+                    "d-flex": status === "success" || (alert && alert.status === "success")
                 })}
             >
                 {successIcon}
@@ -47,7 +44,7 @@ export default function Status({
 
             <div
                 className={clsx("blue-status-circle blue-status-info", {
-                    "d-flex": status === "info" || alert && alert.status === "info"
+                    "d-flex": status === "info" || (alert && alert.status === "info")
                 })}
             >
                 {infoIcon}
@@ -55,7 +52,7 @@ export default function Status({
 
             <div
                 className={clsx("blue-status-circle blue-status-warning", {
-                    "d-flex": status === "warning" || alert && alert.status === "warning"
+                    "d-flex": status === "warning" || (alert && alert.status === "warning")
                 })}
             >
                 {warningIcon}
@@ -63,18 +60,14 @@ export default function Status({
 
             <div
                 className={clsx("blue-status-circle blue-status-danger", {
-                    "d-flex": status === "danger" || alert && alert.status === "danger"
+                    "d-flex": status === "danger" || (alert && alert.status === "danger")
                 })}
             >
                 {dangerIcon}
             </div>
 
             <div className="blue-status-alert alert">
-                <button
-                    type="button"
-                    className="btn-close float-end mb-1"
-                    aria-label="Close"
-                />
+                <button type="button" className="btn-close float-end mb-1" aria-label="Close" />
                 <div className="alert-body" />
             </div>
 
@@ -83,7 +76,7 @@ export default function Status({
                     className={clsx(
                         "blue-status-alert alert d-block",
                         alert.alertClassName,
-                        alert.status && `alert-${alert.status}`
+                        alert.status && `theme-${alert.status === "loading" ? "primary" : alert.status}`
                     )}
                 >
                     <button

@@ -25,23 +25,14 @@ export interface IntroProps {
 /**
  * Can be used for a sign-in page.
  */
-export default function Intro({
-    logo,
-    logoMaxWidth = "100px",
-    title,
-    children
-}: IntroProps) {
+export default function Intro({ logo, logoMaxWidth = "100px", title, children }: IntroProps) {
     return (
         <div className="sign-in-screen">
             <div className="sign-in-container mx-1">
-                <div className="bg-body rounded-3 shadow-lg px-4 py-5">
+                <div className="bg-body rounded-3 shadow-lg px-7 py-12">
                     <div className="text-center">
-                        <img
-                            style={{ maxWidth: logoMaxWidth }}
-                            src={logo}
-                            alt=""
-                        />
-                        <h2 className="mt-4 mb-3">{title}</h2>
+                        <img style={{ maxWidth: logoMaxWidth }} src={logo} alt="" />
+                        <h2 className="mt-7 mb-5">{title}</h2>
                     </div>
 
                     {children}
