@@ -1,5 +1,11 @@
 # blue-web
 
+## 1.34.0
+
+### Minor Changes
+
+- Read View component CSS variables for padding x and padding y separated.
+
 ## 1.33.0
 
 ### Minor Changes
