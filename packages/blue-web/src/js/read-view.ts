@@ -67,19 +67,17 @@ export class ReadView extends HTMLElement {
                 }
 
                 div {
-                    --padding: var(--blue-read-view-padding);
-
                     display: var(--display, flex);
                     box-sizing: border-box;
                     width: auto;
                     max-width: 100%;
                     border-color: transparent;
-                    border-radius: calc(var(--bs-border-radius-sm, var(--radius-3, 3px)) + var(--padding));
+                    border-radius: calc(var(--bs-border-radius-sm, var(--radius-3, 3px)) + var(--blue-read-view-padding-y));
 
                     background: var(--bg, transparent);
                     transition: var(--transition, background 0.2s);
 
-                    padding: var(--padding);
+                    padding: var(--blue-read-view-padding-y) var(--blue-read-view-padding-x);
                 }
 
                 div:hover {
