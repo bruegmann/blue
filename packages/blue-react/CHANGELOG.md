@@ -1,5 +1,12 @@
 # blue-react
 
+## 13.1.2
+
+### Patch Changes
+
+- Updated dependencies []:
+    - blue-web@1.35.2
+
 ## 13.1.1
 
 ### Patch Changes

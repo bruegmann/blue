@@ -1,5 +1,5 @@
 /*!
- * Blue Web v1.35.0 (https://bruegmann.github.io/blue-web)
+ * Blue Web v1.35.1 (https://bruegmann.github.io/blue-web)
  * Licensed under GNU General Public License v3.0 (https://github.com/bruegmann/blue-web/blob/master/LICENSE).
 */
 
@@ -10888,7 +10888,7 @@ $utilities: map-merge(
 // Styling for a form control label.
 .blue-label {
     font-size: 0.875rem;
-    font-weight: 400;
+    font-weight: 500;
     margin-bottom: 0;
     padding-inline: #{$input-btn-padding-x};
 }

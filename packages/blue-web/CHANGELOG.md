@@ -1,5 +1,11 @@
 # blue-web
 
+## 1.35.2
+
+### Patch Changes
+
+- Change font weight of `.blue-label` to 500.
+
 ## 1.35.1
 
 ### Patch Changes
