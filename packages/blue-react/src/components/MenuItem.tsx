@@ -27,11 +27,7 @@ export type MenuItemProps = ButtonProps & {
 //     collapseStyle?: CSSProperties
 // }
 
-function ChevronSummary({
-    className,
-    children,
-    ...props
-}: ComponentProps<"summary">) {
+function ChevronSummary({ className, children, ...props }: ComponentProps<"summary">) {
     return (
         <summary
             className={clsx(
@@ -44,11 +40,7 @@ function ChevronSummary({
             {...props}
         >
             {children}
-            {children === undefined && (
-                <span className="visually-hidden">
-                    {getPhrase("Toggle details")}
-                </span>
-            )}
+            {children === undefined && <span className="visually-hidden">{getPhrase("Toggle details")}</span>}
             <div className="blue-btn-icon-wrapper" aria-hidden>
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -59,7 +51,7 @@ function ChevronSummary({
                 >
                     <path
                         fillRule="evenodd"
-                        d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"
+                        d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"
                     />
                 </svg>
             </div>
@@ -94,8 +86,7 @@ function Base({
                         {icon !== null && (
                             <span
                                 className={clsx({
-                                    "blue-menu-item-current-hidden":
-                                        iconForCurrent !== undefined
+                                    "blue-menu-item-current-hidden": iconForCurrent !== undefined
                                 })}
                                 style={{ display: "contents" }}
                             >
@@ -103,10 +94,7 @@ function Base({
                             </span>
                         )}
                         {iconForCurrent !== undefined && (
-                            <span
-                                className="blue-menu-item-default-hidden"
-                                style={{ display: "contents" }}
-                            >
+                            <span className="blue-menu-item-default-hidden" style={{ display: "contents" }}>
                                 {iconForCurrent}
                             </span>
                         )}
@@ -121,14 +109,7 @@ function Base({
     )
 }
 
-function Collapse({
-    children,
-    iconBefore,
-    label,
-    labelHidden,
-    iconAfter,
-    buttonContent
-}: MenuItemProps) {
+function Collapse({ children, iconBefore, label, labelHidden, iconAfter, buttonContent }: MenuItemProps) {
     return (
         <details className="blue-collapse">
             <ChevronSummary className="d-flex">
@@ -137,11 +118,7 @@ function Collapse({
                         {iconBefore}
                     </span>
                 )}
-                {labelHidden ? (
-                    <span className="visually-hidden">{label}</span>
-                ) : (
-                    label
-                )}
+                {labelHidden ? <span className="visually-hidden">{label}</span> : label}
                 {buttonContent}
                 {iconAfter != null && (
                     <span className="blue-btn-icon-wrapper" aria-hidden>
@@ -150,9 +127,7 @@ function Collapse({
                 )}
             </ChevronSummary>
 
-            <div className="blue-collapse-indent vstack border-start">
-                {children}
-            </div>
+            <div className="blue-collapse-indent vstack border-start">{children}</div>
         </details>
     )
 }
@@ -165,9 +140,7 @@ function CollapseGroup({ className, children, ...props }: MenuItemProps) {
             <details className="blue-collapse">
                 <ChevronSummary />
 
-                <div className="blue-collapse-indent vstack border-start">
-                    {children}
-                </div>
+                <div className="blue-collapse-indent vstack border-start">{children}</div>
             </details>
         </div>
     )
@@ -181,10 +154,7 @@ function PopoverGroup({ children, iconAfter, ...props }: MenuItemProps) {
                 popoverTarget={id}
                 iconAfter={
                     iconAfter || (
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 16 16"
-                        >
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
                             <path
                                 fillRule="evenodd"
                                 d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"
@@ -195,13 +165,7 @@ function PopoverGroup({ children, iconAfter, ...props }: MenuItemProps) {
                 {...props}
             />
 
-            <div
-                id={id}
-                popover=""
-                className={clsx(
-                    "blue-anchored blue-anchored-fallback border rounded-4 shadow"
-                )}
-            >
+            <div id={id} popover="" className={clsx("blue-anchored blue-anchored-fallback border rounded-4 shadow")}>
                 <div className="vstack">{children}</div>
             </div>
         </>
@@ -213,9 +177,9 @@ export default function MenuItem({ as, ...props }: MenuItemProps) {
         as === "collapse"
             ? Collapse
             : as === "collapse-group"
-            ? CollapseGroup
-            : as === "popover-group"
-            ? PopoverGroup
-            : Base
+              ? CollapseGroup
+              : as === "popover-group"
+                ? PopoverGroup
+                : Base
     return <Comp {...props} />
 }
