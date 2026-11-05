@@ -1,5 +1,5 @@
 /*!
- * Blue Web v1.34.0 (https://bruegmann.github.io/blue-web)
+ * Blue Web v1.35.0 (https://bruegmann.github.io/blue-web)
  * Licensed under GNU General Public License v3.0 (https://github.com/bruegmann/blue-web/blob/master/LICENSE).
 */
 
@@ -4143,7 +4143,7 @@ $corner-shape: #{round} !default;
     color: rgba(var(--bs-body-color-rgb), var(--bs-text-opacity, 1));
     box-shadow: var(--bs-box-shadow-sm);
     border: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color);
-    border-radius: var(--bs-border-radius-lg);
+    border-radius: var(--bs-border-radius-2xl);
 
     @include color-mode(dark, false) {
         & {
@@ -10887,10 +10887,10 @@ $utilities: map-merge(
 
 // Styling for a form control label.
 .blue-label {
-    color: var(--bs-primary-text-emphasis);
-    font-weight: 500;
-    font-size: 1rem;
+    font-size: 0.875rem;
+    font-weight: 400;
     margin-bottom: 0;
+    padding-inline: #{$input-btn-padding-x};
 }
 
 // Vertically alignment, especially for Bootstrap Icons.
@@ -12736,6 +12736,10 @@ body.modal-open .dxbl-popup-cell[style="z-index: 1050;"] {
 .dxbl-checkbox:not(.dxbl-disabled):not(:disabled):not(.dxbl-readonly) input,
 .dxbl-checkbox:not(.dxbl-disabled):not(:disabled):not(.dxbl-readonly) label {
     cursor: initial;
+}
+
+.dxbl-grid-header-content {
+    @extend .blue-label;
 }
 
 :root {

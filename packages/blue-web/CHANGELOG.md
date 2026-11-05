@@ -1,5 +1,13 @@
 # blue-web
 
+## 1.35.1
+
+### Patch Changes
+
+-   - Increase layout body border radius.
+    - Change `.blue-label` style.
+    - Apply `.blue-label` style to DevExpress Grid column captions.
+
 ## 1.35.0
 
 ### Minor Changes

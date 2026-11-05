@@ -213,3 +213,7 @@ body.modal-open .dxbl-popup-cell[style="z-index: 1050;"] {
 .dxbl-checkbox:not(.dxbl-disabled):not(:disabled):not(.dxbl-readonly) label {
     cursor: initial;
 }
+
+.dxbl-grid-header-content {
+    @extend .blue-label;
+}
