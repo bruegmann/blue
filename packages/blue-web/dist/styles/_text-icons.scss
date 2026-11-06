@@ -26,7 +26,7 @@
     font-size: 0.875rem;
     font-weight: 500;
     margin-bottom: 0;
-    padding-inline: #{$input-btn-padding-x};
+    padding-inline: var(--btn-input-padding-x);
 }
 
 // Vertically alignment, especially for Bootstrap Icons.

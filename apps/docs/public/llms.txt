@@ -2017,7 +2017,8 @@ A Web Component that displays a read view of its content and allows the user to 
     <div class="d-flex gap-1">
         <a
             href="#readViewDemo_styledParts"
-            class="bg-body border border-secondary-subtle link-offset-1 link-underline link-underline-opacity-75 link-underline-opacity-100-hover rounded-1 px-1"
+            class="bg-body border border-secondary-subtle link-offset-1 link-underline link-underline-opacity-75 link-underline-opacity-100-hover rounded-3 px-1"
+
             style="box-shadow: 0 1px 0 var(--bs-secondary-bg);"
             >ID</a
         >

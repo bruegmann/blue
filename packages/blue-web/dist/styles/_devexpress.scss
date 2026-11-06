@@ -1,9 +1,10 @@
 @use "bootstrap/scss/config" as *;
+@use "./text-icons" as *;
 
 /* Make DevExpress components look more like Bootstrap/Blue */
 [class^="dxbl-"]:not(.dxbl-btn-tool):not(.dxbl-toolbar-item):not(:is(.dxbl-toolbar-btn-ellipsis > .dxbl-btn)) {
-    --dxbl-btn-padding-x: #{$input-btn-padding-x} !important;
-    --dxbl-btn-padding-y: #{$input-btn-padding-y} !important;
+    --dxbl-btn-padding-x: var(--btn-input-padding-x) !important;
+    --dxbl-btn-padding-y: var(--btn-input-padding-y) !important;
 }
 
 .dxbl-toolbar-btn-ellipsis > .dxbl-btn {
@@ -13,8 +14,8 @@
 
 [class^="dxbl-"] {
     --dxbl-text-edit-border-radius: var(--radius-5) !important;
-    --dxbl-text-edit-padding-x: #{$input-btn-padding-x} !important;
-    --dxbl-text-edit-padding-y: #{$input-btn-padding-y} !important;
+    --dxbl-text-edit-padding-x: var(--btn-input-padding-x) !important;
+    --dxbl-text-edit-padding-y: var(--btn-input-padding-y) !important;
     --dxbl-text-edit-line-height: 1.5 !important;
     --dxbl-text-edit-focus-shadow-spread: var(--focus-ring-width) !important;
     --dxbl-listbox-border-radius: var(--radius-5) !important;
