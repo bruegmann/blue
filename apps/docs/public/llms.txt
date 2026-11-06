@@ -163,7 +163,7 @@ Animated collapse using HTML `details`.
 <details class="blue-collapse">
     <summary>
         <header class="blue-collapse-header d-flex">
-            <div class="blue-collapse-chevron" aria-hidden="true">&#10095;</div>
+            <div class="blue-collapse-chevron" aria-hidden="true">⮟</div>
             Collapse
         </header>
     </summary>
@@ -171,16 +171,14 @@ Animated collapse using HTML `details`.
 </details>
 ```
 
-Element with class `blue-collapse-chevron` will be rotated to `90deg` by default. But you can also customize the rotation target position with the CSS variable `--blue-collapse-chevron-rotate`:
+Element with class `blue-collapse-chevron` will be rotated to `-180deg` by default. But you can also customize the rotation target position with the CSS variable `--blue-collapse-chevron-rotate`:
 
 ```html
 <details class="blue-collapse">
     <summary>
         <header class="blue-collapse-header d-flex">
+            <div class="blue-collapse-chevron" style="--blue-collapse-chevron-rotate: 90deg" aria-hidden="true">👉</div>
             Collapse
-            <div class="blue-collapse-chevron" style="--blue-collapse-chevron-rotate: -90deg" aria-hidden="true">
-                &#10094;
-            </div>
         </header>
     </summary>
     Show something
@@ -195,16 +193,16 @@ Element with class `blue-collapse-chevron` will be rotated to `90deg` by default
         <header class="blue-collapse-header d-flex align-items-center gap-1 h2 blue-page-header">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="1em"
-                height="1em"
+                width="16"
+                height="16"
                 fill="currentColor"
                 aria-hidden="true"
-                class="blue-collapse-chevron bi bi-chevron-right fs-md opacity-50"
+                class="blue-collapse-chevron fs-md opacity-50"
                 viewBox="0 0 16 16"
             >
                 <path
                     fill-rule="evenodd"
-                    d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"
+                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"
                 />
             </svg>
 
@@ -231,10 +229,17 @@ Element with class `blue-collapse-chevron` will be rotated to `90deg` by default
         Parent
 
         <span class="blue-btn-icon-wrapper">
-            <svg xmlns="http://www.w3.org/2000/svg" class="blue-collapse-chevron" viewBox="0 0 16 16">
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="blue-collapse-chevron bi bi-chevron-down"
+                viewBox="0 0 16 16"
+            >
                 <path
                     fill-rule="evenodd"
-                    d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"
+                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"
                 />
             </svg>
         </span>
@@ -257,10 +262,17 @@ Element with class `blue-collapse-chevron` will be rotated to `90deg` by default
         <summary class="btn-icon blue-collapse-header blue-menu-item icon-link">
             <span class="visually-hidden">Collapse sub menu</span>
             <span class="blue-btn-icon-wrapper" aria-hidden>
-                <svg xmlns="http://www.w3.org/2000/svg" class="blue-collapse-chevron" viewBox="0 0 16 16">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="blue-collapse-chevron"
+                    viewBox="0 0 16 16"
+                >
                     <path
                         fill-rule="evenodd"
-                        d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"
+                        d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"
                     />
                 </svg>
             </span>
@@ -292,10 +304,17 @@ Element with class `blue-collapse-chevron` will be rotated to `90deg` by default
             <summary class="btn-icon blue-collapse-header blue-menu-item icon-link">
                 <span class="visually-hidden">Collapse sub menu</span>
                 <span class="blue-btn-icon-wrapper" aria-hidden>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="blue-collapse-chevron" viewBox="0 0 16 16">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        fill="currentColor"
+                        class="blue-collapse-chevron"
+                        viewBox="0 0 16 16"
+                    >
                         <path
                             fill-rule="evenodd"
-                            d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"
+                            d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"
                         />
                     </svg>
                 </span>
@@ -1998,8 +2017,7 @@ A Web Component that displays a read view of its content and allows the user to 
     <div class="d-flex gap-1">
         <a
             href="#readViewDemo_styledParts"
-            class="bg-body border border-secondary-subtle link-offset-1 link-underline link-underline-opacity-75 link-underline-opacity-100-hover rounded-3 px-1"
-
+            class="bg-body border border-secondary-subtle link-offset-1 link-underline link-underline-opacity-75 link-underline-opacity-100-hover rounded-1 px-1"
             style="box-shadow: 0 1px 0 var(--bs-secondary-bg);"
             >ID</a
         >

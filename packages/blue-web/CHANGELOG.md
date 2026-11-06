@@ -1,5 +1,31 @@
 # blue-web
 
+## 1.35.2
+
+### Patch Changes
+
+- Change font weight of `.blue-label` to 500.
+
+## 1.35.1
+
+### Patch Changes
+
+-   - Increase layout body border radius.
+    - Change `.blue-label` style.
+    - Apply `.blue-label` style to DevExpress Grid column captions.
+
+## 1.35.0
+
+### Minor Changes
+
+- Enhance the user interface by updating styles and components to improve layout and interactivity, addressing various visual inconsistencies and ensuring a more cohesive design.
+
+    - `.blue-collapse-chevron` direction behavior changed and to be consistent with the one of accordions. When closed, the chevron now points down, when open it points up. Before when closed it pointed to the right, when closed it pointed down. This is a relevant change for depending projects. Chevron icon has to be updated there.
+    - SVG icons now have a minimal size of 16px.
+    - Updated Bootstrap SCSS variables. Reduced paddings for input and buttons. Also updated border radii.
+    - DevExpress paddings now use Bootstrap SCSS variables.
+    - Reduced Menu Item visual padding to 1px.
+
 ## 1.34.0
 
 ### Minor Changes
