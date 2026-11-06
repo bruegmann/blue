@@ -1,0 +1,24 @@
+@use "sass:color";
+@use "sass:math";
+
+@function contrast-color($background) {
+    $luminance: 0;
+    $weights: (
+        "red": 0.2126,
+        "green": 0.7152,
+        "blue": 0.0722
+    );
+    @each $channel, $weight in $weights {
+        $value: math.div(color.channel($background, $channel, $space: rgb), 255);
+        @if $value <= 0.04045 {
+            $value: math.div($value, 12.92);
+        } @else {
+            $value: math.pow(math.div($value + 0.055, 1.055), 2.4);
+        }
+        $luminance: $luminance + $value * $weight;
+    }
+    @if math.div($luminance + 0.05, 0.05) >= math.div(1.05, $luminance + 0.05) {
+        @return #000;
+    }
+    @return #fff;
+}

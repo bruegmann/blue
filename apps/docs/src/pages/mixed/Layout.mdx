@@ -27,7 +27,7 @@ Blue Web offers a set of code to create a layout with a header, collapsible side
     <header class="blue-layout-header">
         <button
             type="button"
-            class="btn blue-menu-item blue-btn-square d-flex d-lg-none"
+            class="btn-icon blue-menu-item d-flex lg:d-none"
             command="show-modal"
             commandfor="layoutDrawer"
             aria-label="Open drawer"
@@ -40,7 +40,7 @@ Blue Web offers a set of code to create a layout with a header, collapsible side
         <button
             id="toggleLayoutSide"
             type="button"
-            class="btn blue-menu-item blue-btn-square d-none d-lg-flex"
+            class="btn-icon blue-menu-item d-none lg:d-flex"
             data-blue-toggle="layout-side"
             aria-controls="layoutSide"
             aria-expanded="true"
@@ -55,32 +55,34 @@ Blue Web offers a set of code to create a layout with a header, collapsible side
     </header>
 
     <div id="layoutSide" class="blue-layout-side">
-        <dialog class="blue-lg-modal blue-modal modal" id="layoutDrawer" aria-describedby="layoutDrawerLabel">
-            <div class="offcanvas offcanvas-start">
-                <div class="offcanvas-header">
-                    <h1 class="h5 offcanvas-title" id="layoutDrawerLabel">Offcanvas</h1>
-                    <form method="dialog" style="display: contents;">
-                        <button type="submit" class="btn-close" aria-label="Close"></button>
-                    </form>
-                </div>
-                <div class="offcanvas-body">
-                    <div class="blue-layout-side-body">
-                        <ul class="list-unstyled vstack">
-                            <li><a href="#" class="btn blue-menu-item icon-link d-flex">Item 1</a></li>
-                            <li><a href="#" class="btn blue-menu-item icon-link d-flex">Item 2</a></li>
-                            <li><a href="#" class="btn blue-menu-item icon-link d-flex">Item 3</a></li>
-                        </ul>
-                    </div>
+        <dialog
+            class="blue-lg-modal blue-modal drawer drawer-start"
+            id="layoutDrawer"
+            aria-describedby="layoutDrawerLabel"
+            closedby="any"
+        >
+            <div class="drawer-header">
+                <h1 class="h5 drawer-title" id="layoutDrawerLabel">Offcanvas</h1>
+                <form method="dialog" style="display: contents;">
+                    <button type="submit" class="btn-close" aria-label="Close"></button>
+                </form>
+            </div>
+            <div class="drawer-body">
+                <div class="blue-layout-side-body">
+                    <ul class="list-unstyled vstack">
+                        <li><a href="#" class="btn blue-menu-item icon-link d-flex">Item 1</a></li>
+                        <li><a href="#" class="btn blue-menu-item icon-link d-flex">Item 2</a></li>
+                        <li><a href="#" class="btn blue-menu-item icon-link d-flex">Item 3</a></li>
+                    </ul>
                 </div>
             </div>
-            <form method="dialog" class="blue-modal-backdrop"><button>Close</button></form>
         </dialog>
     </div>
     <main class="blue-layout-main">
         <div class="blue-layout-body">
             <p>Your main content here</p>
 
-            <button type="button" class="btn blue-btn-soft-primary" onclick="blueWeb.layout.dispose(newLayout)">
+            <button type="button" class="btn theme-primary btn-subtle" onclick="blueWeb.layout.dispose(newLayout)">
                 Dispose layout instance
             </button>
         </div>
@@ -115,7 +117,7 @@ By default the logo size is `2rem`. You can override that value with CSS variabl
 
 ```html use:RenderBlock
 <div style="--blue-header-title-image-size: 1rem">
-    <div class="blue-header-title d-inline-flex gap-2 fw-medium align-items-center px-3 py-2">
+    <div class="blue-header-title d-inline-flex gap-3 fw-medium align-items-center px-5 py-3">
         <a href="."><img src="blue.svg" alt="My logo" class="blue-header-title-image" /></a>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb mb-0">

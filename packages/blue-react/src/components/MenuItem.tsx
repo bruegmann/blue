@@ -31,10 +31,8 @@ function ChevronSummary({ className, children, ...props }: ComponentProps<"summa
     return (
         <summary
             className={clsx(
-                "btn blue-collapse-header blue-menu-item icon-link",
-                {
-                    "blue-btn-square": children === undefined
-                },
+                children === undefined ? "btn-icon" : "btn",
+                "blue-collapse-header blue-menu-item icon-link",
                 className
             )}
             {...props}
@@ -71,8 +69,9 @@ function Base({
 }: MenuItemProps) {
     return (
         <Button
-            variant="menu-item"
+            variant="solid"
             className={clsx(
+                "blue-menu-item",
                 {
                     current,
                     "d-flex": !defaultDisplay

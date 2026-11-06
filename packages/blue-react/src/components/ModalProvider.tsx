@@ -24,6 +24,9 @@ export interface ModalProviderProps {
     children?: ReactNode
 }
 
+/**
+ * @deprecated Use Blue Web Message API instead.
+ */
 const ModalProvider = ({ children, ...rest }: ModalProviderProps) => {
     const [type, setType] = useState<ModalType>("tell")
     const [modalContent, setModalContent] = useState<string | undefined>()

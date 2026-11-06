@@ -16,6 +16,7 @@
     },
     "scripts": {
         "dev": "babel ./src/components --out-dir ./dist/components --extensions \".tsx,.js,.ts\" --watch",
+        "test": "npm run build && node --test test/*.test.mjs",
         "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
         "build-types": "tsc -p tsconfig.app.json --declaration --emitDeclarationOnly --declarationDir ./dist --rootDir ./src --noEmit false --composite false",
         "build": "babel ./src/components --out-dir ./dist/components --extensions \".tsx,.js,.ts\"",
@@ -23,10 +24,9 @@
         "release": "npm publish && npm run deploy"
     },
     "dependencies": {
-        "@popperjs/core": "^2.11.5",
         "@spectrum-web-components/split-view": "^1.12.2",
         "blue-web": "workspace:*",
-        "bootstrap": "~5.3.3",
+        "bootstrap": "6.0.0-alpha.1",
         "clsx": "^1.1.1"
     },
     "peerDependencies": {
@@ -37,7 +37,6 @@
         "@babel/preset-env": "^7.10.4",
         "@babel/preset-react": "^7.10.4",
         "@babel/preset-typescript": "^7.9.0",
-        "@types/bootstrap": "^5.2.11",
         "@types/react": "^19.2.15",
         "@types/react-dom": "^19.2.3",
         "@typescript-eslint/eslint-plugin": "^8.46.4",
