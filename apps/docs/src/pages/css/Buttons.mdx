@@ -59,8 +59,28 @@ This simplifies the integration for Blue React and Blue Blazor by allowing icons
 Use `.icon-link` together with `.blue-btn-square` to adjust the padding, so the button is a square.
 
 ```html use:RenderBlock
-<button type="button" class="btn blue-btn-soft-secondary icon-link blue-btn-square">
-    <span class="visually-hidden">Hover me!</span>
+<button type="button" class="btn blue-btn-soft-secondary blue-btn-square">
+    <span class="visually-hidden">Normal size</span>
+    <span class="blue-btn-icon-wrapper" aria-hidden="true"
+        ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10240 10240">
+            <path
+                d="M1634 3023l3200-1600c186-93 386-93 572 0l3200 1600c222 111 354 324 354 573v3688c0 249-132 462-354 573L5406 9457c-186 93-386 93-572 0L1634 7857c-222-111-354-324-354-573V3596c0-249 132-462 354-573zm286 853v3408l2880 1440V5316L1920 3876zm5968-496L5120 1996 2352 3380l2768 1384 2768-1384z"
+            ></path></svg
+    ></span>
+</button>
+
+<button type="button" class="btn btn-sm blue-btn-soft-secondary blue-btn-square">
+    <span class="visually-hidden">Small size</span>
+    <span class="blue-btn-icon-wrapper" aria-hidden="true"
+        ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10240 10240">
+            <path
+                d="M1634 3023l3200-1600c186-93 386-93 572 0l3200 1600c222 111 354 324 354 573v3688c0 249-132 462-354 573L5406 9457c-186 93-386 93-572 0L1634 7857c-222-111-354-324-354-573V3596c0-249 132-462 354-573zm286 853v3408l2880 1440V5316L1920 3876zm5968-496L5120 1996 2352 3380l2768 1384 2768-1384z"
+            ></path></svg
+    ></span>
+</button>
+
+<button type="button" class="btn btn-lg blue-btn-soft-secondary blue-btn-square">
+    <span class="visually-hidden">Large size</span>
     <span class="blue-btn-icon-wrapper" aria-hidden="true"
         ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10240 10240">
             <path

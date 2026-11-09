@@ -1,5 +1,11 @@
 # blue-web
 
+## 1.36.1
+
+### Patch Changes
+
+- Design tweaks for icon buttons and underline tabs.
+
 ## 1.36.0
 
 ### Minor Changes

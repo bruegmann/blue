@@ -1,5 +1,5 @@
 /*!
- * Blue Web v1.35.2 (https://bruegmann.github.io/blue-web)
+ * Blue Web v1.36.0 (https://bruegmann.github.io/blue-web)
  * Licensed under GNU General Public License v3.0 (https://github.com/bruegmann/blue-web/blob/master/LICENSE).
 */
 
@@ -11541,7 +11541,20 @@ body {
 }
 
 .blue-btn-square {
-    padding: calc(var(--bs-btn-padding-y) + #{$icon-link-underline-offset});
+    min-height: 2rem;
+    aspect-ratio: 1;
+    padding: 0;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+    &.btn-sm {
+        min-height: 1.765rem;
+    }
+
+    &.btn-lg {
+        min-height: 2.375rem;
+    }
 }
 
 // Inspired by Bootstrap's button system but extended with more variants
@@ -11767,30 +11780,11 @@ body {
         --#{$prefix}nav-link-color: var(--#{$prefix}list-group-action-color);
     }
 
-    .nav-link:hover,
-    .nav-link:focus {
-        &::after {
-            @include blue-menu-item-indicator();
-            @include blue-menu-item-indicator-horizontal();
-            opacity: 0.25;
-        }
-
-        position: relative;
-        border-bottom-color: transparent;
-    }
-
     .nav-link.active,
     .show > .nav-link,
     .blue-tab:checked {
-        &::after {
-            @include blue-menu-item-indicator();
-            @include blue-menu-item-indicator-horizontal();
-            opacity: 1;
-        }
-
-        position: relative;
-        font-weight: var(--blue-tabs-underline-active-font-weight, $font-weight-base);
-        border-bottom-color: transparent;
+        font-weight: var(--blue-tabs-underline-active-font-weight, $font-weight-semibold);
+        // border-bottom-color: var(--blue-menu-item-indicator-bg);
         color: currentColor;
     }
 }

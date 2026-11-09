@@ -18,7 +18,58 @@ Styles for a login screen.
                     <img class="blue-intro-image" src="blue.svg" alt="Logo" />
                     <h1 class="h2 mt-4 mb-3">Hello World</h1>
                 </div>
-                Here could be a sign in form.
+
+                <div class="row mb-3 g-3">
+                    <div class="col-2">
+                        <div class="form-floating">
+                            <input
+                                autocomplete="firm"
+                                aria-required="true"
+                                placeholder="Firm"
+                                id="firm"
+                                name="Input.Firm"
+                                class="form-control valid"
+                                value="PBG"
+                            />
+                            <label for="firm" class="form-label">Firm</label>
+                        </div>
+                    </div>
+
+                    <div class="col-10">
+                        <div class="form-floating">
+                            <input
+                                autocomplete="username"
+                                aria-required="true"
+                                placeholder="Username"
+                                id="username"
+                                name="Input.Username"
+                                class="form-control valid"
+                                value=""
+                            />
+                            <label for="username" class="form-label">Username</label>
+                        </div>
+                    </div>
+
+                    <div class="offset-2 col-10">
+                        <div class="form-floating">
+                            <input
+                                type="password"
+                                autocomplete="current-password"
+                                aria-required="true"
+                                placeholder="Password"
+                                id="password"
+                                name="Input.Password"
+                                class="form-control valid"
+                                value=""
+                            />
+                            <label for="password" class="form-label">Password</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <button class="btn btn-lg btn-primary">Submit</button>
+                </div>
             </div>
         </div>
     </div>
