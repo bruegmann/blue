@@ -18,6 +18,7 @@
     --dxbl-context-menu-border-radius: var(--bs-border-radius) !important;
     --dxbl-edit-dropdown-border-radius: var(--bs-border-radius) !important;
     --dxbl-list-box-border-radius: var(--bs-border-radius) !important;
+}
 
 body.modal-open .dxbl-popup-cell[style="z-index: 1050;"] {
     z-index: 1056 !important;
