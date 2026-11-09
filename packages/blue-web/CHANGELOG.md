@@ -1,5 +1,11 @@
 # blue-web
 
+## 1.36.0
+
+### Minor Changes
+
+- Instead of setting root font-size to 14px, I set it to $font-size-base. This solves conflicts with other component libraries. Adjusting also some other relevant variables.
+
 ## 1.35.2
 
 ### Patch Changes

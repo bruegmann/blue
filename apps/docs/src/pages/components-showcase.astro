@@ -17,6 +17,20 @@ import { BarChartLine } from "react-bootstrap-icons"
         <masonry class="row" data-masonry='{"percentPosition": true }'>
             <div class="col-sm-6 col-lg-4 mb-4">
                 <card class="card">
+                    <div class="card-body vstack gap-3">
+                        <div class="border rounded-1 p-3">.rounded-1<br />var(--bs-border-radius-sm)</div>
+                        <div class="border rounded p-3">.rounded, .rounded-2<br />var(--bs-border-radius)</div>
+                        <div class="border rounded-3 p-3">.rounded-3<br />var(--bs-border-radius-lg)</div>
+                        <div class="border rounded-4 p-3">.rounded-4<br />var(--bs-border-radius-xl)</div>
+                        <div class="border rounded-5 p-3">
+                            .rounded-5<br />var(--bs-border-radius-xxl)
+                        </div>
+                    </div>
+                </card>
+            </div>
+
+            <div class="col-sm-6 col-lg-4 mb-4">
+                <card class="card">
                     <div class="card-body">
                         <div class="form-floating mb-3">
                             <input
@@ -37,6 +51,20 @@ import { BarChartLine } from "react-bootstrap-icons"
                 <card class="card">
                     <div class="card-body">
                         <ul class="nav nav-underline">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="#">Active</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Link</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Link</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                            </li>
+                        </ul>
+                        <ul class="nav nav-pills">
                             <li class="nav-item">
                                 <a class="nav-link active" aria-current="page" href="#">Active</a>
                             </li>
