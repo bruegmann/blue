@@ -228,6 +228,7 @@ const mixedMenuItems = Object.keys(import.meta.glob("/src/pages/mixed/*")).map((
                                 {item.label === "Chevron" && <ChevronRight slot="iconBefore" />}
                                 {item.label === "FieldGroup" && <CardHeading slot="iconBefore" />}
                                 {item.label === "Search" && <Search slot="iconBefore" />}
+                                {item.label === "OtpInput" && <InputCursorText slot="iconBefore" />}
                                 {item.label === "SimpleLayout" && <WindowIcon slot="iconBefore" />}
                                 {item.label === "MenuItem" && <App slot="iconBefore" />}
                                 {item.label === "Button" && <PlayBtnFill slot="iconBefore" />}
@@ -238,8 +239,12 @@ const mixedMenuItems = Object.keys(import.meta.glob("/src/pages/mixed/*")).map((
                                 {item.label === "Modal" && <WindowStack slot="iconBefore" />}
                                 {(item.label === "Tab" || item.label === "Tabs") && <SegmentedNav slot="iconBefore" />}
 
-                                {["LayoutSplitter", "Accordion", "AccordionItem"].includes(item.label) && (
+                                {["OtpInput"].includes(item.label) && (
                                     <span slot="buttonContent" class="docs-badge docs-badge-new" />
+                                )}
+
+                                {["Tabs", "Tab"].includes(item.label) && (
+                                    <span slot="buttonContent" class="docs-badge docs-badge-update" />
                                 )}
 
                                 {["ModalProvider"].includes(item.label) && (

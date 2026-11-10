@@ -13,7 +13,7 @@ import { TabsContext, type TabsContextValue } from "./TabsContext"
 
 export const TabsNameContext = createContext("")
 
-export interface TabsProps {
+export type TabsProps = {
     children?: ReactNode
     className?: string
     /**
