@@ -1,7 +1,7 @@
 ---
 import Layout from "$/layouts/Layout.astro"
 import logo from "$/../public/blue.svg"
-import { Bootstrap, Code as CodeIcon, WindowSidebar, BoxSeam } from "react-bootstrap-icons"
+import { Bootstrap, Code as CodeIcon, WindowSidebar, BoxSeam, ChevronDown } from "react-bootstrap-icons"
 
 import ReadMe from "blue-react/README.md"
 import ReactIcon from "$/components/ReactIcon"
@@ -63,17 +63,15 @@ const scssCode = (await fetchFromGitHub("src/styles/main.scss")) || ""
                     data-bs-placement="bottom-end"
                     aria-expanded="false"
                 >
-                    /v13
+                    /v13 <ChevronDown aria-hidden="true" />
                 </button>
                 <div class="menu" style={{ minWidth: "5rem" }}>
-                        <a class="menu-item" href="/blue-react/v11/"> /v11 </a>
-                        <a class="menu-item" href="/blue-react/v10/"> /v10 </a>
-                        <a class="menu-item" href="/blue-react/v9/"> /v9 </a>
-                        <a class="menu-item" href="/blue-react/v8/"> /v8 </a>
-                        <a class="menu-item" href="/blue-react/v7/"> /v7 </a>
-                    </li>
-                    <li>
-                        <a class="menu-item" href="/blue-react/v6/"> /v6 </a>
+                    <a class="menu-item" href="/blue-react/v11/"> /v11 </a>
+                    <a class="menu-item" href="/blue-react/v10/"> /v10 </a>
+                    <a class="menu-item" href="/blue-react/v9/"> /v9 </a>
+                    <a class="menu-item" href="/blue-react/v8/"> /v8 </a>
+                    <a class="menu-item" href="/blue-react/v7/"> /v7 </a>
+                    <a class="menu-item" href="/blue-react/v6/"> /v6 </a>
                 </div>
             </div>
         </div>

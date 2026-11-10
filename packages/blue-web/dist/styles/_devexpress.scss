@@ -12,15 +12,15 @@
     --dxbl-text-edit-padding-x: var(--btn-input-padding-x) !important;
     --dxbl-text-edit-padding-y: var(--btn-input-padding-y) !important;
     --dxbl-text-edit-line-height: 1.5 !important;
-    --dxbl-text-edit-focus-shadow-spread: #{$focus-ring-width} !important;
-    --dxbl-listbox-border-radius: var(--bs-border-radius) !important;
-    --dxbl-toolbar-font-size: var(--bs-body-font-size) !important;
-    --dxbl-toolbar-btn-border-radius: var(--bs-border-radius) !important;
-    --dxbl-dropdown-border-radius: var(--bs-border-radius) !important;
-    --dxbl-btn-border-radius: var(--bs-border-radius) !important;
-    --dxbl-context-menu-border-radius: var(--bs-border-radius) !important;
-    --dxbl-edit-dropdown-border-radius: var(--bs-border-radius) !important;
-    --dxbl-list-box-border-radius: var(--bs-border-radius) !important;
+    --dxbl-text-edit-focus-shadow-spread: var(--focus-ring-width) !important;
+    --dxbl-listbox-border-radius: var(--radius-5) !important;
+    --dxbl-toolbar-font-size: var(--body-font-size) !important;
+    --dxbl-toolbar-btn-border-radius: var(--radius-5) !important;
+    --dxbl-dropdown-border-radius: var(--radius-5) !important;
+    --dxbl-btn-border-radius: var(--radius-5) !important;
+    --dxbl-context-menu-border-radius: var(--radius-5) !important;
+    --dxbl-edit-dropdown-border-radius: var(--radius-5) !important;
+    --dxbl-list-box-border-radius: var(--radius-5) !important;
 }
 
 :root.dialog-open .dxbl-popup-cell[style="z-index: 1050;"] {
@@ -81,5 +81,5 @@
 
 .dxbl-grid-header-content {
     @extend .blue-label;
-    padding-block: #{$input-btn-padding-y};
+    padding-block: var(--btn-input-padding-y);
 }

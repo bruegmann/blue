@@ -9,7 +9,7 @@
     .nav-link.active,
     .show > .nav-link,
     .blue-tab:checked {
-        font-weight: var(--blue-tabs-underline-active-font-weight, $font-weight-semibold);
+        font-weight: var(--blue-tabs-underline-active-font-weight, var(--font-weight-semibold));
         // border-bottom-color: var(--blue-menu-item-indicator-bg);
         color: currentColor;
     }

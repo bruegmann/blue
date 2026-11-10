@@ -1,4 +1,5 @@
 ---
+import type { CSSProperties } from "react"
 import { Search } from "react-bootstrap-icons"
 ---
 
@@ -10,53 +11,52 @@ import { Search } from "react-bootstrap-icons"
 
 <button
     onclick="document.getElementById('mysearchdialog').showModal()"
-    class="form-control w-auto btn-sm rounded-pill ms-auto my-1"
+    class="btn-outline theme-inverse rounded-pill ms-auto"
+    style="--btn-bg: var(--bg-body)"
 >
     <Search aria-hidden className="me-1" />
     Search <kbd class="ms-1 d-none md:d-inline bg-2 fg-body"
-        ><kbd class="small bg-2 fg-body"
+        ><kbd class="bg-2 fg-body"
             >{
                 /(Mac|iPhone|iPod|iPad)/i.test((navigator as any).userAgentData?.platform || navigator.platform)
                     ? "⌘"
                     : "Ctrl"
             }</kbd
-        >+<kbd class="small bg-2 fg-body">K</kbd></kbd
+        >+<kbd class="bg-2 fg-body">K</kbd></kbd
     ></button
 >
 
 <dialog class="blue-modal dialog" id="mysearchdialog" closedby="any">
-
-<div class="dialog-body">
-                <search>
-                    <div class="form-control form-adorn rounded-pill">
-                        <label for="docsSearchInput" class="form-adorn-icon">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="1em"
-                                height="1em"
-                                fill="currentColor"
-                                class="bi bi-search"
-                                viewBox="0 0 16 16"
-                            >
-                                <path
-                                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"
-                                ></path>
-                            </svg>
-                            <span class="visually-hidden">Search</span>
-                        </label>
-                        <input type="search" class="form-ghost" id="docsSearchInput" placeholder="Search" autofocus />
-                    </div>
-
-                    <bl-select-list
-                        id="docsSearchResults"
-                        for="docsSearchInput"
-                        class="list-group rounded-4"
-                        aria-label="Search results"
+    <div class="dialog-body">
+        <search>
+            <div class="form-control form-adorn rounded-pill">
+                <label for="docsSearchInput" class="form-adorn-icon">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="1em"
+                        height="1em"
+                        fill="currentColor"
+                        class="bi bi-search"
+                        viewBox="0 0 16 16"
                     >
-                    </bl-select-list>
-                </search>
+                        <path
+                            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"
+                        ></path>
+                    </svg>
+                    <span class="visually-hidden">Search</span>
+                </label>
+                <input type="search" class="form-ghost" id="docsSearchInput" placeholder="Search" autofocus />
             </div>
 
+            <bl-select-list
+                id="docsSearchResults"
+                for="docsSearchInput"
+                class="list-group rounded-4"
+                aria-label="Search results"
+            >
+            </bl-select-list>
+        </search>
+    </div>
 </dialog>
 
 <script type="module">

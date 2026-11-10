@@ -47,7 +47,9 @@ const documentation = getComponentDocumentation(component)
                         <Example>
                             <ReactExampleRender modulePath={example.path} client:idle />
 
-                            {example.code && <Code slot="code" code={example.code.toString()} language="jsx" />}
+                            {example.code && (
+                                <Code slot="code" code={example.code.toString()} language="jsx" client:idle />
+                            )}
                         </Example>
                     </>
                 ))}
