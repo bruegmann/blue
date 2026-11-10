@@ -9,7 +9,7 @@ $normal-size: calc(
 ) !default;
 
 // Width of the sidebar.
-$sidebar-width: 16.563rem !default;
+$sidebar-width: 234px !default;
 
 // Color of indicator for active menu item in sidebar.
 $sidebar-indicator-color: var(--primary) !default;
@@ -31,5 +31,3 @@ $sidebar-shrink-breakpoint: 600px !default;
 $sidebar-expanded-breakpoint: 1400px !default;
 
 $corner-shape: #{round} !default;
-
-

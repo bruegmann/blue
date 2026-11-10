@@ -22,8 +22,7 @@
 
 // Styling for a form control label.
 .blue-label {
-    color: var(--primary-fg-emphasis);
-    font-size: 0.875rem;
+    font-size: #{$font-size-sm};
     font-weight: 500;
     margin-bottom: 0;
     padding-inline: var(--btn-input-padding-x);

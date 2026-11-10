@@ -9,8 +9,7 @@
 .blue-layout {
     --spacing: 0.5rem;
 
-    --blue-menu-item-indicator-bg: light-dark(#{$sidebar-indicator-color}, #{$sidebar-indicator-color-dark});
-    --link-hover-color: var(--blue-sidebar-color);
+    --blue-menu-item-indicator-bg: #{color-contrast($sidebar-bg, $sidebar-indicator-color)};
 
     display: grid;
     grid-template-rows: min-content 1fr;
@@ -18,7 +17,18 @@
     grid-template-areas: "header header" "side main";
     height: 100dvh;
     color: var(--blue-sidebar-color);
-    background-color: var(--blue-layout-bg);
+    background-color: var(--blue-sidebar-bg);
+}
+
+.blue-layout-side {
+    --bs-link-hover-color: #{color-contrast($theme, $link-hover-color)};
+}
+
+@include color-mode(dark, false) {
+    .blue-layout-side {
+        --blue-menu-item-indicator-bg: #{$sidebar-indicator-color-dark};
+        --bs-link-hover-color: #{color-contrast($theme-dark, $link-hover-color-dark)};
+    }
 }
 
 .blue-layout-header {
