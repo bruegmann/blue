@@ -171,20 +171,6 @@ Animated collapse using HTML `details`.
 </details>
 ```
 
-Element with class `blue-collapse-chevron` will be rotated to `-180deg` by default. But you can also customize the rotation target position with the CSS variable `--blue-collapse-chevron-rotate`:
-
-```html
-<details class="blue-collapse">
-    <summary>
-        <header class="blue-collapse-header d-flex">
-            <div class="blue-collapse-chevron" style="--blue-collapse-chevron-rotate: 90deg" aria-hidden="true">👉</div>
-            Collapse
-        </header>
-    </summary>
-    Show something
-</details>
-```
-
 ### Field group
 
 ```html
@@ -455,6 +441,7 @@ Styles for a login screen.
                 <div class="row mb-3 g-3">
                     <div class="col-2">
                         <div class="form-floating">
+                            <label for="firm">Firm</label>
                             <input
                                 autocomplete="firm"
                                 aria-required="true"
@@ -464,12 +451,12 @@ Styles for a login screen.
                                 class="form-control valid"
                                 value="PBG"
                             />
-                            <label for="firm" class="form-label">Firm</label>
                         </div>
                     </div>
 
                     <div class="col-10">
                         <div class="form-floating">
+                            <label for="username">Username</label>
                             <input
                                 autocomplete="username"
                                 aria-required="true"
@@ -479,12 +466,12 @@ Styles for a login screen.
                                 class="form-control valid"
                                 value=""
                             />
-                            <label for="username" class="form-label">Username</label>
                         </div>
                     </div>
 
                     <div class="offset-2 col-10">
                         <div class="form-floating">
+                            <label for="password">Password</label>
                             <input
                                 type="password"
                                 autocomplete="current-password"
@@ -495,13 +482,12 @@ Styles for a login screen.
                                 class="form-control valid"
                                 value=""
                             />
-                            <label for="password" class="form-label">Password</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="text-center">
-                    <button class="btn btn-lg btn-primary">Submit</button>
+                    <button class="btn-solid btn-lg theme-primary">Submit</button>
                 </div>
             </div>
         </div>
@@ -1442,7 +1428,11 @@ Example about, how you could create a color mode switch.
 <div class="alert theme-accent">
     Replaceable with{" "}
     <a href="https://getbootstrap.com/docs/6.0/forms/otp-input" className="alert-link">
-        Bootstrap 6 OTP Input
+        Bootstrap 6 OTP Input.
+    </a>
+    Take a look at the Blue React component{" "}
+    <a href="/blue/react/OtpInput" className="alert-link">
+        OtpInput
     </a>
 </div>
 
