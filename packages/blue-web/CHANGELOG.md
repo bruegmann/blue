@@ -1,5 +1,11 @@
 # blue-web
 
+## 1.36.2
+
+### Patch Changes
+
+- Improve the structure and styling of the collapse component to enhance functionality and user experience. The changes include adjustments to the component's layout and visual behavior.
+
 ## 1.36.1
 
 ### Patch Changes
