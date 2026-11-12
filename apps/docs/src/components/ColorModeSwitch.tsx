@@ -1,107 +1,60 @@
 import { createElement, useEffect, useRef, useState } from "react"
-import { Check, CircleHalf, type Icon, MoonStarsFill, SunFill } from "react-bootstrap-icons"
-// import { Dropdown, DropdownMenu, DropdownToggle } from "reactstrap"
-import { Dropdown } from "bootstrap"
-import { Outside } from "blue-react"
+import { Check, CircleHalf, MoonStarsFill, SunFill } from "react-bootstrap-icons"
+import Menu from "bootstrap/js/dist/menu.js"
 import { getPreferred } from "blue-web/src/js/color-mode"
 
-function Item({
-    theme,
-    setTheme,
-    thisTheme,
-    icon
-}: {
-    theme: string
-    setTheme: (theme: string) => void
-    thisTheme: string
-    icon: Icon
-}) {
-    return (
-        <button
-            type="button"
-            className={`dropdown-item d-flex align-items-center ${theme === thisTheme ? "active" : ""}`}
-            onClick={() => {
-                setTheme(thisTheme)
-            }}
-        >
-            {createElement(icon, { className: "me-2 opacity-50" })}
-            {thisTheme.charAt(0).toUpperCase() + thisTheme.slice(1)}{" "}
-            {theme === thisTheme && <Check className="bi ms-auto" />}
-        </button>
-    )
-}
-
 export default function ColorModeSwitch() {
-    const [open, setOpen] = useState(false)
-    const toggle = () => {
-        setOpen(!open)
-    }
     const [theme, setTheme] = useState(getPreferred())
-    const dropdownRef = useRef(null)
+    const toggleRef = useRef<HTMLButtonElement>(null)
+    const instanceRef = useRef<Menu | null>(null)
 
     useEffect(() => {
-        if (theme === "auto" && window.matchMedia("(prefers-color-scheme: dark)").matches) {
-            document.documentElement.setAttribute("data-bs-theme", "dark")
-        } else {
-            document.documentElement.setAttribute("data-bs-theme", theme)
-        }
-        localStorage.setItem("blue-web-color-mode", theme)
-        setOpen(false)
-    }, [theme])
-
-    const onMatchMediaChange = () => {
-        localStorage.removeItem("blue-web-color-mode")
-        setTheme(getPreferred())
-    }
-
-    useEffect(() => {
-        window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", onMatchMediaChange)
-
+        const element = toggleRef.current
+        if (!element) return
+        const instance = new Menu(element, { placement: "bottom-end" })
+        instanceRef.current = instance
         return () => {
-            window.matchMedia("(prefers-color-scheme: dark)").removeEventListener("change", onMatchMediaChange)
+            instance.dispose()
+            instanceRef.current = null
         }
     }, [])
 
     useEffect(() => {
-        const myElement = dropdownRef.current as unknown as Element
-        let bsDropdown = Dropdown.getInstance(myElement)
-
-        if (!bsDropdown) {
-            bsDropdown = new Dropdown(myElement)
-            bsDropdown.hide()
-            setOpen(false)
-        } else {
-            open ? bsDropdown.show() : bsDropdown.hide()
-        }
-    }, [open])
-
-    const itemProps = { theme, setTheme }
+        document.documentElement.setAttribute("data-bs-theme", theme)
+        localStorage.setItem("blue-web-color-mode", theme)
+        void instanceRef.current?.hide()
+    }, [theme])
 
     return (
-        <Outside onClickOutside={() => setOpen(false)}>
-            <div className="dropdown">
-                <button
-                    className="btn blue-btn-soft-secondary dropdown-toggle"
-                    type="button"
-                    onClick={toggle}
-                    ref={dropdownRef}
-                >
-                    {createElement(theme === "light" ? SunFill : theme === "dark" ? MoonStarsFill : CircleHalf, {
-                        className: "bi"
-                    })}
-                </button>
-                <ul className="dropdown-menu dropdown-menu-end" style={{ minWidth: "5rem" }}>
-                    <li>
-                        <Item thisTheme="light" {...itemProps} icon={SunFill} />
-                    </li>
-                    <li>
-                        <Item thisTheme="dark" {...itemProps} icon={MoonStarsFill} />
-                    </li>
-                    <li>
-                        <Item thisTheme="auto" {...itemProps} icon={CircleHalf} />
-                    </li>
-                </ul>
+        <div>
+            <button
+                className="btn-subtle theme-secondary"
+                type="button"
+                ref={toggleRef}
+                data-bs-toggle="menu"
+                aria-expanded="false"
+                aria-label="Choose color mode"
+            >
+                {createElement(theme === "light" ? SunFill : theme === "dark" ? MoonStarsFill : CircleHalf, {
+                    className: "bi"
+                })}
+            </button>
+            <div className="menu" style={{ minWidth: "5rem" }}>
+                {(["light", "dark", "auto"] as const).map((mode) => (
+                    <button
+                        key={mode}
+                        type="button"
+                        className={`menu-item d-flex align-items-center ${theme === mode ? "active" : ""}`}
+                        onClick={() => setTheme(mode)}
+                    >
+                        {createElement(mode === "light" ? SunFill : mode === "dark" ? MoonStarsFill : CircleHalf, {
+                            className: "me-3 opacity-50"
+                        })}
+                        {mode.charAt(0).toUpperCase() + mode.slice(1)}
+                        {theme === mode && <Check className="bi ms-auto" />}
+                    </button>
+                ))}
             </div>
-        </Outside>
+        </div>
     )
 }

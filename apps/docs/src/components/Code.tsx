@@ -24,10 +24,14 @@ export default function Code({ code, language = "html", expandable = false }: Co
 
             {expandable && (
                 <div
-                    className={`position-absolute bottom-0 start-0 end-0 d-flex justify-content-center align-items-center ${expanded ? "py-1" : "top-0 py-3"} rounded-bottom`}
+                    className={`position-absolute bottom-0 start-0 end-0 d-flex justify-content-center align-items-center ${expanded ? "py-1" : "top-0 py-5"} rounded-bottom`}
                     style={{ backgroundImage: "linear-gradient(transparent, black)" }}
                 >
-                    <button type="button" className="btn btn-dark" onClick={() => setExpanded(!expanded)}>
+                    <button
+                        type="button"
+                        className="btn btn-solid theme-inverse"
+                        onClick={() => setExpanded(!expanded)}
+                    >
                         {expanded ? "Collapse" : "Expand"}
                     </button>
                 </div>

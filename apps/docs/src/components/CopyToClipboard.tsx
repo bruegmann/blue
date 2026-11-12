@@ -23,7 +23,7 @@ export default function CopyToClipboard({ content, ...rest }: CopyToClipboardPro
 
     return (
         <Button
-            color={copied ? "success" : "primary"}
+            theme={copied ? "success" : "primary"}
             onClick={() => {
                 navigator.clipboard.writeText(content)
                 setCopied(true)

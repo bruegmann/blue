@@ -1,3 +1,5 @@
+@use "../variables" as *;
+
 @mixin blue-menu-item-background() {
     content: "";
     position: absolute;
@@ -6,7 +8,7 @@
     bottom: 0.125rem;
     left: 0.125rem;
     background-color: currentColor;
-    border-radius: $border-radius;
+    border-radius: var(--radius-5);
     transform: scale(0.9);
     opacity: 0;
     transition: all 0.2s;
@@ -25,7 +27,7 @@
     right: initial;
     width: 3px;
     height: auto;
-    background-color: var(--blue-menu-item-indicator-bg);
+    background-color: var(--primary-bg);
     border-radius: 1rem;
     animation: blue-menu-item-indicator-in-from-side 0.2s ease-in-out;
 
@@ -73,7 +75,7 @@
 
                     top: 50%;
                     border-left-width: 0;
-                    border-right-color: var(--bs-tooltip-bg, #353539);
+                    border-right-color: var(--tooltip-bg, #353539);
                     left: calc(0em - 5px);
                     transform: translate(0.5em, -50%);
                     opacity: 0;
@@ -87,15 +89,15 @@
                 user-select: none;
                 pointer-events: none;
                 position: absolute;
-                font-family: var(--bs-font-sans-serif);
+                font-family: var(--body-font-family);
                 text-align: center;
                 min-width: 3em;
-                max-width: var(--bs-tooltip-max-width, 21em);
-                padding: var(--bs-tooltip-padding-y, 1ch) var(--bs-tooltip-padding-x, 1.5ch);
-                border-radius: var(--bs-tooltip-border-radius, 0.3em);
+                max-width: var(--tooltip-max-width, 21em);
+                padding: var(--tooltip-padding-y, 1ch) var(--tooltip-padding-x, 1.5ch);
+                border-radius: var(--tooltip-border-radius, 0.3em);
                 box-shadow: 0 1em 2em -0.5em rgba(0, 0, 0, 0.35);
-                background: var(--bs-tooltip-bg, #353539);
-                color: var(--bs-tooltip-color, #fff);
+                background: var(--tooltip-bg, #353539);
+                color: var(--tooltip-color, #fff);
                 z-index: 1000;
                 width: auto;
                 top: 50%;
@@ -108,19 +110,18 @@
 
         & > .blue-menu-item-dropdown,
         & > .blue-outside > .blue-menu-item-dropdown {
-            @extend .ms-1;
-            @extend .rounded;
-            @extend .shadow;
-            @extend .blue-menu-item-dropdown-from-start;
+            margin-inline-start: 0.25rem;
+            border-radius: var(--radius-5);
+            box-shadow: var(--box-shadow);
 
             position: absolute;
             top: 0;
-            width: $bla-sidebar-width;
+            width: $sidebar-width;
             left: $normal-size;
             max-height: calc(100vh - (var(--offset-top, 0px) + 1rem));
             overflow-y: auto;
             overflow-x: hidden;
-            background-color: var(--blue-sidebar-bg);
+            background-color: var(--blue-layout-bg);
 
             &::before {
                 content: none;
@@ -129,7 +130,7 @@
 
         &:has(.blue-menu-item-dropdown) {
             & > .blue-menu-item {
-                @extend .highlighted;
+                background-color: color-mix(in srgb, currentColor 16%, transparent);
             }
         }
     }

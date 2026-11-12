@@ -6,47 +6,49 @@ export default function ButtonsExample({ variant }: { variant: string }) {
     const [disabled, setDisabled] = useState(false)
     const [active, setActive] = useState(false)
 
-    const colors = ["primary", "secondary", "success", "danger", "warning", "info", "light", "dark"]
+    const colors = ["primary", "secondary", "success", "danger", "warning", "info", "accent", "inverse"]
 
     const id = useId()
 
     return (
         <>
-            <div className="mb-3 d-flex gap-3">
-                <div className="form-check form-switch">
-                    <input
-                        className="form-check-input"
-                        type="checkbox"
-                        role="switch"
-                        id={`${id}-disabled-switch`}
-                        checked={disabled}
-                        onChange={() => {
-                            setDisabled(!disabled)
-                        }}
-                    />
-                    <label className="form-check-label" htmlFor={`${id}-disabled-switch`}>
+            <div className="mb-5 d-flex gap-5">
+                <div className="form-field">
+                    <div className="switch">
+                        <input
+                            type="checkbox"
+                            role="switch"
+                            id={`${id}-disabled-switch`}
+                            checked={disabled}
+                            onChange={() => {
+                                setDisabled(!disabled)
+                            }}
+                        />
+                    </div>
+                    <label className="form-label" htmlFor={`${id}-disabled-switch`}>
                         Disabled
                     </label>
                 </div>
 
-                <div className="form-check form-switch">
-                    <input
-                        className="form-check-input"
-                        type="checkbox"
-                        role="switch"
-                        id={`${id}-active-switch`}
-                        checked={active}
-                        onChange={() => {
-                            setActive(!active)
-                        }}
-                    />
-                    <label className="form-check-label" htmlFor={`${id}-active-switch`}>
+                <div className="form-field">
+                    <div className="switch">
+                        <input
+                            type="checkbox"
+                            role="switch"
+                            id={`${id}-active-switch`}
+                            checked={active}
+                            onChange={() => {
+                                setActive(!active)
+                            }}
+                        />
+                    </div>
+                    <label className="form-label" htmlFor={`${id}-active-switch`}>
                         Active
                     </label>
                 </div>
             </div>
 
-            <div className="d-flex gap-3 mb-3">
+            <div className="d-flex gap-5 mb-5">
                 {colors.map((color) => (
                     <button
                         key={color}

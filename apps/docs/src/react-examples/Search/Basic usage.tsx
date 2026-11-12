@@ -19,7 +19,7 @@ export default function SearchExample() {
 
             <button
                 type="button"
-                className="btn btn-secondary mt-3"
+                className="btn btn-solid theme-secondary mt-5"
                 onClick={() => {
                     inputRef.current?.focus()
                 }}

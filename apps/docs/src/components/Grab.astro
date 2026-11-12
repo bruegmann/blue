@@ -47,7 +47,7 @@ const contents = items.map((item) => {
         <ol class="list-unstyled mb-0">
             {items.map((item, i) => (
                 <li>
-                    <strong class="d-block p-3 py-1">
+                    <strong class="d-block p-5 py-1">
                         <a href={resolveToGitHubLink(item.src)}>{item.src}</a>
                     </strong>
                     <Code
@@ -60,7 +60,7 @@ const contents = items.map((item) => {
             ))}
         </ol>
     ) : (
-        <div class="border rounded p-3 shadow mb-3">
+        <div class="border rounded p-5 shadow mb-5">
             <h2>Grab the code</h2>
 
             <p>
