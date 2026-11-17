@@ -380,8 +380,8 @@ importers:
         specifier: ^1.12.2
         version: 1.12.2
       bootstrap:
-        specifier: ~5.3.8
-        version: 5.3.8(@popperjs/core@2.11.8)
+        specifier: ~5.3.9
+        version: 5.3.9(@popperjs/core@2.11.8)
     devDependencies:
       '@babel/cli':
         specifier: ^7.10.4
@@ -406,7 +406,7 @@ importers:
         version: 8.4.1(@babel/core@7.29.7(supports-color@10.2.2))(webpack@5.108.4)
       babel-watch:
         specifier: ^7.8.1
-        version: 7.8.1(@babel/core@7.29.7(supports-color@10.2.2))(supports-color@8.1.1)
+        version: 7.8.1(@babel/core@7.29.7(supports-color@10.2.2))(supports-color@10.2.2)
       lint-staged:
         specifier: ^11.1.2
         version: 11.2.6
@@ -2471,6 +2471,11 @@ packages:
 
   bootstrap@5.3.8:
     resolution: {integrity: sha512-HP1SZDqaLDPwsNiqRqi5NcP0SSXciX2s9E+RyqJIIqGo+vJeN5AJVM98CXmW/Wux0nQ5L7jeWUdplCEf0Ee+tg==}
+    peerDependencies:
+      '@popperjs/core': ^2.11.8
+
+  bootstrap@5.3.9:
+    resolution: {integrity: sha512-20cU0rcfw8WdxtVbmfU+xT2EjvVTw9Ror/h1Qvd7DXCujRg8OO9mdBCsmTHdJFf3BuadmBNJtgIuUXsBqSkk/w==}
     peerDependencies:
       '@popperjs/core': ^2.11.8
 
@@ -7461,13 +7466,13 @@ snapshots:
     dependencies:
       '@babel/types': 7.29.7
 
-  babel-watch@7.8.1(@babel/core@7.29.7(supports-color@10.2.2))(supports-color@8.1.1):
+  babel-watch@7.8.1(@babel/core@7.29.7(supports-color@10.2.2))(supports-color@10.2.2):
     dependencies:
       '@babel/core': 7.29.7(supports-color@10.2.2)
       chalk: 4.1.2
       chokidar: 3.6.0
       commander: 6.2.1
-      debug: 4.4.3(supports-color@8.1.1)
+      debug: 4.4.3(supports-color@10.2.2)
       lodash.debounce: 4.0.8
       lodash.isregexp: 4.0.1
       lodash.isstring: 4.0.1
@@ -7505,6 +7510,10 @@ snapshots:
   boolbase@1.0.0: {}
 
   bootstrap@5.3.8(@popperjs/core@2.11.8):
+    dependencies:
+      '@popperjs/core': 2.11.8
+
+  bootstrap@5.3.9(@popperjs/core@2.11.8):
     dependencies:
       '@popperjs/core': 2.11.8
 

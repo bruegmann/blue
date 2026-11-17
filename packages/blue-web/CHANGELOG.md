@@ -1,5 +1,11 @@
 # blue-web
 
+## 1.36.3
+
+### Patch Changes
+
+- Update Bootstrap to 5.3.9
+
 ## 1.36.2
 
 ### Patch Changes

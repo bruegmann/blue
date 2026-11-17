@@ -1,6 +1,6 @@
 {
     "name": "blue-web",
-    "version": "1.36.2",
+    "version": "1.36.3",
     "description": "UI components built on top of Bootstrap 5",
     "license": "LGPL-3.0-or-later",
     "type": "module",
@@ -26,7 +26,7 @@
     },
     "dependencies": {
         "@popperjs/core": "^2.11.5",
-        "bootstrap": "~5.3.8"
+        "bootstrap": "~5.3.9"
     },
     "peerDependencies": {
         "@spectrum-web-components/split-view": "^1.12.2"
