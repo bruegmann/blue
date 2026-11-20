@@ -14,8 +14,8 @@
     "scripts": {
         "start": "npm run dev",
         "build-types": "tsc --declaration --emitDeclarationOnly --declarationDir ./dist/js --noEmit false --project tsconfig.build.json",
-        "build": "babel ./src/js --out-dir ./dist/js --extensions \".tsx,.js,.ts\"",
-        "dev": "babel ./src/js --out-dir ./dist/js --extensions \".tsx,.js,.ts\" --watch",
+        "build": "vite build --config vite.library.config.ts && vite build",
+        "dev": "vite",
         "build-bundles": "webpack",
         "build-css": "node ./setVersionToStyleScss.cjs && sass --quiet --load-path=. ./dist/style.scss:./dist/style.css && npx postcss ./dist/style.css --use autoprefixer -r && npx postcss ./dist/style.css --use postcss-minify -o ./dist/style.min.css",
         "build-neu-css": "sass --quiet --load-path=. ./dist/neu.scss:./dist/neu.css && npx postcss ./dist/neu.css --use autoprefixer -r && npx postcss ./dist/neu.css --use postcss-minify -o ./dist/neu.min.css",
@@ -26,26 +26,27 @@
     },
     "dependencies": {
         "@popperjs/core": "^2.11.5",
+        "@ui-sdk/core": "0.1.0-beta.10",
+        "@ui-sdk/web": "0.1.0-beta.10",
         "bootstrap": "~5.3.9"
     },
     "peerDependencies": {
         "@spectrum-web-components/split-view": "^1.12.2"
     },
     "devDependencies": {
-        "@babel/cli": "^7.10.4",
         "@babel/preset-env": "^7.10.4",
         "@babel/preset-typescript": "^7.9.0",
         "@types/bootstrap": "^5.0.17",
         "@types/node": "^12.12.47",
         "autoprefixer": "^10.3.6",
         "babel-loader": "^8.4.1",
-        "babel-watch": "^7.8.1",
         "lint-staged": "^11.1.2",
         "postcss-cli": "^9.0.1",
         "postcss-minify": "^1.1.0",
         "postcss-only-vars": "^1.0.0",
         "sass": "^1.93.2",
         "typescript": "^4.3.5",
+        "vite": "^8.3.8",
         "webpack": "^5.95.0",
         "webpack-cli": "^5.1.4"
     },
