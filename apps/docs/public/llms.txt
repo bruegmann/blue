@@ -2906,6 +2906,98 @@ If your logo has another width than height, you can also use a combination of `-
 
 
 
+## Quick Look
+
+Composable, headless Web Components built on ui-sdk's dialog primitive.
+
+The module also exports `QuickLook`, `QuickLookTrigger`, `QuickLookBackdrop`,
+`QuickLookContent`, `QuickLookTitle`, `QuickLookDescription`, and `QuickLookClose`
+element constructors, plus the `QuickLookElement` and `QuickLookEvents` types.
+Constructor exports are `undefined` when imported without browser globals.
+
+### Compose
+
+```html
+<bl-quick-look class="blue-quick-look">
+    <bl-quick-look-trigger>
+        <button type="button" class="btn blue-btn-soft-secondary" aria-label="Preview project notes">Preview</button>
+    </bl-quick-look-trigger>
+    <bl-quick-look-backdrop hidden></bl-quick-look-backdrop>
+    <bl-quick-look-content hidden>
+        <header class="hstack p-3">
+            <div>
+                <bl-quick-look-title as-child>
+                    <h2 class="h5">Project notes</h2>
+                </bl-quick-look-title>
+                <bl-quick-look-description>A read-only preview.</bl-quick-look-description>
+            </div>
+
+            <bl-quick-look-close>
+                <button type="button" class="btn-close ms-auto" aria-label="Close preview"></button>
+            </bl-quick-look-close>
+        </header>
+
+        <div class="bg-body-tertiary d-flex align-items-center justify-content-center" style="min-height: 260px">
+            Content
+        </div>
+
+        <footer class="p-3">Optional Footer</footer>
+    </bl-quick-look-content>
+</bl-quick-look>
+```
+
+Use one root per preview and give each trigger an accessible name. Provide a
+title to name the dialog and an accessible name for an icon-only Close button.
+Keep the content and backdrop `hidden` until their elements upgrade.
+
+The elements use light DOM and ship no visual styles. Consumers control their
+layout and appearance with CSS, including preserving `[hidden] { display: none; }`
+when their own display rules would override it. Parts retain ui-sdk's `data-slot`
+names (such as `dialog-content`) and `data-open`, `data-starting-style`, and
+`data-ending-style` state attributes. The demo's stylesheet is not imported by
+the component module.
+
+### Behavior and API
+
+- Mouse hover opens after 500ms. Leaving before that cancels opening.
+- A hover preview stays open over the trigger or preview. Leaving both closes
+  it after a 250ms grace period; returning cancels dismissal.
+- Clicking or pressing Enter/Space opens immediately. Click/keyboard activation,
+  or interacting with the preview, keeps it open until explicitly dismissed.
+- Escape, the Close part, and outside presses dismiss the modal and restore
+  trigger focus. Explicit dismissal does not restart stationary hover.
+- Touch and pen do not start hover previews.
+- Instances added later work automatically. Removal cleans up listeners and
+  timers, and reconnecting an instance initializes it again.
+
+The root exposes a live `open` property and `.api.isOpen()`, `.api.setOpen()`,
+`.api.open()`, `.api.close()`, `.api.toggle()`, `.api.getPayload()`, and
+`.api.focus()`. `api.open()` returns a promise that resolves when it closes.
+These are ui-sdk dialog APIs. The wrapper restores focus to its own trigger;
+it does not expose a custom `final-focus` target.
+
+```ts
+import "./src/bl-quick-look.ts"
+
+const preview = document.querySelector("bl-quick-look")!
+preview.addEventListener("openchange", (event) => {
+    console.log(event.detail.value, event.detail.reason)
+})
+preview.api.setOpen(true)
+preview.api.close()
+```
+
+Use `.api.setOpen()` for a cancellable request; assigning `.open` directly
+synchronizes state without a change request in the installed ui-sdk adapter.
+Changes report `openchange`, `openchangecomplete`, `payloadchange`, and
+`dismissattempt` on the root. Change events do not bubble; listen on the root
+itself. Cancel a proposed `openchange` with `event.preventDefault()`.
+
+
+
+
+
+
 ## Responsive Drawer
 
 Responsive Drawers will be introduced in Bootstrap 6. Blue Web implemented ways that allow you to use it already today.
