@@ -1,5 +1,11 @@
 # blue-web
 
+## 1.37.0
+
+### Minor Changes
+
+- Migrate Blue Web from Webpack to Vite setup & Introduce new Quick Look composition
+
 ## 1.36.3
 
 ### Patch Changes
