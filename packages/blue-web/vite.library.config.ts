@@ -1,5 +1,5 @@
-import { readdirSync } from "node:fs"
-import { dirname, resolve } from "node:path"
+import { existsSync, readdirSync } from "node:fs"
+import { dirname, isAbsolute, relative, resolve, sep } from "node:path"
 import { fileURLToPath } from "node:url"
 import { defineConfig } from "vite"
 
@@ -12,9 +12,36 @@ const entries = Object.fromEntries(
 )
 
 export default defineConfig({
-    resolve: {
-        alias: [{ find: /^(\.\.?\/.+)\.js$/, replacement: "$1.ts" }]
-    },
+    plugins: [
+        {
+            name: "blue-web-source-extension",
+            enforce: "pre",
+            resolveId(source, importer) {
+                if (!importer || !source.startsWith(".") || !source.endsWith(".js")) return null
+
+                const importerPath = resolve(importer.split("?")[0])
+                const importerRelative = relative(sourceDirectory, importerPath)
+                if (
+                    importerRelative === ".." ||
+                    importerRelative.startsWith(`..${sep}`) ||
+                    isAbsolute(importerRelative)
+                )
+                    return null
+
+                const typescriptPath = resolve(dirname(importerPath), `${source.slice(0, -3)}.ts`)
+                const targetRelative = relative(sourceDirectory, typescriptPath)
+                if (
+                    targetRelative === ".." ||
+                    targetRelative.startsWith(`..${sep}`) ||
+                    isAbsolute(targetRelative) ||
+                    !existsSync(typescriptPath)
+                )
+                    return null
+
+                return this.resolve(typescriptPath, importer, { skipSelf: true })
+            }
+        }
+    ],
     build: {
         outDir: "dist/js",
         emptyOutDir: false,
@@ -22,6 +49,7 @@ export default defineConfig({
         minify: false,
         rolldownOptions: {
             input: entries,
+            external: (id) => !id.startsWith(".") && !isAbsolute(id),
             output: {
                 format: "es",
                 preserveModules: true,
