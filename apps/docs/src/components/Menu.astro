@@ -130,6 +130,7 @@ const mixedMenuItems = Object.keys(import.meta.glob("/src/pages/mixed/*")).map((
                                 <li>
                                     <MenuItem href={item.path} label={item.label} current={item.isActive}>
                                         {item.label === "Layout" && <LayoutTextWindowReverse slot="iconBefore" />}
+                                    {item.label === "Quick Look" && <Eye slot="iconBefore" />}
                                         {item.label === "Responsive Drawer" && <LayoutSidebarInset slot="iconBefore" />}
 
                                         {["Responsive Drawer"].includes(item.label) && (

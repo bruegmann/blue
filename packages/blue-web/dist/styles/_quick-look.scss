@@ -55,9 +55,9 @@ bl-quick-look-content:is([data-starting-style], [data-ending-style]) {
 
 .blue-quick-look {
     bl-quick-look-content {
-        border: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color);
-        border-radius: var(--bs-border-radius-lg);
-        background-color: var(--bs-body-bg);
-        box-shadow: var(--bs-box-shadow-lg);
+        border: var(--border-width) var(--border-style) var(--border-color);
+        border-radius: var(--radius-7);
+        background-color: var(--bg-body);
+        box-shadow: var(--box-shadow-lg);
     }
 }
