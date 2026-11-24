@@ -3,6 +3,14 @@
 
 // Backdrop for non-modal dialogs.
 
+@media (prefers-reduced-motion) {
+    dialog.blue-modal[open] {
+        & > :is(.modal-dialog, .offcanvas) {
+            animation-duration: 0s;
+        }
+    }
+}
+
 .blue-modal-backdrop {
     @include tokens($dialog-tokens);
 

@@ -35,7 +35,8 @@ import {
     Type,
     WindowStack,
     Window as WindowIcon,
-    ChevronRight
+    ChevronRight,
+    Eye
 } from "react-bootstrap-icons"
 import { getComponents } from "$/utils/react"
 
@@ -82,13 +83,20 @@ const mixedMenuItems = Object.keys(import.meta.glob("/src/pages/mixed/*")).map((
         <a
             class:list={["nav-link", { active: !isCurrent("react") }]}
             aria-current={!isCurrent("react") ? "page" : null}
-            href=".">Web</a
+            href="."
         >
+            Web
+        </a>
         <a
             class:list={["nav-link", { active: isCurrent("react") }]}
             aria-current={isCurrent("react") ? "page" : null}
-            href="react">React</a
-        ><a class="nav-link" href="https://bruegmann.github.io/blue-blazor">Blazor</a>
+            href="react"
+        >
+            React
+        </a>
+        <a class="nav-link" href="https://bruegmann.github.io/blue-blazor">
+            Blazor
+        </a>
     </nav>
 
     {
@@ -254,7 +262,90 @@ const mixedMenuItems = Object.keys(import.meta.glob("/src/pages/mixed/*")).map((
                         ))}
                     </div>
                 </li>
+
+                <li class="mb-3">
+                    <strong class="ps-2">JavaScript</strong>
+                    <ul class="list-unstyled">
+                        {jsMenuItems.map((item) => (
+                            <li>
+                                <MenuItem href={item.path} label={item.label} current={item.isActive}>
+                                    {item.label === "Actions" && <MenuApp slot="iconBefore" />}
+                                    {item.label === "Color Mode" && <CircleHalf slot="iconBefore" />}
+                                    {item.label === "Dialog" && <WindowStack slot="iconBefore" />}
+                                    {item.label === "Input Splitted" && <InputCursorText slot="iconBefore" />}
+                                    {item.label === "Odometer" && <Icon9Square slot="iconBefore" />}
+                                    {item.label === "Overflow Detector" && <ThreeDots slot="iconBefore" />}
+                                    {item.label === "Progress" && <ArrowRepeat slot="iconBefore" />}
+                                    {item.label === "Read View" && <CursorText slot="iconBefore" />}
+                                    {item.label === "Select List" && <CardChecklist slot="iconBefore" />}
+                                    {item.label === "Side Layout" && <LayoutTextWindowReverse slot="iconBefore" />}
+                                    {item.label === "Utils" && <Tools slot="iconBefore" />}
+                                    {item.label === "View Transition API" && <BarChartSteps slot="iconBefore" />}
+
+                                    {item.label === "Actions" && (
+                                        <span slot="buttonContent" class="docs-badge docs-badge-experimental" />
+                                    )}
+                                    {/* {["Progress"].includes(item.label) && (
+                                    <span slot="buttonContent" class="docs-badge docs-badge-update" />
+                                )} */}
+                                </MenuItem>
+                            </li>
+                        ))}
+                    </ul>
+                </li>
+
+                <li>
+                    <strong class="ps-2">Resources for AI agents</strong>
+                    <ul class="list-unstyled">
+                        <li>
+                            <MenuItem href={import.meta.env.BASE_URL + "llms.txt"} label="llms.txt">
+                                <BodyText slot="iconBefore" />
+                            </MenuItem>
+                        </li>
+                    </ul>
+                </li>
             </ul>
-        )
-    }
+
+            <MenuItem label="Deprecated" as="collapse">
+                {deprecatedMenuItems.map((item) => (
+                    <MenuItem href={item.path} label={item.label} current={item.isActive} />
+                ))}
+            </MenuItem>
+        </>
+    )}
+
+    {isCurrent("react") && (
+        <ul class="list-unstyled d-flex flex-column">
+            <li>
+                <strong class="ps-2">Components</strong>
+                <div class="vstack">
+                    {reactMenuItems.map((item) => (
+                        <MenuItem href={item.path} label={item.label} current={item.isActive}>
+                            {item.label === "A" && <Link45deg slot="iconBefore" />}
+                            {item.label === "Actions" && <MenuButtonWide slot="iconBefore" />}
+                            {(item.label === "Accordion" || item.label === "AccordionItem") && (
+                                <ArrowsExpand slot="iconBefore" />
+                            )}
+                            {item.label === "Chevron" && <ChevronRight slot="iconBefore" />}
+                            {item.label === "FieldGroup" && <CardHeading slot="iconBefore" />}
+                            {item.label === "Search" && <Search slot="iconBefore" />}
+                            {item.label === "SimpleLayout" && <WindowIcon slot="iconBefore" />}
+                            {item.label === "MenuItem" && <App slot="iconBefore" />}
+                            {item.label === "Button" && <PlayBtnFill slot="iconBefore" />}
+                            {item.label === "Intro" && <Postcard slot="iconBefore" />}
+                            {item.label === "Header" && <CardHeading slot="iconBefore" />}
+                            {item.label === "Layout" && <LayoutTextWindowReverse slot="iconBefore" />}
+                            {item.label === "LayoutSplitter" && <LayoutSidebarReverse slot="iconBefore" />}
+                            {item.label === "Modal" && <WindowStack slot="iconBefore" />}
+                            {(item.label === "Tab" || item.label === "Tabs") && <SegmentedNav slot="iconBefore" />}
+
+                            {["LayoutSplitter", "Accordion", "AccordionItem"].includes(item.label) && (
+                                <span slot="buttonContent" class="docs-badge docs-badge-new" />
+                            )}
+                        </MenuItem>
+                    ))}
+                </div>
+            </li>
+        </ul>
+    )}
 </SidebarMenu>

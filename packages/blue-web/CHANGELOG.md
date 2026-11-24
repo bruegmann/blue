@@ -1,5 +1,30 @@
 # blue-web
 
+## 1.37.1
+
+### Patch Changes
+
+-   - Finally removed deprecated `Utilities` from Blue React because of build problems. Use `utils` from Blue Web instead.
+    - Remove transition from Quick Look and animation from Modals when user prefers reduced motion.
+
+## 1.37.0
+
+### Minor Changes
+
+- Migrate Blue Web from Webpack to Vite setup & Introduce new Quick Look composition
+
+## 1.36.3
+
+### Patch Changes
+
+- Update Bootstrap to 5.3.9
+
+## 1.36.2
+
+### Patch Changes
+
+- Improve the structure and styling of the collapse component to enhance functionality and user experience. The changes include adjustments to the component's layout and visual behavior.
+
 ## 1.36.1
 
 ### Patch Changes

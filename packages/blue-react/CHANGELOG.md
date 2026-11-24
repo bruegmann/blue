@@ -1,5 +1,35 @@
 # blue-react
 
+## 13.1.8
+
+### Patch Changes
+
+-   - Finally removed deprecated `Utilities` from Blue React because of build problems. Use `utils` from Blue Web instead.
+    - Remove transition from Quick Look and animation from Modals when user prefers reduced motion.
+- Updated dependencies []:
+    - blue-web@1.37.1
+
+## 13.1.7
+
+### Patch Changes
+
+- Updated dependencies []:
+    - blue-web@1.37.0
+
+## 13.1.6
+
+### Patch Changes
+
+- Updated dependencies []:
+    - blue-web@1.36.3
+
+## 13.1.5
+
+### Patch Changes
+
+- Updated dependencies []:
+    - blue-web@1.36.2
+
 ## 13.1.4
 
 ### Patch Changes
