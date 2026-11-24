@@ -98,6 +98,14 @@ dialog.blue-modal[open] {
     }
 }
 
+@media (prefers-reduced-motion) {
+    dialog.blue-modal[open] {
+        & > :is(.modal-dialog, .offcanvas) {
+            animation-duration: 0s;
+        }
+    }
+}
+
 .blue-modal-backdrop {
     --bs-backdrop-bg: #000;
     --bs-backdrop-opacity: 0.5;

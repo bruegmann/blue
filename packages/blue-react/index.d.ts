@@ -83,5 +83,3 @@ export { StatusProps } from "./dist/components/Status"
 export { StatusProvider, useStatus } from "./dist/components/StatusProvider"
 
 export { ToastProvider, ToastProviderProps, useToast, ToastItem, ToastItemType } from "./dist/components/ToastProvider"
-
-export { default as Utilities } from "./dist/components/Utilities"
