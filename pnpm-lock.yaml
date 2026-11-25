@@ -374,8 +374,8 @@ importers:
         specifier: 0.1.0-beta.10
         version: 0.1.0-beta.10(@ui-sdk/core@0.1.0-beta.10)
       bootstrap:
-        specifier: 6.0.0-alpha.1
-        version: 6.0.0-alpha.1(@floating-ui/dom@1.8.0)(vanilla-calendar-pro@3.4.0)
+        specifier: 6.0.0-alpha.2
+        version: 6.0.0-alpha.2(@floating-ui/dom@1.8.0)(vanilla-calendar-pro@3.4.0)
       vanilla-calendar-pro:
         specifier: ^3.4.0
         version: 3.4.0
@@ -2662,6 +2662,12 @@ packages:
     resolution: {integrity: sha512-snAWSjKDVdQAyPOtR69Upy247tZq13gw86SMDMZS4wNfBXGNdzbHdIP6GAyaAVJwTX4LjWowY8YYaJkSDv2wGQ==}
     peerDependencies:
       '@floating-ui/dom': ^1.7.6
+      vanilla-calendar-pro: ^3.4.0
+
+  bootstrap@6.0.0-alpha.2:
+    resolution: {integrity: sha512-AX+LxV8OVqkCOyXGnShIUYLupJ7TSjXwzPUM//xt3YaR01xQoQWXfFNfWFo3rjIuDdTqeZC3k0dXKkf/i6X03A==}
+    peerDependencies:
+      '@floating-ui/dom': ^1.8.0
       vanilla-calendar-pro: ^3.4.0
 
   boxen@8.0.1:
@@ -7819,6 +7825,11 @@ snapshots:
   boolbase@1.0.0: {}
 
   bootstrap@6.0.0-alpha.1(@floating-ui/dom@1.8.0)(vanilla-calendar-pro@3.4.0):
+    dependencies:
+      '@floating-ui/dom': 1.8.0
+      vanilla-calendar-pro: 3.4.0
+
+  bootstrap@6.0.0-alpha.2(@floating-ui/dom@1.8.0)(vanilla-calendar-pro@3.4.0):
     dependencies:
       '@floating-ui/dom': 1.8.0
       vanilla-calendar-pro: 3.4.0

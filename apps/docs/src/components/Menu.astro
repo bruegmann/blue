@@ -99,180 +99,90 @@ const mixedMenuItems = Object.keys(import.meta.glob("/src/pages/mixed/*")).map((
         </a>
     </nav>
 
-    {
-        !isCurrent("react") && (
-            <>
-                <ul class="list-unstyled d-flex flex-column">
-                    <li>
-                        <MenuItem
-                            href="typography"
-                            label="Typography"
-                            current={currentPath.includes(import.meta.env.BASE_URL + "typography")}
-                        >
-                            <Type slot="iconBefore" />
-                        </MenuItem>
-                    </li>
-
-                    <li>
-                        <MenuItem
-                            href="components-showcase"
-                            label="Components Showcase"
-                            current={currentPath.includes(import.meta.env.BASE_URL + "components-showcase")}
-                        >
-                            <Palette slot="iconBefore" />
-                        </MenuItem>
-                    </li>
-
-                    <li class="my-3">
-                        <strong class="ps-2">Mixed</strong>
-                        <ul class="list-unstyled">
-                            {mixedMenuItems.map((item) => (
-                                <li>
-                                    <MenuItem href={item.path} label={item.label} current={item.isActive}>
-                                        {item.label === "Layout" && <LayoutTextWindowReverse slot="iconBefore" />}
-                                    {item.label === "Quick Look" && <Eye slot="iconBefore" />}
-                                        {item.label === "Responsive Drawer" && <LayoutSidebarInset slot="iconBefore" />}
-
-                                        {["Responsive Drawer"].includes(item.label) && (
-                                            <span slot="buttonContent" class="docs-badge docs-badge-deprecated" />
-                                        )}
-                                    </MenuItem>
-                                </li>
-                            ))}
-                        </ul>
-                    </li>
-
-                    <li class="mb-5">
-                        <strong class="ps-3">CSS</strong>
-                        <div class="vstack">
-                            {cssMenuItems.map((item) => (
-                                <MenuItem href={item.path} label={item.label} current={item.isActive}>
-                                    {item.label === "Accordion" && <ArrowsExpand slot="iconBefore" />}
-                                    {item.label === "Collapse" && <CardHeading slot="iconBefore" />}
-                                    {item.label === "Container Grid" && <Columns slot="iconBefore" />}
-                                    {item.label === "Header" && <CardHeading slot="iconBefore" />}
-                                    {item.label === "Hover" && <HandIndex slot="iconBefore" />}
-                                    {item.label === "Menu Item" && <MenuButton slot="iconBefore" />}
-                                    {item.label === "Modal" && <WindowStack slot="iconBefore" />}
-                                    {item.label === "Popover" && <MenuDown slot="iconBefore" />}
-                                    {item.label === "Scrollbar" && <ArrowsVertical slot="iconBefore" />}
-                                    {item.label === "Scrollspy" && <SegmentedNav slot="iconBefore" />}
-                                    {item.label === "Intro" && <Postcard slot="iconBefore" />}
-                                    {item.label === "Tabs" && <SegmentedNav slot="iconBefore" />}
-                                    {item.label === "Text and Icons" && <Type slot="iconBefore" />}
-                                    {item.label === "Tooltip" && <MenuUp slot="iconBefore" />}
-                                    {item.label === "Utilities" && <Tools slot="iconBefore" />}
-
-                                    {["Accordion"].includes(item.label) && (
-                                        <span slot="buttonContent" class="docs-badge docs-badge-new" />
-                                    )}
-
-                                    {["Collapse"].includes(item.label) && (
-                                        <span slot="buttonContent" class="docs-badge docs-badge-update" />
-                                    )}
-                                </MenuItem>
-                            ))}
-                        </div>
-                    </li>
-
-                    <li class="mb-5">
-                        <strong class="ps-3">JavaScript</strong>
-                        <ul class="list-unstyled">
-                            {jsMenuItems.map((item) => (
-                                <li>
-                                    <MenuItem href={item.path} label={item.label} current={item.isActive}>
-                                        {item.label === "Actions" && <MenuApp slot="iconBefore" />}
-                                        {item.label === "Color Mode" && <CircleHalf slot="iconBefore" />}
-                                        {item.label === "Message" && <WindowStack slot="iconBefore" />}
-                                        {item.label === "Input Splitted" && <InputCursorText slot="iconBefore" />}
-                                        {item.label === "Odometer" && <Icon9Square slot="iconBefore" />}
-                                        {item.label === "Overflow Detector" && <ThreeDots slot="iconBefore" />}
-                                        {item.label === "Progress" && <ArrowRepeat slot="iconBefore" />}
-                                        {item.label === "Read View" && <CursorText slot="iconBefore" />}
-                                        {item.label === "Select List" && <CardChecklist slot="iconBefore" />}
-                                        {item.label === "Side Layout" && <LayoutTextWindowReverse slot="iconBefore" />}
-                                        {item.label === "Utils" && <Tools slot="iconBefore" />}
-                                        {item.label === "View Transition API" && <BarChartSteps slot="iconBefore" />}
-
-                                        {["Actions", "Input Splitted"].includes(item.label) && (
-                                            <span slot="buttonContent" class="docs-badge docs-badge-deprecated" />
-                                        )}
-                                        {/* {["Progress"].includes(item.label) && (
-                                    <span slot="buttonContent" class="docs-badge docs-badge-update" />
-                                )} */}
-                                    </MenuItem>
-                                </li>
-                            ))}
-                        </ul>
-                    </li>
-
-                    <li>
-                        <strong class="ps-3">Resources for AI agents</strong>
-                        <ul class="list-unstyled">
-                            <li>
-                                <MenuItem href={import.meta.env.BASE_URL + "llms.txt"} label="llms.txt">
-                                    <BodyText slot="iconBefore" />
-                                </MenuItem>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </>
-        )
-    }
-
-    {
-        isCurrent("react") && (
+    {!isCurrent("react") && (
+        <>
             <ul class="list-unstyled d-flex flex-column">
                 <li>
-                    <strong class="ps-3">Components</strong>
-                    <div class="vstack">
-                        {reactMenuItems.map((item) => (
-                            <MenuItem href={item.path} label={item.label} current={item.isActive}>
-                                {item.label === "A" && <Link45deg slot="iconBefore" />}
-                                {item.label === "Actions" && <MenuButtonWide slot="iconBefore" />}
-                                {(item.label === "Accordion" || item.label === "AccordionItem") && (
-                                    <ArrowsExpand slot="iconBefore" />
-                                )}
-                                {item.label === "Chevron" && <ChevronRight slot="iconBefore" />}
-                                {item.label === "FieldGroup" && <CardHeading slot="iconBefore" />}
-                                {item.label === "Search" && <Search slot="iconBefore" />}
-                                {item.label === "OtpInput" && <InputCursorText slot="iconBefore" />}
-                                {item.label === "SimpleLayout" && <WindowIcon slot="iconBefore" />}
-                                {item.label === "MenuItem" && <App slot="iconBefore" />}
-                                {item.label === "Button" && <PlayBtnFill slot="iconBefore" />}
-                                {item.label === "Intro" && <Postcard slot="iconBefore" />}
-                                {item.label === "Header" && <CardHeading slot="iconBefore" />}
-                                {item.label === "Layout" && <LayoutTextWindowReverse slot="iconBefore" />}
-                                {item.label === "LayoutSplitter" && <LayoutSidebarReverse slot="iconBefore" />}
-                                {item.label === "Modal" && <WindowStack slot="iconBefore" />}
-                                {(item.label === "Tab" || item.label === "Tabs") && <SegmentedNav slot="iconBefore" />}
+                    <MenuItem
+                        href="typography"
+                        label="Typography"
+                        current={currentPath.includes(import.meta.env.BASE_URL + "typography")}
+                    >
+                        <Type slot="iconBefore" />
+                    </MenuItem>
+                </li>
 
-                                {["OtpInput"].includes(item.label) && (
+                <li>
+                    <MenuItem
+                        href="components-showcase"
+                        label="Components Showcase"
+                        current={currentPath.includes(import.meta.env.BASE_URL + "components-showcase")}
+                    >
+                        <Palette slot="iconBefore" />
+                    </MenuItem>
+                </li>
+
+                <li class="my-3">
+                    <strong class="ps-2">Mixed</strong>
+                    <ul class="list-unstyled">
+                        {mixedMenuItems.map((item) => (
+                            <li>
+                                <MenuItem href={item.path} label={item.label} current={item.isActive}>
+                                    {item.label === "Layout" && <LayoutTextWindowReverse slot="iconBefore" />}
+                                    {item.label === "Quick Look" && <Eye slot="iconBefore" />}
+                                    {item.label === "Responsive Drawer" && <LayoutSidebarInset slot="iconBefore" />}
+
+                                    {["Responsive Drawer"].includes(item.label) && (
+                                        <span slot="buttonContent" class="docs-badge docs-badge-deprecated" />
+                                    )}
+                                </MenuItem>
+                            </li>
+                        ))}
+                    </ul>
+                </li>
+
+                <li class="mb-5">
+                    <strong class="ps-3">CSS</strong>
+                    <div class="vstack">
+                        {cssMenuItems.map((item) => (
+                            <MenuItem href={item.path} label={item.label} current={item.isActive}>
+                                {item.label === "Accordion" && <ArrowsExpand slot="iconBefore" />}
+                                {item.label === "Collapse" && <CardHeading slot="iconBefore" />}
+                                {item.label === "Container Grid" && <Columns slot="iconBefore" />}
+                                {item.label === "Header" && <CardHeading slot="iconBefore" />}
+                                {item.label === "Hover" && <HandIndex slot="iconBefore" />}
+                                {item.label === "Menu Item" && <MenuButton slot="iconBefore" />}
+                                {item.label === "Modal" && <WindowStack slot="iconBefore" />}
+                                {item.label === "Popover" && <MenuDown slot="iconBefore" />}
+                                {item.label === "Scrollbar" && <ArrowsVertical slot="iconBefore" />}
+                                {item.label === "Scrollspy" && <SegmentedNav slot="iconBefore" />}
+                                {item.label === "Intro" && <Postcard slot="iconBefore" />}
+                                {item.label === "Tabs" && <SegmentedNav slot="iconBefore" />}
+                                {item.label === "Text and Icons" && <Type slot="iconBefore" />}
+                                {item.label === "Tooltip" && <MenuUp slot="iconBefore" />}
+                                {item.label === "Utilities" && <Tools slot="iconBefore" />}
+
+                                {["Accordion"].includes(item.label) && (
                                     <span slot="buttonContent" class="docs-badge docs-badge-new" />
                                 )}
 
-                                {["Tabs", "Tab"].includes(item.label) && (
+                                {["Collapse"].includes(item.label) && (
                                     <span slot="buttonContent" class="docs-badge docs-badge-update" />
-                                )}
-
-                                {["ModalProvider"].includes(item.label) && (
-                                    <span slot="buttonContent" class="docs-badge docs-badge-deprecated" />
                                 )}
                             </MenuItem>
                         ))}
                     </div>
                 </li>
 
-                <li class="mb-3">
-                    <strong class="ps-2">JavaScript</strong>
+                <li class="mb-5">
+                    <strong class="ps-3">JavaScript</strong>
                     <ul class="list-unstyled">
                         {jsMenuItems.map((item) => (
                             <li>
                                 <MenuItem href={item.path} label={item.label} current={item.isActive}>
                                     {item.label === "Actions" && <MenuApp slot="iconBefore" />}
                                     {item.label === "Color Mode" && <CircleHalf slot="iconBefore" />}
-                                    {item.label === "Dialog" && <WindowStack slot="iconBefore" />}
+                                    {item.label === "Message" && <WindowStack slot="iconBefore" />}
                                     {item.label === "Input Splitted" && <InputCursorText slot="iconBefore" />}
                                     {item.label === "Odometer" && <Icon9Square slot="iconBefore" />}
                                     {item.label === "Overflow Detector" && <ThreeDots slot="iconBefore" />}
@@ -283,8 +193,8 @@ const mixedMenuItems = Object.keys(import.meta.glob("/src/pages/mixed/*")).map((
                                     {item.label === "Utils" && <Tools slot="iconBefore" />}
                                     {item.label === "View Transition API" && <BarChartSteps slot="iconBefore" />}
 
-                                    {item.label === "Actions" && (
-                                        <span slot="buttonContent" class="docs-badge docs-badge-experimental" />
+                                    {["Actions", "Input Splitted"].includes(item.label) && (
+                                        <span slot="buttonContent" class="docs-badge docs-badge-deprecated" />
                                     )}
                                     {/* {["Progress"].includes(item.label) && (
                                     <span slot="buttonContent" class="docs-badge docs-badge-update" />
@@ -296,7 +206,7 @@ const mixedMenuItems = Object.keys(import.meta.glob("/src/pages/mixed/*")).map((
                 </li>
 
                 <li>
-                    <strong class="ps-2">Resources for AI agents</strong>
+                    <strong class="ps-3">Resources for AI agents</strong>
                     <ul class="list-unstyled">
                         <li>
                             <MenuItem href={import.meta.env.BASE_URL + "llms.txt"} label="llms.txt">
@@ -306,12 +216,6 @@ const mixedMenuItems = Object.keys(import.meta.glob("/src/pages/mixed/*")).map((
                     </ul>
                 </li>
             </ul>
-
-            <MenuItem label="Deprecated" as="collapse">
-                {deprecatedMenuItems.map((item) => (
-                    <MenuItem href={item.path} label={item.label} current={item.isActive} />
-                ))}
-            </MenuItem>
         </>
     )}
 

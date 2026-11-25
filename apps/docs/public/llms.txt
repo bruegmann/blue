@@ -2451,14 +2451,14 @@ Constructor exports are `undefined` when imported without browser globals.
 ```html
 <bl-quick-look class="blue-quick-look">
     <bl-quick-look-trigger>
-        <button type="button" class="btn blue-btn-soft-secondary" aria-label="Preview project notes">Preview</button>
+        <button type="button" class="btn" aria-label="Preview project notes">Preview</button>
     </bl-quick-look-trigger>
     <bl-quick-look-backdrop hidden></bl-quick-look-backdrop>
     <bl-quick-look-content hidden>
-        <header class="hstack p-3">
+        <header class="hstack p-5">
             <div>
                 <bl-quick-look-title as-child>
-                    <h2 class="h5">Project notes</h2>
+                    <h2 class="h3">Project notes</h2>
                 </bl-quick-look-title>
                 <bl-quick-look-description>A read-only preview.</bl-quick-look-description>
             </div>
@@ -2472,7 +2472,7 @@ Constructor exports are `undefined` when imported without browser globals.
             Content
         </div>
 
-        <footer class="p-3">Optional Footer</footer>
+        <footer class="p-5">Optional Footer</footer>
     </bl-quick-look-content>
 </bl-quick-look>
 ```
