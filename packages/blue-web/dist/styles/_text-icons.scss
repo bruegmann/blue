@@ -4,7 +4,7 @@
 .page-header {
     padding-bottom: 0.5rem;
     margin: 2rem 0 1rem;
-    border-bottom: 3px solid var(--bs-border-color, $table-border-color);
+    border-bottom: 3px solid var(--border-color);
 
     &:is(h1, .h1) {
         border-width: 4px;
@@ -22,10 +22,10 @@
 
 // Styling for a form control label.
 .blue-label {
-    font-size: #{$font-size-sm};
+    font-size: var(--font-size-sm);
     font-weight: 500;
     margin-bottom: 0;
-    padding-inline: #{$input-btn-padding-x};
+    padding-inline: var(--btn-input-padding-x);
 }
 
 // Vertically alignment, especially for Bootstrap Icons.

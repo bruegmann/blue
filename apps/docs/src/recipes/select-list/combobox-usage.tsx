@@ -7,7 +7,7 @@ export default function Usage() {
     const [selectedDescription, setSelectedDescription] = useState<string>()
 
     return (
-        <div className="row g-5 row-cols-lg-3">
+        <div className="row g-12 lg:row-cols-3">
             <div className="col">
                 <h3>Bindable</h3>
 
@@ -22,7 +22,7 @@ export default function Usage() {
                     <ComboboxOption value="Honeydew" />
                 </Combobox>
 
-                <div className="mt-2">Selected: {selectedValue}</div>
+                <div className="mt-3">Selected: {selectedValue}</div>
 
                 <Button
                     label="Change to 'Grape' from outside"
@@ -148,7 +148,8 @@ export default function Usage() {
                     <Combobox
                         value={selectedValue}
                         onChange={setSelectedValue}
-                        className="rounded-end blue-btn-square"
+                        className="rounded-end"
+                        icon
                         popoverEnd
                         labelHidden
                     >
@@ -211,7 +212,7 @@ export default function Usage() {
                 </Combobox>
                 <br />
 
-                <label htmlFor="combobox-with-scrollspy" className="d-block mt-2">
+                <label htmlFor="combobox-with-scrollspy" className="d-block mt-3">
                     With scrollspy
                 </label>
                 <Combobox id="combobox-with-scrollspy" scrollspy selectListMaxHeight="100px">

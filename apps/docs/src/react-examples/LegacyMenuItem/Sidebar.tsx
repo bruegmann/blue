@@ -17,7 +17,7 @@ export default function MenuItemExample() {
                     </MenuItem>
                 </MenuItem>
             </SidebarMenu>
-            <p className="p-3 bg-body">Resize the browser to see how the sidebar and its items behave.</p>
+            <p className="p-5 bg-body">Resize the browser to see how the sidebar and its items behave.</p>
         </div>
     )
 }

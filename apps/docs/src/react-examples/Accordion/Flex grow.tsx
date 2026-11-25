@@ -6,7 +6,7 @@ export default function AccordionFlexGrowExample() {
 
     return (
         <div className="d-flex flex-column" style={{ height: "600px" }}>
-            <Accordion className="flex-grow-1">
+            <Accordion growing>
                 <AccordionItem header="Accordion item 1" name={name} open>
                     <div className="bg-info h-100" style={{ minHeight: "10px" }}></div>
                 </AccordionItem>

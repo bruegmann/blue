@@ -13,25 +13,25 @@ Adds container query support to Bootstrap's grid system. By default, Bootstrap's
 With container queries, you can apply breaks based on a custom container.
 
 - [Read more about container queries](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Container_Queries)
-- [Read more about Bootstrap's grid system](https://getbootstrap.com/docs/5.3/layout/grid/)
+- [Read more about Bootstrap's grid system](https://getbootstrap.com/docs/6.0/layout/grid/)
 
 ```html
 <div class="blue-container-grid">
     <div class="row">
-        <div class="col-md-4">col-md-4</div>
-        <div class="col-md-8">col-md-8</div>
+        <div class="md:col-4">md:col-4</div>
+        <div class="md:col-8">md:col-8</div>
     </div>
 </div>
 ```
 
 ```html use:RenderBlock
 <div
-    class="blue-container-grid border-primary-subtle px-3"
+    class="blue-container-grid border-primary-subtle px-5"
     style="resize: both; overflow: auto; border: 1px dashed; width: 958px; height: 140px;"
 >
     <div class="row">
-        <div class="col-md-4 bg-primary-subtle border border-primary text-primary p-3 text-center">col-md-4</div>
-        <div class="col-md-8 bg-primary-subtle border border-primary text-primary p-3 text-center">col-md-8</div>
+        <div class="md:col-4 bg-subtle-primary border border-primary fg-primary p-5 text-center">md:col-4</div>
+        <div class="md:col-8 bg-subtle-primary border border-primary fg-primary p-5 text-center">md:col-8</div>
     </div>
     This is a container grid. Resize the box around to see the effect.
 </div>

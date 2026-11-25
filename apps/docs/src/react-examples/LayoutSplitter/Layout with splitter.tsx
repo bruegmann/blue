@@ -37,14 +37,16 @@ export default function LayoutWithSplitterExample() {
                     <div className="container">
                         <p>Hello World</p>
 
-                        <label className="form-check form-switch">
-                            <input
-                                type="checkbox"
-                                className="form-check-input"
-                                checked={showCommand === "show"}
-                                onChange={() => setShowCommand(showCommand === "show" ? undefined : "show")}
-                            />
-                            <span className="form-check-label">
+                        <label className="form-field">
+                            <span className="switch">
+                                <input
+                                    type="checkbox"
+                                    role="switch"
+                                    checked={showCommand === "show"}
+                                    onChange={() => setShowCommand(showCommand === "show" ? undefined : "show")}
+                                />
+                            </span>
+                            <span className="form-label">
                                 To toggle inspector on mobile, use "show" instead of "show-modal"
                             </span>
                         </label>
@@ -57,14 +59,14 @@ export default function LayoutWithSplitterExample() {
                             <Button label="Save" iconBefore={<>✔️</>} sm variant="menu-item" />
                         </div>
 
-                        <div className="vstack align-items-center justify-content-center flex-grow-1 text-secondary">
+                        <div className="vstack align-items-center justify-content-center flex-grow-1 fg-secondary">
                             <span>✨</span>
                             <small>The chat is empty</small>
                         </div>
 
-                        <div className="p-2">
+                        <div className="p-3">
                             <div className="bg-body border rounded p-1">
-                                <div className="text-secondary p-2 pb-5">Placeholder text...</div>
+                                <div className="fg-secondary p-3 pb-12">Placeholder text...</div>
                                 <div className="text-end">
                                     <Button
                                         label="Send"
@@ -72,7 +74,7 @@ export default function LayoutWithSplitterExample() {
                                         iconBefore={<>⬆️</>}
                                         color="primary"
                                         variant="filled"
-                                        square
+                                        icon
                                         disabled
                                     />
                                 </div>

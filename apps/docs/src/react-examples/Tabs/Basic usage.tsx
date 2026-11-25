@@ -8,7 +8,7 @@ export default function BasicUsage() {
                 Hello from Tab 1
             </Tab>
 
-            <Tab label="Tab 2" contentClassName="pt-3">
+            <Tab label="Tab 2" contentClassName="pt-5">
                 Hello from Tab 2. This one has some padding top.
             </Tab>
 

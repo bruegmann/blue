@@ -12,7 +12,7 @@ export interface SlimContainerProps {
 export default function SlimContainer({ children, className, innerClassName }: SlimContainerProps) {
     return (
         <div className={"row " + (className || "")}>
-            <div className={"col-md-6 col-lg-4 " + (innerClassName || "")}>{children}</div>
+            <div className={"md:col-6 lg:col-4 " + (innerClassName || "")}>{children}</div>
         </div>
     )
 }

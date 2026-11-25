@@ -1,21 +1,9 @@
-import {
-    useEffect,
-    useState,
-    ComponentProps,
-    ReactNode,
-    ElementType
-} from "react"
+import { useEffect, useState, ComponentProps, ReactNode, ElementType } from "react"
 import clsx from "clsx"
 import { getPhrase } from "./shared"
 
-export type ButtonVariant =
-    | "filled"
-    | "soft"
-    | "plain"
-    | "outline"
-    | "link"
-    | "menu-item"
-export type ButtonColor =
+export type ButtonVariant = "solid" | "outline" | "subtle" | "text" | "link"
+export type ButtonTheme =
     | "theme"
     | "primary"
     | "secondary"
@@ -23,38 +11,16 @@ export type ButtonColor =
     | "danger"
     | "warning"
     | "info"
+    | "accent"
+    | "inverse"
     | "light"
     | "dark"
-
-function getButtonVariantClass(
-    variant: ButtonVariant,
-    buttonColor?: ButtonColor
-) {
-    const color = buttonColor || "secondary"
-
-    switch (variant) {
-        case "soft":
-            return `blue-btn-soft-${color}`
-        case "plain":
-            return `blue-btn-plain-${color}`
-        case "outline":
-            return `btn-outline-${color}`
-        case "link":
-            return `btn-link${
-                buttonColor !== undefined ? ` link-${color}` : ""
-            }`
-        case "menu-item":
-            return "blue-menu-item"
-        default:
-            return `btn-${color}`
-    }
-}
 
 export type ButtonProps = ComponentProps<"a"> &
     ComponentProps<"button"> & {
         elementType?: ElementType
         variant?: ButtonVariant
-        color?: ButtonColor
+        theme?: ButtonTheme
         sm?: boolean
         lg?: boolean
         iconBefore?: ReactNode
@@ -68,9 +34,8 @@ export type ButtonProps = ComponentProps<"a"> &
 
         active?: boolean
 
-        /** Button's width and height should be equal. Useful, if you want your body only to have one symbol.
-         *  When your body only has an icon and hidden label, this will be set automatically. */
-        square?: boolean
+        /** Use Bootstrap's icon-only button styling. Provide an accessible name. */
+        icon?: boolean
     } & {
         /**
          * For compatibility with React Router NavLink
@@ -86,8 +51,8 @@ export default function Button({
     elementType,
     className,
     type,
-    variant = "soft",
-    color,
+    variant,
+    theme,
     sm,
     lg,
     iconBefore,
@@ -97,7 +62,7 @@ export default function Button({
     busy: busyProp,
     success: successProp,
     active,
-    square,
+    icon,
     ...props
 }: ButtonProps) {
     const Comp = elementType || (props.href ? "a" : "button")
@@ -112,35 +77,30 @@ export default function Button({
         }
     }, [successProp])
 
-    const variantClass = getButtonVariantClass(variant, color)
+    const variantClass = variant && !success ? `btn-${variant}` : theme ? "btn-subtle" : undefined
+    const themeClass = theme && !success ? `theme-${theme}` : undefined
 
     return (
         <Comp
             type={Comp === "button" && type === undefined ? "button" : type}
             className={clsx(
-                "btn",
+                themeClass,
                 {
-                    [variantClass]: !success,
-                    "btn-success": success,
+                    btn: !variant || variant === "link",
+                    "btn-icon": icon,
+                    "btn-solid theme-success": success,
                     "btn-sm": sm,
                     "btn-lg": lg,
-                    "icon-link":
-                        busyProp ||
-                        iconBefore !== undefined ||
-                        iconAfter !== undefined,
-                    active: active,
-                    "blue-btn-square": square
+                    active: active
                 },
+                variantClass,
                 className
             )}
             {...props}
         >
             {busyProp ? (
                 <>
-                    <span
-                        className="spinner-border spinner-border-sm bi me-1"
-                        aria-hidden
-                    ></span>
+                    <span className="spinner-border spinner-border-sm bi me-1" aria-hidden></span>
                     <span role="status">{getPhrase("Loading")}…</span>
                 </>
             ) : success ? (
@@ -165,9 +125,7 @@ export default function Button({
                             {iconBefore}
                         </span>
                     )}
-                    {label && !labelHidden && (
-                        <span className="text-truncate">{label}</span>
-                    )}
+                    {label && !labelHidden && <span className="text-truncate">{label}</span>}
                     {props.children}
                     {iconAfter != null && (
                         <span className="blue-btn-icon-wrapper" aria-hidden>

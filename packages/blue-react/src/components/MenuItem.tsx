@@ -30,31 +30,27 @@ export type MenuItemProps = ButtonProps & {
 function ChevronSummary({ className, children, ...props }: ComponentProps<"summary">) {
     return (
         <summary
-            className={clsx(
-                "btn blue-collapse-header blue-menu-item icon-link",
-                {
-                    "blue-btn-square": children === undefined
-                },
-                className
-            )}
+            className={clsx(children === undefined ? "btn-icon" : "btn", "blue-collapse-header btn-solid", className)}
+            data-label={children === undefined ? getPhrase("Toggle details") : undefined}
             {...props}
         >
             {children}
-            {children === undefined && <span className="visually-hidden">{getPhrase("Toggle details")}</span>}
-            <div className="blue-btn-icon-wrapper" aria-hidden>
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className={clsx("blue-collapse-chevron", {
-                        "ms-auto": children !== undefined
-                    })}
-                    viewBox="0 0 16 16"
-                >
-                    <path
-                        fillRule="evenodd"
-                        d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"
-                    />
-                </svg>
-            </div>
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className={clsx("bi blue-collapse-chevron", {
+                    "ms-auto": children !== undefined
+                })}
+                width="1em"
+                height="1em"
+                fill="currentColor"
+                viewBox="0 0 16 16"
+                aria-hidden
+            >
+                <path
+                    fillRule="evenodd"
+                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"
+                />
+            </svg>
         </summary>
     )
 }
@@ -71,8 +67,9 @@ function Base({
 }: MenuItemProps) {
     return (
         <Button
-            variant="menu-item"
+            variant="solid"
             className={clsx(
+                "blue-menu-item",
                 {
                     current,
                     "d-flex": !defaultDisplay

@@ -22,18 +22,20 @@ export default function BasicUsageExample() {
                 </Actions>
             </div>
 
-            <label className="mt-3">
+            <label className="mt-5">
                 <span className="form-label">Change width</span>
-                <input
-                    type="range"
-                    className="form-range"
-                    min={100}
-                    max={1200}
-                    value={width}
-                    onChange={({ target }) => {
-                        setWidth(parseInt(target.value))
-                    }}
-                />
+                <div className="form-range">
+                    <input
+                        type="range"
+                        className="form-range-input"
+                        min={100}
+                        max={1200}
+                        value={width}
+                        onChange={({ target }) => {
+                            setWidth(parseInt(target.value))
+                        }}
+                    />
+                </div>
             </label>
         </>
     )

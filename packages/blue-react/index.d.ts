@@ -62,6 +62,9 @@ export { ModalProps } from "./dist/components/Modal"
 
 export { ModalProvider, useModal } from "./dist/components/ModalProvider"
 
+export { default as OtpInput } from "./dist/components/OtpInput"
+export { OtpInputProps } from "./dist/components/OtpInput"
+
 export { default as Outside } from "./dist/components/Outside"
 export { OutsideProps, useOutside } from "./dist/components/Outside"
 

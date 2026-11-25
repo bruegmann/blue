@@ -12,21 +12,21 @@ export default function MenuItemExample() {
         <>
             <p>Usage in body without sidebar or action bar</p>
 
-            <div className="d-flex flex-column flex-md-row gap-3 w-100">
+            <div className="d-flex flex-column md:flex-row gap-5 w-100">
                 <article className="flex-fill">
-                    <h4 className="mt-4 mb-3">Single menu item</h4>
+                    <h4 className="mt-7 mb-5">Single menu item</h4>
                     <MenuItem {...bodyMenuItemProps} icon={<EmojiHeartEyesFill />} label="John Boy" />
                 </article>
 
                 <article className="flex-fill">
-                    <h4 className="mt-4 mb-3">Dropdown</h4>
+                    <h4 className="mt-7 mb-5">Dropdown</h4>
                     <MenuItem {...bodyMenuItemProps} icon={<EmojiHeartEyesFill />} label="John Boy">
                         <MenuItem {...bodyMenuItemProps} icon={<EmojiHeartEyesFill />} label="I am a child item" />
                     </MenuItem>
                 </article>
 
                 <article className="flex-fill">
-                    <h4 className="mt-4 mb-3">Split dropdown</h4>
+                    <h4 className="mt-7 mb-5">Split dropdown</h4>
                     <div
                         className="d-grid w-100"
                         style={{

@@ -26,17 +26,17 @@ const url = Astro.props.url || Astro.url
 <Layout title={`${title} • Blue`}>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-9 markdown-rendered position-relative">
+            <div class="md:col-9 markdown-rendered position-relative">
                 <button
                     type="button"
-                    class="btn btn-outline-secondary d-md-none mt-3"
+                    class="btn btn-outline theme-secondary md:d-none mt-5"
                     command="show-modal"
                     commandfor="toc">On this page</button
                 >
 
                 <slot />
 
-                <div class="mb-3">
+                <div class="mb-5">
                     <a
                         href={`https://github.com/bruegmann/blue-web/edit/main/site/src/pages/${currentPath}.mdx`}
                         class="link-secondary">Edit post on GitHub</a
@@ -44,18 +44,18 @@ const url = Astro.props.url || Astro.url
                 </div>
             </div>
 
-            <div class="col-md-3">
-                <div class="sticky-top pt-4">
-                    <dialog class="blue-md-modal blue-modal modal" id="toc" aria-describedby="tocLabel">
-                        <div class="offcanvas offcanvas-end">
-                            <div class="offcanvas-header">
-                                <h2 class="h5 offcanvas-title" id="tocLabel">On this page</h2>
+            <div class="md:col-3">
+                <div class="sticky-top pt-7">
+                    <dialog class="blue-md-modal blue-modal drawer drawer-end" id="toc" aria-describedby="tocLabel" closedby="any">
+
+                            <div class="drawer-header">
+                                <h2 class="h5 drawer-title" id="tocLabel">On this page</h2>
                                 <form method="dialog" style="display: contents;">
                                     <button type="submit" class="btn-close" aria-label="Close"></button>
                                 </form>
                             </div>
-                            <div class="offcanvas-body">
-                                <h2 class="page-header h5 d-none d-md-block">On this page</h2>
+                            <div class="drawer-body">
+                                <h2 class="page-header h5 d-none md:d-block">On this page</h2>
 
                                 <nav class="docs-toc">
                                     <ul>
@@ -70,9 +70,8 @@ const url = Astro.props.url || Astro.url
                                     </ul>
                                 </nav>
                             </div>
-                        </div>
-                        <form method="dialog" class="blue-modal-backdrop"><button>Close</button></form>
-                    </dialog>
+
+</dialog>
                 </div>
             </div>
         </div>

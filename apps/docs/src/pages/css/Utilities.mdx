@@ -7,13 +7,13 @@ import Grab from "$/components/Grab.astro"
 
 # Additional utility classes
 
-Bootstrap already comes with a bunch of [utility classes](https://getbootstrap.com/docs/5.3/utilities/background/).
+Bootstrap already comes with a bunch of [utility classes](https://getbootstrap.com/docs/6.0/utilities/background/).
 Blue Web adds some additional to them.
 
 ## `.m-last-0:last-child`
 
 Sets `margin: 0` to last child.
-Useful for creating a gap between items together with `mb-3`.
+Useful for creating a gap between items together with `mb-5`.
 Inspired by Tailwind CSS class `last:m-0`.
 
 ## `.blue-empty-message`
@@ -31,11 +31,11 @@ For localization you should override CSS variable `--message` dynamically.
 Fixing border radius clipping.
 
 ```html use:RenderBlock
-<div class="border border-primary rounded-5 mb-3">
-    <div class="text-bg-danger p-3">Child background destroys border radius of parent. ☹️</div>
+<div class="border border-primary rounded-5 mb-5">
+    <div class="bg-danger fg-contrast-danger p-5">Child background destroys border radius of parent. ☹️</div>
 </div>
 <div class="border border-primary rounded-5 blue-contain-paint">
-    <div class="text-bg-success p-3">Much better! 🥳</div>
+    <div class="bg-success fg-contrast-success p-5">Much better! 🥳</div>
 </div>
 ```
 
@@ -44,7 +44,7 @@ We automatically add it to Bootstrap's `.card`.
 ```html use:RenderBlock
 <div class="card">
     <header class="card-header">My card</header>
-    <div class="text-bg-success p-3"></div>
+    <div class="bg-success fg-contrast-success p-5"></div>
 </div>
 ```
 

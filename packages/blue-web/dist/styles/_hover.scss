@@ -41,7 +41,7 @@
         &:active,
         &.active,
         &:focus-within {
-            background-color: var(--blue-hover-bg, var(--bs-secondary-bg));
+            background-color: var(--blue-hover-bg, var(--bg-2));
         }
     }
 }

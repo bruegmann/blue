@@ -15,7 +15,7 @@ const utilitiesFunctions = [
         definition: "startLoading()",
         description: "Shows loading animation.",
         demo: (
-            <button className="btn btn-light" onClick={() => startLoading()}>
+            <button className="btn btn-solid theme-secondary" onClick={() => startLoading()}>
                 <PlayFill />
             </button>
         )
@@ -24,7 +24,7 @@ const utilitiesFunctions = [
         definition: "finishLoading()",
         description: "Hides loading animation.",
         demo: (
-            <button className="btn btn-light" onClick={() => finishLoading()}>
+            <button className="btn btn-solid theme-secondary" onClick={() => finishLoading()}>
                 <PlayFill />
             </button>
         )
@@ -34,7 +34,7 @@ const utilitiesFunctions = [
         description: "Shows success symbol.",
         demo: (
             <button
-                className="btn btn-light"
+                className="btn btn-solid theme-secondary"
                 onClick={() => {
                     console.log("show success")
                     showSuccess()
@@ -48,7 +48,7 @@ const utilitiesFunctions = [
         definition: "hideSuccess()",
         description: "Hides success symbol.",
         demo: (
-            <button className="btn btn-light" onClick={() => hideSuccess()}>
+            <button className="btn btn-solid theme-secondary" onClick={() => hideSuccess()}>
                 <PlayFill />
             </button>
         )
@@ -65,7 +65,7 @@ const utilitiesFunctions = [
         ),
         demo: (
             <button
-                className="btn btn-light"
+                className="btn btn-solid theme-secondary"
                 onClick={() =>
                     setAlertMessage(
                         "Hey, this is a message",
@@ -86,7 +86,7 @@ const utilitiesFunctions = [
         definition: "resetAlertMessage(alertClassName)",
         description: "Resets alert message and removes it.",
         demo: (
-            <button className="btn btn-light" onClick={() => resetAlertMessage("danger")}>
+            <button className="btn btn-solid theme-secondary" onClick={() => resetAlertMessage("danger")}>
                 <PlayFill />
             </button>
         )
@@ -95,7 +95,7 @@ const utilitiesFunctions = [
         definition: "guid()",
         description: "Returns string of random characters.",
         demo: (
-            <button className="btn btn-light" onClick={() => alert("Generated GUID: " + guid())}>
+            <button className="btn btn-solid theme-secondary" onClick={() => alert("Generated GUID: " + guid())}>
                 <PlayFill />
             </button>
         )
@@ -104,7 +104,7 @@ const utilitiesFunctions = [
         definition: "scrollToTop()",
         description: "Scrolls to the top of the page.",
         demo: (
-            <button className="btn btn-light" onClick={() => scrollToTop()}>
+            <button className="btn btn-solid theme-secondary" onClick={() => scrollToTop()}>
                 <PlayFill />
             </button>
         )

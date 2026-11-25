@@ -1,26 +1,29 @@
+@use "bootstrap/scss/config" as *;
+@use "./text-icons" as *;
+
 /* Make DevExpress components look more like Bootstrap/Blue */
 [class^="dxbl-"]:not(.dxbl-btn-tool):not(.dxbl-toolbar-item):not(:is(.dxbl-toolbar-btn-ellipsis > .dxbl-btn)) {
-    --dxbl-btn-padding-x: #{$input-btn-padding-x} !important;
-    --dxbl-btn-padding-y: #{$input-btn-padding-y} !important;
+    --dxbl-btn-padding-x: var(--btn-input-padding-x) !important;
+    --dxbl-btn-padding-y: var(--btn-input-padding-y) !important;
 }
 
 [class^="dxbl-"] {
-    --dxbl-text-edit-border-radius: var(--bs-border-radius) !important;
-    --dxbl-text-edit-padding-x: #{$input-btn-padding-x} !important;
-    --dxbl-text-edit-padding-y: #{$input-btn-padding-y} !important;
+    --dxbl-text-edit-border-radius: var(--radius-5) !important;
+    --dxbl-text-edit-padding-x: var(--btn-input-padding-x) !important;
+    --dxbl-text-edit-padding-y: var(--btn-input-padding-y) !important;
     --dxbl-text-edit-line-height: 1.5 !important;
-    --dxbl-text-edit-focus-shadow-spread: #{$focus-ring-width} !important;
-    --dxbl-listbox-border-radius: var(--bs-border-radius) !important;
-    --dxbl-toolbar-font-size: var(--bs-body-font-size) !important;
-    --dxbl-toolbar-btn-border-radius: var(--bs-border-radius) !important;
-    --dxbl-dropdown-border-radius: var(--bs-border-radius) !important;
-    --dxbl-btn-border-radius: var(--bs-border-radius) !important;
-    --dxbl-context-menu-border-radius: var(--bs-border-radius) !important;
-    --dxbl-edit-dropdown-border-radius: var(--bs-border-radius) !important;
-    --dxbl-list-box-border-radius: var(--bs-border-radius) !important;
+    --dxbl-text-edit-focus-shadow-spread: var(--focus-ring-width) !important;
+    --dxbl-listbox-border-radius: var(--radius-5) !important;
+    --dxbl-toolbar-font-size: var(--body-font-size) !important;
+    --dxbl-toolbar-btn-border-radius: var(--radius-5) !important;
+    --dxbl-dropdown-border-radius: var(--radius-5) !important;
+    --dxbl-btn-border-radius: var(--radius-5) !important;
+    --dxbl-context-menu-border-radius: var(--radius-5) !important;
+    --dxbl-edit-dropdown-border-radius: var(--radius-5) !important;
+    --dxbl-list-box-border-radius: var(--radius-5) !important;
 }
 
-body.modal-open .dxbl-popup-cell[style="z-index: 1050;"] {
+:root.dialog-open .dxbl-popup-cell[style="z-index: 1050;"] {
     z-index: 1056 !important;
 }
 
@@ -32,8 +35,8 @@ body.modal-open .dxbl-popup-cell[style="z-index: 1050;"] {
     > li
     > .dxbl-tabs-item:not(.dxbl-tabs-tmpl),
 .dxbl-tabs.dxbl-tabs-top > .dxbl-tabs-tablist > ul > li > .dxbl-tabs-item:not(.dxbl-tabs-tmpl) {
-    border-top-left-radius: var(--bs-border-radius);
-    border-top-right-radius: var(--bs-border-radius);
+    border-top-left-radius: var(--radius-5);
+    border-top-right-radius: var(--radius-5);
 }
 
 @keyframes dxbl-btn-before-in {
@@ -58,13 +61,13 @@ body.modal-open .dxbl-popup-cell[style="z-index: 1050;"] {
     height: 0.7rem !important;
 }
 
-.dxbl-modal-header {
-    --dxbl-popup-header-bg: var(--bs-body-bg);
-    --dxbl-popup-header-color: var(--bs-body-color);
+.dxbl-dialog-header {
+    --dxbl-popup-header-bg: var(--bg-body);
+    --dxbl-popup-header-color: var(--fg-body);
 }
 
 .dxbl-modal {
-    --dxbl-popup-border-radius: var(--bs-border-radius-lg);
+    --dxbl-popup-border-radius: var(--radius-7);
 }
 
 .dxbl-checkbox:not(.dxbl-checkbox-switch):not(.dxbl-checkbox-radio) .dxbl-checkbox-check-element {
@@ -78,5 +81,5 @@ body.modal-open .dxbl-popup-cell[style="z-index: 1050;"] {
 
 .dxbl-grid-header-content {
     @extend .blue-label;
-    padding-block: #{$input-btn-padding-y};
+    padding-block: var(--btn-input-padding-y);
 }

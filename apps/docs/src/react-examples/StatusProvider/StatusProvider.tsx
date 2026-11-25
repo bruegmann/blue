@@ -8,7 +8,7 @@ function InsideComp() {
         <>
             <div className="mb-1 d-flex gap-1">
                 <button
-                    className="btn btn-light"
+                    className="btn btn-solid theme-secondary"
                     onClick={() =>
                         setAlert({
                             title: "Hello World",
@@ -19,7 +19,7 @@ function InsideComp() {
                     Set alert
                 </button>
                 <button
-                    className="btn btn-light"
+                    className="btn btn-solid theme-secondary"
                     onClick={() =>
                         setAlert({
                             title: "Hello World",
@@ -32,31 +32,31 @@ function InsideComp() {
                 >
                     Set full alert
                 </button>
-                <button className="btn btn-light" onClick={() => setAlert(null)}>
+                <button className="btn btn-solid theme-secondary" onClick={() => setAlert(null)}>
                     Unset alert
                 </button>
             </div>
 
             <div className="mb-1 d-flex gap-1">
-                <button className="btn btn-light" onClick={() => setStatus("loading")}>
+                <button className="btn btn-solid theme-secondary" onClick={() => setStatus("loading")}>
                     Show loading
                 </button>
-                <button className="btn btn-outline-success" onClick={() => setStatus("success")}>
+                <button className="btn btn-outline theme-success" onClick={() => setStatus("success")}>
                     Show success
                 </button>
-                <button className="btn btn-outline-info" onClick={() => setStatus("info")}>
+                <button className="btn btn-outline theme-info" onClick={() => setStatus("info")}>
                     Show info
                 </button>
-                <button className="btn btn-outline-warning" onClick={() => setStatus("warning")}>
+                <button className="btn btn-outline theme-warning" onClick={() => setStatus("warning")}>
                     Show warning
                 </button>
-                <button className="btn btn-outline-danger" onClick={() => setStatus("danger")}>
+                <button className="btn btn-outline theme-danger" onClick={() => setStatus("danger")}>
                     Show danger
                 </button>
             </div>
 
             <div className="mb-1 d-flex gap-1">
-                <button className="btn btn-light" onClick={() => setStatus(null)}>
+                <button className="btn btn-solid theme-secondary" onClick={() => setStatus(null)}>
                     Hide status
                 </button>
             </div>
